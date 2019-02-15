@@ -1,0 +1,37 @@
+@import "./reset";
+@import "./window";
+@import "./inputs";
+@import "./button";
+@import "./icon";
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, "SF Pro Text";
+    //font-family: -apple-system, SFProText-Medium, "San", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+    height: 100%;
+    overflow: hidden;
+
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+input, textarea, select, button {
+    font-size: 13px;
+}
+
+p {
+    margin: 5px 0;
+}

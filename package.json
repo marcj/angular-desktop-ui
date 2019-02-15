@@ -1,0 +1,26 @@
+{
+  "name": "angular-macos-ui",
+  "version": "0.0.0",
+  "scripts": {},
+  "sideEffects": false,
+  "dependencies": {},
+  "main": "index.ts",
+  "peerDependencies":  {
+    "@angular/animations": "~7.1.0",
+    "@angular/common": "~7.1.0",
+    "@angular/compiler": "~7.1.0",
+    "@angular/core": "~7.1.0",
+    "@angular/forms": "~7.1.0",
+    "@angular/platform-browser": "~7.1.0",
+    "rxjs": "~6.3.3"
+  },
+  "devDependencies": {
+    "@angular/animations": "~7.1.0",
+    "@angular/common": "~7.1.0",
+    "@angular/compiler": "~7.1.0",
+    "@angular/core": "~7.1.0",
+    "@angular/forms": "~7.1.0",
+    "@angular/platform-browser": "~7.1.0",
+    "rxjs": "~6.3.3"
+  }
+}

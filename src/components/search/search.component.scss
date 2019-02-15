@@ -1,0 +1,37 @@
+:host {
+    display: inline-block;
+    position: relative;
+}
+
+.icon-clear {
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+    cursor: pointer;
+
+    &:before {
+        color: #808080;
+        font-size: 13px;
+    }
+}
+
+:host.filled .icon-clear {
+    opacity: 1;
+}
+
+input {
+    padding-left: 23px;
+}
+
+span.icon-search {
+    position: absolute;
+    left: 7px;
+    top: 6px;
+
+    &:before {
+        color: #595959;
+        font-size: 13px;
+    }
+}

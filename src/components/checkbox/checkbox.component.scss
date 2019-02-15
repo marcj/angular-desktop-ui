@@ -1,0 +1,23 @@
+.box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  margin-right: 4px;
+
+  background: white;
+
+  border: 0 solid rgba(0, 0, 0, 0.20);
+  box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.38);
+  border-radius: 3px;
+}
+
+:host.checked .box {
+  background: #3B99FC;
+  border: 0 solid #338EF4;
+}
+
+span.icon-check {
+  position: relative;
+  left: 3px;
+}
