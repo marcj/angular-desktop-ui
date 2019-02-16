@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostBinding, Input, Output} from "@angular/core";
 
 @Component({
-    selector: 'amu-search',
+    selector: 'dui-search',
     template: `
         <input type="text" placeholder="Suche ..." class="round" [(ngModel)]="model"/>
         <span class="icon-search"></span>

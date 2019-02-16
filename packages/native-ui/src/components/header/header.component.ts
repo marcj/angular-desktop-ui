@@ -2,7 +2,7 @@ import {AfterContentChecked, Component, ContentChild, TemplateRef, ViewChild} fr
 
 
 @Component({
-    selector: 'amu-header-actions',
+    selector: 'dui-header-actions',
     template: `
         <ng-template #templateref>
             <ng-content></ng-content>
@@ -14,7 +14,7 @@ export class HeaderActionsComponent {
 }
 
 @Component({
-    selector: 'amu-header',
+    selector: 'dui-header',
     template: `
         <div class="title">
             <ng-content></ng-content>

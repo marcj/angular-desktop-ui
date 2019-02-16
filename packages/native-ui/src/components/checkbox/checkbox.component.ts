@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input} from "@angular/core";
 
 @Component({
-    selector: 'amu-checkbox',
+    selector: 'dui-checkbox',
     template: `
         <span class="box">
             <span class="icon-check"></span>

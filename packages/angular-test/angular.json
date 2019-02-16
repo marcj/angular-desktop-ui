@@ -28,7 +28,7 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "./node_modules/angular-macos-ui/assets/fonts",
+                "input": "./node_modules/@marcj/angular-desktop-ui/assets/fonts",
                 "output": "assets/fonts"
               }
             ],
