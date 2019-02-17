@@ -18,6 +18,42 @@ This work is in progress and is always streamed via twitch.tv: https://www.twitc
 
 ![MacOS Dark](https://raw.githubusercontent.com/marcj/angular-desktop-ui/master/docs/assets/macos-dark.png)
 
+```html
+<dui-form>
+    <dui-form-row label="Username">
+        <input type="text" value="Value" />
+    </dui-form-row>
+
+    <dui-form-row label="Really?">
+        <dui-checkbox>Checkbox A</dui-checkbox>
+    </dui-form-row>
+
+    <dui-form-row label="Which one">
+        <dui-radiobox [(model)]="radioValue" value="a">Radio A</dui-radiobox><br/>
+        <dui-radiobox [(model)]="radioValue" value="b">Radio B</dui-radiobox>
+        <p>
+            Chosen: {{radioValue}}
+        </p>
+    </dui-form-row>
+
+    <dui-form-row label="Another one">
+        <dui-select [(model)]="radioValue" placeholder="Please choose">
+            <dui-option value="a">Option A</dui-option>
+            <dui-option value="b">Option B</dui-option>
+        </dui-select>
+    </dui-form-row>
+
+    <dui-form-row label="Empty">
+        <dui-select style="width: 100px;" [(model)]="selectBox1" placeholder="Please choose">
+            <dui-option value="x">Option X</dui-option>
+            <dui-option value="y">Option Y</dui-option>
+        </dui-select>
+    </dui-form-row>
+</dui-form>
+
+<diu-button>Send</diu-button>
+```
+
 ## Todo
 
 | Draft | [disabled] | Component           | selector                   |
