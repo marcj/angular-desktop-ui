@@ -23,6 +23,11 @@
     color: #737373;
 }
 
+.dark [class^="icon-"],
+.dark [class*=" icon-"] {
+    color: white;
+}
+
 .icon-check:before {
     content: "\e900";
 }
@@ -38,7 +43,6 @@
 .icon-clear:before {
     content: "\e903";
 }
-
 
 .icon-arrow-down:before {
     content: "\e904";

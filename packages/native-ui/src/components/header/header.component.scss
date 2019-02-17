@@ -8,6 +8,10 @@
     height: 55px;
 }
 
+:host-context(.dark) {
+    @include osx-window-header-background-dark;
+}
+
 .actions {
     position: absolute;
     bottom: 0;

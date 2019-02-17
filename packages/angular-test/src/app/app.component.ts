@@ -10,4 +10,13 @@ export class AppComponent {
 
     public radioValue: string = 'a';
     public selectBox1?: string = undefined;
+
+    public setDarkMode(active: boolean) {
+        document.body.classList.remove('dark');
+        document.body.classList.remove('light');
+
+        if (active) {
+            document.body.classList.add('dark');
+        }
+    }
 }

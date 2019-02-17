@@ -12,11 +12,10 @@
     </dui-header>
 
     <div class="osx-window-content">
-        Hi what up?
 
+        <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
 
         <dui-form>
-
             <dui-form-row label="Username">
                 <input type="text" value="Value" />
             </dui-form-row>
