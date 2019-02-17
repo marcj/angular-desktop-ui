@@ -7,8 +7,6 @@
 .dark .osx-window {
     background-color: #2D2D2D;
     color: white;
-
-
 }
 
 @mixin osx-window-header-background {
@@ -34,30 +32,6 @@
     font-weight: 500;
 }
 
-//.osx-window-header-title-bar {
-//    @extend .osx-window-header-background;
-//    @extend .osx-window-header-base;
-//    height: 22px;
-//}
-//
-//.osx-window-header-title-bar-with-button {
-//    @extend .osx-window-header-background;
-//    @extend .osx-window-header-base;
-//    height: 55px;
-//}
-//
-//.osx-window-header-title-bar-with-text-button {
-//    @extend .osx-window-header-background;
-//    @extend .osx-window-header-base;
-//    height: 68px;
-//}
-//
-//.osx-window-header-title-bar-with-tabbed-button {
-//    @extend .osx-window-header-background;
-//    @extend .osx-window-header-base;
-//    height: 78px;
-//}
-
 .osx-window-content {
     position: relative;
     padding: 20px;
@@ -76,4 +50,10 @@
     color: rgba(0, 0, 0, 0.73);
     background: #F0F0F0;
     border-top: 1px solid #CECECE;
+}
+
+.dark .osx-window-footer {
+    background: #282c32;
+    border-top: 1px solid #4a4e54;
+    color: white;
 }

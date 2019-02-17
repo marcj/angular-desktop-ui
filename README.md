@@ -12,6 +12,12 @@ It will support light and dark mode.
 This work is in progress and is always streamed via twitch.tv: https://www.twitch.tv/marc__js
 
 
+## Screens
+
+![MacOS Light](https://raw.githubusercontent.com/marcj/angular-desktop-ui/master/docs/assets/macos-light.png)
+
+![MacOS Dark](https://raw.githubusercontent.com/marcj/angular-desktop-ui/master/docs/assets/macos-dark.png)
+
 ## Todo
 
 | Draft | [disabled] | Component           | selector                   |
