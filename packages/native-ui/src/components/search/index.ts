@@ -13,6 +13,6 @@ import {FormsModule} from "@angular/forms";
         FormsModule,
     ]
 })
-export class AmuSearchModule {
+export class DuiSearchModule {
 
 }

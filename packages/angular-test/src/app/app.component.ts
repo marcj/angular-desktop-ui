@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'iconfont-generator';
+    public title: string = 'iconfont-generator';
+
+    public radioValue: string = 'a';
+    public selectBox1?: string = undefined;
 }

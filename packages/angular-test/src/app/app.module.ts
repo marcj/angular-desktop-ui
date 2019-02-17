@@ -1,6 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {AmuCheckboxModule, AmuButtonModule, AmuHeaderModule, AmuSearchModule} from '@marcj/angular-desktop-ui';
+import {
+    DuiButtonModule,
+    DuiCheckboxModule,
+    DuiFormComponent,
+    DuiHeaderModule,
+    DuiSearchModule,
+    DuiRadioboxModule,
+    DuiSelectModule,
+} from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,10 +20,13 @@ import {AppComponent} from './app.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        AmuCheckboxModule,
-        AmuButtonModule,
-        AmuHeaderModule,
-        AmuSearchModule,
+        DuiCheckboxModule,
+        DuiButtonModule,
+        DuiHeaderModule,
+        DuiSearchModule,
+        DuiFormComponent,
+        DuiRadioboxModule,
+        DuiSelectModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

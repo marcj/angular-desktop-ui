@@ -5,15 +5,15 @@
 
 .icon-clear {
     position: absolute;
-    right: 4px;
-    top: 6px;
+    right: 5px;
+    top: 5px;
     opacity: 0;
     transition: opacity 0.2s ease-in;
     cursor: pointer;
 
     &:before {
         color: #808080;
-        font-size: 13px;
+        font-size: 14px;
     }
 }
 

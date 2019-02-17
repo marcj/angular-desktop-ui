@@ -1,5 +1,4 @@
-import {AfterContentChecked, Component, ContentChild, TemplateRef, ViewChild} from "@angular/core";
-
+import {AfterContentChecked, Component, ContentChild, HostBinding, Input, TemplateRef, ViewChild} from "@angular/core";
 
 @Component({
     selector: 'dui-header-actions',
@@ -26,7 +25,26 @@ export class HeaderActionsComponent {
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements AfterContentChecked {
+    @Input() public size: 'small' | 'medium' | 'large' = 'small';
+
     @ContentChild(HeaderActionsComponent) actions?: HeaderActionsComponent;
+
+    @HostBinding('class.medium')
+    get isMedium() {
+        return this.size === 'medium';
+    }
+
+    @HostBinding('class.large')
+    get isLarge() {
+        return this.size === 'large';
+    }
+
+    /**
+     * Public API for children component to send signal to increase header size.
+     */
+    public atLeastOneButtonIsMedium() {
+        this.size = 'medium';
+    }
 
     ngAfterContentChecked(): void {
         if (this.actions) {

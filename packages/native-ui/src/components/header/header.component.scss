@@ -13,11 +13,24 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 8px;
+    padding: 6px 8px;
     display: flex;
 }
 
-::ng-deep input[type=text],
-::ng-deep input[type=password] {
+:host.medium {
+    height: 68px;
+
+    .actions {
+        padding-bottom: 18px;
+    }
+}
+
+:host.large {
+    height: 78px;
+}
+
+
+:host ::ng-deep input[type=text],
+:host ::ng-deep input[type=password] {
     height: 24px !important;
 }

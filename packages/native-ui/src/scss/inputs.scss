@@ -9,9 +9,13 @@ input[type=password] {
 
     background: white;
     border: 0.5px solid #B9B9B9;
-    box-shadow: 0 0.5px 0 1px rgba(0, 0, 0, 0.05);
+    //box-shadow: 0 0.5px 0 0.5px rgba(0, 0, 0, 0.05);
 
     position: relative;
+
+    &:focus {
+        //outline: 0;
+    }
 
     &:focus::after {
         content: '';
@@ -20,7 +24,7 @@ input[type=password] {
         top: 0;
         width: 100%;
         height: 20px;
-        border: 3px solid rgba(59, 153, 252, 0.50);
+        border: 3.5px solid rgba(59, 153, 252, 0.50);
     }
 
     &.round {

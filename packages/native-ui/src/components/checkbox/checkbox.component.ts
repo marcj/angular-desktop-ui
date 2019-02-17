@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input} from "@angular/core";
+import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input, Output} from "@angular/core";
 
 @Component({
     selector: 'dui-checkbox',
@@ -12,7 +12,12 @@ import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, I
 })
 export class CheckboxComponent {
     @Input() model: boolean = false;
-    @Input() modelChange = new EventEmitter<boolean>();
+    @Output() modelChange = new EventEmitter<boolean>();
+
+    @HostBinding('tabindex')
+    get tabIndex() {
+        return 1;
+    }
 
     constructor(private cd: ChangeDetectorRef) {
 

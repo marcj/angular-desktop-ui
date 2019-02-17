@@ -16,6 +16,6 @@ import {CommonModule} from "@angular/common";
         CommonModule,
     ]
 })
-export class AmuHeaderModule {
+export class DuiHeaderModule {
 
 }

@@ -1,7 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CheckboxComponent} from "./checkbox.component";
 
-
 @NgModule({
     declarations: [
         CheckboxComponent
@@ -10,6 +9,6 @@ import {CheckboxComponent} from "./checkbox.component";
         CheckboxComponent
     ]
 })
-export class AmuCheckboxModule {
+export class DuiCheckboxModule {
 
 }
