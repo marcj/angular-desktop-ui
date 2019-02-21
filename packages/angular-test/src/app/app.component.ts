@@ -19,6 +19,8 @@ export class AppComponent {
 
         if (active) {
             document.body.classList.add('dark');
+        } else {
+            document.body.classList.add('light');
         }
     }
 
