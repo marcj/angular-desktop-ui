@@ -1,0 +1,41 @@
+
+@mixin box-textured {
+    border-top: 1px solid #c9cac9;
+    border-bottom: 1px solid #a1a1a1;
+    border-left: 1px solid #c6c7c6;
+    border-right: 1px solid #c6c7c6;
+    background-image: linear-gradient(-180deg, #FDFDFD 5%, #FAFAFA 5%, #F6F6F6 55%, #F1F1F1 99%);
+    box-shadow: none;
+}
+
+@mixin box-textured-active {
+    background-image: linear-gradient(-180deg, #EEEEEE 5%, #E4E4E4 5%, #E2E2E2 49%, #DCDCDC 100%);
+}
+
+
+@mixin box-textured-dark {
+    color: white;
+    background-color: #62696f;
+    border-top: 1px solid #293239;
+    border-bottom: 1px solid #232a31;
+    border-left: 1px solid #273037;
+    border-right: 1px solid #273037;
+    box-shadow: 0 1px 0 #2c353d;
+}
+
+@mixin box-textured-dark-active {
+    background-color: #797f84;
+}
+
+@mixin box-textured-dark-toolbar {
+    background-image: linear-gradient(-180deg, #667079 0%, #626B74 100%);
+    border-top: 1px solid #7a828a;
+    border-bottom: 1px solid #656c74;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;;
+    box-shadow: none;
+}
+
+@mixin box-textured-dark-toolbar-active {
+    background: #7f8992
+}

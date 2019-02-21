@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    background-color: #ececec;
+    position: relative;
+    padding: 20px;
+
+    flex: 1;
+}
+
+
+:host-context(.dark) {
+    background-color: #2d373f;
+}

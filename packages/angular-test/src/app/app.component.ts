@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {ApplicationRef, ChangeDetectionStrategy, Component} from '@angular/core';
+import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
     public title: string = 'iconfont-generator';
@@ -18,5 +20,25 @@ export class AppComponent {
         if (active) {
             document.body.classList.add('dark');
         }
+    }
+
+    constructor(
+        router: Router,
+        a: ApplicationRef,
+    ) {
+        //necessary to render all router-outlet once the router changes
+        router.events.subscribe((event: Event) => {
+            if (event instanceof NavigationEnd || event instanceof ActivationEnd) {
+                a.tick();
+            }
+        });
+
+        document.addEventListener('click', () => a.tick());
+        document.addEventListener('focus', () => a.tick());
+        document.addEventListener('blur', () => a.tick());
+        document.addEventListener('keydown', () => a.tick());
+        document.addEventListener('keyup', () => a.tick());
+        document.addEventListener('keypress', () => a.tick());
+        document.addEventListener('mousedown', () => a.tick());
     }
 }

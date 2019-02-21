@@ -1,19 +1,20 @@
 import {NgModule} from "@angular/core";
-import {ButtonComponent} from "./button.component";
+import {InputComponent} from "./input.component";
+import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-
 
 @NgModule({
     declarations: [
-        ButtonComponent,
+        InputComponent
     ],
     exports: [
-        ButtonComponent,
+        InputComponent,
     ],
     imports: [
+        FormsModule,
         CommonModule,
     ]
 })
-export class DuiButtonModule {
+export class DuiInputModule {
 
 }

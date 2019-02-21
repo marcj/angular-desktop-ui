@@ -1,0 +1,111 @@
+@import "../../scss/variables";
+
+:host {
+    display: inline-block;
+    position: relative;
+    height: 22px;
+    line-height: 22px;
+    color: $colorInputs;
+    width: 150px;
+    vertical-align: middle;
+
+    background: white;
+    border: 1px solid #bdbdbd;
+
+    //box-shadow: 0 0.5px 0 0.5px rgba(0, 0, 0, 0.05);
+
+    &.focused {
+        outline: 0;
+        border-color: $focusOutlineColor;
+        box-shadow: 3px 3px 0 $focusOutlineColor, -3px -3px 0 $focusOutlineColor, -3px 3px 0 $focusOutlineColor, 3px -3px 0 $focusOutlineColor;
+    }
+
+    &.round {
+        border-radius: 4px;
+    }
+
+    &.is-disabled {
+        color: #c5c5c5;
+        border: 1px solid #d4d4d4;
+    }
+}
+
+input {
+    border: 0;
+    color: $colorInputs;
+    background-color: transparent;
+    line-height: 100%;
+    width: 100%;
+    height: 100%;
+    padding: 0 4px;
+
+    &::placeholder {
+        color: #c5c5c5;
+    }
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.input-wrapper {
+    height: 100%;
+}
+
+.clearer {
+    position: absolute;
+    right: 5px;
+    top: calc(50% - 7px);
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+    cursor: pointer;
+
+    &:before {
+        color: #808080;
+        font-size: 14px;
+    }
+}
+
+:host.has-icon {
+    .input-wrapper {
+        margin-left: 23px;
+    }
+}
+
+:host.has-clearer {
+    .input-wrapper {
+        margin-right: 18px;
+    }
+}
+
+:host.filled .icon-clear {
+    opacity: 1;
+}
+
+.icon {
+    position: absolute;
+    left: 7px;
+    top: calc(50% - 6px);
+
+    &:before {
+        font-size: 13px;
+    }
+}
+
+
+:host-context(.dark) {
+    color: white;
+    background-image: linear-gradient(-180deg, #343D45 0%, #374148 8%, #384148 100%);
+    border: 1px solid #434b52;
+    border-left: 1px solid #3f484f;
+    border-right: 1px solid #3f484f;
+
+    &.focused {
+        border-color: $focusOutlineColorDark;
+        box-shadow: 3px 3px 0 $focusOutlineColorDark, -3px -3px 0 $focusOutlineColorDark, -3px 3px 0 $focusOutlineColorDark, 3px -3px 0 $focusOutlineColorDark;
+    }
+
+    input {
+        color: white;
+    }
+}

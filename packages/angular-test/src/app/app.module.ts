@@ -4,10 +4,10 @@ import {
     DuiButtonModule,
     DuiCheckboxModule,
     DuiFormComponent,
-    DuiHeaderModule,
-    DuiSearchModule,
+    DuiInputModule,
     DuiRadioboxModule,
     DuiSelectModule,
+    DuiWindowModule,
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -22,11 +22,11 @@ import {AppComponent} from './app.component';
         AppRoutingModule,
         DuiCheckboxModule,
         DuiButtonModule,
-        DuiHeaderModule,
-        DuiSearchModule,
+        DuiInputModule,
         DuiFormComponent,
         DuiRadioboxModule,
         DuiSelectModule,
+        DuiWindowModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

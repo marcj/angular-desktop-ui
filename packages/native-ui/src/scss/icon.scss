@@ -14,19 +14,18 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    font-size: 8px;
+    font-size: 13px;
+    vertical-align: middle;
 
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    color: #737373;
 }
 
-.dark [class^="icon-"],
-.dark [class*=" icon-"] {
-    color: white;
-}
+//.dark [class^="icon-"],
+//.dark [class*=" icon-"] {
+//    color: white;
+//}
 
 .icon-check:before {
     content: "\e900";
@@ -46,4 +45,8 @@
 
 .icon-arrow-down:before {
     content: "\e904";
+}
+
+.icon-arrows:before {
+    content: "\e905";
 }

@@ -1,44 +1,33 @@
+@import "../../scss/mixins";
+
 :host {
     display: inline-block;
     position: relative;
 
     min-width: 100px;
     height: 20px;
-    line-height: 18px;
+    line-height: 20px;
     text-align: left;
     padding-left: 8px;
     padding-right: 20px;
-
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 3.5px;
-
-    white-space: pre;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    border-radius: 4px;
 }
 
 .knob {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-image: linear-gradient(-180deg, #6CB3FA 0%, #057EFF 100%);
+    right: -1px;
+    bottom: -1px;
+    top: -1px;
+    padding-left: 1px;
+
     /* Sketch doesnt export gradient borders at this point */
     border-radius: 0 3px 3px 0;
     width: 17px;
     text-align: center;
 
-    .icon-arrow-down {
-        position: relative;
-        top: -1px;
-        left: -0.5px;
-    }
+    line-height: 17px;
+    color: white;
 
-    .icon-arrow-down:before {
-        color: white;
-        font-size: 6px;
-    }
 }
 
 select {
@@ -55,8 +44,21 @@ select {
     outline: 0;
 }
 
+.placeholder,
+.value {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    right: 17px;
+    bottom: 0;
+
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .placeholder {
-    display: inline-block;
+    display: block;
     color: grey;
 }
 
@@ -74,14 +76,30 @@ select {
     }
 }
 
-
-:host-context(.dark) {
-    background: rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(0, 0, 0, 0.35);
-    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.20), inset 0 1px 0 0 rgba(255, 255, 255, 0.04), inset 0 0 0 0 rgba(255, 255, 255, 0.16);
+:host-context(.light) {
+    background: white;
+    border-top: 1px solid #c9c9c9;
+    border-bottom: 1px solid #acacac;
+    border-left: 1px solid #c2c2c2;
+    border-right: 1px solid #c2c2c2;
+    box-shadow: 0 1px 0 #e5e5e5;
 
     .knob {
+        border-top: 1px solid #4990fa;
+        border-right: 1px solid #3383fc;
+        border-bottom: 1px solid #0063ff;
+        background-image: linear-gradient(-180deg, #69A3FB 0%, #599AFC 20%, #428DFD 45%, #1974FF 83%, #0D6DFF 100%);
+    }
+}
+
+:host-context(.dark) {
+    @include box-textured-dark;
+
+    .knob {
+        bottom: 0;
+        top: 0;
+        line-height: 15px;
+        border-top: 1px solid #2d79ea;
         background-image: linear-gradient(-180deg, #1768E5 0%, #145CCC 100%);
-        //box-shadow: inset 0 0 0 0 rgba(255,255,255,0.25), inset 0 1px 0 0 rgba(255,255,255,0.06);
     }
 }

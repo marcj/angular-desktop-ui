@@ -1,14 +1,14 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectorRef,
     Component,
     ContentChildren,
     Directive,
     ElementRef,
     EventEmitter, HostBinding,
-    Input,
+    Input, OnChanges,
     OnDestroy,
     Output,
-    QueryList
+    QueryList, SimpleChanges
 } from "@angular/core";
 import {Subscription} from "rxjs";
 
@@ -27,20 +27,20 @@ export class OptionDirective {
     selector: 'dui-select',
     template: `
         <div class="placeholder" *ngIf="!isSelected">{{placeholder}}</div>
-        <div class="value" *ngIf="isSelected">{{getLabel()}}</div>
+        <div class="value" *ngIf="isSelected">{{label}}</div>
 
         <div class="knob">
-            <span class="icon-arrow-down"></span>
+            <span class="icon-arrows"></span>
         </div>
-        
-        <select [(ngModel)]="model">
+
+        <select [(ngModel)]="model" (ngModelChange)="setLabel()">
             <option *ngFor="let option of options"
                     [ngValue]="option.value">{{option.element.nativeElement.innerText}}</option>
         </select>
     `,
     styleUrls: ['./selectbox.component.scss']
 })
-export class SelectboxComponent<T> implements AfterViewInit, OnDestroy {
+export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
     @Input() placeholder: string = '';
 
     @Input() model: T | undefined;
@@ -48,13 +48,18 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy {
 
     @ContentChildren(OptionDirective) options: QueryList<OptionDirective>;
 
+    public label: string = '';
     public optionsValueMap = new Map<T, string>();
 
     protected changeSubscription?: Subscription;
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     ngAfterViewInit(): void {
         this.changeSubscription = this.options.changes.subscribe(() => this.updateMap());
-        this.updateMap();
+        setTimeout(() => {
+            this.updateMap();
+        });
     }
 
     @HostBinding('class.selected')
@@ -62,12 +67,15 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy {
         return this.model !== undefined;
     }
 
-    getLabel() {
-        if (this.model !== undefined) {
-            return this.optionsValueMap.get(this.model);
-        }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.setLabel();
+    }
 
-        return '';
+    public setLabel() {
+        if (this.model !== undefined) {
+            this.label = this.optionsValueMap.get(this.model);
+            this.cd.detectChanges();
+        }
     }
 
     protected updateMap() {
@@ -77,8 +85,8 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy {
         for (const option of this.options.toArray()) {
             this.optionsValueMap.set(option.value, option.element.nativeElement.innerText);
         }
-        console.log(this.optionsValueMap.entries());
-        console.log(this.optionsValueMap.get(1 as any));
+
+        this.setLabel();
     }
 
 

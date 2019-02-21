@@ -1,23 +1,30 @@
-<div class="osx-window">
-    <dui-header>
+<dui-window>
+    <dui-window-header>
         Window Title
 
-        <dui-header-actions>
-            <dui-tabbed-button>
+        <dui-window-toolbar>
+            <dui-button class="textured">
                 <span class="icon-star"></span>
-            </dui-tabbed-button>
+            </dui-button>
 
-            <dui-search style="margin-left: auto;"></dui-search>
-        </dui-header-actions>
-    </dui-header>
+            <dui-input icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
+        </dui-window-toolbar>
+    </dui-window-header>
 
-    <div class="osx-window-content">
-
+    <dui-window-content>
         <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
 
         <dui-form>
             <dui-form-row label="Username">
-                <input type="text" value="Value" />
+                <dui-input clearer></dui-input>
+            </dui-form-row>
+
+            <dui-form-row label="Name">
+                <dui-input placeholder="Your full name"></dui-input>
+            </dui-form-row>
+
+            <dui-form-row label="Nope">
+                <dui-input disabled placeholder="Disabled"></dui-input>
             </dui-form-row>
 
             <dui-form-row label="Really?">
@@ -30,6 +37,10 @@
                 <p>
                     Chosen: {{radioValue}}
                 </p>
+            </dui-form-row>
+
+            <dui-form-row label="Search">
+                <dui-input icon="search" round clearer style="margin-left: auto;"></dui-input>
             </dui-form-row>
 
             <dui-form-row label="Another one">
@@ -47,12 +58,17 @@
             </dui-form-row>
         </dui-form>
 
-        <diu-button>Send</diu-button>
-    </div>
+        <dui-button class="textured">Texture Button</dui-button>
+        <dui-button>Button</dui-button>
 
-    <div class="osx-window-footer">
+        <p>
+            <dui-input clearer></dui-input><dui-button square>Add</dui-button>
+        </p>
+    </dui-window-content>
+
+    <dui-window-footer>
         Macintosh HD
-    </div>
-</div>
+    </dui-window-footer>
+</dui-window>
 
 <router-outlet></router-outlet>

@@ -4,12 +4,13 @@ import * as path from 'path';
 
 let win: BrowserWindow | null;
 
-app.commandLine.appendSwitch('ignore-gpu-blacklist');
+// app.commandLine.appendSwitch('ignore-gpu-blacklist');
 
 // process.stdout.write('Hi\n');
 // console.log(process.execPath);
 
 app.dock.hide();
+// app.disableHardwareAcceleration();
 
 const assetsPath = path.join(__dirname, '../assets');
 
@@ -27,9 +28,10 @@ async function createWindow() {
     win = new BrowserWindow({
         center: true,
         width: 1200,
-        // backgroundColor: 'white',
+        // backgroundColor: '#66CD00AA',
+        // transparent: true,
         height: 800,
-        vibrancy: 'ultra-dark',
+        vibrancy: 'appearance-based',
         webPreferences: {
             nodeIntegration: false,
         },

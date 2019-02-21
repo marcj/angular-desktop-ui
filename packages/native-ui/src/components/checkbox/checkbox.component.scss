@@ -19,22 +19,19 @@
     margin-top: 2px;
 
     background: white;
-    border: 0.5px solid rgba(0, 0, 0, 0.20);
+    border: 1px solid rgba(0, 0, 0, 0.20);
     border-radius: 3px;
 
     transition: all 0.08s ease-in;
 }
 
-:host-context(.dark) .box {
-    background: linear-gradient(-180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.28) 100%);
-    box-shadow: 0 0 1px 0 rgba(0,0,0,0.40), 0 0 1px 0 rgba(0,0,0,0.20), inset 0 0 0 0 rgba(255,255,255,0.25), inset 0 1px 0 0 rgba(255,255,255,0.06);
-}
 
 .icon-check {
     position: relative;
-    left: 2.5px;
-    top: -1px;
+    left: 2px;
+    top: -3px;
     opacity: 0;
+    line-height: 12px;
 
     &:before {
         font-size: 8px;
@@ -43,13 +40,27 @@
 
 :host.checked .box {
     background: #3B99FC;
-    border: 0.5px solid #338EF4;
+    border: 1px solid #338EF4;
 
     .icon-check {
         opacity: 1;
 
         &:before {
             color: white;
+        }
+    }
+}
+
+:host-context(.dark) {
+    .box {
+        background: linear-gradient(-180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.28) 100%);
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.40), 0 0 1px 0 rgba(0, 0, 0, 0.20), inset 0 0 0 0 rgba(255, 255, 255, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+        border: 1px solid transparent;
+    }
+
+    &.checked {
+        .box {
+            background-image: linear-gradient(-180deg, #1768E5 0%, #145CCC 100%);
         }
     }
 }
