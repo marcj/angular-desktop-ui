@@ -1,6 +1,7 @@
 import {NgModule} from "@angular/core";
 import {ButtonComponent} from "./button.component";
 import {CommonModule} from "@angular/common";
+import {DuiIconModule} from "../icon";
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {CommonModule} from "@angular/common";
     ],
     imports: [
         CommonModule,
+        DuiIconModule,
     ]
 })
 export class DuiButtonModule {

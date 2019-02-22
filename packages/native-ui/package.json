@@ -1,10 +1,12 @@
 {
   "name": "@marcj/angular-desktop-ui",
   "version": "0.0.1",
-  "scripts": {},
+  "scripts": {
+    "font": "ts-node create-font.ts"
+  },
   "sideEffects": false,
   "dependencies": {},
-  "main": "index.ts",
+  "main": "src/index.ts",
   "peerDependencies":  {
     "@angular/animations": "~7.1.0",
     "@angular/common": "~7.1.0",
@@ -21,6 +23,13 @@
     "@angular/core": "~7.1.0",
     "@angular/forms": "~7.1.0",
     "@angular/platform-browser": "~7.1.0",
-    "rxjs": "~6.3.3"
+    "@types/node": "^11.9.4",
+    "rxjs": "~6.3.3",
+    "ts-node": "^8.0.2",
+    "ttf2woff": "^2.0.1",
+    "transformation-matrix-js": "2.7.1",
+    "svg2ttf": "^4.2.0",
+    "svgicons2svgfont": "^9.0.4",
+    "typescript": "^3.2.1"
   }
 }

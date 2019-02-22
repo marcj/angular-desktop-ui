@@ -1,13 +1,29 @@
 :host {
-    display: block;
-    background-color: #ececec;
-    position: relative;
-    padding: 20px;
-
+    display: flex;
     flex: 1;
+
+    .sidebar {
+        width: 250px;
+        background-color: #dfe6eb;
+        border-right: 1px solid #c7ced3;
+    }
+
+    .content {
+        flex: 1;
+        position: relative;
+        padding: 20px;
+        background-color: #ececec;
+    }
 }
 
 
 :host-context(.dark) {
-    background-color: #2d373f;
+    .content {
+        background-color: #2d373f;
+    }
+
+    .sidebar {
+        background-color: #2a3136;
+        border-right: 1px solid black;
+    }
 }

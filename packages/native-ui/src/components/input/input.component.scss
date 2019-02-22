@@ -48,22 +48,27 @@ input {
     }
 }
 
+dui-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .input-wrapper {
     height: 100%;
 }
 
 .clearer {
-    position: absolute;
     right: 5px;
-    top: calc(50% - 7px);
     opacity: 0;
     transition: opacity 0.2s ease-in;
     cursor: pointer;
+    color: #808080;
+    pointer-events: none;
+}
 
-    &:before {
-        color: #808080;
-        font-size: 14px;
-    }
+.icon {
+    left: 7px;
 }
 
 :host.has-icon {
@@ -78,18 +83,9 @@ input {
     }
 }
 
-:host.filled .icon-clear {
+:host.filled .clearer {
     opacity: 1;
-}
-
-.icon {
-    position: absolute;
-    left: 7px;
-    top: calc(50% - 6px);
-
-    &:before {
-        font-size: 13px;
-    }
+    pointer-events: all;
 }
 
 

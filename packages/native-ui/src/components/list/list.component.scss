@@ -1,0 +1,18 @@
+:host {
+    display: block;
+    height: 100%;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+
+:host:focus ::ng-deep dui-list-item.selected {
+    background-color: #016dea;
+    color: white;
+}
+
+:host:not(:focus) ::ng-deep dui-list-item.selected {
+    background-color: #bdcbd2;
+}

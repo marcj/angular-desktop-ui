@@ -3,15 +3,31 @@
         Window Title
 
         <dui-window-toolbar>
+            <dui-button class="textured" icon="envelop">
+            </dui-button>
+
             <dui-button class="textured">
-                <span class="icon-star"></span>
+                Button
             </dui-button>
 
             <dui-input icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
         </dui-window-toolbar>
     </dui-window-header>
 
+
     <dui-window-content>
+        <dui-window-sidebar>
+            <dui-list>
+                <dui-list-title>iCloud</dui-list-title>
+
+                <dui-list-item value="all">All iCloud</dui-list-item>
+                <dui-list-item value="notes">Notes</dui-list-item>
+                <dui-list-item value="newFolder">New Folder</dui-list-item>
+                <dui-list-item value="private">Private</dui-list-item>
+                <dui-list-item value="deleted">Recently Deleted</dui-list-item>
+            </dui-list>
+        </dui-window-sidebar>
+
         <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
 
         <dui-form>
@@ -59,7 +75,7 @@
         </dui-form>
 
         <dui-button class="textured">Texture Button</dui-button>
-        <dui-button>Button</dui-button>
+        <dui-button><dui-icon name="star"></dui-icon> Button</dui-button>
 
         <p>
             <dui-input clearer></dui-input><dui-button square>Add</dui-button>

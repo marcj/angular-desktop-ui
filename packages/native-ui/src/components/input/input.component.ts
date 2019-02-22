@@ -7,8 +7,8 @@ import {Component, EventEmitter, HostBinding, Input, Output} from "@angular/core
             <input [type]="type" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false" 
                    [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="model"/>
         </div>
-        <span *ngIf="icon" class="icon icon-{{icon}}"></span>
-        <span *ngIf="hasClearer" class="clearer icon-clear" (click)="clear()"></span>
+        <dui-icon *ngIf="icon" class="icon" [size]="13" [name]="icon"></dui-icon>
+        <dui-icon *ngIf="hasClearer" class="clearer" [size]="14" name="clear" (click)="clear()"></dui-icon>
     `,
     styleUrls: ['./input.component.scss']
 })

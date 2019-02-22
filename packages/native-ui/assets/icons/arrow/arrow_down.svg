@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="6px" viewBox="0 0 9 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Arrows</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Buttons-/-Pulldown-Button-/-Enabled-/-Aqua" transform="translate(-99.000000, -7.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Cap" transform="translate(95.000000, 0.000000)">
+                <path d="M11.5232082,8.06578838 C11.7671965,7.80246353 12.1784551,7.78678818 12.44178,8.03077652 C12.7051048,8.27476487 12.7207802,8.68602348 12.4767918,8.94934833 L9.22679183,12.4569167 C8.96955187,12.7345434 8.53044813,12.7345434 8.27320817,12.4569167 L5.02320817,8.94934833 C4.77921982,8.68602348 4.79489517,8.27476487 5.05822002,8.03077652 C5.32154488,7.78678818 5.73280349,7.80246353 5.97679183,8.06578838 L8.75,11.0587783 L11.5232082,8.06578838 Z" id="Arrows"></path>
+            </g>
+        </g>
+    </g>
+</svg>

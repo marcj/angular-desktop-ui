@@ -30,7 +30,7 @@ export class OptionDirective {
         <div class="value" *ngIf="isSelected">{{label}}</div>
 
         <div class="knob">
-            <span class="icon-arrows"></span>
+            <dui-icon [size]="14" name="arrows"></dui-icon>
         </div>
 
         <select [(ngModel)]="model" (ngModelChange)="setLabel()">

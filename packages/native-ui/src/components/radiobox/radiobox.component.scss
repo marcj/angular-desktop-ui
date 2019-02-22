@@ -5,7 +5,8 @@
     line-height: 20px;
 
     &:focus {
-        outline: 1px solid #4686de;
+        outline: 0;
+        //outline: 1px solid #4686de;
     }
 }
 
@@ -21,7 +22,7 @@
     border-radius: 14px;
 
     background: white;
-    border: 0.5px solid rgba(0, 0, 0, 0.20);
+    border: 1px solid #adadad;
 
     transition: all 0.08s ease-in;
 }
@@ -39,7 +40,7 @@
 }
 
 :host.checked .box {
-    background: #3B99FC;
+    background: #3b88fd;
     border: 1px solid #338EF4;
 
     .circle {

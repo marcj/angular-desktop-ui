@@ -5,7 +5,8 @@
     line-height: 20px;
 
     &:focus {
-        outline: 1px solid #4686de;
+        outline: 0;
+        //outline: 1px solid #4686de;
     }
 }
 
@@ -26,28 +27,22 @@
 }
 
 
-.icon-check {
+dui-icon {
     position: relative;
     left: 2px;
-    top: -3px;
+    top: -3.5px;
     opacity: 0;
     line-height: 12px;
-
-    &:before {
-        font-size: 8px;
-    }
 }
 
 :host.checked .box {
-    background: #3B99FC;
+    background: #3b88fd;
     border: 1px solid #338EF4;
 
-    .icon-check {
+    dui-icon {
         opacity: 1;
-
-        &:before {
-            color: white;
-        }
+        color: white;
+        text-shadow: 0 1px 1px rgba(77, 77, 77, 0.65);
     }
 }
 

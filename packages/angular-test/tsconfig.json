@@ -21,6 +21,6 @@
   },
   "include": [
     "./src",
-    "node_modules/@marcj/angular-desktop-ui/**/*.ts"
+    "node_modules/@marcj/angular-desktop-ui/src/**/*.ts"
   ]
 }

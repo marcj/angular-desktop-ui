@@ -1,14 +1,20 @@
-import {Component, HostBinding, Input, OnChanges, Optional, SimpleChanges} from "@angular/core";
-import {WindowHeaderComponent} from "../window/window-header.component";
+import {Component, HostBinding, Input} from "@angular/core";
 
 @Component({
     selector: 'dui-button',
     template: `
-        <div class="content"><ng-content></ng-content></div>
+        <dui-icon *ngIf="icon" [name]="icon" [size]="iconSize"></dui-icon>
+        <ng-content></ng-content>
     `,
+    host: {
+        '[class.icon]': '!!icon'
+    },
     styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
+    @Input() icon?: string;
+    @Input() iconSize?: number;
+
     @Input() square: boolean = false;
 
     @HostBinding('class.square')

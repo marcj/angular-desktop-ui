@@ -4,7 +4,7 @@ import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, I
     selector: 'dui-checkbox',
     template: `
         <span class="box">
-            <span class="icon-check"></span>
+            <dui-icon [size]="8" name="check"></dui-icon>
         </span>
         <ng-content></ng-content>
     `,

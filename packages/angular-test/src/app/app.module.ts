@@ -8,6 +8,8 @@ import {
     DuiRadioboxModule,
     DuiSelectModule,
     DuiWindowModule,
+    DuiIconModule,
+    DuiListModule,
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -27,6 +29,8 @@ import {AppComponent} from './app.component';
         DuiRadioboxModule,
         DuiSelectModule,
         DuiWindowModule,
+        DuiIconModule,
+        DuiListModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

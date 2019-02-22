@@ -1,52 +1,33 @@
 @font-face {
-    font-family: 'icomoon';
-    src: url('/assets/fonts/icomoon.woff?h1p59r') format('woff');
+    font-family: 'Desktop UI icon Mono';
+    src:
+        url('/assets/fonts/ui-icons.woff') format('woff'),
+        url('/assets/fonts/ui-icons.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important;
-    speak: none;
-    font-style: normal;
+.ui-icon {
+    font-family: 'Desktop UI icon Mono';
     font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
+    font-style: normal;
+    font-size: 18px;
+    display: inline-block;
     line-height: 1;
-    font-size: 13px;
-    vertical-align: middle;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
 
-    /* Better Font Rendering =========== */
+    /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale;
-}
 
-//.dark [class^="icon-"],
-//.dark [class*=" icon-"] {
-//    color: white;
-//}
-
-.icon-check:before {
-    content: "\e900";
-}
-
-.icon-star:before {
-    content: "\e901";
-}
-
-.icon-search:before {
-    content: "\e902";
-}
-
-.icon-clear:before {
-    content: "\e903";
-}
-
-.icon-arrow-down:before {
-    content: "\e904";
-}
-
-.icon-arrows:before {
-    content: "\e905";
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }

@@ -4,6 +4,7 @@ import {WindowComponent} from "./window.component";
 import {WindowFooterComponent} from "./window-footer.component";
 import {WindowToolbarComponent, WindowHeaderComponent} from "./window-header.component";
 import {CommonModule} from "@angular/common";
+import {WindowSidebarComponent} from "./window-sidebar.component";
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import {CommonModule} from "@angular/common";
         WindowFooterComponent,
         WindowHeaderComponent,
         WindowToolbarComponent,
+        WindowSidebarComponent,
     ],
     exports: [
         WindowContentComponent,
@@ -19,6 +21,7 @@ import {CommonModule} from "@angular/common";
         WindowFooterComponent,
         WindowHeaderComponent,
         WindowToolbarComponent,
+        WindowSidebarComponent,
     ],
     imports: [
         CommonModule,

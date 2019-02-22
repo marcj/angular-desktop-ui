@@ -41,15 +41,15 @@
     }
 }
 
-//:host-context(.light dui-window-header) {
-//    height: 22px;
-//    @include box-textured;
-//}
-//
-//:host-context(.dark dui-window-header) {
-//    height: 22px;
-//    @include box-textured-dark-toolbar;
-//}
+:host.icon {
+    padding: 0 11px;
+    overflow: visible;
+}
+
+:host ::ng-deep dui-icon {
+    position: relative;
+    top: -1px;
+}
 
 :host-context(.light) {
     background: white;

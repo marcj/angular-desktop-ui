@@ -3,13 +3,13 @@ import {Component, ContentChild, HostBinding, Input, TemplateRef, ViewChild} fro
 @Component({
     selector: 'dui-window-toolbar',
     template: `
-        <ng-template #templateref>
+        <ng-template #templateRef>
             <ng-content></ng-content>
         </ng-template>
     `
 })
 export class WindowToolbarComponent {
-    @ViewChild('templateref') template!: TemplateRef<any>;
+    @ViewChild('templateRef') template!: TemplateRef<any>;
 }
 
 @Component({
