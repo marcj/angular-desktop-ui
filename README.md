@@ -54,18 +54,6 @@ This work is in progress and is always streamed via twitch.tv: https://www.twitc
 <diu-button>Send</diu-button>
 ```
 
-## Todo
-
-| Draft | [disabled] | Component           | selector                   |
-|:------|:-----------|:--------------------|:---------------------------|
-| [X]   | [ ]        | Input text/password | <dui-input>                |
-| [X]   | [ ]        | Button              | <dui-button>               |
-| [ ]   | [ ]        | Tabbed Button       | <dui-tabbed-button>        |
-| [X]   | [ ]        | Checkbox            | <dui-checkbox>             |
-| [ ]   | [ ]        | Radiobox            | <dui-radiobox>             |
-| [ ]   | [ ]        | Selectbox           | <dui-select>, <dui-option> |
-
- 
 
 ## Installation
 

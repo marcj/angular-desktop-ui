@@ -33,8 +33,11 @@
             </dui-list>
         </dui-window-sidebar>
 
-        <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
-        <dui-checkbox [(model)]="disabledAll">Disable all</dui-checkbox>
+
+        <dui-button-group>
+            <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
+            <dui-checkbox [(model)]="disabledAll">Disable all</dui-checkbox>
+        </dui-button-group>
 
         <dui-form>
             <dui-form-row label="Username">
@@ -95,14 +98,28 @@
             </dui-form-row>
         </dui-form>
 
-        <p>
-            <dui-input [disabled]="disabledAll" clearer></dui-input><dui-button [disabled]="disabledAll" square>Add</dui-button>
-        </p>
+        <dui-table [items]="items">
+            <dui-table-column name="Title">
+                <ng-container *duiTableCell="let row">
+                    {{row.title}}
+                </ng-container>
+            </dui-table-column>
+            <dui-table-column name="Created">
+                <ng-container *duiTableCell="let row">
+                    {{row.created|date:'mediumTime'}}
+                </ng-container>
+            </dui-table-column>
+        </dui-table>
+        <dui-button-group padding="none" style="margin-top: -1px;">
+            <dui-button [disabled]="true" (click)="removeItem()" square icon="remove"></dui-button>
+            <dui-button [disabled]="disabledAll" (click)="addItem()" square icon="add"></dui-button>
+            <!--<dui-input [disabled]="disabledAll" [(model)]="itemName" placeholder="Item name" clearer></dui-input>-->
+        </dui-button-group>
     </dui-window-content>
 
-    <dui-window-footer>
-        Macintosh HD
-    </dui-window-footer>
+    <!--<dui-window-footer>-->
+        <!--Macintosh HD-->
+    <!--</dui-window-footer>-->
 </dui-window>
 
 <router-outlet></router-outlet>

@@ -1,0 +1,47 @@
+:host {
+    display: block;
+    border: 1px solid #c5c5c5;
+    background-color: white;
+}
+
+table {
+    width: 100%;
+
+    th {
+
+        background-color: #f0f0f0;
+        padding: 3px 6px;
+        line-height: 16px;
+        text-align: left;
+        color: #303030;
+        font-size: 11px;
+        border-bottom: 1px solid #cecece;
+
+        dui-icon {
+            float: right;
+            margin-top: 2px;
+            margin-right: 2px;
+        }
+    }
+
+    td {
+        padding: 3px 6px;
+        line-height: 16px;
+    }
+}
+
+:host:focus {
+    outline: 0;
+}
+
+:host-context(.dark) {
+    background-color: #1e262e;
+    border: 1px solid #565656;
+
+    th {
+        color: white;
+        background-color: #2a363f;
+        border-bottom-color: #445059;
+    }
+}
+

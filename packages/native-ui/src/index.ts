@@ -7,3 +7,5 @@ export * from './components/select';
 export * from './components/window';
 export * from './components/icon';
 export * from './components/list';
+export * from './components/table';
+export * from './stdlib';

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>arrow_up</title>
+    <desc>Created with Sketch.</desc>
+    <g id="arrow_up" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8.84431392,4.21655734 C9.09455818,3.9426926 9.51636156,3.92638983 9.78643814,4.18014409 C10.0565147,4.43389835 10.072592,4.86161807 9.82234771,5.13548282 L6.4890169,8.78344572 C6.22518123,9.07218476 5.77481877,9.07218476 5.5109831,8.78344572 L2.17765229,5.13548282 C1.92740802,4.86161807 1.94348529,4.43389835 2.21356186,4.18014409 C2.48363844,3.92638983 2.90544182,3.9426926 3.15568608,4.21655734 L6,7.32934519 L8.84431392,4.21655734 Z" id="Arrows" fill="#000000" fill-rule="nonzero" transform="translate(6.000000, 6.500000) scale(1, -1) translate(-6.000000, -6.500000) "></path>
+    </g>
+</svg>

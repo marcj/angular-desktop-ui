@@ -53,10 +53,19 @@
     ::ng-deep dui-icon {
         color: #adadad !important;
     }
+
+    &.square {
+        opacity: 0.6;
+    }
 }
 
 :host.icon {
     padding: 0 11px;
+
+    &.square {
+        padding: 0;
+        min-width: 22px;
+    }
     overflow: visible;
 }
 
@@ -120,7 +129,7 @@
 
     &.active,
     &:active {
-        background-color: #797f84;
+        background: #797f84;
     }
 }
 
