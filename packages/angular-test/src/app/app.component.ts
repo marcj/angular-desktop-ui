@@ -10,8 +10,13 @@ import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
 export class AppComponent {
     public title: string = 'iconfont-generator';
 
+    public i: number = 1;
+
     public radioValue: string = 'a';
-    public selectBox1?: string = undefined;
+    public selectBox1?: string;
+
+    public sidebarVisible = true;
+    public disabledAll = false;
 
     public setDarkMode(active: boolean) {
         document.body.classList.remove('dark');

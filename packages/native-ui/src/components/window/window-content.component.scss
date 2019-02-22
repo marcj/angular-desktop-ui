@@ -3,9 +3,16 @@
     flex: 1;
 
     .sidebar {
+        transition: width 0.3s ease-in-out;
+        overflow: hidden;
         width: 250px;
         background-color: #dfe6eb;
         border-right: 1px solid #c7ced3;
+    }
+
+    .sidebar-container {
+        width: 100%;
+        height: 100%;
     }
 
     .content {
@@ -16,6 +23,12 @@
     }
 }
 
+
+:host.sidebar-invisible {
+    .sidebar {
+        width: 0;
+    }
+}
 
 :host-context(.dark) {
     .content {

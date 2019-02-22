@@ -25,6 +25,12 @@ export class ListComponent {
 
     @HostBinding('tabindex') tabIndex: number = 1;
 
+    @Input() disabled: boolean = false;
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        return false !== this.disabled;
+    }
+
     constructor(private cd: ChangeDetectorRef) {
     }
 

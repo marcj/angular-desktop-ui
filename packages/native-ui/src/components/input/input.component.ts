@@ -24,6 +24,10 @@ export class InputComponent {
     @Input() round: boolean = false;
 
     @Input() disabled: boolean = false;
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        return false !== this.disabled;
+    }
 
     @HostBinding('class.focused')
     focused: boolean = false;
@@ -47,10 +51,6 @@ export class InputComponent {
         return false !== this.clearer;
     }
 
-    @HostBinding('class.is-disabled')
-    get isDisabled() {
-        return false !== this.disabled;
-    }
 
     @HostBinding('class.has-icon')
     get hasIcon() {

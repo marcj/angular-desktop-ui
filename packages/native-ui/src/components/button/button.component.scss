@@ -19,13 +19,18 @@
         outline: 0;
     }
 
-    &:not(.square):not(.textured):active {
+    &:not(.disabled):not(.square):not(.textured).active,
+    &:not(.disabled):not(.square):not(.textured):active {
         color: white;
         background-image: linear-gradient(180deg, #4990fe 0%, #005ee5 100%);
         border-top: 1px solid #1f75f9;
         border-bottom: 1px solid #0050d9;
         border-left: 1px solid #1068f1;
         border-right: 1px solid #1068f1;
+
+        ::ng-deep dui-icon {
+            color: white;
+        }
     }
 
     &.square {
@@ -35,9 +40,18 @@
         height: 22px;
         line-height: 22px;
 
-        &:active {
+        &:not(.disabled).active,
+        &:not(.disabled):active {
             background-image: linear-gradient(180deg, #c1c1c1 0%, #b5b5b5 100%);
         }
+    }
+}
+
+:host.disabled {
+    color: #adadad !important;
+    pointer-events: none;
+    ::ng-deep dui-icon {
+        color: #adadad !important;
     }
 }
 
@@ -62,7 +76,8 @@
     &.textured {
         @include box-textured;
 
-        &:active {
+        &:not(.disabled).active,
+        &:not(.disabled):active {
             @include box-textured-active;
         }
     }
@@ -77,7 +92,8 @@
     border-right: 1px solid #273037;
     box-shadow: 0 1px 0 #2c353d;
 
-    &:not(.square):not(.textured):active {
+    &:not(.disabled):not(.square):not(.textured).active,
+    &:not(.disabled):not(.square):not(.textured):active {
         background-image: linear-gradient(-180deg, #1d73e7 0%, #217bf4 100%);
         color: white;
         border-top: 1px solid #3889f6;
@@ -90,7 +106,9 @@
     &.square {
         background-color: #475057;
         border: 1px solid #62696f;
-        &:active {
+
+        &:not(.disabled).active,
+        &:not(.disabled):active {
             background-image: linear-gradient(-180deg, #62696F 0%, #586066 100%);
         }
     }
@@ -100,6 +118,7 @@
 :host-context(.dark).textured {
     background-color: #62696f;
 
+    &.active,
     &:active {
         background-color: #797f84;
     }

@@ -24,9 +24,18 @@
         border-radius: 4px;
     }
 
-    &.is-disabled {
+    &.disabled {
         color: #c5c5c5;
+        pointer-events: none;
         border: 1px solid #d4d4d4;
+
+        > * {
+            opacity: 0.6;
+        }
+
+        .clearer {
+            opacity: 0;
+        }
     }
 }
 

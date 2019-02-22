@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 
 @Component({
     selector: 'dui-icon',
@@ -23,11 +23,27 @@ import {Component, Input, OnInit} from '@angular/core';
         :host-context(.dark) {
             color: white;
         }
+        
+        :host.disabled {
+            opacity: 0.6;
+        }
     `]
 })
 export class IconComponent implements OnInit {
-    @Input() name: string;
+    @Input() name?: string;
     @Input() size: number = 17;
+
+    @Input() clickable: boolean = false;
+    @HostBinding('class.clickable')
+    get isClickable() {
+        return false !== this.clickable;
+    }
+
+    @Input() disabled: boolean = false;
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        return false !== this.disabled;
+    }
 
     constructor() {
     }

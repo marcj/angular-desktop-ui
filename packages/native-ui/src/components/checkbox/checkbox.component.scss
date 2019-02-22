@@ -10,6 +10,11 @@
     }
 }
 
+:host.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 .box {
     display: inline-block;
     width: 14px;
@@ -20,7 +25,10 @@
     margin-top: 2px;
 
     background: white;
-    border: 1px solid rgba(0, 0, 0, 0.20);
+    border-top: 1px solid #a5a5a5;
+    border-left: 1px solid #b8b8b8;
+    border-right: 1px solid #b8b8b8;
+    border-bottom: 1px solid #b8b8b8;
     border-radius: 3px;
 
     transition: all 0.08s ease-in;

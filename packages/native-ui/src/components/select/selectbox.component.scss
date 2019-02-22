@@ -13,6 +13,12 @@
     border-radius: 4px;
 }
 
+:host.disabled {
+    opacity: 0.6;
+    color: grey;
+    pointer-events: none;
+}
+
 .knob {
     position: absolute;
     right: -1px;
@@ -88,11 +94,18 @@ select {
     border-right: 1px solid #c2c2c2;
     box-shadow: 0 1px 0 #e5e5e5;
 
-    .knob {
+    &:not(.disabled) .knob {
         border-top: 1px solid #4990fa;
         border-right: 1px solid #3383fc;
         border-bottom: 1px solid #0063ff;
         background-image: linear-gradient(-180deg, #69A3FB 0%, #599AFC 20%, #428DFD 45%, #1974FF 83%, #0D6DFF 100%);
+    }
+
+    &.disabled dui-icon {
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        border-right: 1px solid transparent;
+        color: grey;
     }
 }
 
@@ -102,7 +115,12 @@ select {
     .knob {
         bottom: 0;
         top: 0;
+        right: 0;
         line-height: 15px;
+        border-top: 1px solid transparent;
+    }
+
+    &:not(.disabled) .knob {
         border-top: 1px solid #2d79ea;
         background-image: linear-gradient(-180deg, #1768E5 0%, #145CCC 100%);
     }

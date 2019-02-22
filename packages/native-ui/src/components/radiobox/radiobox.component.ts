@@ -12,7 +12,13 @@ export class RadioboxComponent<T> {
     @Input() model?: T;
     @Output() modelChange = new EventEmitter<T>();
 
-    @Input() value: T;
+    @Input() value?: T;
+
+    @Input() disabled: boolean = false;
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        return false !== this.disabled;
+    }
 
     @HostBinding('tabindex')
     get tabIndex() {
@@ -26,6 +32,7 @@ export class RadioboxComponent<T> {
 
     @HostListener('click')
     public onClick() {
+        if (this.isDisabled) return;
         this.model = this.value;
         this.modelChange.emit(this.model);
     }

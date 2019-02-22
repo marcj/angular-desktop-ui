@@ -19,7 +19,7 @@ export class WindowToolbarComponent {
             <ng-content></ng-content>
         </div>
         <div class="toolbar" *ngIf="toolbar">
-            <ng-container [ngTemplateOutlet]="toolbar.template" [ngTemplateOutletContext]="{}"></ng-container>
+            <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
         </div>
     `,
     styleUrls: ['./window-header.component.scss']

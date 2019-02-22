@@ -3,19 +3,24 @@
         Window Title
 
         <dui-window-toolbar>
-            <dui-button class="textured" icon="envelop">
-            </dui-button>
+            <dui-button [disabled]="disabledAll" class="textured" icon="envelop"></dui-button>
 
-            <dui-button class="textured">
-                Button
-            </dui-button>
+            <dui-button-group float="sidebar">
+                <dui-button [disabled]="disabledAll" class="textured" (click)="sidebarVisible = !sidebarVisible;" icon="toggle_sidebar"></dui-button>
+            </dui-button-group>
 
-            <dui-input icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
+            <dui-button-group padding="none">
+                <dui-button [disabled]="disabledAll" class="textured">Cool</dui-button>
+                <dui-button [disabled]="disabledAll" [active]="true" class="textured">Right</dui-button>
+                <dui-button [disabled]="disabledAll" class="textured">Yes</dui-button>
+            </dui-button-group>
+
+            <dui-input [disabled]="disabledAll" icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
         </dui-window-toolbar>
     </dui-window-header>
 
 
-    <dui-window-content>
+    <dui-window-content [sidebarVisible]="sidebarVisible">
         <dui-window-sidebar>
             <dui-list>
                 <dui-list-title>iCloud</dui-list-title>
@@ -29,14 +34,15 @@
         </dui-window-sidebar>
 
         <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
+        <dui-checkbox [(model)]="disabledAll">Disable all</dui-checkbox>
 
         <dui-form>
             <dui-form-row label="Username">
-                <dui-input clearer></dui-input>
+                <dui-input [disabled]="disabledAll" clearer></dui-input>
             </dui-form-row>
 
             <dui-form-row label="Name">
-                <dui-input placeholder="Your full name"></dui-input>
+                <dui-input [disabled]="disabledAll" placeholder="Your full name"></dui-input>
             </dui-form-row>
 
             <dui-form-row label="Nope">
@@ -44,41 +50,53 @@
             </dui-form-row>
 
             <dui-form-row label="Really?">
-                <dui-checkbox>Checkbox A</dui-checkbox>
+                <dui-checkbox [disabled]="disabledAll">Checkbox A</dui-checkbox>
             </dui-form-row>
 
             <dui-form-row label="Which one">
-                <dui-radiobox [(model)]="radioValue" value="a">Radio A</dui-radiobox><br/>
-                <dui-radiobox [(model)]="radioValue" value="b">Radio B</dui-radiobox>
+                <dui-radiobox [disabled]="disabledAll" [(model)]="radioValue" value="a">Radio A</dui-radiobox><br/>
+                <dui-radiobox [disabled]="disabledAll" [(model)]="radioValue" value="b">Radio B</dui-radiobox>
                 <p>
                     Chosen: {{radioValue}}
                 </p>
             </dui-form-row>
 
             <dui-form-row label="Search">
-                <dui-input icon="search" round clearer style="margin-left: auto;"></dui-input>
+                <dui-input [disabled]="disabledAll" icon="search" round clearer style="margin-left: auto;"></dui-input>
             </dui-form-row>
 
             <dui-form-row label="Another one">
-                <dui-select [(model)]="radioValue" placeholder="Please choose">
+                <dui-select [disabled]="disabledAll" [(model)]="radioValue" placeholder="Please choose">
                     <dui-option value="a">Option A</dui-option>
                     <dui-option value="b">Option B</dui-option>
                 </dui-select>
             </dui-form-row>
 
             <dui-form-row label="Empty">
-                <dui-select style="width: 100px;" [(model)]="selectBox1" placeholder="Please choose">
+                <dui-select [disabled]="disabledAll" style="width: 100px;" [(model)]="selectBox1" placeholder="Please choose">
                     <dui-option value="x">Option X</dui-option>
                     <dui-option value="y">Option Y</dui-option>
                 </dui-select>
             </dui-form-row>
+
+            <dui-form-row label="">
+                <dui-button [disabled]="disabledAll"
+                    (click)="i = i + 1"
+                ><dui-icon name="star"></dui-icon> Button</dui-button>
+                {{i}}
+            </dui-form-row>
+
+            <dui-form-row label="">
+                <dui-button [disabled]="disabledAll" class="textured">Textured Button</dui-button>
+            </dui-form-row>
+
+            <dui-form-row label="">
+                <dui-button [disabled]="disabledAll" square>Square button</dui-button>
+            </dui-form-row>
         </dui-form>
 
-        <dui-button class="textured">Texture Button</dui-button>
-        <dui-button><dui-icon name="star"></dui-icon> Button</dui-button>
-
         <p>
-            <dui-input clearer></dui-input><dui-button square>Add</dui-button>
+            <dui-input [disabled]="disabledAll" clearer></dui-input><dui-button [disabled]="disabledAll" square>Add</dui-button>
         </p>
     </dui-window-content>
 

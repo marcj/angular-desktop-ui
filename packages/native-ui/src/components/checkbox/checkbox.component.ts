@@ -14,6 +14,12 @@ export class CheckboxComponent {
     @Input() model: boolean = false;
     @Output() modelChange = new EventEmitter<boolean>();
 
+    @Input() disabled: boolean = false;
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        return false !== this.disabled;
+    }
+
     @HostBinding('tabindex')
     get tabIndex() {
         return 1;
@@ -30,6 +36,8 @@ export class CheckboxComponent {
 
     @HostListener('click')
     public onClick() {
+        if (this.isDisabled) return;
+
         this.model = !this.model;
         this.modelChange.emit(this.model);
         this.cd.detectChanges();

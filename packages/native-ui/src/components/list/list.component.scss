@@ -7,6 +7,9 @@
     }
 }
 
+:host.disabled > * {
+    opacity: 0.6;
+}
 
 :host:focus ::ng-deep dui-list-item.selected {
     background-color: #016dea;

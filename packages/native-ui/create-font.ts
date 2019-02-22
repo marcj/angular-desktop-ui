@@ -75,5 +75,5 @@ const fontFileName = 'ui-icons';
 
     // Do not forget to end the stream
     fontStream.end();
-    writeFileSync('${out}/icon-names.json', JSON.stringify(icons));
+    writeFileSync(`${out}/icon-names.json`, JSON.stringify(icons));
 })();

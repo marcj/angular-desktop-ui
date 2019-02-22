@@ -5,6 +5,7 @@ import {WindowFooterComponent} from "./window-footer.component";
 import {WindowToolbarComponent, WindowHeaderComponent} from "./window-header.component";
 import {CommonModule} from "@angular/common";
 import {WindowSidebarComponent} from "./window-sidebar.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import {WindowSidebarComponent} from "./window-sidebar.component";
     ],
     imports: [
         CommonModule,
+        BrowserAnimationsModule,
     ]
 })
 export class DuiWindowModule {
