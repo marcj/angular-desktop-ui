@@ -19,3 +19,8 @@
 :host:not(:focus) ::ng-deep dui-list-item.selected {
     background-color: #bdcbd2;
 }
+
+:host-context(.dark):not(:focus) ::ng-deep dui-list-item.selected {
+    background-color: #434752;
+}
+
