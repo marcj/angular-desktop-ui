@@ -1,5 +1,6 @@
 import {ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
+import {arrayRemoveItem} from "../../../native-ui/src";
 
 @Component({
     selector: 'app-root',
@@ -8,8 +9,6 @@ import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-    public title: string = 'iconfont-generator';
-
     public i: number = 1;
 
     public radioValue: string = 'a';
@@ -18,16 +17,20 @@ export class AppComponent {
     public sidebarVisible = true;
     public disabledAll = false;
 
-    public items = [{title: 'first', created: new Date}, {title: 'second', created: new Date}];
+    public items = [{title: 'first', i: 1, created: new Date}, {title: 'second', i: 2, created: new Date}];
+    public selectedItems = [];
     public itemName: string = 'Item Name';
 
     public removeItem() {
-
+        for (const item of this.selectedItems) {
+            arrayRemoveItem(this.items, item);
+        }
+        this.selectedItems = [];
     }
 
     public addItem() {
         if (this.itemName) {
-            this.items.push({title: this.itemName, created: new Date});
+            this.items.push({title: this.itemName, i: this.items.length + 1, created: new Date});
             this.items = this.items.slice(0);
             this.cd.detectChanges();
         }

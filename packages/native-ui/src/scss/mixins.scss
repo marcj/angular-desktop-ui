@@ -1,3 +1,4 @@
+@import "./variables";
 
 @mixin box-textured {
     border-top: 1px solid #c9cac9;
@@ -38,4 +39,15 @@
 
 @mixin box-textured-dark-toolbar-active {
     background: #7f8992
+}
+
+@mixin focus-border {
+    outline: 0;
+    border-color: $focusOutlineColor;
+    box-shadow: 3px 3px 0 $focusOutlineColor, -3px -3px 0 $focusOutlineColor, -3px 3px 0 $focusOutlineColor, 3px -3px 0 $focusOutlineColor;
+}
+
+@mixin focus-border-dark {
+    border-color: $focusOutlineColorDark;
+    box-shadow: 3px 3px 0 $focusOutlineColorDark, -3px -3px 0 $focusOutlineColorDark, -3px 3px 0 $focusOutlineColorDark, 3px -3px 0 $focusOutlineColorDark;
 }

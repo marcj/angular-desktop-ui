@@ -8,11 +8,13 @@ import {
 } from "./table.component";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
+import {DuiSplitterModule} from "../splitter";
 
 @NgModule({
     imports: [
         CommonModule,
         DuiIconModule,
+        DuiSplitterModule,
     ],
     exports: [
         SimpleTableCellDirective,

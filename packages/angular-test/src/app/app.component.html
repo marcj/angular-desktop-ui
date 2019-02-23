@@ -3,7 +3,9 @@
         Window Title
 
         <dui-window-toolbar>
-            <dui-button [disabled]="disabledAll" class="textured" icon="envelop"></dui-button>
+            <dui-button-group>
+                <dui-button [disabled]="disabledAll" class="textured" icon="envelop"></dui-button>
+            </dui-button-group>
 
             <dui-button-group float="sidebar">
                 <dui-button [disabled]="disabledAll" class="textured" (click)="sidebarVisible = !sidebarVisible;" icon="toggle_sidebar"></dui-button>
@@ -98,20 +100,19 @@
             </dui-form-row>
         </dui-form>
 
-        <dui-table [items]="items">
-            <dui-table-column name="Title">
-                <ng-container *duiTableCell="let row">
-                    {{row.title}}
-                </ng-container>
-            </dui-table-column>
-            <dui-table-column name="Created">
+        <dui-table [items]="items" [selectable]="true" [(selected)]="selectedItems">
+            <dui-table-column name="title" header="Title"></dui-table-column>
+            <dui-table-column name="i"></dui-table-column>
+            <dui-table-column name="created" header="Created">
                 <ng-container *duiTableCell="let row">
                     {{row.created|date:'mediumTime'}}
                 </ng-container>
             </dui-table-column>
         </dui-table>
-        <dui-button-group padding="none" style="margin-top: -1px;">
-            <dui-button [disabled]="true" (click)="removeItem()" square icon="remove"></dui-button>
+        <dui-button-group padding="none" style="margin-top: 10px;">
+            <dui-button
+                [disabled]="disabledAll || !selectedItems.length" (click)="removeItem()" square icon="remove"></dui-button>
+
             <dui-button [disabled]="disabledAll" (click)="addItem()" square icon="add"></dui-button>
             <!--<dui-input [disabled]="disabledAll" [(model)]="itemName" placeholder="Item name" clearer></dui-input>-->
         </dui-button-group>

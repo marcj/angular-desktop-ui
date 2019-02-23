@@ -1,4 +1,5 @@
 @import "../../scss/variables";
+@import "../../scss/mixins";
 
 :host {
     display: inline-block;
@@ -15,9 +16,7 @@
     //box-shadow: 0 0.5px 0 0.5px rgba(0, 0, 0, 0.05);
 
     &.focused {
-        outline: 0;
-        border-color: $focusOutlineColor;
-        box-shadow: 3px 3px 0 $focusOutlineColor, -3px -3px 0 $focusOutlineColor, -3px 3px 0 $focusOutlineColor, 3px -3px 0 $focusOutlineColor;
+        @include focus-border;
     }
 
     &.round {
@@ -77,12 +76,12 @@ dui-icon {
 }
 
 .icon {
-    left: 7px;
+    left: 5px;
 }
 
 :host.has-icon {
     .input-wrapper {
-        margin-left: 23px;
+        margin-left: 18px;
     }
 }
 
@@ -106,8 +105,7 @@ dui-icon {
     border-right: 1px solid #3f484f;
 
     &.focused {
-        border-color: $focusOutlineColorDark;
-        box-shadow: 3px 3px 0 $focusOutlineColorDark, -3px -3px 0 $focusOutlineColorDark, -3px 3px 0 $focusOutlineColorDark, 3px -3px 0 $focusOutlineColorDark;
+        @include focus-border-dark;
     }
 
     input {

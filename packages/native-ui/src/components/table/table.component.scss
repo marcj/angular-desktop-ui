@@ -1,37 +1,66 @@
+@import "../../scss/mixins";
+
 :host {
     display: block;
     border: 1px solid #c5c5c5;
     background-color: white;
+    overflow: auto;
 }
 
 table {
     width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
 
     th {
-
+        position: relative;
         background-color: #f0f0f0;
         padding: 3px 6px;
-        line-height: 16px;
+        line-height: 17px;
         text-align: left;
         color: #303030;
         font-size: 11px;
         border-bottom: 1px solid #cecece;
+        //transition: left 0.3s ease-in-out;
 
         dui-icon {
             float: right;
             margin-top: 2px;
             margin-right: 2px;
         }
+
+        dui-splitter {
+            top: 3px;
+            right: 0;
+            bottom: 3px;
+        }
+    }
+
+    th:active {
+        background-color: #e3e3e3;
+        font-weight: 500;
     }
 
     td {
+        position: relative;
         padding: 3px 6px;
         line-height: 16px;
+    }
+
+    tr.selected td {
+        background-color: #dcdcdc;
     }
 }
 
 :host:focus {
-    outline: 0;
+    table tr.selected td {
+        background-color: #0663e1;
+        color: white;
+    }
+}
+
+:host:focus {
+    @include focus-border;
 }
 
 :host-context(.dark) {
@@ -43,5 +72,22 @@ table {
         background-color: #2a363f;
         border-bottom-color: #445059;
     }
+
+    table th:active {
+        background-color: #43505a;
+    }
+
+    &:focus tabel tr.selected td {
+        background-color: #0558d0;
+    }
+
+    &:not(:focus) table tr.selected td {
+        background-color: #444444;
+    }
+
+    &:focus {
+        @include focus-border-dark;
+    }
+
 }
 

@@ -219,6 +219,10 @@ export function last<T>(v: { [key: string]: T } | T[]): T | undefined {
     }
 }
 
+export function arrayClear<T>(array: T[]): number {
+    return array.splice(0, array.length).length;
+}
+
 export function arrayRemoveItem<T>(array: T[], item: T): boolean {
     const index = array.indexOf(item);
     if (-1 !== index) {

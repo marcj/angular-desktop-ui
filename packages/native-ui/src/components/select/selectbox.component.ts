@@ -30,7 +30,7 @@ export class OptionDirective {
         <div class="value" *ngIf="isSelected">{{label}}</div>
 
         <div class="knob">
-            <dui-icon [size]="14" name="arrows"></dui-icon>
+            <dui-icon [size]="13" name="arrows"></dui-icon>
         </div>
 
         <select (mousedown)="onMouseDown($event)" [ngModel]="model" (ngModelChange)="setValue($event)">

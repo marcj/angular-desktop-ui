@@ -6,17 +6,22 @@ import {
     ContentChild,
     ContentChildren,
     Directive,
-    EventEmitter, Host,
-    HostBinding, HostListener,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
     Input,
-    OnChanges, OnDestroy, Optional,
+    OnChanges,
+    OnDestroy,
     Output,
     QueryList,
     SimpleChanges,
-    TemplateRef, ViewChild,
+    TemplateRef,
+    ViewChild,
+    ViewChildren,
 } from '@angular/core';
-import {Subscription} from "rxjs";
-import {first, indexOf, isNumber, Subscriptions, empty, arrayHasItem, arrayRemoveItem} from "../../stdlib";
+import {arrayClear, arrayHasItem, arrayRemoveItem, eachPair, empty, first, indexOf, isNumber} from "../../stdlib";
+import * as Hammer from "hammerjs";
 
 export interface Column<T> {
     id: string;
@@ -40,6 +45,10 @@ export class DuiTableColumnDirective {
     @Input('header') header?: string;
     @Input('width') width?: number | string;
     @Input('class') class: string = '';
+    @Input('position') position?: number;
+
+    //todo, write/read from localStorage
+    ovewrittenPosition?: number;
 
     @ContentChild(SimpleTableCellDirective) cell?: SimpleTableCellDirective;
 
@@ -51,6 +60,14 @@ export class DuiTableColumnDirective {
         }
 
         return this.width;
+    }
+
+    public getPosition() {
+        if (this.ovewrittenPosition !== undefined) {
+            return this.ovewrittenPosition
+        }
+
+        return this.position;
     }
 }
 
@@ -73,11 +90,12 @@ export class DuiTableHeaderDirective implements AfterViewInit {
     selector: 'dui-table',
     template: `
         <table>
-            <thead>
+            <thead *ngIf="showHeader" #header>
             <tr>
-                <th *ngFor="let column of columnDefs"
-                    [style.width]="column.getWidth()"
+                <th *ngFor="let column of sortedColumnDefs"
+                    [style.width]="getColumnWidth(column)"
                     (click)="sortBy(column.name)"
+                    #th
                 >
                     <ng-container
                         *ngIf="headerMapDef[column.name]"
@@ -89,26 +107,30 @@ export class DuiTableHeaderDirective implements AfterViewInit {
                         <dui-icon *ngIf="isAsc()" [size]="12" name="arrow_down"></dui-icon>
                         <dui-icon *ngIf="!isAsc()" [size]="12" name="arrow_up"></dui-icon>
                     </ng-container>
+
+                    <dui-splitter [element]="th" indicator position="right"></dui-splitter>
                 </th>
+                <th style="width: auto"></th>
             </tr>
             </thead>
             <tbody>
             <ng-container *ngFor="let row of sorted; trackBy: trackByFn">
                 <tr
-                    [ngClass]="{'selected dark': selectedMap.has(row)}"
+                    [class.selected]="selectedMap.has(row)"
                     (click)="select(row, $event)"
                     (dblclick)="dbclick.emit(row)"
                 >
-                    <td *ngFor="let column of columnDefs"
+                    <td *ngFor="let column of sortedColumnDefs"
                         [class]="column.class">
                         <ng-container *ngIf="column.cell">
-                            <ng-container [ngTemplateOutlet]="column.cell.template"
+                            <ng-container [ngTemplateOutlet]="column.cell!.template"
                                           [ngTemplateOutletContext]="{ $implicit: row }"></ng-container>
                         </ng-container>
                         <ng-container *ngIf="!column.cell">
                             {{ row[column.name] }}
                         </ng-container>
                     </td>
+                    <td></td>
                 </tr>
             </ng-container>
             </tbody>
@@ -121,6 +143,8 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
     @HostBinding() tabindex = 0;
 
     @Input() public items!: T[];
+
+    @Input() public showHeader: boolean = true;
 
     @Input() public defaultSort: string = '';
     @Input() public defaultSortDirection: 'asc' | 'desc' = 'asc';
@@ -145,23 +169,34 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
     @Output() public selectedChange: EventEmitter<T[]> = new EventEmitter();
     @Output() public dbclick: EventEmitter<T> = new EventEmitter();
 
+    @ViewChild('header') header?: ElementRef;
+    @ViewChildren('th') ths?: QueryList<ElementRef>;
+
     @ContentChildren(DuiTableColumnDirective) columnDefs?: QueryList<DuiTableColumnDirective>;
     @ContentChildren(DuiTableHeaderDirective) headerDefs?: QueryList<DuiTableHeaderDirective>;
+
+    sortedColumnMap = new Map<HTMLElement, DuiTableColumnDirective>();
+    sortedColumnDefs: DuiTableColumnDirective[] = [];
+
     headerMapDef: { [name: string]: DuiTableHeaderDirective } = {};
 
     public displayedColumns?: string[] = [];
 
-    private directiveSubscriptions = new Subscriptions;
+    // private directiveSubscriptions = new Subscriptions;
 
-    private dataSubscriptions = new Subscriptions;
+    // private dataSubscriptions = new Subscriptions;
 
-    private itemsSubscription?: Subscription;
+    // private itemsSubscription?: Subscription;
 
     constructor(private cd: ChangeDetectorRef) {
     }
 
-    onScroll() {
-        console.log('onScroll');
+    public getColumnWidth(column: DuiTableColumnDirective): string {
+        if (this.columnDefs!.length === 1) {
+            return '100%';
+        }
+
+        return column.getWidth()!;
     }
 
     ngOnDestroy(): void {
@@ -200,20 +235,6 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
             this.currentSortDirection = this.defaultSortDirection;
         }
 
-        // if (this.currentSort !== name) {
-        //     this.currentSort = this.defaultSort;
-        //     this.currentSortDirection = this.defaultSortDirection;
-        // } else {
-        //     if (this.currentSortDirection === '') {
-        //         this.currentSortDirection = this.defaultSortDirection;
-        //     }
-        //     if (this.currentSortDirection === 'asc') {
-        //         this.currentSortDirection = 'desc';
-        //     } else {
-        //         this.currentSortDirection = 'asc';
-        //     }
-        // }
-
         this.currentSort = name;
         this.doSort();
     }
@@ -222,8 +243,111 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
         return this.trackFn ? this.trackFn(index, item) : index;
     }
 
-    ngAfterViewInit() {
-        console.log('columnDefs', this.columnDefs);
+
+    protected initHeaderMovement() {
+        console.log('InitHeaderMovement', this.header, this.ths);
+        if (this.header && this.ths) {
+            const mc = new Hammer(this.header.nativeElement);
+            mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
+
+            interface Box {
+                left: number;
+                width: number;
+                element: HTMLElement;
+            }
+
+            const THsBoxes: Box[] = [];
+
+            let element: HTMLElement | undefined;
+            let originalPosition = -1;
+            let newPosition = -1;
+            const columnDirectives = this.columnDefs!.toArray();
+
+            mc.on('panstart', (event: HammerInput) => {
+                if (this.ths && event.target.tagName.toLowerCase() === 'th') {
+                    element = event.target as HTMLElement;
+                    element.style.zIndex = '1000000';
+
+                    arrayClear(THsBoxes);
+
+                    for (const th of this.ths.toArray()) {
+                        if (th.nativeElement === element) {
+                            originalPosition = THsBoxes.length;
+                            newPosition = THsBoxes.length;
+                        }
+                        THsBoxes.push({
+                            left: th.nativeElement.offsetLeft,
+                            width: th.nativeElement.offsetWidth,
+                            element: th.nativeElement
+                        })
+                    }
+
+                    console.log('THsBoxes', THsBoxes);
+                }
+            });
+
+            mc.on('panend', (event: HammerInput) => {
+                if (element) {
+                    element.style.left = 'auto';
+                    element.style.zIndex = 'auto';
+                    console.log('new position', originalPosition, newPosition);
+
+                    for (const box of THsBoxes) {
+                        box.element.style.left = 'auto';
+                    }
+
+                    if (originalPosition !== newPosition) {
+                        const directive = columnDirectives[originalPosition];
+                        columnDirectives.splice(originalPosition, 1);
+                        columnDirectives.splice(newPosition, 0, directive);
+
+                        for (let [i, v] of eachPair(columnDirectives)) {
+                            v.ovewrittenPosition = i;
+                        }
+
+                        this.sortColumnDefs();
+
+                        // const position =
+                        // this.columnDefs.toArray()[]
+                        // this.sortColumnDefs();
+                    }
+
+                    element = undefined;
+                }
+            });
+
+            mc.on('pan', (event: HammerInput) => {
+                if (element) {
+                    element.style.left = (event.deltaX) + 'px';
+                    let afterElement = false;
+
+                    for (const [i, box] of eachPair(THsBoxes)) {
+                        if (box.element === element) {
+                            afterElement = true;
+                            continue;
+                        }
+
+                        box.element.style.left = 'auto';
+                        if (!afterElement && box.left + (box.width / 2) > element.offsetLeft) {
+                            box.element.style.left = element.offsetWidth + 'px';
+                            if (i < newPosition) {
+                                newPosition = i;
+                            }
+                        }
+
+                        if (afterElement && box.left + (box.width / 2) < element.offsetLeft + element.offsetWidth) {
+                            box.element.style.left = -element.offsetWidth + 'px';
+                            newPosition = i;
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    ngAfterViewInit(): void {
+        this.initHeaderMovement();
+
         if (this.columnDefs) {
             if (this.headerDefs) {
                 for (const header of this.headerDefs.toArray()) {
@@ -231,6 +355,31 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
                 }
             }
             this.updateDisplayColumns();
+            this.sortColumnDefs();
+        }
+    }
+
+    protected sortColumnDefs() {
+        if (this.columnDefs) {
+            this.sortedColumnDefs = this.columnDefs.toArray();
+            this.sortedColumnDefs = this.sortedColumnDefs.sort((a: DuiTableColumnDirective, b: DuiTableColumnDirective) => {
+                const aPosition = a.getPosition();
+                const bPosition = b.getPosition();
+
+                if (aPosition !== undefined && bPosition !== undefined) {
+                    if (aPosition > bPosition) return 1;
+                    if (aPosition < bPosition) return -1;
+                } else {
+                    if (bPosition === undefined && aPosition !== undefined) return 1;
+                    if (bPosition !== undefined && aPosition === undefined) return -1;
+                }
+
+                return 0;
+            });
+
+            setTimeout(() => {
+                this.cd.detectChanges();
+            })
         }
     }
 
@@ -254,31 +403,8 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        // console.log('SimpleTableComponent', changes);
-        this.dataSubscriptions.unsubscribe();
-
-        // if (this.items instanceof Collection) {
-        //     this.dataSubscriptions.add = this.items.subscribe((items) => {
-        //         this.sorted = items;
-        //         this.doSort();
-        //     });
-        //
-        //     // this.dataSubscriptions.add = this.items.deepChange.subscribe(() => {
-        //     //     this.doSort();
-        //     // });
-        //
-        //     this.dataSubscriptions.add = this.items.event.subscribe((event) => {
-        //         if (event.type === 'remove') {
-        //             if (this.selectedMap[event.item.id]) {
-        //                 delete this.selectedMap[event.item.id];
-        //                 arrayRemoveItem(this.selected, event.item);
-        //             }
-        //         }
-        //     });
-        // } else {
         this.sorted = this.items;
         this.doSort();
-        // }
 
         if (changes.selected) {
             this.selectedMap.clear();
@@ -321,7 +447,6 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
 
         //apply filter
         this.sorted = this.sorted.filter((v) => this.filterFn(v));
-        console.log('doSort', this.sorted);
 
         this.cd.detectChanges();
     }
@@ -376,11 +501,8 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
                 // }
             }
             this.selectedChange.emit(this.selected);
+            this.cd.markForCheck();
 
-            // const nextJob = this.jobs.all()[index];
-            // this.paginator.pageIndex = this.jobs.getPageOf(nextJob);
-            // this.dataSource.next();
-            // this.select(nextJob);
         }
     }
 
@@ -409,6 +531,7 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
             }
         }
         this.selectedChange.emit(this.selected);
+        this.cd.detectChanges();
 
         // setTimeout(() => {
         //     scrollIntoView(document.getElementById('simple_table_item_' + (item as any)['id']), {
