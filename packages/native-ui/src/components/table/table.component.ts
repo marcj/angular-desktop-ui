@@ -104,8 +104,8 @@ export class DuiTableHeaderDirective implements AfterViewInit {
                     {{column.header || column.name}}
 
                     <ng-container *ngIf="(currentSort || defaultSort) === column.name">
-                        <dui-icon *ngIf="isAsc()" [size]="12" name="arrow_down"></dui-icon>
-                        <dui-icon *ngIf="!isAsc()" [size]="12" name="arrow_up"></dui-icon>
+                        <dui-icon *ngIf="!isAsc()" [size]="12" name="arrow_down"></dui-icon>
+                        <dui-icon *ngIf="isAsc()" [size]="12" name="arrow_up"></dui-icon>
                     </ng-container>
 
                     <dui-splitter [element]="th" indicator position="right"></dui-splitter>

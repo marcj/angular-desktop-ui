@@ -27,10 +27,10 @@ async function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
         center: true,
-        width: 1200,
+        width: 750,
         // backgroundColor: '#66CD00AA',
         // transparent: true,
-        height: 800,
+        height: 700,
         vibrancy: 'appearance-based',
         webPreferences: {
             nodeIntegration: false,
@@ -99,6 +99,12 @@ async function createWindow() {
             document.body.classList.add('${mode}');
         `;
 
+        const vibrancy = mode === 'dark' ? 'ultra-dark' : 'appearance-based';
+
+        win.setVibrancy(vibrancy);
+        console.log('setVibrancy', vibrancy);
+
+        // win.setVibrancy('appearance-based');
         win.webContents.executeJavaScript(code);
     };
 
@@ -115,6 +121,7 @@ async function createWindow() {
         win.webContents.executeJavaScript(`document.body.classList.add('electron')`);
         setOSTheme();
     });
+
     win.on('closed', () => {
         // Dereference the window object, usually you would store window
         // in an array if your app supports multi windows, this is the time

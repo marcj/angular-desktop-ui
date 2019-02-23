@@ -7,8 +7,8 @@
         flex-shrink: 0;
         transition: flex-basis 0.3s ease-in-out;
         overflow: auto;
-        background-color: #dfe6eb;
-        border-right: 1px solid #c7ced3;
+
+        border-right: 1px solid #9da0a5;
     }
 
     .sidebar-container {
@@ -25,6 +25,13 @@
     }
 }
 
+:host.no-vibrancy {
+    .sidebar {
+        border-right: 1px solid #c7ced3;
+        background-color: #dfe6eb;
+    }
+}
+
 
 :host.sidebar-invisible {
     .sidebar {
@@ -33,12 +40,17 @@
 }
 
 :host-context(.dark) {
+    &.no-vibrancy {
+        .sidebar {
+            background-color: #2a3136;
+        }
+    }
+
     .content {
         background-color: #2d373f;
     }
 
     .sidebar {
-        background-color: #2a3136;
         border-right: 1px solid black;
     }
 }

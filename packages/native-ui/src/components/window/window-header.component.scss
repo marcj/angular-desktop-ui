@@ -39,6 +39,8 @@
     right: 0;
     padding: 6px 8px;
     display: flex;
+    white-space: nowrap;
+    word-break: keep-all;
 }
 
 :host.medium {
