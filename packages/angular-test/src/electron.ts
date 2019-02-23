@@ -80,16 +80,21 @@ async function createWindow() {
         }
     });
 
-    win.loadURL('http://localhost:4200');
 
+    win.webContents.openDevTools({mode: 'undocked'});
+
+    // win.loadURL('http://localhost:4200');
     //when building
-    win.loadURL(url.format({
-        pathname: path.join(__dirname, './iconfont-generator/index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
 
-    // win.webContents.openDevTools();
+    function loadIndex() {
+        win.loadURL(url.format({
+            pathname: path.join(__dirname, './iconfont-generator/index.html'),
+            protocol: 'file:',
+            slashes: true
+        }));
+    }
+
+    loadIndex();
 
     const setOSTheme = () => {
         const mode = systemPreferences.isDarkMode() ? 'dark' : 'light';
@@ -102,6 +107,7 @@ async function createWindow() {
         const vibrancy = mode === 'dark' ? 'ultra-dark' : 'appearance-based';
 
         win.setVibrancy(vibrancy);
+        win.hide();
         console.log('setVibrancy', vibrancy);
 
         // win.setVibrancy('appearance-based');
@@ -120,6 +126,10 @@ async function createWindow() {
     win.webContents.on('did-finish-load', () => {
         win.webContents.executeJavaScript(`document.body.classList.add('electron')`);
         setOSTheme();
+    });
+
+    win.webContents.on('did-fail-load', () => {
+        loadIndex();
     });
 
     win.on('closed', () => {
