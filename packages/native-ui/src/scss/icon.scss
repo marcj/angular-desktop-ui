@@ -1,11 +1,10 @@
-@font-face {
-    font-family: 'Desktop UI icon Mono';
-    src:
-        url('/assets/fonts/ui-icons.woff') format('woff'),
-        url('/assets/fonts/ui-icons.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
+// needs to be copied to index.html, otherwise angular will throw compiling error: Can't resolve './assets/fonts/ui-icons.woff'
+// @font-face {
+//    font-family: 'Desktop UI icon Mono';
+//    src: url("./assets/fonts/ui-icons.woff") format('woff'), url("./assets/fonts/ui-icons.ttf") format('ttf');
+//    font-weight: normal;
+//    font-style: normal;
+//}
 
 .ui-icon {
     font-family: 'Desktop UI icon Mono';

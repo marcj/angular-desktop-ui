@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import {app, BrowserWindow, ipcMain, Menu, screen, systemPreferences, Tray} from 'electron';
 import * as path from 'path';
+import * as url from 'url';
 
 let win: BrowserWindow | null;
 
@@ -30,7 +31,7 @@ async function createWindow() {
         width: 750,
         // backgroundColor: '#66CD00AA',
         // transparent: true,
-        height: 700,
+        height: 750,
         vibrancy: 'appearance-based',
         webPreferences: {
             nodeIntegration: false,
@@ -82,14 +83,13 @@ async function createWindow() {
     win.loadURL('http://localhost:4200');
 
     //when building
-    // win.loadURL(url.format({
-    //     pathname: path.join(__dirname, 'app/index.html'),
-    //     protocol: 'file:',
-    //     slashes: true
-    // }));
-    // }
+    win.loadURL(url.format({
+        pathname: path.join(__dirname, './iconfont-generator/index.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
 
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
 
     const setOSTheme = () => {
         const mode = systemPreferences.isDarkMode() ? 'dark' : 'light';
