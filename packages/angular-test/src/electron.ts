@@ -107,7 +107,6 @@ async function createWindow() {
         const vibrancy = mode === 'dark' ? 'ultra-dark' : 'appearance-based';
 
         win.setVibrancy(vibrancy);
-        win.hide();
         console.log('setVibrancy', vibrancy);
 
         // win.setVibrancy('appearance-based');
