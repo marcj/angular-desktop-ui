@@ -1,6 +1,6 @@
 {
   "name": "iconfont-generator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -44,7 +44,7 @@
     "@angular/language-service": "~7.1.0",
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6",
-    "@marcj/angular-desktop-ui": "^0.1.1",
+    "@marcj/angular-desktop-ui": "^0.1.2",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
