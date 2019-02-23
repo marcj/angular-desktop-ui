@@ -17,6 +17,9 @@
     }
 }
 
+:host.padding-none {
+    margin-right: 6px;
+}
 :host.padding-none ::ng-deep dui-button {
     margin-right: -1px;
 

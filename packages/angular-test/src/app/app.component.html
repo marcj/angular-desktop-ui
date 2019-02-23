@@ -17,7 +17,11 @@
                 <dui-button [disabled]="disabledAll" class="textured">Yes</dui-button>
             </dui-button-group>
 
-            <dui-input [disabled]="disabledAll" icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
+            <dui-button-group>
+                <dui-input [disabled]="disabledAll" class="textured" round placeholder="What up?"></dui-input>
+            </dui-button-group>
+
+            <dui-input [disabled]="disabledAll" class="textured" icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
         </dui-window-toolbar>
     </dui-window-header>
 
@@ -54,6 +58,10 @@
                 <dui-input disabled placeholder="Disabled"></dui-input>
             </dui-form-row>
 
+            <dui-form-row label="Textured">
+                <dui-input [disabled]="disabledAll" class="textured" round placeholder="and round"></dui-input>
+            </dui-form-row>
+
             <dui-form-row label="Really?">
                 <dui-checkbox [disabled]="disabledAll">Checkbox A</dui-checkbox>
             </dui-form-row>
@@ -81,6 +89,13 @@
                 <dui-select [disabled]="disabledAll" style="width: 100px;" [(model)]="selectBox1" placeholder="Please choose">
                     <dui-option value="x">Option X</dui-option>
                     <dui-option value="y">Option Y</dui-option>
+                </dui-select>
+            </dui-form-row>
+
+            <dui-form-row label="Textured">
+                <dui-select [disabled]="disabledAll" class="textured" [(model)]="radioValue" placeholder="Please choose">
+                    <dui-option value="a">Option A</dui-option>
+                    <dui-option value="b">Option B</dui-option>
                 </dui-select>
             </dui-form-row>
 

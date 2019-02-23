@@ -112,3 +112,15 @@ dui-icon {
         color: white;
     }
 }
+
+:host.textured {
+    @include box-textured;
+
+    &.focused {
+        @include focus-border;
+    }
+}
+
+:host-context(.dark) {
+    @include box-textured-dark-toolbar;
+}

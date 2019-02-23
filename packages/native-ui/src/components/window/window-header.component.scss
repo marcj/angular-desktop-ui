@@ -55,12 +55,9 @@
 
 :host ::ng-deep {
     dui-input,
+    dui-select,
     dui-button {
         height: 22px !important;
-    }
-
-    dui-input {
-        @include box-textured;
     }
 }
 
