@@ -99,10 +99,11 @@ dui-icon {
 
 :host-context(.dark) {
     color: white;
-    background-image: linear-gradient(-180deg, #343D45 0%, #374148 8%, #384148 100%);
-    border: 1px solid #434b52;
-    border-left: 1px solid #3f484f;
-    border-right: 1px solid #3f484f;
+    background-image: linear-gradient(-180deg, #373F46 5%, #3A4249 6%, #3B434B 12%, #3B434B 100%);
+
+    border: 1px solid #464d53;
+    border-left: 1px solid #414951;
+    border-right: 1px solid #414951;
 
     &.focused {
         @include focus-border-dark;
@@ -121,6 +122,6 @@ dui-icon {
     }
 }
 
-:host-context(.dark) {
+:host-context(.dark).textured {
     @include box-textured-dark-toolbar;
 }
