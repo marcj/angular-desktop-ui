@@ -3,13 +3,11 @@
 This is a collection for native desktop like user interface components in Angular 7, 
 especially useful for Electron apps.
 
-It starts with MacOS support. 
- 
-It will support light and dark mode.
+It starts with MacOS support, light and dark mode. 
 
 ## Work in progress
 
-This work is in progress and is always streamed via twitch.tv: https://www.twitch.tv/marc__js
+This work is in progress and is sometimes streamed via twitch.tv: https://www.twitch.tv/marc__js
 
 
 ## Screens
