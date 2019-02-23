@@ -7,6 +7,10 @@
     margin-right: 6px;
 }
 
+:host ::ng-deep dui-button.active {
+    z-index: 1;
+}
+
 :host.ready {
     transition: padding-left 300ms ease-in-out;
 }
@@ -20,6 +24,7 @@
 :host.padding-none {
     margin-right: 6px;
 }
+
 :host.padding-none ::ng-deep dui-button {
     margin-right: -1px;
 

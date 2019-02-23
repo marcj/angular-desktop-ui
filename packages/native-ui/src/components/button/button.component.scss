@@ -1,11 +1,14 @@
 @import "../../scss/mixins";
 
+$buttonTextColor: #575757;
+
 :host {
     vertical-align: middle;
     position: relative;
     display: inline-block;
     font-family: -apple-system, "SF Pro Text";
     height: 21px;
+    color: $buttonTextColor;
     font-size: 12px;
     line-height: 20px;
     padding: 0 15px;
@@ -35,7 +38,6 @@
 }
 
 :host-context(.light) {
-    &:not(.disabled):not(.square):not(.textured).active,
     &:not(.disabled):not(.square):not(.textured):active {
         color: white;
         background-image: linear-gradient(180deg, #4990fe 0%, #005ee5 100%);
@@ -49,6 +51,7 @@
         }
     }
 }
+
 
 :host.disabled {
     color: #adadad !important;
@@ -97,6 +100,25 @@
     }
 }
 
+:host-context(.light) {
+    &:not(.disabled):not(.square).active {
+        color: white;
+        background-image: linear-gradient(-180deg, #6C6D6D 0%, #646464 100%);
+        border-top: 1px solid #686869;
+        border-bottom: 1px solid #5a5a59;
+        border-left: 1px solid #666666;
+        border-right: 1px solid #666666;
+
+        &:active {
+            background-image: linear-gradient(-180deg, #575857 0%, #505151 100%);
+            border-top: 1px solid #535353;
+            border-bottom: 1px solid #474747;
+            border-left: 1px solid #515151;
+            border-right: 1px solid #515151;
+        }
+    }
+}
+
 :host-context(.dark) {
     color: white;
     background-color: #62696f;
@@ -106,7 +128,6 @@
     border-right: 1px solid #2a3239;
     box-shadow: 0 1px 0 #2c353d;
 
-    &:not(.disabled):not(.square):not(.textured).active,
     &:not(.disabled):not(.square):not(.textured):active {
         background-image: linear-gradient(-180deg, #1d73e7 0%, #217bf4 100%);
         color: white;
@@ -124,6 +145,23 @@
         &:not(.disabled).active,
         &:not(.disabled):active {
             background-image: linear-gradient(-180deg, #62696F 0%, #586066 100%);
+        }
+    }
+
+    &:not(.disabled):not(.square).active {
+        color: $buttonTextColor;
+        background-image: linear-gradient(-180deg, #C6C9CC 0%, #C2C5C8 100%, #C1C4C7 100%);
+        border-top: 1px solid #cfd3d6;
+        border-bottom: 1px solid #c1c4c7;
+        border-left: 1px solid #c3cbd0;
+        border-right: 1px solid #c3cbd0;
+
+        &:active {
+            background-image: linear-gradient(-180deg, #E9ECEF 0%, #E4E8EA 100%);
+            border-top: 1px solid #eff3f6;
+            border-bottom: 1px solid #e4e8ea;
+            border-left: 1px solid #e5edf2;
+            border-right: 1px solid #e5edf2;
         }
     }
 }
