@@ -8,6 +8,9 @@
   "dependencies": {
     "hammerjs": "^2.0.8"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/index.ts",
   "peerDependencies": {
     "@angular/animations": "~7.1.0",
@@ -34,5 +37,6 @@
     "ts-node": "^8.0.2",
     "ttf2woff": "^2.0.1",
     "typescript": "^3.2.1"
-  }
+  },
+  "gitHead": "03f7222f6b45c5d8d8f5f0d5633511c9ae3790fb"
 }
