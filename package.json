@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --coverage",
-    "bootstrap": "lerna bootstrap --no-ci --nohoist \\*"
+    "bootstrap": "lerna bootstrap --no-ci --nohoist \\*",
+    "publish": "lerna publish"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",
