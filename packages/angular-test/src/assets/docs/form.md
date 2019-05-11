@@ -34,8 +34,8 @@ import {DuiFormComponent} from '@marcj/angular-desktop-ui';
     </dui-form-row>
 
     <dui-form-row label="Which one">
-        <dui-radiobox [disabled]="disabledAll" [(model)]="radioValue" value="a">Radio A</dui-radiobox><br/>
-        <dui-radiobox [disabled]="disabledAll" [(model)]="radioValue" value="b">Radio B</dui-radiobox>
+        <dui-radiobox [disabled]="disabledAll" [(ngModel)]="radioValue" value="a">Radio A</dui-radiobox><br/>
+        <dui-radiobox [disabled]="disabledAll" [(ngModel)]="radioValue" value="b">Radio B</dui-radiobox>
         <p>
             Chosen: {{radioValue}}
         </p>
@@ -46,21 +46,21 @@ import {DuiFormComponent} from '@marcj/angular-desktop-ui';
     </dui-form-row>
 
     <dui-form-row label="Another one">
-        <dui-select [disabled]="disabledAll" [(model)]="radioValue" placeholder="Please choose">
+        <dui-select [disabled]="disabledAll" [(ngModel)]="radioValue" placeholder="Please choose">
             <dui-option value="a">Option A</dui-option>
             <dui-option value="b">Option B</dui-option>
         </dui-select>
     </dui-form-row>
 
     <dui-form-row label="Empty">
-        <dui-select [disabled]="disabledAll" style="width: 100px;" [(model)]="selectBox1" placeholder="Please choose">
+        <dui-select [disabled]="disabledAll" style="width: 100px;" [(ngModel)]="selectBox1" placeholder="Please choose">
             <dui-option value="x">Option X</dui-option>
             <dui-option value="y">Option Y</dui-option>
         </dui-select>
     </dui-form-row>
 
     <dui-form-row label="Textured">
-        <dui-select [disabled]="disabledAll" textured [(model)]="radioValue" placeholder="Please choose">
+        <dui-select [disabled]="disabledAll" textured [(ngModel)]="radioValue" placeholder="Please choose">
             <dui-option value="a">Option A</dui-option>
             <dui-option value="b">Option B</dui-option>
         </dui-select>

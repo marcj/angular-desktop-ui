@@ -4,8 +4,18 @@ RUN npm config set unsafe-perm true
 RUN npm i -g lerna npm-local-development
 RUN apk --no-cache add git
 
+ADD package.json /lib/package.json
+ADD lerna.json /lib/lerna.json
+ADD packages/native-ui/package.json /lib/packages/native-ui/package.json
+ADD packages/native-ui/package-lock.json /lib/packages/native-ui/package-lock.json
+
+ADD packages/angular-test/package.json /lib/packages/angular-test/package.json
+ADD packages/angular-test/package-lock.json /lib/packages/angular-test/package-lock.json
+
+RUN cd /lib && npm run bootstrap
+
 ADD . /lib
-RUN cd /lib && npm run bootstrap && npm-local-development --no-watcher
+RUN cd /lib && npm-local-development --no-watcher
 RUN cd /lib/packages/native-ui && npm run docs
 RUN cd /lib/packages/angular-test && npm run build --prod
 
