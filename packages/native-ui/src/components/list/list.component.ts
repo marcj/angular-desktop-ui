@@ -48,10 +48,6 @@ export class ListComponent extends ValueAccessorBase<any> {
         return this.disabled;
     }
 
-    constructor(injector: Injector) {
-        super(injector);
-    }
-
     @HostListener('keydown', ['$event'])
     public async onKeyDown(event: KeyboardEvent) {
         if (event.key === 'ArrowDown') {

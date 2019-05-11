@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 
 import {
-    DuiTableColumnDirective,
-    DuiTableHeaderDirective,
-    SimpleTableCellDirective,
-    SimpleTableComponent
+    TableColumnDirective,
+    TableHeaderDirective,
+    TableCellDirective,
+    TableComponent
 } from "./table.component";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
@@ -17,16 +17,16 @@ import {DuiSplitterModule} from "../splitter";
         DuiSplitterModule,
     ],
     exports: [
-        SimpleTableCellDirective,
-        DuiTableColumnDirective,
-        DuiTableHeaderDirective,
-        SimpleTableComponent,
+        TableCellDirective,
+        TableColumnDirective,
+        TableHeaderDirective,
+        TableComponent,
     ],
     declarations: [
-        SimpleTableCellDirective,
-        DuiTableColumnDirective,
-        DuiTableHeaderDirective,
-        SimpleTableComponent,
+        TableCellDirective,
+        TableColumnDirective,
+        TableHeaderDirective,
+        TableComponent,
     ],
     providers: [],
 })

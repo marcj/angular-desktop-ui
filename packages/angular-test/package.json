@@ -37,6 +37,7 @@
     "npm-local-development": "^0.1.4",
     "rxjs": "~6.3.3",
     "ts-node": "^8.0.2",
+    "showdown": "^1.9.0",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.29"
   },
@@ -52,6 +53,7 @@
     "@types/highlight.js": "^9.12.3",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "@types/showdown": "^1.9.2",
     "babel-loader": "^8.0.4",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",

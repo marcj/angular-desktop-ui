@@ -6,19 +6,25 @@
 </p>
 
 <p>
-    Source: <a target="_blank" href="https://github.com/marcj/angular-desktop-ui">github.com/marcj/angular-desktop-ui</a>.<br/>
+    Source: <a target="_blank" href="https://github.com/marcj/angular-desktop-ui">github.com/marcj/angular-desktop-ui</a><br/>
     License: MIT
 </p>
 
 <p>
-    This is a library offering you desktop UI widgets in Angular 7+. It's mostly targeted at Electron user or hybrid applications. 
+    This is a Typescript library offering you desktop UI widgets in Angular 7+. It's mostly targeted at Electron user or web applications that want to behave and look 
+    like native desktop applications. 
 </p>
 
 <p>
-    It supports vibrancy, dark-mode, and tries to cover for the start MacOS. Windows and GTK will follow.
-</p>
-
-<p>
-The goal is to provide a UI kit that behaves and looks exactly like the UI of desktop operating systems. 
+The goal is to provide a high-performance UI kit that behaves and looks exactly like the UI of desktop operating systems. 
 Thus with less hover states, no text selection, and only with animations/colors that users are already familiar with.
 </p>
+
+<h2>Features</h2>
+
+<ul>
+    <li>Strict typed</li>
+    <li>Zone'less support (You should disable Zone.js to get high-performance GUIs and no bottlenecks)</li>
+    <li>Dark-Mode</li>
+    <li>NG_VALUE_ACCESSOR implementation (Reactive Forms and ngModel based)</li>
+</ul>

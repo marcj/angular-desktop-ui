@@ -1,4 +1,11 @@
-import {Component, HostBinding, HostListener, Injector, Input} from "@angular/core";
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component, DoCheck,
+    HostBinding,
+    HostListener,
+    Injector, SkipSelf
+} from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
@@ -10,15 +17,10 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
         <ng-content></ng-content>
     `,
     styleUrls: ['./checkbox.component.scss'],
-    providers: [ngValueAccessor(CheckboxComponent)]
+    providers: [ngValueAccessor(CheckboxComponent)],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CheckboxComponent extends ValueAccessorBase<any> {
-    @Input() disabled: boolean = false;
-
-    constructor(injector: Injector) {
-        super(injector);
-    }
-
+export class CheckboxComponent extends ValueAccessorBase<any>  {
     @HostBinding('class.disabled')
     get isDisabled() {
         return false !== this.disabled;

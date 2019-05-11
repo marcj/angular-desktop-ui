@@ -1,26 +1,20 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist",
-    "sourceMap": true,
-    "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
-    "importHelpers": true,
     "strict": true,
-    "target": "es6",
+    "target": "es2018",
     "typeRoots": [
       "node_modules/@types"
-    ],
-    "types": [
-      "node"
     ],
     "lib": [
       "es2018",
       "dom"
     ]
-  }
+  },
+  "include": [
+    "./src"
+  ]
 }

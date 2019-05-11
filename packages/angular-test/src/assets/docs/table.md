@@ -40,9 +40,9 @@ return {
         </dui-window-header>
         <dui-window-content>
             <dui-table [items]="items" [selectable]="true" [(selected)]="selectedItems">
-                <dui-table-column name="title" header="Title"></dui-table-column>
-                <dui-table-column name="i"></dui-table-column>
-                <dui-table-column name="created" header="Created">
+                <dui-table-column name="title" header="Title" [width]="150"></dui-table-column>
+                <dui-table-column name="i" [width]="30"></dui-table-column>
+                <dui-table-column name="created" header="Created" width="100%">
                     <ng-container *duiTableCell="let row">
                         {{row.created|date:'mediumTime'}}
                     </ng-container>
@@ -91,6 +91,8 @@ export class MyWindow {
 
 <api-doc module="components/table/table.component" component="TableComponent"></api-doc>
 
-<api-doc module="components/table/table.component" component="TableHeaderComponent"></api-doc>
+<api-doc module="components/table/table.component" component="TableHeaderDirective"></api-doc>
 
-<api-doc module="components/table/table.component" component="TableColumnComponent"></api-doc>
+<api-doc module="components/table/table.component" component="TableColumnDirective"></api-doc>
+
+<api-doc module="components/table/table.component" component="TableCellDirective"></api-doc>

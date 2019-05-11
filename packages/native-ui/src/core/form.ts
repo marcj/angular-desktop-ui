@@ -1,7 +1,15 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
-import {ChangeDetectorRef, forwardRef, InjectFlags, Injector, OnDestroy, Type} from "@angular/core";
-import {Subject} from "rxjs";
-import {Subscriptions} from "@marcj/estdlib-rxjs";
+import {
+    ChangeDetectorRef,
+    forwardRef,
+    Inject,
+    Injectable,
+    Injector,
+    Input,
+    OnDestroy,
+    SkipSelf,
+    Type
+} from "@angular/core";
 
 export function ngValueAccessor<T>(clazz: Type<T>) {
     return {
@@ -11,6 +19,7 @@ export function ngValueAccessor<T>(clazz: Type<T>) {
     };
 }
 
+@Injectable()
 export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     /**
      * @hidden
@@ -20,45 +29,18 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     /**
      * @hidden
      */
-    public readonly changed = new Subject<T | undefined>();
+    public readonly _changedCallback: ((value: T | undefined) => void)[] = [];
 
     /**
      * @hidden
      */
-    public readonly touched = new Subject<void>();
+    public readonly _touchedCallback: (() => void)[] = [];
 
-    /**
-     * @hidden
-     */
     private _ngControl?: NgControl;
-
-    /**
-     * @hidden
-     */
     private _ngControlFetched = false;
 
-    public disabled = false;
+    @Input() disabled: boolean = false;
 
-    /**
-     * @hidden
-     */
-    protected readonly subs = new Subscriptions();
-
-    /**
-     * @hidden
-     */
-    protected cd: ChangeDetectorRef;
-
-    constructor(protected injector: Injector) {
-        if (!injector) {
-            throw new Error('injector undefined');
-        }
-        this.cd = injector.get(ChangeDetectorRef as Type<ChangeDetectorRef>, undefined, InjectFlags.SkipSelf);
-    }
-
-    /**
-     * @hidden
-     */
     get ngControl(): NgControl | undefined {
         if (!this._ngControlFetched) {
             try {
@@ -69,6 +51,13 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         }
 
         return this._ngControl;
+    }
+
+    constructor(
+        @Inject(Injector) protected injector: Injector,
+        @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef,
+        @Inject(ChangeDetectorRef) @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
     }
 
     /**
@@ -82,7 +71,6 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
      * @hidden
      */
     ngOnDestroy(): void {
-        this.subs.unsubscribe();
     }
 
     /**
@@ -93,62 +81,69 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     }
 
     /**
-     * Sets the internal value with notifying all changed callbacks and onInnerValueChange callback.
-     * Use `_innerValue` for hidden value change.
-     * @param value
+     * Sets the internal value and signals Angular's form and other users (that subscribed via registerOnChange())
+     * that a change happened.
+     *
      * @hidden
      */
     set innerValue(value: T | undefined) {
         if (this._innerValue !== value) {
             this._innerValue = value;
-            this.changed.next(value);
-            this.onInnerValueChange();
-            this.cd.detectChanges();
+            for (const callback of this._changedCallback) {
+                callback(value);
+            }
+            this.onInnerValueChange().then(() => {
+                this.cd.markForCheck();
+                this.cdParent.detectChanges();
+            });
+        }
+        this.cd.markForCheck();
+        this.cdParent.detectChanges();
+    }
+
+    /**
+     * Internal note: This method is called from outside. Either from Angular's form or other users.
+     *
+     * @hidden
+     */
+    async writeValue(value?: T) {
+        this._innerValue = value;
+        await this.onInnerValueChange();
+
+        this.cd.markForCheck();
+        this.cdParent.detectChanges();
+    }
+
+    /**
+     * This method can be overwritten to get easily notified when writeValue() has been called.
+     *
+     * @hidden
+     */
+    protected async onInnerValueChange() {
+
+    }
+
+    /**
+     * Call this method to signal Angular's form or other users that this widget has been touched.
+     * @hidden
+     */
+    touch() {
+        for (const callback of this._touchedCallback) {
+            callback();
         }
     }
 
     /**
      * @hidden
      */
-    protected onInnerValueChange() {
-
-    }
-
-    /**
-     * @hidden
-     */
-    touch() {
-        this.touched.next();
-    }
-
-    /**
-     * @hidden
-     */
-    onTouched() {
-        this.touched.next();
-    }
-
-    /**
-     * @hidden
-     */
-    writeValue(value?: T) {
-        this._innerValue = value;
-        this.changed.next(value);
-        this.onInnerValueChange();
-        this.cd.detectChanges();
-    }
-
-    /**
-     * @hidden
-     */
     registerOnChange(fn: (value: T | undefined) => void) {
-        this.subs.add = this.changed.subscribe(fn);
+        this._changedCallback.push(fn);
     }
 
     /**
      * @hidden
      */
     registerOnTouched(fn: () => void) {
-        this.subs.add = this.touched.subscribe(fn);
+        this._touchedCallback.push(fn);
     }
 }

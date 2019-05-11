@@ -29,28 +29,64 @@ export interface Column<T> {
     cell?: (row: T) => string;
 }
 
+/**
+ * Necessary directive to get information about the row item T in dui-table-column.
+ *
+ * ```html
+ * <dui-table-column>
+ *     <ng-container *duiTableCell="let item">
+ *          {{item.fieldName | date}}
+ *     </ng-container>
+ * </dui-table-column>
+ * ```
+ */
 @Directive({
     selector: '[duiTableCell]',
 })
-export class SimpleTableCellDirective {
+export class TableCellDirective {
     constructor(public template: TemplateRef<any>) {
     }
 }
 
+/**
+ * Defines a new column.
+ */
 @Directive({
     selector: 'dui-table-column'
 })
-export class DuiTableColumnDirective {
+export class TableColumnDirective {
+    /**
+     * The name of the field of T.
+     */
     @Input('name') name?: string;
+
+    /**
+     * A different header name. Use dui-table-header to render HTML there.
+     */
     @Input('header') header?: string;
+
+    /**
+     * Default width.
+     */
     @Input('width') width?: number | string;
+
+    /**
+     * Adds additional class to the columns cells.
+     */
     @Input('class') class: string = '';
+
+    /**
+     * At which position this column will be placed.
+     */
     @Input('position') position?: number;
 
     //todo, write/read from localStorage
+    /**
+     * @hidden
+     */
     ovewrittenPosition?: number;
 
-    @ContentChild(SimpleTableCellDirective) cell?: SimpleTableCellDirective;
+    @ContentChild(TableCellDirective) cell?: TableCellDirective;
 
     getWidth(): string | undefined {
         if (!this.width) return undefined;
@@ -71,19 +107,28 @@ export class DuiTableColumnDirective {
     }
 }
 
+/**
+ * Used to render a different column header.
+ *
+ * ```html
+ * <dui-table>
+ *     <dui-table-header name="fieldName" [sortable]="false">Different Header</dui-table-header>
+ * </dui-table
+ * ```
+ */
 @Component({
     selector: 'dui-table-header',
     template: '<ng-template #templateRef><ng-content></ng-content></ng-template>'
 
 })
-export class DuiTableHeaderDirective implements AfterViewInit {
+export class TableHeaderDirective {
+    /**
+     * The name of the field of T.
+     */
     @Input('name') name!: string;
     @Input('sortable') sortable: boolean = true;
 
     @ViewChild('templateRef') template!: TemplateRef<any>;
-
-    ngAfterViewInit(): void {
-    }
 }
 
 @Component({
@@ -101,7 +146,10 @@ export class DuiTableHeaderDirective implements AfterViewInit {
                         *ngIf="headerMapDef[column.name]"
                         [ngTemplateOutlet]="headerMapDef[column.name].template"
                         [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
-                    {{column.header || column.name}}
+
+                    <ng-container *ngIf="!headerMapDef[column.name]">
+                        {{column.header || column.name}}
+                    </ng-container>
 
                     <ng-container *ngIf="(currentSort || defaultSort) === column.name">
                         <dui-icon *ngIf="!isAsc()" [size]="12" name="arrow_down"></dui-icon>
@@ -139,46 +187,105 @@ export class DuiTableHeaderDirective implements AfterViewInit {
     styleUrls: ['./table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
+export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
+    /**
+     * @hidden
+     */
     @HostBinding() tabindex = 0;
 
+    /**
+     * Array of items that should be used for each row.
+     */
     @Input() public items!: T[];
 
+    /**
+     * Whether the header should be shown.
+     */
     @Input() public showHeader: boolean = true;
 
+    /**
+     * Default field of T for sorting.
+     */
     @Input() public defaultSort: string = '';
+
+    /**
+     * Default sorting order.
+     */
     @Input() public defaultSortDirection: 'asc' | 'desc' = 'asc';
+
+    /**
+     * Whether rows are selectable.
+     */
     @Input() public selectable: boolean = false;
+
+    /**
+     * Whether multiple rows are selectable at the same time.
+     */
     @Input() public multiSelect: boolean = false;
+
+    /**
+     * TrackFn for ngFor to improve performance. Default is order by index.
+     */
     @Input() public trackFn?: (index: number, item: T) => any;
 
+    /**
+     * Not used yet.
+     */
     @Input() public displayInitial: number = 20;
+
+    /**
+     * Not used yet.
+     */
     @Input() public increaseBy: number = 10;
+
+    /**
+     * Filter function.
+     */
     @Input() public filter?: (item: T) => boolean;
+
+    /**
+     * Filter query.
+     */
     @Input() public filterQuery?: string;
+
+    /**
+     * Against which fields filterQuery should run.
+     */
     @Input() public filterFields?: string[];
 
     public currentSort: string = '';
+
     public currentSortDirection: 'asc' | 'desc' | '' = '';
 
     public sorted: T[] = [];
 
     public selectedMap = new Map<T, boolean>();
 
+    /**
+     * Elements that are selected, by reference.
+     */
     @Input() public selected: T[] = [];
+
+    /**
+     * Elements that are selected, by reference.
+     */
     @Output() public selectedChange: EventEmitter<T[]> = new EventEmitter();
+
+    /**
+     * When a row gets double clicked.
+     */
     @Output() public dbclick: EventEmitter<T> = new EventEmitter();
 
     @ViewChild('header') header?: ElementRef;
     @ViewChildren('th') ths?: QueryList<ElementRef>;
 
-    @ContentChildren(DuiTableColumnDirective) columnDefs?: QueryList<DuiTableColumnDirective>;
-    @ContentChildren(DuiTableHeaderDirective) headerDefs?: QueryList<DuiTableHeaderDirective>;
+    @ContentChildren(TableColumnDirective) columnDefs?: QueryList<TableColumnDirective>;
+    @ContentChildren(TableHeaderDirective) headerDefs?: QueryList<TableHeaderDirective>;
 
-    sortedColumnMap = new Map<HTMLElement, DuiTableColumnDirective>();
-    sortedColumnDefs: DuiTableColumnDirective[] = [];
+    sortedColumnMap = new Map<HTMLElement, TableColumnDirective>();
+    sortedColumnDefs: TableColumnDirective[] = [];
 
-    headerMapDef: { [name: string]: DuiTableHeaderDirective } = {};
+    headerMapDef: { [name: string]: TableHeaderDirective } = {};
 
     public displayedColumns?: string[] = [];
 
@@ -191,7 +298,7 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
     constructor(private cd: ChangeDetectorRef) {
     }
 
-    public getColumnWidth(column: DuiTableColumnDirective): string {
+    public getColumnWidth(column: TableColumnDirective): string {
         if (this.columnDefs!.length === 1) {
             return '100%';
         }
@@ -362,7 +469,7 @@ export class SimpleTableComponent<T> implements AfterViewInit, OnChanges, OnDest
     protected sortColumnDefs() {
         if (this.columnDefs) {
             this.sortedColumnDefs = this.columnDefs.toArray();
-            this.sortedColumnDefs = this.sortedColumnDefs.sort((a: DuiTableColumnDirective, b: DuiTableColumnDirective) => {
+            this.sortedColumnDefs = this.sortedColumnDefs.sort((a: TableColumnDirective, b: TableColumnDirective) => {
                 const aPosition = a.getPosition();
                 const bPosition = b.getPosition();
 

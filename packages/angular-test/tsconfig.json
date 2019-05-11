@@ -6,12 +6,13 @@
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",
+    "strict": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],

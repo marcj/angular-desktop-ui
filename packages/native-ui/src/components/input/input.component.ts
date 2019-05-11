@@ -1,4 +1,4 @@
-import {Component, HostBinding, Injector, Input} from "@angular/core";
+import {ChangeDetectorRef, Component, HostBinding, Injector, Input} from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
@@ -22,10 +22,6 @@ export class InputComponent extends ValueAccessorBase<any> {
     @Input() icon: string = '';
 
     @Input() disabled: boolean = false;
-
-    constructor(injector: Injector) {
-        super(injector);
-    }
 
     @HostBinding('class.disabled')
     get isDisabled() {

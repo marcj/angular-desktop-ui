@@ -1,4 +1,5 @@
-import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input, Output} from "@angular/core";
+import {Component, HostBinding, HostListener, Input} from "@angular/core";
+import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
     selector: 'dui-radiobox',
@@ -6,15 +7,14 @@ import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, I
         <span class="box"><div class="circle"></div></span>
         <ng-content></ng-content>
     `,
-    styleUrls: ['./radiobox.component.scss']
+    styleUrls: ['./radiobox.component.scss'],
+    providers: [ngValueAccessor(RadioboxComponent)]
 })
-export class RadioboxComponent<T> {
-    @Input() model?: T;
-    @Output() modelChange = new EventEmitter<T>();
-
+export class RadioboxComponent<T> extends ValueAccessorBase<T> {
     @Input() value?: T;
 
     @Input() disabled: boolean = false;
+
     @HostBinding('class.disabled')
     get isDisabled() {
         return false !== this.disabled;
@@ -27,13 +27,13 @@ export class RadioboxComponent<T> {
 
     @HostBinding('class.checked')
     get isChecked() {
-        return this.value === this.model;
+        return this.value === this.innerValue;
     }
 
     @HostListener('click')
     public onClick() {
         if (this.isDisabled) return;
-        this.model = this.value;
-        this.modelChange.emit(this.model);
+
+        this.innerValue = this.value;
     }
 }

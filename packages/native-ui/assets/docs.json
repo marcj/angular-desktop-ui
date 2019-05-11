@@ -1020,7 +1020,7 @@
 			]
 		},
 		{
-			"id": 142,
+			"id": 147,
 			"name": "\"components/checkbox/checkbox.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -1030,7 +1030,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/checkbox/checkbox.component.ts",
 			"children": [
 				{
-					"id": 143,
+					"id": 148,
 					"name": "CheckboxComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -1045,13 +1045,13 @@
 								"name": "Component"
 							},
 							"arguments": {
-								"obj": "{\n    selector: 'dui-checkbox',\n    template: `\n        <span class=\"box\">\n            <dui-icon [size]=\"8\" name=\"check\"></dui-icon>\n        </span>\n        <ng-content></ng-content>\n    `,\n    styleUrls: ['./checkbox.component.scss'],\n    providers: [ngValueAccessor(CheckboxComponent)]\n}"
+								"obj": "{\n    selector: 'dui-checkbox',\n    template: `\n        <span class=\"box\">\n            <dui-icon [size]=\"8\" name=\"check\"></dui-icon>\n        </span>\n        <ng-content></ng-content>\n    `,\n    styleUrls: ['./checkbox.component.scss'],\n    providers: [ngValueAccessor(CheckboxComponent)],\n    changeDetection: ChangeDetectionStrategy.OnPush,\n}"
 							}
 						}
 					],
 					"children": [
 						{
-							"id": 145,
+							"id": 167,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -1060,51 +1060,203 @@
 							},
 							"signatures": [
 								{
-									"id": 146,
+									"id": 171,
 									"name": "new CheckboxComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 147,
+											"id": 172,
 											"name": "injector",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "Injector"
+													}
+												}
+											],
 											"type": {
 												"type": "reference",
 												"name": "Injector"
+											}
+										},
+										{
+											"id": 173,
+											"name": "cd",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
+											}
+										},
+										{
+											"id": 174,
+											"name": "cdParent",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												},
+												{
+													"name": "SkipSelf",
+													"type": {
+														"type": "reference",
+														"name": "SkipSelf"
+													},
+													"arguments": {}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
 										"name": "CheckboxComponent",
-										"id": 143
+										"id": 148
 									},
-									"overwrites": {
+									"inheritedFrom": {
 										"type": "reference",
 										"name": "ValueAccessorBase.__constructor",
-										"id": 99
+										"id": 104
 									}
 								}
 							],
 							"sources": [
 								{
-									"fileName": "components/checkbox/checkbox.component.ts",
-									"line": 16,
-									"character": 39
+									"fileName": "core/form.ts",
+									"line": 54,
+									"character": 5
 								}
 							],
-							"overwrites": {
+							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.__constructor",
-								"id": 99
+								"id": 104
 							}
 						},
 						{
-							"id": 144,
+							"id": 169,
+							"name": "cd",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 58,
+									"character": 47
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cd",
+								"id": 106
+							}
+						},
+						{
+							"id": 170,
+							"name": "cdParent",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								},
+								{
+									"name": "SkipSelf",
+									"type": {
+										"type": "reference",
+										"name": "SkipSelf"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 59,
+									"character": 65
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cdParent",
+								"id": 107
+							}
+						},
+						{
+							"id": 164,
 							"name": "disabled",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1123,8 +1275,8 @@
 							],
 							"sources": [
 								{
-									"fileName": "components/checkbox/checkbox.component.ts",
-									"line": 16,
+									"fileName": "core/form.ts",
+									"line": 42,
 									"character": 21
 								}
 							],
@@ -1133,14 +1285,14 @@
 								"name": "boolean"
 							},
 							"defaultValue": "false",
-							"overwrites": {
+							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.disabled",
-								"id": 96
+								"id": 101
 							}
 						},
 						{
-							"id": 160,
+							"id": 168,
 							"name": "injector",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1149,11 +1301,23 @@
 								"isExported": true,
 								"isConstructorProperty": true
 							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "Injector"
+									}
+								}
+							],
 							"sources": [
 								{
 									"fileName": "core/form.ts",
-									"line": 52,
-									"character": 34
+									"line": 57,
+									"character": 44
 								}
 							],
 							"type": {
@@ -1163,11 +1327,11 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.injector",
-								"id": 100
+								"id": 105
 							}
 						},
 						{
-							"id": 152,
+							"id": 153,
 							"name": "isChecked",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -1188,7 +1352,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 153,
+									"id": 154,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -1202,13 +1366,13 @@
 							"sources": [
 								{
 									"fileName": "components/checkbox/checkbox.component.ts",
-									"line": 33,
+									"line": 35,
 									"character": 17
 								}
 							]
 						},
 						{
-							"id": 148,
+							"id": 149,
 							"name": "isDisabled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -1229,7 +1393,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 149,
+									"id": 150,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -1243,13 +1407,61 @@
 							"sources": [
 								{
 									"fileName": "components/checkbox/checkbox.component.ts",
-									"line": 23,
+									"line": 25,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 150,
+							"id": 165,
+							"name": "ngControl",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 166,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"name": "NgControl"
+											},
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.ngControl",
+										"id": 102
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 44,
+									"character": 17
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.ngControl",
+								"id": 102
+							}
+						},
+						{
+							"id": 151,
 							"name": "tabIndex",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -1270,7 +1482,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 151,
+									"id": 152,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -1284,13 +1496,13 @@
 							"sources": [
 								{
 									"fileName": "components/checkbox/checkbox.component.ts",
-									"line": 28,
+									"line": 30,
 									"character": 16
 								}
 							]
 						},
 						{
-							"id": 154,
+							"id": 155,
 							"name": "onClick",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1312,7 +1524,7 @@
 							],
 							"signatures": [
 								{
-									"id": 155,
+									"id": 156,
 									"name": "onClick",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1326,7 +1538,7 @@
 							"sources": [
 								{
 									"fileName": "components/checkbox/checkbox.component.ts",
-									"line": 38,
+									"line": 40,
 									"character": 18
 								}
 							]
@@ -1337,38 +1549,41 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								145
+								167
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								144,
-								160
+								169,
+								170,
+								164,
+								168
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								152,
-								148,
-								150
+								153,
+								149,
+								165,
+								151
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								154
+								155
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/checkbox/checkbox.component.ts",
-							"line": 15,
+							"line": 23,
 							"character": 30
 						}
 					],
@@ -1402,7 +1617,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						143
+						148
 					]
 				}
 			],
@@ -1415,7 +1630,7 @@
 			]
 		},
 		{
-			"id": 192,
+			"id": 202,
 			"name": "\"components/checkbox/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -1425,7 +1640,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/checkbox/index.ts",
 			"children": [
 				{
-					"id": 193,
+					"id": 203,
 					"name": "DuiCheckboxModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -1458,7 +1673,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						193
+						203
 					]
 				}
 			],
@@ -1471,7 +1686,7 @@
 			]
 		},
 		{
-			"id": 194,
+			"id": 204,
 			"name": "\"components/form/form.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -1481,7 +1696,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/form/form.component.ts",
 			"children": [
 				{
-					"id": 197,
+					"id": 207,
 					"name": "FormComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -1509,7 +1724,7 @@
 					]
 				},
 				{
-					"id": 195,
+					"id": 205,
 					"name": "FormRowComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -1530,7 +1745,7 @@
 					],
 					"children": [
 						{
-							"id": 196,
+							"id": 206,
 							"name": "label",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1566,7 +1781,7 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								196
+								206
 							]
 						}
 					],
@@ -1584,8 +1799,8 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						197,
-						195
+						207,
+						205
 					]
 				}
 			],
@@ -1598,7 +1813,7 @@
 			]
 		},
 		{
-			"id": 198,
+			"id": 208,
 			"name": "\"components/form/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -1608,7 +1823,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/form/index.ts",
 			"children": [
 				{
-					"id": 199,
+					"id": 209,
 					"name": "DuiFormComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -1641,7 +1856,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						199
+						209
 					]
 				}
 			],
@@ -1709,7 +1924,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 46,
+									"line": 53,
 									"character": 5
 								}
 							]
@@ -1735,7 +1950,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 36,
+									"line": 43,
 									"character": 22
 								}
 							],
@@ -1766,7 +1981,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 42,
+									"line": 49,
 									"character": 21
 								}
 							],
@@ -1785,6 +2000,9 @@
 								"isExported": true,
 								"isOptional": true
 							},
+							"comment": {
+								"shortText": "The icon for this button. Either a icon name same as for dui-icon, or an image path."
+							},
 							"decorators": [
 								{
 									"name": "Input",
@@ -1798,7 +2016,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 33,
+									"line": 36,
 									"character": 17
 								}
 							],
@@ -1824,6 +2042,9 @@
 							"flags": {
 								"isExported": true
 							},
+							"comment": {
+								"shortText": "Change in the icon size. Should not be necessary usually."
+							},
 							"decorators": [
 								{
 									"name": "Input",
@@ -1837,7 +2058,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 34,
+									"line": 41,
 									"character": 17
 								}
 							],
@@ -1883,7 +2104,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 38,
+									"line": 45,
 									"character": 19
 								}
 							]
@@ -1924,7 +2145,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 44,
+									"line": 51,
 									"character": 18
 								}
 							]
@@ -1953,7 +2174,7 @@
 							"sources": [
 								{
 									"fileName": "components/icon/icon.component.ts",
-									"line": 51,
+									"line": 58,
 									"character": 12
 								}
 							]
@@ -2082,7 +2303,7 @@
 			]
 		},
 		{
-			"id": 263,
+			"id": 278,
 			"name": "\"components/input/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -2092,7 +2313,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/input/index.ts",
 			"children": [
 				{
-					"id": 264,
+					"id": 279,
 					"name": "DuiInputModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -2125,7 +2346,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						264
+						279
 					]
 				}
 			],
@@ -2138,7 +2359,7 @@
 			]
 		},
 		{
-			"id": 200,
+			"id": 210,
 			"name": "\"components/input/input.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -2148,7 +2369,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/input/input.component.ts",
 			"children": [
 				{
-					"id": 201,
+					"id": 211,
 					"name": "InputComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -2169,7 +2390,7 @@
 					],
 					"children": [
 						{
-							"id": 206,
+							"id": 243,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -2178,51 +2399,203 @@
 							},
 							"signatures": [
 								{
-									"id": 207,
+									"id": 247,
 									"name": "new InputComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 208,
+											"id": 248,
 											"name": "injector",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "Injector"
+													}
+												}
+											],
 											"type": {
 												"type": "reference",
 												"name": "Injector"
+											}
+										},
+										{
+											"id": 249,
+											"name": "cd",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
+											}
+										},
+										{
+											"id": 250,
+											"name": "cdParent",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												},
+												{
+													"name": "SkipSelf",
+													"type": {
+														"type": "reference",
+														"name": "SkipSelf"
+													},
+													"arguments": {}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
 										"name": "InputComponent",
-										"id": 201
+										"id": 211
 									},
-									"overwrites": {
+									"inheritedFrom": {
 										"type": "reference",
 										"name": "ValueAccessorBase.__constructor",
-										"id": 99
+										"id": 104
 									}
 								}
 							],
 							"sources": [
 								{
-									"fileName": "components/input/input.component.ts",
-									"line": 24,
-									"character": 39
+									"fileName": "core/form.ts",
+									"line": 54,
+									"character": 5
 								}
 							],
-							"overwrites": {
+							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.__constructor",
-								"id": 99
+								"id": 104
 							}
 						},
 						{
-							"id": 220,
+							"id": 245,
+							"name": "cd",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 58,
+									"character": 47
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cd",
+								"id": 106
+							}
+						},
+						{
+							"id": 246,
+							"name": "cdParent",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								},
+								{
+									"name": "SkipSelf",
+									"type": {
+										"type": "reference",
+										"name": "SkipSelf"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 59,
+									"character": 65
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cdParent",
+								"id": 107
+							}
+						},
+						{
+							"id": 227,
 							"name": "clearer",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2242,7 +2615,7 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 57,
+									"line": 53,
 									"character": 20
 								}
 							],
@@ -2253,7 +2626,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 205,
+							"id": 215,
 							"name": "disabled",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2285,11 +2658,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "ValueAccessorBase.disabled",
-								"id": 96
+								"id": 101
 							}
 						},
 						{
-							"id": 214,
+							"id": 221,
 							"name": "focused",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2311,7 +2684,7 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 43,
+									"line": 39,
 									"character": 11
 								}
 							],
@@ -2322,7 +2695,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 204,
+							"id": 214,
 							"name": "icon",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2353,7 +2726,7 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 231,
+							"id": 244,
 							"name": "injector",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2362,11 +2735,23 @@
 								"isExported": true,
 								"isConstructorProperty": true
 							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "Injector"
+									}
+								}
+							],
 							"sources": [
 								{
 									"fileName": "core/form.ts",
-									"line": 52,
-									"character": 34
+									"line": 57,
+									"character": 44
 								}
 							],
 							"type": {
@@ -2376,11 +2761,11 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.injector",
-								"id": 100
+								"id": 105
 							}
 						},
 						{
-							"id": 203,
+							"id": 213,
 							"name": "placeholder",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2411,7 +2796,7 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 217,
+							"id": 224,
 							"name": "round",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2431,7 +2816,7 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 50,
+									"line": 46,
 									"character": 18
 								}
 							],
@@ -2442,7 +2827,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 211,
+							"id": 218,
 							"name": "textured",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2462,7 +2847,7 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 35,
+									"line": 31,
 									"character": 21
 								}
 							],
@@ -2473,7 +2858,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 202,
+							"id": 212,
 							"name": "type",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2504,7 +2889,7 @@
 							"defaultValue": "\"text\""
 						},
 						{
-							"id": 221,
+							"id": 228,
 							"name": "hasClearer",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2525,7 +2910,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 222,
+									"id": 229,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2539,13 +2924,13 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 60,
+									"line": 56,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 223,
+							"id": 230,
 							"name": "hasIcon",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2566,7 +2951,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 224,
+									"id": 231,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2580,13 +2965,13 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 65,
+									"line": 61,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 209,
+							"id": 216,
 							"name": "isDisabled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2607,7 +2992,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 210,
+									"id": 217,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2621,13 +3006,13 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 31,
+									"line": 27,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 215,
+							"id": 222,
 							"name": "isFilled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2648,7 +3033,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 216,
+									"id": 223,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2662,13 +3047,13 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 46,
+									"line": 42,
 									"character": 16
 								}
 							]
 						},
 						{
-							"id": 218,
+							"id": 225,
 							"name": "isRound",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2689,7 +3074,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 219,
+									"id": 226,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2703,13 +3088,13 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 53,
+									"line": 49,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 212,
+							"id": 219,
 							"name": "isTextured",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2730,7 +3115,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 213,
+									"id": 220,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2744,13 +3129,61 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 38,
+									"line": 34,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 225,
+							"id": 241,
+							"name": "ngControl",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 242,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"name": "NgControl"
+											},
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.ngControl",
+										"id": 102
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 44,
+									"character": 17
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.ngControl",
+								"id": 102
+							}
+						},
+						{
+							"id": 232,
 							"name": "clear",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2760,7 +3193,7 @@
 							},
 							"signatures": [
 								{
-									"id": 226,
+									"id": 233,
 									"name": "clear",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2780,7 +3213,7 @@
 							"sources": [
 								{
 									"fileName": "components/input/input.component.ts",
-									"line": 69,
+									"line": 65,
 									"character": 22
 								}
 							]
@@ -2791,41 +3224,44 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								206
+								243
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								220,
-								205,
+								245,
+								246,
+								227,
+								215,
+								221,
 								214,
-								204,
-								231,
-								203,
-								217,
-								211,
-								202
+								244,
+								213,
+								224,
+								218,
+								212
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								221,
-								223,
-								209,
-								215,
-								218,
-								212
+								228,
+								230,
+								216,
+								222,
+								225,
+								219,
+								241
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								225
+								232
 							]
 						}
 					],
@@ -2866,7 +3302,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						201
+						211
 					]
 				}
 			],
@@ -2879,7 +3315,7 @@
 			]
 		},
 		{
-			"id": 344,
+			"id": 364,
 			"name": "\"components/list/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -2889,7 +3325,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/list/index.ts",
 			"children": [
 				{
-					"id": 345,
+					"id": 365,
 					"name": "DuiListModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -2922,7 +3358,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						345
+						365
 					]
 				}
 			],
@@ -2935,7 +3371,7 @@
 			]
 		},
 		{
-			"id": 265,
+			"id": 280,
 			"name": "\"components/list/list.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -2945,7 +3381,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/list/list.component.ts",
 			"children": [
 				{
-					"id": 269,
+					"id": 284,
 					"name": "ListComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -2966,7 +3402,7 @@
 					],
 					"children": [
 						{
-							"id": 274,
+							"id": 304,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -2975,63 +3411,224 @@
 							},
 							"signatures": [
 								{
-									"id": 275,
+									"id": 308,
 									"name": "new ListComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 276,
+											"id": 309,
 											"name": "injector",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "Injector"
+													}
+												}
+											],
 											"type": {
 												"type": "reference",
 												"name": "Injector"
+											}
+										},
+										{
+											"id": 310,
+											"name": "cd",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
+											}
+										},
+										{
+											"id": 311,
+											"name": "cdParent",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												},
+												{
+													"name": "SkipSelf",
+													"type": {
+														"type": "reference",
+														"name": "SkipSelf"
+													},
+													"arguments": {}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
 										"name": "ListComponent",
-										"id": 269
+										"id": 284
 									},
-									"overwrites": {
+									"inheritedFrom": {
 										"type": "reference",
 										"name": "ValueAccessorBase.__constructor",
-										"id": 99
+										"id": 104
 									}
 								}
 							],
 							"sources": [
 								{
-									"fileName": "components/list/list.component.ts",
-									"line": 49,
+									"fileName": "core/form.ts",
+									"line": 54,
 									"character": 5
 								}
 							],
-							"overwrites": {
+							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.__constructor",
-								"id": 99
+								"id": 104
 							}
 						},
 						{
-							"id": 284,
+							"id": 306,
+							"name": "cd",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 58,
+									"character": 47
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cd",
+								"id": 106
+							}
+						},
+						{
+							"id": 307,
+							"name": "cdParent",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								},
+								{
+									"name": "SkipSelf",
+									"type": {
+										"type": "reference",
+										"name": "SkipSelf"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 59,
+									"character": 65
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cdParent",
+								"id": 107
+							}
+						},
+						{
+							"id": 301,
 							"name": "disabled",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
-								"isPublic": true,
 								"isExported": true
 							},
+							"decorators": [
+								{
+									"name": "Input",
+									"type": {
+										"type": "reference",
+										"name": "Input"
+									},
+									"arguments": {}
+								}
+							],
 							"sources": [
 								{
 									"fileName": "core/form.ts",
-									"line": 40,
-									"character": 19
+									"line": 42,
+									"character": 21
 								}
 							],
 							"type": {
@@ -3042,11 +3639,11 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.disabled",
-								"id": 96
+								"id": 101
 							}
 						},
 						{
-							"id": 287,
+							"id": 305,
 							"name": "injector",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3055,11 +3652,23 @@
 								"isExported": true,
 								"isConstructorProperty": true
 							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "Injector"
+									}
+								}
+							],
 							"sources": [
 								{
 									"fileName": "core/form.ts",
-									"line": 52,
-									"character": 34
+									"line": 57,
+									"character": 44
 								}
 							],
 							"type": {
@@ -3069,11 +3678,11 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ValueAccessorBase.injector",
-								"id": 100
+								"id": 105
 							}
 						},
 						{
-							"id": 271,
+							"id": 286,
 							"name": "list",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3106,13 +3715,13 @@
 									{
 										"type": "reference",
 										"name": "ListItemComponent",
-										"id": 319
+										"id": 339
 									}
 								]
 							}
 						},
 						{
-							"id": 270,
+							"id": 285,
 							"name": "tabIndex",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3145,7 +3754,7 @@
 							"defaultValue": "1"
 						},
 						{
-							"id": 272,
+							"id": 287,
 							"name": "isDisabled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -3166,7 +3775,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 273,
+									"id": 288,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -3186,7 +3795,55 @@
 							]
 						},
 						{
-							"id": 280,
+							"id": 302,
+							"name": "ngControl",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 303,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"name": "NgControl"
+											},
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.ngControl",
+										"id": 102
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 44,
+									"character": 17
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.ngControl",
+								"id": 102
+							}
+						},
+						{
+							"id": 292,
 							"name": "getSelectedItem",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3196,7 +3853,7 @@
 							},
 							"signatures": [
 								{
-									"id": 281,
+									"id": 293,
 									"name": "getSelectedItem",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3207,7 +3864,7 @@
 											{
 												"type": "reference",
 												"name": "ListItemComponent",
-												"id": 319
+												"id": 339
 											},
 											{
 												"type": "intrinsic",
@@ -3220,13 +3877,13 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 80,
+									"line": 76,
 									"character": 26
 								}
 							]
 						},
 						{
-							"id": 277,
+							"id": 289,
 							"name": "onKeyDown",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3249,14 +3906,14 @@
 							],
 							"signatures": [
 								{
-									"id": 278,
+									"id": 290,
 									"name": "onKeyDown",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 279,
+											"id": 291,
 											"name": "event",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3282,7 +3939,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 56,
+									"line": 52,
 									"character": 26
 								}
 							]
@@ -3293,32 +3950,35 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								274
+								304
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								284,
-								287,
-								271,
-								270
+								306,
+								307,
+								301,
+								305,
+								286,
+								285
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								272
+								287,
+								302
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								280,
-								277
+								292,
+								289
 							]
 						}
 					],
@@ -3354,7 +4014,7 @@
 					]
 				},
 				{
-					"id": 319,
+					"id": 339,
 					"name": "ListItemComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -3375,7 +4035,7 @@
 					],
 					"children": [
 						{
-							"id": 323,
+							"id": 343,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -3384,14 +4044,14 @@
 							},
 							"signatures": [
 								{
-									"id": 328,
+									"id": 348,
 									"name": "new ListItemComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 329,
+											"id": 349,
 											"name": "list",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3399,11 +4059,11 @@
 											"type": {
 												"type": "reference",
 												"name": "ListComponent",
-												"id": 269
+												"id": 284
 											}
 										},
 										{
-											"id": 330,
+											"id": 350,
 											"name": "element",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3414,7 +4074,7 @@
 											}
 										},
 										{
-											"id": 331,
+											"id": 351,
 											"name": "router",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3425,7 +4085,7 @@
 											}
 										},
 										{
-											"id": 332,
+											"id": 352,
 											"name": "cd",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3449,20 +4109,20 @@
 									"type": {
 										"type": "reference",
 										"name": "ListItemComponent",
-										"id": 319
+										"id": 339
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 106,
+									"line": 102,
 									"character": 38
 								}
 							]
 						},
 						{
-							"id": 327,
+							"id": 347,
 							"name": "cd",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3484,7 +4144,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 112,
+									"line": 108,
 									"character": 29
 								}
 							],
@@ -3494,7 +4154,7 @@
 							}
 						},
 						{
-							"id": 325,
+							"id": 345,
 							"name": "element",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3506,7 +4166,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 110,
+									"line": 106,
 									"character": 22
 								}
 							],
@@ -3516,7 +4176,7 @@
 							}
 						},
 						{
-							"id": 324,
+							"id": 344,
 							"name": "list",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3528,18 +4188,18 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 109,
+									"line": 105,
 									"character": 19
 								}
 							],
 							"type": {
 								"type": "reference",
 								"name": "ListComponent",
-								"id": 269
+								"id": 284
 							}
 						},
 						{
-							"id": 326,
+							"id": 346,
 							"name": "router",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3551,7 +4211,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 111,
+									"line": 107,
 									"character": 21
 								}
 							],
@@ -3561,7 +4221,7 @@
 							}
 						},
 						{
-							"id": 321,
+							"id": 341,
 							"name": "routerLink",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3582,7 +4242,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 104,
+									"line": 100,
 									"character": 23
 								}
 							],
@@ -3608,7 +4268,7 @@
 							}
 						},
 						{
-							"id": 322,
+							"id": 342,
 							"name": "routerSub",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3619,7 +4279,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 106,
+									"line": 102,
 									"character": 23
 								}
 							],
@@ -3629,7 +4289,7 @@
 							}
 						},
 						{
-							"id": 320,
+							"id": 340,
 							"name": "value",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3649,7 +4309,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 103,
+									"line": 99,
 									"character": 18
 								}
 							],
@@ -3659,7 +4319,7 @@
 							}
 						},
 						{
-							"id": 340,
+							"id": 360,
 							"name": "isSelected",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3669,7 +4329,7 @@
 							},
 							"signatures": [
 								{
-									"id": 341,
+									"id": 361,
 									"name": "isSelected",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3683,13 +4343,13 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 147,
+									"line": 143,
 									"character": 21
 								}
 							]
 						},
 						{
-							"id": 335,
+							"id": 355,
 							"name": "ngOnChanges",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3698,14 +4358,14 @@
 							},
 							"signatures": [
 								{
-									"id": 336,
+									"id": 356,
 									"name": "ngOnChanges",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 337,
+											"id": 357,
 											"name": "changes",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3725,13 +4385,13 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 129,
+									"line": 125,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 333,
+							"id": 353,
 							"name": "ngOnDestroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3740,7 +4400,7 @@
 							},
 							"signatures": [
 								{
-									"id": 334,
+									"id": 354,
 									"name": "ngOnDestroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3754,13 +4414,13 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 125,
+									"line": 121,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 342,
+							"id": 362,
 							"name": "onClick",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3782,7 +4442,7 @@
 							],
 							"signatures": [
 								{
-									"id": 343,
+									"id": 363,
 									"name": "onClick",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3796,13 +4456,13 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 162,
+									"line": 158,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 338,
+							"id": 358,
 							"name": "select",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3812,7 +4472,7 @@
 							},
 							"signatures": [
 								{
-									"id": 339,
+									"id": 359,
 									"name": "select",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3832,7 +4492,7 @@
 							"sources": [
 								{
 									"fileName": "components/list/list.component.ts",
-									"line": 133,
+									"line": 129,
 									"character": 23
 								}
 							]
@@ -3843,38 +4503,38 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								323
+								343
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								327,
-								325,
-								324,
-								326,
-								321,
-								322,
-								320
+								347,
+								345,
+								344,
+								346,
+								341,
+								342,
+								340
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								340,
-								335,
-								333,
-								342,
-								338
+								360,
+								355,
+								353,
+								362,
+								358
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/list/list.component.ts",
-							"line": 102,
+							"line": 98,
 							"character": 30
 						}
 					],
@@ -3890,7 +4550,7 @@
 					]
 				},
 				{
-					"id": 266,
+					"id": 281,
 					"name": "ListTitleComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -3911,7 +4571,7 @@
 					],
 					"children": [
 						{
-							"id": 267,
+							"id": 282,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -3920,7 +4580,7 @@
 							},
 							"signatures": [
 								{
-									"id": 268,
+									"id": 283,
 									"name": "new ListTitleComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
@@ -3928,7 +4588,7 @@
 									"type": {
 										"type": "reference",
 										"name": "ListTitleComponent",
-										"id": 266
+										"id": 281
 									}
 								}
 							],
@@ -3946,7 +4606,7 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								267
+								282
 							]
 						}
 					],
@@ -3964,9 +4624,9 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						269,
-						319,
-						266
+						284,
+						339,
+						281
 					]
 				}
 			],
@@ -3979,7 +4639,7 @@
 			]
 		},
 		{
-			"id": 361,
+			"id": 423,
 			"name": "\"components/radiobox/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -3989,7 +4649,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/radiobox/index.ts",
 			"children": [
 				{
-					"id": 362,
+					"id": 424,
 					"name": "DuiRadioboxModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -4022,7 +4682,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						362
+						424
 					]
 				}
 			],
@@ -4035,7 +4695,7 @@
 			]
 		},
 		{
-			"id": 346,
+			"id": 366,
 			"name": "\"components/radiobox/radiobox.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -4045,7 +4705,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/radiobox/radiobox.component.ts",
 			"children": [
 				{
-					"id": 347,
+					"id": 367,
 					"name": "RadioboxComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -4060,13 +4720,13 @@
 								"name": "Component"
 							},
 							"arguments": {
-								"obj": "{\n    selector: 'dui-radiobox',\n    template: `\n        <span class=\"box\"><div class=\"circle\"></div></span>\n        <ng-content></ng-content>\n    `,\n    styleUrls: ['./radiobox.component.scss']\n}"
+								"obj": "{\n    selector: 'dui-radiobox',\n    template: `\n        <span class=\"box\"><div class=\"circle\"></div></span>\n        <ng-content></ng-content>\n    `,\n    styleUrls: ['./radiobox.component.scss'],\n    providers: [ngValueAccessor(RadioboxComponent)]\n}"
 							}
 						}
 					],
 					"typeParameter": [
 						{
-							"id": 348,
+							"id": 368,
 							"name": "T",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -4075,7 +4735,212 @@
 					],
 					"children": [
 						{
-							"id": 352,
+							"id": 388,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 392,
+									"name": "new RadioboxComponent",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 393,
+											"name": "injector",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "Injector"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Injector"
+											}
+										},
+										{
+											"id": 394,
+											"name": "cd",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
+											}
+										},
+										{
+											"id": 395,
+											"name": "cdParent",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												},
+												{
+													"name": "SkipSelf",
+													"type": {
+														"type": "reference",
+														"name": "SkipSelf"
+													},
+													"arguments": {}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "RadioboxComponent",
+										"id": 367
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.__constructor",
+										"id": 104
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 54,
+									"character": 5
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.__constructor",
+								"id": 104
+							}
+						},
+						{
+							"id": 390,
+							"name": "cd",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 58,
+									"character": 47
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cd",
+								"id": 106
+							}
+						},
+						{
+							"id": 391,
+							"name": "cdParent",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								},
+								{
+									"name": "SkipSelf",
+									"type": {
+										"type": "reference",
+										"name": "SkipSelf"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 59,
+									"character": 65
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cdParent",
+								"id": 107
+							}
+						},
+						{
+							"id": 370,
 							"name": "disabled",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4095,7 +4960,7 @@
 							"sources": [
 								{
 									"fileName": "components/radiobox/radiobox.component.ts",
-									"line": 17,
+									"line": 16,
 									"character": 21
 								}
 							],
@@ -4103,79 +4968,54 @@
 								"type": "intrinsic",
 								"name": "boolean"
 							},
-							"defaultValue": "false"
-						},
-						{
-							"id": 349,
-							"name": "model",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true,
-								"isOptional": true
-							},
-							"decorators": [
-								{
-									"name": "Input",
-									"type": {
-										"type": "reference",
-										"name": "Input"
-									},
-									"arguments": {}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/radiobox/radiobox.component.ts",
-									"line": 12,
-									"character": 18
-								}
-							],
-							"type": {
+							"defaultValue": "false",
+							"overwrites": {
 								"type": "reference",
-								"name": "T",
-								"id": 348
+								"name": "ValueAccessorBase.disabled",
+								"id": 101
 							}
 						},
 						{
-							"id": 350,
-							"name": "modelChange",
+							"id": 389,
+							"name": "injector",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
-								"isExported": true
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
 							},
 							"decorators": [
 								{
-									"name": "Output",
+									"name": "Inject",
 									"type": {
 										"type": "reference",
-										"name": "Output"
+										"name": "Inject"
 									},
-									"arguments": {}
+									"arguments": {
+										"token": "Injector"
+									}
 								}
 							],
 							"sources": [
 								{
-									"fileName": "components/radiobox/radiobox.component.ts",
-									"line": 13,
-									"character": 25
+									"fileName": "core/form.ts",
+									"line": 57,
+									"character": 44
 								}
 							],
 							"type": {
 								"type": "reference",
-								"name": "EventEmitter",
-								"typeArguments": [
-									{
-										"type": "unknown",
-										"name": "T"
-									}
-								]
+								"name": "Injector"
 							},
-							"defaultValue": " new EventEmitter<T>()"
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.injector",
+								"id": 105
+							}
 						},
 						{
-							"id": 351,
+							"id": 369,
 							"name": "value",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4196,18 +5036,18 @@
 							"sources": [
 								{
 									"fileName": "components/radiobox/radiobox.component.ts",
-									"line": 15,
+									"line": 14,
 									"character": 18
 								}
 							],
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 348
+								"id": 368
 							}
 						},
 						{
-							"id": 357,
+							"id": 375,
 							"name": "isChecked",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -4228,7 +5068,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 358,
+									"id": 376,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -4248,7 +5088,7 @@
 							]
 						},
 						{
-							"id": 353,
+							"id": 371,
 							"name": "isDisabled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -4269,7 +5109,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 354,
+									"id": 372,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -4289,7 +5129,55 @@
 							]
 						},
 						{
-							"id": 355,
+							"id": 386,
+							"name": "ngControl",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 387,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"name": "NgControl"
+											},
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.ngControl",
+										"id": 102
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 44,
+									"character": 17
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.ngControl",
+								"id": 102
+							}
+						},
+						{
+							"id": 373,
 							"name": "tabIndex",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -4310,7 +5198,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 356,
+									"id": 374,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -4330,7 +5218,7 @@
 							]
 						},
 						{
-							"id": 359,
+							"id": 377,
 							"name": "onClick",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4352,7 +5240,7 @@
 							],
 							"signatures": [
 								{
-									"id": 360,
+									"id": 378,
 									"name": "onClick",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -4374,37 +5262,69 @@
 					],
 					"groups": [
 						{
+							"title": "Constructors",
+							"kind": 512,
+							"children": [
+								388
+							]
+						},
+						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								352,
-								349,
-								350,
-								351
+								390,
+								391,
+								370,
+								389,
+								369
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								357,
-								353,
-								355
+								375,
+								371,
+								386,
+								373
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								359
+								377
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/radiobox/radiobox.component.ts",
-							"line": 11,
+							"line": 13,
 							"character": 30
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"name": "ValueAccessorBase",
+							"id": 89,
+							"typeArguments": [
+								{
+									"type": "typeParameter",
+									"name": "T"
+								}
+							]
+						}
+					],
+					"implementedTypes": [
+						{
+							"type": "reference",
+							"name": "ControlValueAccessor"
+						},
+						{
+							"type": "reference",
+							"name": "OnDestroy"
 						}
 					]
 				}
@@ -4414,7 +5334,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						347
+						367
 					]
 				}
 			],
@@ -4427,7 +5347,7 @@
 			]
 		},
 		{
-			"id": 407,
+			"id": 506,
 			"name": "\"components/select/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -4437,7 +5357,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/select/index.ts",
 			"children": [
 				{
-					"id": 408,
+					"id": 507,
 					"name": "DuiSelectModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -4470,7 +5390,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						408
+						507
 					]
 				}
 			],
@@ -4483,7 +5403,7 @@
 			]
 		},
 		{
-			"id": 363,
+			"id": 425,
 			"name": "\"components/select/selectbox.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -4493,7 +5413,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/select/selectbox.component.ts",
 			"children": [
 				{
-					"id": 364,
+					"id": 426,
 					"name": "OptionDirective",
 					"kind": 128,
 					"kindString": "Class",
@@ -4514,7 +5434,7 @@
 					],
 					"children": [
 						{
-							"id": 366,
+							"id": 428,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -4523,14 +5443,14 @@
 							},
 							"signatures": [
 								{
-									"id": 368,
+									"id": 430,
 									"name": "new OptionDirective",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 369,
+											"id": 431,
 											"name": "element",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4544,20 +5464,20 @@
 									"type": {
 										"type": "reference",
 										"name": "OptionDirective",
-										"id": 364
+										"id": 426
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 19,
+									"line": 20,
 									"character": 24
 								}
 							]
 						},
 						{
-							"id": 367,
+							"id": 429,
 							"name": "element",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4569,7 +5489,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 21,
+									"line": 22,
 									"character": 30
 								}
 							],
@@ -4579,7 +5499,7 @@
 							}
 						},
 						{
-							"id": 365,
+							"id": 427,
 							"name": "value",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4599,7 +5519,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 19,
+									"line": 20,
 									"character": 18
 								}
 							],
@@ -4614,28 +5534,28 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								366
+								428
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								367,
-								365
+								429,
+								427
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/select/selectbox.component.ts",
-							"line": 18,
+							"line": 19,
 							"character": 28
 						}
 					]
 				},
 				{
-					"id": 370,
+					"id": 432,
 					"name": "SelectboxComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -4650,13 +5570,13 @@
 								"name": "Component"
 							},
 							"arguments": {
-								"obj": "{\n    selector: 'dui-select',\n    template: `\n        <div class=\"placeholder\" *ngIf=\"!isSelected\">{{placeholder}}</div>\n        <div class=\"value\" *ngIf=\"isSelected\">{{label}}</div>\n\n        <div class=\"knob\">\n            <dui-icon [size]=\"13\" name=\"arrows\"></dui-icon>\n        </div>\n\n        <select (mousedown)=\"onMouseDown($event)\" [ngModel]=\"model\" (ngModelChange)=\"setValue($event)\">\n            <option *ngFor=\"let option of options\"\n                    [ngValue]=\"option.value\">{{option.element.nativeElement.innerText}}</option>\n        </select>\n    `,\n    styleUrls: ['./selectbox.component.scss']\n}"
+								"obj": "{\n    selector: 'dui-select',\n    template: `\n        <div class=\"placeholder\" *ngIf=\"!isSelected\">{{placeholder}}</div>\n        <div class=\"value\" *ngIf=\"isSelected\">{{label}}</div>\n\n        <div class=\"knob\">\n            <dui-icon [size]=\"13\" name=\"arrows\"></dui-icon>\n        </div>\n\n        <select (mousedown)=\"onMouseDown($event)\" [ngModel]=\"innerValue\" (ngModelChange)=\"setValue($event)\">\n            <ng-container *ngIf=\"options\">\n                <option *ngFor=\"let option of options.toArray()\"\n                        [ngValue]=\"option.value\">{{option.element.nativeElement.innerText}}</option>\n            </ng-container>\n        </select>\n    `,\n    styleUrls: ['./selectbox.component.scss'],\n    providers: [ngValueAccessor(SelectboxComponent)]\n}"
 							}
 						}
 					],
 					"typeParameter": [
 						{
-							"id": 371,
+							"id": 433,
 							"name": "T",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -4665,7 +5585,7 @@
 					],
 					"children": [
 						{
-							"id": 382,
+							"id": 475,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -4674,96 +5594,203 @@
 							},
 							"signatures": [
 								{
-									"id": 385,
+									"id": 479,
 									"name": "new SelectboxComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 386,
+											"id": 480,
+											"name": "injector",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "Injector"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Injector"
+											}
+										},
+										{
+											"id": 481,
 											"name": "cd",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												}
+											],
 											"type": {
 												"type": "reference",
 												"name": "ChangeDetectorRef"
 											}
 										},
 										{
-											"id": 387,
-											"name": "app",
+											"id": 482,
+											"name": "cdParent",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												},
+												{
+													"name": "SkipSelf",
+													"type": {
+														"type": "reference",
+														"name": "SkipSelf"
+													},
+													"arguments": {}
+												}
+											],
 											"type": {
 												"type": "reference",
-												"name": "ApplicationRef"
+												"name": "ChangeDetectorRef"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
 										"name": "SelectboxComponent",
-										"id": 370
+										"id": 432
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.__constructor",
+										"id": 104
 									}
 								}
 							],
 							"sources": [
 								{
-									"fileName": "components/select/selectbox.component.ts",
-									"line": 60,
-									"character": 48
-								}
-							]
-						},
-						{
-							"id": 384,
-							"name": "app",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isPrivate": true,
-								"isExported": true,
-								"isConstructorProperty": true
-							},
-							"sources": [
-								{
-									"fileName": "components/select/selectbox.component.ts",
-									"line": 62,
-									"character": 58
+									"fileName": "core/form.ts",
+									"line": 54,
+									"character": 5
 								}
 							],
-							"type": {
+							"inheritedFrom": {
 								"type": "reference",
-								"name": "ApplicationRef"
+								"name": "ValueAccessorBase.__constructor",
+								"id": 104
 							}
 						},
 						{
-							"id": 383,
+							"id": 477,
 							"name": "cd",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
-								"isPrivate": true,
+								"isProtected": true,
 								"isExported": true,
 								"isConstructorProperty": true
 							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								}
+							],
 							"sources": [
 								{
-									"fileName": "components/select/selectbox.component.ts",
-									"line": 62,
-									"character": 26
+									"fileName": "core/form.ts",
+									"line": 58,
+									"character": 47
 								}
 							],
 							"type": {
 								"type": "reference",
 								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cd",
+								"id": 106
 							}
 						},
 						{
-							"id": 381,
+							"id": 478,
+							"name": "cdParent",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								},
+								{
+									"name": "SkipSelf",
+									"type": {
+										"type": "reference",
+										"name": "SkipSelf"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 59,
+									"character": 65
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.cdParent",
+								"id": 107
+							}
+						},
+						{
+							"id": 444,
 							"name": "changeSubscription",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4775,7 +5802,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 60,
+									"line": 67,
 									"character": 32
 								}
 							],
@@ -4785,7 +5812,7 @@
 							}
 						},
 						{
-							"id": 375,
+							"id": 435,
 							"name": "disabled",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4805,7 +5832,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 49,
+									"line": 50,
 									"character": 21
 								}
 							],
@@ -4813,10 +5840,54 @@
 								"type": "intrinsic",
 								"name": "boolean"
 							},
-							"defaultValue": "false"
+							"defaultValue": "false",
+							"overwrites": {
+								"type": "reference",
+								"name": "ValueAccessorBase.disabled",
+								"id": 101
+							}
 						},
 						{
-							"id": 379,
+							"id": 476,
+							"name": "injector",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "Injector"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 57,
+									"character": 44
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "Injector"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.injector",
+								"id": 105
+							}
+						},
+						{
+							"id": 442,
 							"name": "label",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4827,7 +5898,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 57,
+									"line": 64,
 									"character": 16
 								}
 							],
@@ -4838,83 +5909,7 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 373,
-							"name": "model",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"decorators": [
-								{
-									"name": "Input",
-									"type": {
-										"type": "reference",
-										"name": "Input"
-									},
-									"arguments": {}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/select/selectbox.component.ts",
-									"line": 46,
-									"character": 18
-								}
-							],
-							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "typeParameter",
-										"name": "T"
-									},
-									{
-										"type": "intrinsic",
-										"name": "undefined"
-									}
-								]
-							}
-						},
-						{
-							"id": 374,
-							"name": "modelChange",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"decorators": [
-								{
-									"name": "Output",
-									"type": {
-										"type": "reference",
-										"name": "Output"
-									},
-									"arguments": {}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/select/selectbox.component.ts",
-									"line": 47,
-									"character": 25
-								}
-							],
-							"type": {
-								"type": "reference",
-								"name": "EventEmitter",
-								"typeArguments": [
-									{
-										"type": "unknown",
-										"name": "T"
-									}
-								]
-							},
-							"defaultValue": " new EventEmitter<T>()"
-						},
-						{
-							"id": 378,
+							"id": 441,
 							"name": "options",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4937,7 +5932,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 55,
+									"line": 62,
 									"character": 45
 								}
 							],
@@ -4948,13 +5943,13 @@
 									{
 										"type": "reference",
 										"name": "OptionDirective",
-										"id": 364
+										"id": 426
 									}
 								]
 							}
 						},
 						{
-							"id": 380,
+							"id": 443,
 							"name": "optionsValueMap",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4965,7 +5960,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 58,
+									"line": 65,
 									"character": 26
 								}
 							],
@@ -4986,7 +5981,7 @@
 							"defaultValue": " new Map<T, string>()"
 						},
 						{
-							"id": 372,
+							"id": 434,
 							"name": "placeholder",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5006,7 +6001,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 44,
+									"line": 48,
 									"character": 24
 								}
 							],
@@ -5017,7 +6012,38 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 376,
+							"id": 438,
+							"name": "textured",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"decorators": [
+								{
+									"name": "Input",
+									"type": {
+										"type": "reference",
+										"name": "Input"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/select/selectbox.component.ts",
+									"line": 56,
+									"character": 21
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"defaultValue": "false"
+						},
+						{
+							"id": 436,
 							"name": "isDisabled",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -5038,7 +6064,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 377,
+									"id": 437,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -5052,13 +6078,13 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 51,
+									"line": 52,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 393,
+							"id": 450,
 							"name": "isSelected",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -5079,7 +6105,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 394,
+									"id": 451,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -5093,13 +6119,102 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 85,
+									"line": 90,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 388,
+							"id": 439,
+							"name": "isTextured",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"decorators": [
+								{
+									"name": "HostBinding",
+									"type": {
+										"type": "reference",
+										"name": "HostBinding"
+									},
+									"arguments": {
+										"hostPropertyName": "'class.textured'"
+									}
+								}
+							],
+							"getSignature": [
+								{
+									"id": 440,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/select/selectbox.component.ts",
+									"line": 58,
+									"character": 18
+								}
+							]
+						},
+						{
+							"id": 473,
+							"name": "ngControl",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 474,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"name": "NgControl"
+											},
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "ValueAccessorBase.ngControl",
+										"id": 102
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 44,
+									"character": 17
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "ValueAccessorBase.ngControl",
+								"id": 102
+							}
+						},
+						{
+							"id": 445,
 							"name": "ngAfterViewInit",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5108,7 +6223,7 @@
 							},
 							"signatures": [
 								{
-									"id": 389,
+									"id": 446,
 									"name": "ngAfterViewInit",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5122,13 +6237,13 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 64,
+									"line": 69,
 									"character": 19
 								}
 							]
 						},
 						{
-							"id": 395,
+							"id": 452,
 							"name": "ngOnChanges",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5137,14 +6252,14 @@
 							},
 							"signatures": [
 								{
-									"id": 396,
+									"id": 453,
 									"name": "ngOnChanges",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 397,
+											"id": 454,
 											"name": "changes",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5164,13 +6279,13 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 89,
+									"line": 94,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 405,
+							"id": 464,
 							"name": "ngOnDestroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5179,7 +6294,7 @@
 							},
 							"signatures": [
 								{
-									"id": 406,
+									"id": 465,
 									"name": "ngOnDestroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5187,19 +6302,71 @@
 									"type": {
 										"type": "intrinsic",
 										"name": "void"
+									},
+									"overwrites": {
+										"type": "reference",
+										"name": "ValueAccessorBase.ngOnDestroy"
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 123,
+									"line": 128,
 									"character": 15
 								}
-							]
+							],
+							"overwrites": {
+								"type": "reference",
+								"name": "ValueAccessorBase.ngOnDestroy"
+							}
 						},
 						{
-							"id": 401,
+							"id": 458,
+							"name": "onInnerValueChange",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isProtected": true,
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 459,
+									"name": "onInnerValueChange",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										]
+									},
+									"overwrites": {
+										"type": "reference",
+										"name": "ValueAccessorBase.onInnerValueChange"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/select/selectbox.component.ts",
+									"line": 105,
+									"character": 38
+								}
+							],
+							"overwrites": {
+								"type": "reference",
+								"name": "ValueAccessorBase.onInnerValueChange"
+							}
+						},
+						{
+							"id": 460,
 							"name": "setLabel",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5209,7 +6376,7 @@
 							},
 							"signatures": [
 								{
-									"id": 402,
+									"id": 461,
 									"name": "setLabel",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5223,13 +6390,13 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 104,
+									"line": 109,
 									"character": 22
 								}
 							]
 						},
 						{
-							"id": 403,
+							"id": 462,
 							"name": "updateMap",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5239,7 +6406,7 @@
 							},
 							"signatures": [
 								{
-									"id": 404,
+									"id": 463,
 									"name": "updateMap",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5253,7 +6420,7 @@
 							"sources": [
 								{
 									"fileName": "components/select/selectbox.component.ts",
-									"line": 111,
+									"line": 115,
 									"character": 23
 								}
 							]
@@ -5264,53 +6431,77 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								382
+								475
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								384,
-								383,
-								381,
-								375,
-								379,
-								373,
-								374,
-								378,
-								380,
-								372
+								477,
+								478,
+								444,
+								435,
+								476,
+								442,
+								441,
+								443,
+								434,
+								438
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								376,
-								393
+								436,
+								450,
+								439,
+								473
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								388,
-								395,
-								405,
-								401,
-								403
+								445,
+								452,
+								464,
+								458,
+								460,
+								462
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/select/selectbox.component.ts",
-							"line": 43,
+							"line": 47,
 							"character": 31
 						}
 					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"name": "ValueAccessorBase",
+							"id": 89,
+							"typeArguments": [
+								{
+									"type": "typeParameter",
+									"name": "T"
+								}
+							]
+						}
+					],
 					"implementedTypes": [
+						{
+							"type": "reference",
+							"name": "ControlValueAccessor"
+						},
+						{
+							"type": "reference",
+							"name": "OnDestroy"
+						},
 						{
 							"type": "reference",
 							"name": "AfterViewInit"
@@ -5331,8 +6522,8 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						364,
-						370
+						426,
+						432
 					]
 				}
 			],
@@ -5345,7 +6536,7 @@
 			]
 		},
 		{
-			"id": 422,
+			"id": 521,
 			"name": "\"components/splitter/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -5355,7 +6546,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/splitter/index.ts",
 			"children": [
 				{
-					"id": 423,
+					"id": 522,
 					"name": "DuiSplitterModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -5388,7 +6579,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						423
+						522
 					]
 				}
 			],
@@ -5401,7 +6592,7 @@
 			]
 		},
 		{
-			"id": 409,
+			"id": 508,
 			"name": "\"components/splitter/splitter.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -5411,7 +6602,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/splitter/splitter.component.ts",
 			"children": [
 				{
-					"id": 410,
+					"id": 509,
 					"name": "SplitterComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -5432,7 +6623,7 @@
 					],
 					"children": [
 						{
-							"id": 416,
+							"id": 515,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -5441,14 +6632,14 @@
 							},
 							"signatures": [
 								{
-									"id": 418,
+									"id": 517,
 									"name": "new SplitterComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 419,
+											"id": 518,
 											"name": "host",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5462,7 +6653,7 @@
 									"type": {
 										"type": "reference",
 										"name": "SplitterComponent",
-										"id": 410
+										"id": 509
 									}
 								}
 							],
@@ -5475,7 +6666,7 @@
 							]
 						},
 						{
-							"id": 415,
+							"id": 514,
 							"name": "element",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5506,7 +6697,7 @@
 							}
 						},
 						{
-							"id": 417,
+							"id": 516,
 							"name": "host",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5528,7 +6719,7 @@
 							}
 						},
 						{
-							"id": 413,
+							"id": 512,
 							"name": "indicator",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5559,7 +6750,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 411,
+							"id": 510,
 							"name": "model",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5599,7 +6790,7 @@
 							}
 						},
 						{
-							"id": 412,
+							"id": 511,
 							"name": "modelChange",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5636,7 +6827,7 @@
 							"defaultValue": " new EventEmitter<number>()"
 						},
 						{
-							"id": 414,
+							"id": 513,
 							"name": "position",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5684,7 +6875,7 @@
 							"defaultValue": "\"right\""
 						},
 						{
-							"id": 420,
+							"id": 519,
 							"name": "ngAfterViewInit",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5693,7 +6884,7 @@
 							},
 							"signatures": [
 								{
-									"id": 421,
+									"id": 520,
 									"name": "ngAfterViewInit",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5718,26 +6909,26 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								416
+								515
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								415,
-								417,
-								413,
-								411,
-								412,
-								414
+								514,
+								516,
+								512,
+								510,
+								511,
+								513
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								420
+								519
 							]
 						}
 					],
@@ -5761,7 +6952,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						410
+						509
 					]
 				}
 			],
@@ -5774,7 +6965,7 @@
 			]
 		},
 		{
-			"id": 537,
+			"id": 634,
 			"name": "\"components/table/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -5784,7 +6975,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/table/index.ts",
 			"children": [
 				{
-					"id": 538,
+					"id": 635,
 					"name": "DuiTableModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -5799,7 +6990,7 @@
 								"name": "NgModule"
 							},
 							"arguments": {
-								"obj": "{\n    imports: [\n        CommonModule,\n        DuiIconModule,\n        DuiSplitterModule,\n    ],\n    exports: [\n        SimpleTableCellDirective,\n        DuiTableColumnDirective,\n        DuiTableHeaderDirective,\n        SimpleTableComponent,\n    ],\n    declarations: [\n        SimpleTableCellDirective,\n        DuiTableColumnDirective,\n        DuiTableHeaderDirective,\n        SimpleTableComponent,\n    ],\n    providers: [],\n}"
+								"obj": "{\n    imports: [\n        CommonModule,\n        DuiIconModule,\n        DuiSplitterModule,\n    ],\n    exports: [\n        TableCellDirective,\n        TableColumnDirective,\n        TableHeaderDirective,\n        TableComponent,\n    ],\n    declarations: [\n        TableCellDirective,\n        TableColumnDirective,\n        TableHeaderDirective,\n        TableComponent,\n    ],\n    providers: [],\n}"
 							}
 						}
 					],
@@ -5817,7 +7008,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						538
+						635
 					]
 				}
 			],
@@ -5830,7 +7021,7 @@
 			]
 		},
 		{
-			"id": 424,
+			"id": 523,
 			"name": "\"components/table/table.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -5840,12 +7031,142 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/table/table.component.ts",
 			"children": [
 				{
-					"id": 438,
-					"name": "DuiTableColumnDirective",
+					"id": 532,
+					"name": "TableCellDirective",
 					"kind": 128,
 					"kindString": "Class",
 					"flags": {
 						"isExported": true
+					},
+					"comment": {
+						"shortText": "Necessary directive to get information about the row item T in dui-table-column.",
+						"text": "```html\n<dui-table-column>\n    <ng-container *duiTableCell=\"let item\">\n         {{item.fieldName | date}}\n    </ng-container>\n</dui-table-column>\n```\n"
+					},
+					"decorators": [
+						{
+							"name": "Directive",
+							"type": {
+								"type": "reference",
+								"name": "Directive"
+							},
+							"arguments": {
+								"obj": "{\n    selector: '[duiTableCell]',\n}"
+							}
+						}
+					],
+					"children": [
+						{
+							"id": 533,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 535,
+									"name": "new TableCellDirective",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 536,
+											"name": "template",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "TemplateRef",
+												"typeArguments": [
+													{
+														"type": "intrinsic",
+														"name": "any"
+													}
+												]
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "TableCellDirective",
+										"id": 532
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/table/table.component.ts",
+									"line": 46,
+									"character": 33
+								}
+							]
+						},
+						{
+							"id": 534,
+							"name": "template",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPublic": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"sources": [
+								{
+									"fileName": "components/table/table.component.ts",
+									"line": 47,
+									"character": 31
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "TemplateRef",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								]
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"kind": 512,
+							"children": [
+								533
+							]
+						},
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								534
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "components/table/table.component.ts",
+							"line": 46,
+							"character": 31
+						}
+					]
+				},
+				{
+					"id": 537,
+					"name": "TableColumnDirective",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {
+						"isExported": true
+					},
+					"comment": {
+						"shortText": "Defines a new column."
 					},
 					"decorators": [
 						{
@@ -5861,7 +7182,7 @@
 					],
 					"children": [
 						{
-							"id": 445,
+							"id": 544,
 							"name": "cell",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5877,30 +7198,33 @@
 										"name": "ContentChild"
 									},
 									"arguments": {
-										"selector": "SimpleTableCellDirective"
+										"selector": "TableCellDirective"
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 53,
-									"character": 48
+									"line": 89,
+									"character": 42
 								}
 							],
 							"type": {
 								"type": "reference",
-								"name": "SimpleTableCellDirective",
-								"id": 433
+								"name": "TableCellDirective",
+								"id": 532
 							}
 						},
 						{
-							"id": 442,
+							"id": 541,
 							"name": "class",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Adds additional class to the columns cells."
 							},
 							"decorators": [
 								{
@@ -5917,7 +7241,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 47,
+									"line": 76,
 									"character": 25
 								}
 							],
@@ -5928,13 +7252,16 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 440,
+							"id": 539,
 							"name": "header",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "A different header name. Use dui-table-header to render HTML there."
 							},
 							"decorators": [
 								{
@@ -5951,7 +7278,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 45,
+									"line": 66,
 									"character": 27
 								}
 							],
@@ -5970,13 +7297,16 @@
 							}
 						},
 						{
-							"id": 439,
+							"id": 538,
 							"name": "name",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "The name of the field of T."
 							},
 							"decorators": [
 								{
@@ -5993,7 +7323,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 44,
+									"line": 61,
 									"character": 23
 								}
 							],
@@ -6012,43 +7342,16 @@
 							}
 						},
 						{
-							"id": 444,
-							"name": "ovewrittenPosition",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true,
-								"isOptional": true
-							},
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 51,
-									"character": 22
-								}
-							],
-							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "intrinsic",
-										"name": "undefined"
-									},
-									{
-										"type": "intrinsic",
-										"name": "number"
-									}
-								]
-							}
-						},
-						{
-							"id": 443,
+							"id": 542,
 							"name": "position",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "At which position this column will be placed."
 							},
 							"decorators": [
 								{
@@ -6065,7 +7368,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 48,
+									"line": 81,
 									"character": 31
 								}
 							],
@@ -6084,13 +7387,16 @@
 							}
 						},
 						{
-							"id": 441,
+							"id": 540,
 							"name": "width",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Default width."
 							},
 							"decorators": [
 								{
@@ -6107,7 +7413,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 46,
+									"line": 71,
 									"character": 25
 								}
 							],
@@ -6126,7 +7432,7 @@
 							}
 						},
 						{
-							"id": 448,
+							"id": 547,
 							"name": "getPosition",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6136,7 +7442,7 @@
 							},
 							"signatures": [
 								{
-									"id": 449,
+									"id": 548,
 									"name": "getPosition",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6159,13 +7465,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 65,
+									"line": 101,
 									"character": 22
 								}
 							]
 						},
 						{
-							"id": 446,
+							"id": 545,
 							"name": "getWidth",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6174,7 +7480,7 @@
 							},
 							"signatures": [
 								{
-									"id": 447,
+									"id": 546,
 									"name": "getWidth",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6197,7 +7503,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 55,
+									"line": 91,
 									"character": 12
 								}
 							]
@@ -6208,35 +7514,34 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								445,
-								442,
-								440,
-								439,
-								444,
-								443,
-								441
+								544,
+								541,
+								539,
+								538,
+								542,
+								540
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								448,
-								446
+								547,
+								545
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/table/table.component.ts",
-							"line": 43,
-							"character": 36
+							"line": 57,
+							"character": 33
 						}
 					]
 				},
 				{
-					"id": 450,
-					"name": "DuiTableHeaderDirective",
+					"id": 553,
+					"name": "TableComponent",
 					"kind": 128,
 					"kindString": "Class",
 					"flags": {
@@ -6250,322 +7555,13 @@
 								"name": "Component"
 							},
 							"arguments": {
-								"obj": "{\n    selector: 'dui-table-header',\n    template: '<ng-template #templateRef><ng-content></ng-content></ng-template>'\n\n}"
-							}
-						}
-					],
-					"children": [
-						{
-							"id": 451,
-							"name": "name",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"decorators": [
-								{
-									"name": "Input",
-									"type": {
-										"type": "reference",
-										"name": "Input"
-									},
-									"arguments": {
-										"bindingPropertyName": "'name'"
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 80,
-									"character": 23
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "string"
-							}
-						},
-						{
-							"id": 452,
-							"name": "sortable",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"decorators": [
-								{
-									"name": "Input",
-									"type": {
-										"type": "reference",
-										"name": "Input"
-									},
-									"arguments": {
-										"bindingPropertyName": "'sortable'"
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 81,
-									"character": 31
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "true"
-						},
-						{
-							"id": 453,
-							"name": "template",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"decorators": [
-								{
-									"name": "ViewChild",
-									"type": {
-										"type": "reference",
-										"name": "ViewChild"
-									},
-									"arguments": {
-										"selector": "'templateRef'"
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 83,
-									"character": 38
-								}
-							],
-							"type": {
-								"type": "reference",
-								"name": "TemplateRef",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "any"
-									}
-								]
-							}
-						},
-						{
-							"id": 454,
-							"name": "ngAfterViewInit",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 455,
-									"name": "ngAfterViewInit",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "void"
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 85,
-									"character": 19
-								}
-							]
-						}
-					],
-					"groups": [
-						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								451,
-								452,
-								453
-							]
-						},
-						{
-							"title": "Methods",
-							"kind": 2048,
-							"children": [
-								454
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "components/table/table.component.ts",
-							"line": 79,
-							"character": 36
-						}
-					],
-					"implementedTypes": [
-						{
-							"type": "reference",
-							"name": "AfterViewInit"
-						}
-					]
-				},
-				{
-					"id": 433,
-					"name": "SimpleTableCellDirective",
-					"kind": 128,
-					"kindString": "Class",
-					"flags": {
-						"isExported": true
-					},
-					"decorators": [
-						{
-							"name": "Directive",
-							"type": {
-								"type": "reference",
-								"name": "Directive"
-							},
-							"arguments": {
-								"obj": "{\n    selector: '[duiTableCell]',\n}"
-							}
-						}
-					],
-					"children": [
-						{
-							"id": 434,
-							"name": "constructor",
-							"kind": 512,
-							"kindString": "Constructor",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 436,
-									"name": "new SimpleTableCellDirective",
-									"kind": 16384,
-									"kindString": "Constructor signature",
-									"flags": {},
-									"parameters": [
-										{
-											"id": 437,
-											"name": "template",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "reference",
-												"name": "TemplateRef",
-												"typeArguments": [
-													{
-														"type": "intrinsic",
-														"name": "any"
-													}
-												]
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"name": "SimpleTableCellDirective",
-										"id": 433
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 35,
-									"character": 39
-								}
-							]
-						},
-						{
-							"id": 435,
-							"name": "template",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isPublic": true,
-								"isExported": true,
-								"isConstructorProperty": true
-							},
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 36,
-									"character": 31
-								}
-							],
-							"type": {
-								"type": "reference",
-								"name": "TemplateRef",
-								"typeArguments": [
-									{
-										"type": "intrinsic",
-										"name": "any"
-									}
-								]
-							}
-						}
-					],
-					"groups": [
-						{
-							"title": "Constructors",
-							"kind": 512,
-							"children": [
-								434
-							]
-						},
-						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								435
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "components/table/table.component.ts",
-							"line": 35,
-							"character": 37
-						}
-					]
-				},
-				{
-					"id": 456,
-					"name": "SimpleTableComponent",
-					"kind": 128,
-					"kindString": "Class",
-					"flags": {
-						"isExported": true
-					},
-					"decorators": [
-						{
-							"name": "Component",
-							"type": {
-								"type": "reference",
-								"name": "Component"
-							},
-							"arguments": {
-								"obj": "{\n    selector: 'dui-table',\n    template: `\n        <table>\n            <thead *ngIf=\"showHeader\" #header>\n            <tr>\n                <th *ngFor=\"let column of sortedColumnDefs\"\n                    [style.width]=\"getColumnWidth(column)\"\n                    (click)=\"sortBy(column.name)\"\n                    #th\n                >\n                    <ng-container\n                        *ngIf=\"headerMapDef[column.name]\"\n                        [ngTemplateOutlet]=\"headerMapDef[column.name].template\"\n                        [ngTemplateOutletContext]=\"{$implicit: column}\"></ng-container>\n                    {{column.header || column.name}}\n\n                    <ng-container *ngIf=\"(currentSort || defaultSort) === column.name\">\n                        <dui-icon *ngIf=\"!isAsc()\" [size]=\"12\" name=\"arrow_down\"></dui-icon>\n                        <dui-icon *ngIf=\"isAsc()\" [size]=\"12\" name=\"arrow_up\"></dui-icon>\n                    </ng-container>\n\n                    <dui-splitter [element]=\"th\" indicator position=\"right\"></dui-splitter>\n                </th>\n                <th style=\"width: auto\"></th>\n            </tr>\n            </thead>\n            <tbody>\n            <ng-container *ngFor=\"let row of sorted; trackBy: trackByFn\">\n                <tr\n                    [class.selected]=\"selectedMap.has(row)\"\n                    (click)=\"select(row, $event)\"\n                    (dblclick)=\"dbclick.emit(row)\"\n                >\n                    <td *ngFor=\"let column of sortedColumnDefs\"\n                        [class]=\"column.class\">\n                        <ng-container *ngIf=\"column.cell\">\n                            <ng-container [ngTemplateOutlet]=\"column.cell!.template\"\n                                          [ngTemplateOutletContext]=\"{ $implicit: row }\"></ng-container>\n                        </ng-container>\n                        <ng-container *ngIf=\"!column.cell\">\n                            {{ row[column.name] }}\n                        </ng-container>\n                    </td>\n                    <td></td>\n                </tr>\n            </ng-container>\n            </tbody>\n        </table>\n    `,\n    styleUrls: ['./table.component.scss'],\n    changeDetection: ChangeDetectionStrategy.OnPush,\n}"
+								"obj": "{\n    selector: 'dui-table',\n    template: `\n        <table>\n            <thead *ngIf=\"showHeader\" #header>\n            <tr>\n                <th *ngFor=\"let column of sortedColumnDefs\"\n                    [style.width]=\"getColumnWidth(column)\"\n                    (click)=\"sortBy(column.name)\"\n                    #th\n                >\n                    <ng-container\n                        *ngIf=\"headerMapDef[column.name]\"\n                        [ngTemplateOutlet]=\"headerMapDef[column.name].template\"\n                        [ngTemplateOutletContext]=\"{$implicit: column}\"></ng-container>\n\n                    <ng-container *ngIf=\"!headerMapDef[column.name]\">\n                        {{column.header || column.name}}\n                    </ng-container>\n\n                    <ng-container *ngIf=\"(currentSort || defaultSort) === column.name\">\n                        <dui-icon *ngIf=\"!isAsc()\" [size]=\"12\" name=\"arrow_down\"></dui-icon>\n                        <dui-icon *ngIf=\"isAsc()\" [size]=\"12\" name=\"arrow_up\"></dui-icon>\n                    </ng-container>\n\n                    <dui-splitter [element]=\"th\" indicator position=\"right\"></dui-splitter>\n                </th>\n                <th style=\"width: auto\"></th>\n            </tr>\n            </thead>\n            <tbody>\n            <ng-container *ngFor=\"let row of sorted; trackBy: trackByFn\">\n                <tr\n                    [class.selected]=\"selectedMap.has(row)\"\n                    (click)=\"select(row, $event)\"\n                    (dblclick)=\"dbclick.emit(row)\"\n                >\n                    <td *ngFor=\"let column of sortedColumnDefs\"\n                        [class]=\"column.class\">\n                        <ng-container *ngIf=\"column.cell\">\n                            <ng-container [ngTemplateOutlet]=\"column.cell!.template\"\n                                          [ngTemplateOutletContext]=\"{ $implicit: row }\"></ng-container>\n                        </ng-container>\n                        <ng-container *ngIf=\"!column.cell\">\n                            {{ row[column.name] }}\n                        </ng-container>\n                    </td>\n                    <td></td>\n                </tr>\n            </ng-container>\n            </tbody>\n        </table>\n    `,\n    styleUrls: ['./table.component.scss'],\n    changeDetection: ChangeDetectionStrategy.OnPush,\n}"
 							}
 						}
 					],
 					"typeParameter": [
 						{
-							"id": 457,
+							"id": 554,
 							"name": "T",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -6574,7 +7570,7 @@
 					],
 					"children": [
 						{
-							"id": 496,
+							"id": 593,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -6583,14 +7579,14 @@
 							},
 							"signatures": [
 								{
-									"id": 498,
-									"name": "new SimpleTableComponent",
+									"id": 595,
+									"name": "new TableComponent",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 499,
+											"id": 596,
 											"name": "cd",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6603,21 +7599,21 @@
 									],
 									"type": {
 										"type": "reference",
-										"name": "SimpleTableComponent",
-										"id": 456
+										"name": "TableComponent",
+										"id": 553
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 183,
+									"line": 290,
 									"character": 44
 								}
 							]
 						},
 						{
-							"id": 497,
+							"id": 594,
 							"name": "cd",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6629,7 +7625,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 191,
+									"line": 298,
 									"character": 26
 								}
 							],
@@ -6639,7 +7635,7 @@
 							}
 						},
 						{
-							"id": 487,
+							"id": 584,
 							"name": "columnDefs",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6655,15 +7651,15 @@
 										"name": "ContentChildren"
 									},
 									"arguments": {
-										"selector": "DuiTableColumnDirective"
+										"selector": "TableColumnDirective"
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 175,
-									"character": 56
+									"line": 282,
+									"character": 53
 								}
 							],
 							"type": {
@@ -6672,14 +7668,14 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"name": "DuiTableColumnDirective",
-										"id": 438
+										"name": "TableColumnDirective",
+										"id": 537
 									}
 								]
 							}
 						},
 						{
-							"id": 478,
+							"id": 575,
 							"name": "currentSort",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6690,7 +7686,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 161,
+									"line": 256,
 									"character": 22
 								}
 							],
@@ -6701,7 +7697,7 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 479,
+							"id": 576,
 							"name": "currentSortDirection",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6712,7 +7708,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 162,
+									"line": 258,
 									"character": 31
 								}
 							],
@@ -6736,13 +7732,16 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 484,
+							"id": 581,
 							"name": "dbclick",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "When a row gets double clicked."
 							},
 							"decorators": [
 								{
@@ -6757,7 +7756,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 170,
+									"line": 277,
 									"character": 28
 								}
 							],
@@ -6774,13 +7773,16 @@
 							"defaultValue": " new EventEmitter()"
 						},
 						{
-							"id": 461,
+							"id": 558,
 							"name": "defaultSort",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Default field of T for sorting."
 							},
 							"decorators": [
 								{
@@ -6795,7 +7797,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 149,
+									"line": 209,
 									"character": 31
 								}
 							],
@@ -6806,13 +7808,16 @@
 							"defaultValue": "\"\""
 						},
 						{
-							"id": 462,
+							"id": 559,
 							"name": "defaultSortDirection",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Default sorting order."
 							},
 							"decorators": [
 								{
@@ -6827,7 +7832,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 150,
+									"line": 214,
 									"character": 40
 								}
 							],
@@ -6847,13 +7852,16 @@
 							"defaultValue": "\"asc\""
 						},
 						{
-							"id": 470,
+							"id": 567,
 							"name": "displayInitial",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Not used yet."
 							},
 							"decorators": [
 								{
@@ -6868,7 +7876,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 155,
+									"line": 234,
 									"character": 34
 								}
 							],
@@ -6879,7 +7887,7 @@
 							"defaultValue": "20"
 						},
 						{
-							"id": 495,
+							"id": 592,
 							"name": "displayedColumns",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6891,7 +7899,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 183,
+									"line": 290,
 									"character": 27
 								}
 							],
@@ -6905,7 +7913,7 @@
 							"defaultValue": " []"
 						},
 						{
-							"id": 472,
+							"id": 569,
 							"name": "filter",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6913,6 +7921,9 @@
 								"isPublic": true,
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Filter function."
 							},
 							"decorators": [
 								{
@@ -6927,7 +7938,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 157,
+									"line": 244,
 									"character": 26
 								}
 							],
@@ -6941,21 +7952,21 @@
 									{
 										"type": "reflection",
 										"declaration": {
-											"id": 473,
+											"id": 570,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"signatures": [
 												{
-													"id": 474,
+													"id": 571,
 													"name": "__call",
 													"kind": 4096,
 													"kindString": "Call signature",
 													"flags": {},
 													"parameters": [
 														{
-															"id": 475,
+															"id": 572,
 															"name": "item",
 															"kind": 32768,
 															"kindString": "Parameter",
@@ -6978,7 +7989,7 @@
 							}
 						},
 						{
-							"id": 477,
+							"id": 574,
 							"name": "filterFields",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6986,6 +7997,9 @@
 								"isPublic": true,
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Against which fields filterQuery should run."
 							},
 							"decorators": [
 								{
@@ -7000,7 +8014,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 159,
+									"line": 254,
 									"character": 32
 								}
 							],
@@ -7013,7 +8027,7 @@
 							}
 						},
 						{
-							"id": 476,
+							"id": 573,
 							"name": "filterQuery",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7021,6 +8035,9 @@
 								"isPublic": true,
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "Filter query."
 							},
 							"decorators": [
 								{
@@ -7035,7 +8052,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 158,
+									"line": 249,
 									"character": 31
 								}
 							],
@@ -7054,7 +8071,7 @@
 							}
 						},
 						{
-							"id": 485,
+							"id": 582,
 							"name": "header",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7077,7 +8094,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 172,
+									"line": 279,
 									"character": 31
 								}
 							],
@@ -7087,7 +8104,7 @@
 							}
 						},
 						{
-							"id": 488,
+							"id": 585,
 							"name": "headerDefs",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7103,15 +8120,15 @@
 										"name": "ContentChildren"
 									},
 									"arguments": {
-										"selector": "DuiTableHeaderDirective"
+										"selector": "TableHeaderDirective"
 									}
 								}
 							],
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 176,
-									"character": 56
+									"line": 283,
+									"character": 53
 								}
 							],
 							"type": {
@@ -7120,14 +8137,14 @@
 								"typeArguments": [
 									{
 										"type": "reference",
-										"name": "DuiTableHeaderDirective",
-										"id": 450
+										"name": "TableHeaderDirective",
+										"id": 549
 									}
 								]
 							}
 						},
 						{
-							"id": 491,
+							"id": 588,
 							"name": "headerMapDef",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7137,28 +8154,28 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 181,
+									"line": 288,
 									"character": 16
 								}
 							],
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 492,
+									"id": 589,
 									"name": "__type",
 									"kind": 65536,
 									"kindString": "Type literal",
 									"flags": {},
 									"indexSignature": [
 										{
-											"id": 493,
+											"id": 590,
 											"name": "__index",
 											"kind": 8192,
 											"kindString": "Index signature",
 											"flags": {},
 											"parameters": [
 												{
-													"id": 494,
+													"id": 591,
 													"name": "name",
 													"kind": 32768,
 													"kindString": "Parameter",
@@ -7171,15 +8188,15 @@
 											],
 											"type": {
 												"type": "reference",
-												"name": "DuiTableHeaderDirective",
-												"id": 450
+												"name": "TableHeaderDirective",
+												"id": 549
 											}
 										}
 									],
 									"sources": [
 										{
 											"fileName": "components/table/table.component.ts",
-											"line": 181,
+											"line": 288,
 											"character": 17
 										}
 									]
@@ -7187,13 +8204,16 @@
 							}
 						},
 						{
-							"id": 471,
+							"id": 568,
 							"name": "increaseBy",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Not used yet."
 							},
 							"decorators": [
 								{
@@ -7208,7 +8228,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 156,
+									"line": 239,
 									"character": 30
 								}
 							],
@@ -7219,13 +8239,16 @@
 							"defaultValue": "10"
 						},
 						{
-							"id": 459,
+							"id": 556,
 							"name": "items",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Array of items that should be used for each row."
 							},
 							"decorators": [
 								{
@@ -7240,7 +8263,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 145,
+									"line": 199,
 									"character": 25
 								}
 							],
@@ -7253,13 +8276,16 @@
 							}
 						},
 						{
-							"id": 464,
+							"id": 561,
 							"name": "multiSelect",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Whether multiple rows are selectable at the same time."
 							},
 							"decorators": [
 								{
@@ -7274,7 +8300,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 152,
+									"line": 224,
 									"character": 31
 								}
 							],
@@ -7285,13 +8311,16 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 463,
+							"id": 560,
 							"name": "selectable",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Whether rows are selectable."
 							},
 							"decorators": [
 								{
@@ -7306,7 +8335,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 151,
+									"line": 219,
 									"character": 30
 								}
 							],
@@ -7317,13 +8346,16 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 482,
+							"id": 579,
 							"name": "selected",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Elements that are selected, by reference."
 							},
 							"decorators": [
 								{
@@ -7338,7 +8370,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 168,
+									"line": 267,
 									"character": 28
 								}
 							],
@@ -7352,13 +8384,16 @@
 							"defaultValue": " []"
 						},
 						{
-							"id": 483,
+							"id": 580,
 							"name": "selectedChange",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Elements that are selected, by reference."
 							},
 							"decorators": [
 								{
@@ -7373,7 +8408,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 169,
+									"line": 272,
 									"character": 35
 								}
 							],
@@ -7393,7 +8428,7 @@
 							"defaultValue": " new EventEmitter()"
 						},
 						{
-							"id": 481,
+							"id": 578,
 							"name": "selectedMap",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7404,7 +8439,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 166,
+									"line": 262,
 									"character": 22
 								}
 							],
@@ -7425,13 +8460,16 @@
 							"defaultValue": " new Map<T, boolean>()"
 						},
 						{
-							"id": 460,
+							"id": 557,
 							"name": "showHeader",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
 								"isPublic": true,
 								"isExported": true
+							},
+							"comment": {
+								"shortText": "Whether the header should be shown."
 							},
 							"decorators": [
 								{
@@ -7446,7 +8484,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 147,
+									"line": 204,
 									"character": 30
 								}
 							],
@@ -7457,7 +8495,7 @@
 							"defaultValue": "true"
 						},
 						{
-							"id": 480,
+							"id": 577,
 							"name": "sorted",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7468,7 +8506,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 164,
+									"line": 260,
 									"character": 17
 								}
 							],
@@ -7482,7 +8520,7 @@
 							"defaultValue": " []"
 						},
 						{
-							"id": 490,
+							"id": 587,
 							"name": "sortedColumnDefs",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7492,7 +8530,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 179,
+									"line": 286,
 									"character": 20
 								}
 							],
@@ -7500,14 +8538,14 @@
 								"type": "array",
 								"elementType": {
 									"type": "reference",
-									"name": "DuiTableColumnDirective",
-									"id": 438
+									"name": "TableColumnDirective",
+									"id": 537
 								}
 							},
 							"defaultValue": " []"
 						},
 						{
-							"id": 489,
+							"id": 586,
 							"name": "sortedColumnMap",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7517,7 +8555,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 178,
+									"line": 285,
 									"character": 19
 								}
 							],
@@ -7531,46 +8569,15 @@
 									},
 									{
 										"type": "reference",
-										"name": "DuiTableColumnDirective",
-										"id": 438
+										"name": "TableColumnDirective",
+										"id": 537
 									}
 								]
 							},
-							"defaultValue": " new Map<HTMLElement, DuiTableColumnDirective>()"
+							"defaultValue": " new Map<HTMLElement, TableColumnDirective>()"
 						},
 						{
-							"id": 458,
-							"name": "tabindex",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"decorators": [
-								{
-									"name": "HostBinding",
-									"type": {
-										"type": "reference",
-										"name": "HostBinding"
-									},
-									"arguments": {}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "components/table/table.component.ts",
-									"line": 143,
-									"character": 27
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "number"
-							},
-							"defaultValue": "0"
-						},
-						{
-							"id": 486,
+							"id": 583,
 							"name": "ths",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7593,7 +8600,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 173,
+									"line": 280,
 									"character": 27
 								}
 							],
@@ -7609,7 +8616,7 @@
 							}
 						},
 						{
-							"id": 465,
+							"id": 562,
 							"name": "trackFn",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7617,6 +8624,9 @@
 								"isPublic": true,
 								"isExported": true,
 								"isOptional": true
+							},
+							"comment": {
+								"shortText": "TrackFn for ngFor to improve performance. Default is order by index."
 							},
 							"decorators": [
 								{
@@ -7631,7 +8641,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 153,
+									"line": 229,
 									"character": 27
 								}
 							],
@@ -7645,21 +8655,21 @@
 									{
 										"type": "reflection",
 										"declaration": {
-											"id": 466,
+											"id": 563,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"signatures": [
 												{
-													"id": 467,
+													"id": 564,
 													"name": "__call",
 													"kind": 4096,
 													"kindString": "Call signature",
 													"flags": {},
 													"parameters": [
 														{
-															"id": 468,
+															"id": 565,
 															"name": "index",
 															"kind": 32768,
 															"kindString": "Parameter",
@@ -7670,7 +8680,7 @@
 															}
 														},
 														{
-															"id": 469,
+															"id": 566,
 															"name": "item",
 															"kind": 32768,
 															"kindString": "Parameter",
@@ -7693,7 +8703,7 @@
 							}
 						},
 						{
-							"id": 528,
+							"id": 625,
 							"name": "doSort",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7703,7 +8713,7 @@
 							},
 							"signatures": [
 								{
-									"id": 529,
+									"id": 626,
 									"name": "doSort",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7717,13 +8727,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 431,
+									"line": 538,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 520,
+							"id": 617,
 							"name": "filterFn",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7732,14 +8742,14 @@
 							},
 							"signatures": [
 								{
-									"id": 521,
+									"id": 618,
 									"name": "filterFn",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 522,
+											"id": 619,
 											"name": "item",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7759,13 +8769,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 386,
+									"line": 493,
 									"character": 12
 								}
 							]
 						},
 						{
-							"id": 500,
+							"id": 597,
 							"name": "getColumnWidth",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7775,22 +8785,22 @@
 							},
 							"signatures": [
 								{
-									"id": 501,
+									"id": 598,
 									"name": "getColumnWidth",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 502,
+											"id": 599,
 											"name": "column",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"name": "DuiTableColumnDirective",
-												"id": 438
+												"name": "TableColumnDirective",
+												"id": 537
 											}
 										}
 									],
@@ -7803,13 +8813,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 194,
+									"line": 301,
 									"character": 25
 								}
 							]
 						},
 						{
-							"id": 514,
+							"id": 611,
 							"name": "initHeaderMovement",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7819,7 +8829,7 @@
 							},
 							"signatures": [
 								{
-									"id": 515,
+									"id": 612,
 									"name": "initHeaderMovement",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7833,13 +8843,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 247,
+									"line": 354,
 									"character": 32
 								}
 							]
 						},
 						{
-							"id": 505,
+							"id": 602,
 							"name": "isAsc",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7849,7 +8859,7 @@
 							},
 							"signatures": [
 								{
-									"id": 506,
+									"id": 603,
 									"name": "isAsc",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7863,13 +8873,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 205,
+									"line": 312,
 									"character": 16
 								}
 							]
 						},
 						{
-							"id": 516,
+							"id": 613,
 							"name": "ngAfterViewInit",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7878,7 +8888,7 @@
 							},
 							"signatures": [
 								{
-									"id": 517,
+									"id": 614,
 									"name": "ngAfterViewInit",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7892,13 +8902,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 348,
+									"line": 455,
 									"character": 19
 								}
 							]
 						},
 						{
-							"id": 523,
+							"id": 620,
 							"name": "ngOnChanges",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7907,14 +8917,14 @@
 							},
 							"signatures": [
 								{
-									"id": 524,
+									"id": 621,
 									"name": "ngOnChanges",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 525,
+											"id": 622,
 											"name": "changes",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7934,13 +8944,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 405,
+									"line": 512,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 503,
+							"id": 600,
 							"name": "ngOnDestroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7949,7 +8959,7 @@
 							},
 							"signatures": [
 								{
-									"id": 504,
+									"id": 601,
 									"name": "ngOnDestroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7963,13 +8973,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 202,
+									"line": 309,
 									"character": 15
 								}
 							]
 						},
 						{
-							"id": 530,
+							"id": 627,
 							"name": "onFocus",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7991,14 +9001,14 @@
 							],
 							"signatures": [
 								{
-									"id": 531,
+									"id": 628,
 									"name": "onFocus",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 532,
+											"id": 629,
 											"name": "event",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8018,13 +9028,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 455,
+									"line": 562,
 									"character": 11
 								}
 							]
 						},
 						{
-							"id": 533,
+							"id": 630,
 							"name": "select",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8034,14 +9044,14 @@
 							},
 							"signatures": [
 								{
-									"id": 534,
+									"id": 631,
 									"name": "select",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 535,
+											"id": 632,
 											"name": "item",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8052,7 +9062,7 @@
 											}
 										},
 										{
-											"id": 536,
+											"id": 633,
 											"name": "$event",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8074,13 +9084,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 509,
+									"line": 616,
 									"character": 18
 								}
 							]
 						},
 						{
-							"id": 507,
+							"id": 604,
 							"name": "sortBy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8090,14 +9100,14 @@
 							},
 							"signatures": [
 								{
-									"id": 508,
+									"id": 605,
 									"name": "sortBy",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 509,
+											"id": 606,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8117,13 +9127,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 209,
+									"line": 316,
 									"character": 17
 								}
 							]
 						},
 						{
-							"id": 518,
+							"id": 615,
 							"name": "sortColumnDefs",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8133,7 +9143,7 @@
 							},
 							"signatures": [
 								{
-									"id": 519,
+									"id": 616,
 									"name": "sortColumnDefs",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -8147,13 +9157,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 362,
+									"line": 469,
 									"character": 28
 								}
 							]
 						},
 						{
-							"id": 510,
+							"id": 607,
 							"name": "trackByFn",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8162,14 +9172,14 @@
 							},
 							"signatures": [
 								{
-									"id": 511,
+									"id": 608,
 									"name": "trackByFn",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 512,
+											"id": 609,
 											"name": "index",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8180,7 +9190,7 @@
 											}
 										},
 										{
-											"id": 513,
+											"id": 610,
 											"name": "item",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8200,13 +9210,13 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 242,
+									"line": 349,
 									"character": 13
 								}
 							]
 						},
 						{
-							"id": 526,
+							"id": 623,
 							"name": "updateDisplayColumns",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8216,7 +9226,7 @@
 							},
 							"signatures": [
 								{
-									"id": 527,
+									"id": 624,
 									"name": "updateDisplayColumns",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -8230,7 +9240,7 @@
 							"sources": [
 								{
 									"fileName": "components/table/table.component.ts",
-									"line": 419,
+									"line": 526,
 									"character": 32
 								}
 							]
@@ -8241,70 +9251,69 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								496
+								593
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								497,
-								487,
-								478,
-								479,
-								484,
-								461,
-								462,
-								470,
-								495,
-								472,
-								477,
-								476,
-								485,
-								488,
-								491,
-								471,
-								459,
-								464,
-								463,
-								482,
-								483,
-								481,
-								460,
-								480,
-								490,
-								489,
-								458,
-								486,
-								465
+								594,
+								584,
+								575,
+								576,
+								581,
+								558,
+								559,
+								567,
+								592,
+								569,
+								574,
+								573,
+								582,
+								585,
+								588,
+								568,
+								556,
+								561,
+								560,
+								579,
+								580,
+								578,
+								557,
+								577,
+								587,
+								586,
+								583,
+								562
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								528,
-								520,
-								500,
-								514,
-								505,
-								516,
-								523,
-								503,
-								530,
-								533,
-								507,
-								518,
-								510,
-								526
+								625,
+								617,
+								597,
+								611,
+								602,
+								613,
+								620,
+								600,
+								627,
+								630,
+								604,
+								615,
+								607,
+								623
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "components/table/table.component.ts",
-							"line": 142,
-							"character": 33
+							"line": 190,
+							"character": 27
 						}
 					],
 					"implementedTypes": [
@@ -8323,7 +9332,158 @@
 					]
 				},
 				{
-					"id": 425,
+					"id": 549,
+					"name": "TableHeaderDirective",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {
+						"isExported": true
+					},
+					"comment": {
+						"shortText": "Used to render a different column header.",
+						"text": "```html\n<dui-table>\n    <dui-table-header name=\"fieldName\" [sortable]=\"false\">Different Header</dui-table-header>\n</dui-table\n```\n"
+					},
+					"decorators": [
+						{
+							"name": "Component",
+							"type": {
+								"type": "reference",
+								"name": "Component"
+							},
+							"arguments": {
+								"obj": "{\n    selector: 'dui-table-header',\n    template: '<ng-template #templateRef><ng-content></ng-content></ng-template>'\n\n}"
+							}
+						}
+					],
+					"children": [
+						{
+							"id": 550,
+							"name": "name",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"comment": {
+								"shortText": "The name of the field of T."
+							},
+							"decorators": [
+								{
+									"name": "Input",
+									"type": {
+										"type": "reference",
+										"name": "Input"
+									},
+									"arguments": {
+										"bindingPropertyName": "'name'"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/table/table.component.ts",
+									"line": 128,
+									"character": 23
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 551,
+							"name": "sortable",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"decorators": [
+								{
+									"name": "Input",
+									"type": {
+										"type": "reference",
+										"name": "Input"
+									},
+									"arguments": {
+										"bindingPropertyName": "'sortable'"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/table/table.component.ts",
+									"line": 129,
+									"character": 31
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"defaultValue": "true"
+						},
+						{
+							"id": 552,
+							"name": "template",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"decorators": [
+								{
+									"name": "ViewChild",
+									"type": {
+										"type": "reference",
+										"name": "ViewChild"
+									},
+									"arguments": {
+										"selector": "'templateRef'"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "components/table/table.component.ts",
+									"line": 131,
+									"character": 38
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "TemplateRef",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								]
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								550,
+								551,
+								552
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "components/table/table.component.ts",
+							"line": 124,
+							"character": 33
+						}
+					]
+				},
+				{
+					"id": 524,
 					"name": "Column",
 					"kind": 256,
 					"kindString": "Interface",
@@ -8332,7 +9492,7 @@
 					},
 					"typeParameter": [
 						{
-							"id": 426,
+							"id": 525,
 							"name": "T",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -8341,7 +9501,7 @@
 					],
 					"children": [
 						{
-							"id": 429,
+							"id": 528,
 							"name": "cell",
 							"kind": 1024,
 							"kindString": "Property",
@@ -8366,21 +9526,21 @@
 									{
 										"type": "reflection",
 										"declaration": {
-											"id": 430,
+											"id": 529,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"signatures": [
 												{
-													"id": 431,
+													"id": 530,
 													"name": "__call",
 													"kind": 4096,
 													"kindString": "Call signature",
 													"flags": {},
 													"parameters": [
 														{
-															"id": 432,
+															"id": 531,
 															"name": "row",
 															"kind": 32768,
 															"kindString": "Parameter",
@@ -8403,7 +9563,7 @@
 							}
 						},
 						{
-							"id": 428,
+							"id": 527,
 							"name": "header",
 							"kind": 1024,
 							"kindString": "Property",
@@ -8433,7 +9593,7 @@
 							}
 						},
 						{
-							"id": 427,
+							"id": 526,
 							"name": "id",
 							"kind": 1024,
 							"kindString": "Property",
@@ -8458,9 +9618,9 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								429,
-								428,
-								427
+								528,
+								527,
+								526
 							]
 						}
 					],
@@ -8478,17 +9638,17 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						438,
-						450,
-						433,
-						456
+						532,
+						537,
+						553,
+						549
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						425
+						524
 					]
 				}
 			],
@@ -8501,7 +9661,7 @@
 			]
 		},
 		{
-			"id": 555,
+			"id": 652,
 			"name": "\"components/window/index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -8511,7 +9671,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/window/index.ts",
 			"children": [
 				{
-					"id": 556,
+					"id": 653,
 					"name": "DuiWindowModule",
 					"kind": 128,
 					"kindString": "Class",
@@ -8544,7 +9704,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						556
+						653
 					]
 				}
 			],
@@ -9130,7 +10290,7 @@
 			]
 		},
 		{
-			"id": 539,
+			"id": 636,
 			"name": "\"components/window/window-footer.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -9140,7 +10300,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/window/window-footer.component.ts",
 			"children": [
 				{
-					"id": 540,
+					"id": 637,
 					"name": "WindowFooterComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -9173,7 +10333,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						540
+						637
 					]
 				}
 			],
@@ -9186,7 +10346,7 @@
 			]
 		},
 		{
-			"id": 541,
+			"id": 638,
 			"name": "\"components/window/window-header.component\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -9196,7 +10356,7 @@
 			"originalName": "/Users/marc/bude/angular-desktop-ui/packages/native-ui/src/components/window/window-header.component.ts",
 			"children": [
 				{
-					"id": 544,
+					"id": 641,
 					"name": "WindowHeaderComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -9217,7 +10377,7 @@
 					],
 					"children": [
 						{
-							"id": 545,
+							"id": 642,
 							"name": "size",
 							"kind": 1024,
 							"kindString": "Property",
@@ -9262,7 +10422,7 @@
 							"defaultValue": "\"small\""
 						},
 						{
-							"id": 546,
+							"id": 643,
 							"name": "toolbar",
 							"kind": 1024,
 							"kindString": "Property",
@@ -9292,11 +10452,11 @@
 							"type": {
 								"type": "reference",
 								"name": "WindowToolbarComponent",
-								"id": 542
+								"id": 639
 							}
 						},
 						{
-							"id": 551,
+							"id": 648,
 							"name": "isLarge",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9317,7 +10477,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 552,
+									"id": 649,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9337,7 +10497,7 @@
 							]
 						},
 						{
-							"id": 549,
+							"id": 646,
 							"name": "isMedium",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9358,7 +10518,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 550,
+									"id": 647,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9378,7 +10538,7 @@
 							]
 						},
 						{
-							"id": 547,
+							"id": 644,
 							"name": "withToolbar",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9399,7 +10559,7 @@
 							],
 							"getSignature": [
 								{
-									"id": 548,
+									"id": 645,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9419,7 +10579,7 @@
 							]
 						},
 						{
-							"id": 553,
+							"id": 650,
 							"name": "atLeastOneButtonIsMedium",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9429,7 +10589,7 @@
 							},
 							"signatures": [
 								{
-									"id": 554,
+									"id": 651,
 									"name": "atLeastOneButtonIsMedium",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -9457,24 +10617,24 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								545,
-								546
+								642,
+								643
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								551,
-								549,
-								547
+								648,
+								646,
+								644
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								553
+								650
 							]
 						}
 					],
@@ -9487,7 +10647,7 @@
 					]
 				},
 				{
-					"id": 542,
+					"id": 639,
 					"name": "WindowToolbarComponent",
 					"kind": 128,
 					"kindString": "Class",
@@ -9508,7 +10668,7 @@
 					],
 					"children": [
 						{
-							"id": 543,
+							"id": 640,
 							"name": "template",
 							"kind": 1024,
 							"kindString": "Property",
@@ -9551,7 +10711,7 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								543
+								640
 							]
 						}
 					],
@@ -9569,8 +10729,8 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						544,
-						542
+						641,
+						639
 					]
 				}
 			],
@@ -9882,6 +11042,16 @@
 					"flags": {
 						"isExported": true
 					},
+					"decorators": [
+						{
+							"name": "Injectable",
+							"type": {
+								"type": "reference",
+								"name": "Injectable"
+							},
+							"arguments": {}
+						}
+					],
 					"typeParameter": [
 						{
 							"id": 90,
@@ -9893,7 +11063,7 @@
 					],
 					"children": [
 						{
-							"id": 99,
+							"id": 104,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -9902,21 +11072,87 @@
 							},
 							"signatures": [
 								{
-									"id": 101,
+									"id": 108,
 									"name": "new ValueAccessorBase",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 102,
+											"id": 109,
 											"name": "injector",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "Injector"
+													}
+												}
+											],
 											"type": {
 												"type": "reference",
 												"name": "Injector"
+											}
+										},
+										{
+											"id": 110,
+											"name": "cd",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
+											}
+										},
+										{
+											"id": 111,
+											"name": "cdParent",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"decorators": [
+												{
+													"name": "Inject",
+													"type": {
+														"type": "reference",
+														"name": "Inject"
+													},
+													"arguments": {
+														"token": "ChangeDetectorRef"
+													}
+												},
+												{
+													"name": "SkipSelf",
+													"type": {
+														"type": "reference",
+														"name": "SkipSelf"
+													},
+													"arguments": {}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "ChangeDetectorRef"
 											}
 										}
 									],
@@ -9930,25 +11166,47 @@
 							"sources": [
 								{
 									"fileName": "core/form.ts",
-									"line": 50,
-									"character": 36
+									"line": 54,
+									"character": 5
 								}
 							]
 						},
 						{
-							"id": 96,
-							"name": "disabled",
+							"id": 99,
+							"name": "_ngControl",
 							"kind": 1024,
 							"kindString": "Property",
 							"flags": {
-								"isPublic": true,
+								"isPrivate": true,
+								"isExported": true,
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 39,
+									"character": 22
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "NgControl"
+							}
+						},
+						{
+							"id": 100,
+							"name": "_ngControlFetched",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPrivate": true,
 								"isExported": true
 							},
 							"sources": [
 								{
 									"fileName": "core/form.ts",
 									"line": 40,
-									"character": 19
+									"character": 29
 								}
 							],
 							"type": {
@@ -9958,7 +11216,114 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 100,
+							"id": 106,
+							"name": "cd",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 58,
+									"character": 47
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							}
+						},
+						{
+							"id": 107,
+							"name": "cdParent",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "ChangeDetectorRef"
+									}
+								},
+								{
+									"name": "SkipSelf",
+									"type": {
+										"type": "reference",
+										"name": "SkipSelf"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 59,
+									"character": 65
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "ChangeDetectorRef"
+							}
+						},
+						{
+							"id": 101,
+							"name": "disabled",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"decorators": [
+								{
+									"name": "Input",
+									"type": {
+										"type": "reference",
+										"name": "Input"
+									},
+									"arguments": {}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 42,
+									"character": 21
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"defaultValue": "false"
+						},
+						{
+							"id": 105,
 							"name": "injector",
 							"kind": 1024,
 							"kindString": "Property",
@@ -9967,17 +11332,67 @@
 								"isExported": true,
 								"isConstructorProperty": true
 							},
+							"decorators": [
+								{
+									"name": "Inject",
+									"type": {
+										"type": "reference",
+										"name": "Inject"
+									},
+									"arguments": {
+										"token": "Injector"
+									}
+								}
+							],
 							"sources": [
 								{
 									"fileName": "core/form.ts",
-									"line": 52,
-									"character": 34
+									"line": 57,
+									"character": 44
 								}
 							],
 							"type": {
 								"type": "reference",
 								"name": "Injector"
 							}
+						},
+						{
+							"id": 102,
+							"name": "ngControl",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 103,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"name": "NgControl"
+											},
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											}
+										]
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "core/form.ts",
+									"line": 44,
+									"character": 17
+								}
+							]
 						}
 					],
 					"groups": [
@@ -9985,22 +11400,33 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								99
+								104
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								96,
-								100
+								99,
+								100,
+								106,
+								107,
+								101,
+								105
+							]
+						},
+						{
+							"title": "Accessors",
+							"kind": 262144,
+							"children": [
+								102
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "core/form.ts",
-							"line": 14,
+							"line": 23,
 							"character": 30
 						}
 					],
@@ -10008,17 +11434,27 @@
 						{
 							"type": "reference",
 							"name": "CheckboxComponent",
-							"id": 143
+							"id": 148
 						},
 						{
 							"type": "reference",
 							"name": "InputComponent",
-							"id": 201
+							"id": 211
 						},
 						{
 							"type": "reference",
 							"name": "ListComponent",
-							"id": 269
+							"id": 284
+						},
+						{
+							"type": "reference",
+							"name": "RadioboxComponent",
+							"id": 367
+						},
+						{
+							"type": "reference",
+							"name": "SelectboxComponent",
+							"id": 432
 						}
 					],
 					"implementedTypes": [
@@ -10033,7 +11469,7 @@
 					]
 				},
 				{
-					"id": 134,
+					"id": 139,
 					"name": "ngValueAccessor",
 					"kind": 64,
 					"kindString": "Function",
@@ -10042,14 +11478,14 @@
 					},
 					"signatures": [
 						{
-							"id": 135,
+							"id": 140,
 							"name": "ngValueAccessor",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"typeParameter": [
 								{
-									"id": 136,
+									"id": 141,
 									"name": "T",
 									"kind": 131072,
 									"kindString": "Type parameter",
@@ -10058,7 +11494,7 @@
 							],
 							"parameters": [
 								{
-									"id": 137,
+									"id": 142,
 									"name": "clazz",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -10078,14 +11514,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 138,
+									"id": 143,
 									"name": "__type",
 									"kind": 65536,
 									"kindString": "Type literal",
 									"flags": {},
 									"children": [
 										{
-											"id": 141,
+											"id": 146,
 											"name": "multi",
 											"kind": 32,
 											"kindString": "Variable",
@@ -10093,7 +11529,7 @@
 											"sources": [
 												{
 													"fileName": "core/form.ts",
-													"line": 10,
+													"line": 18,
 													"character": 13
 												}
 											],
@@ -10104,7 +11540,7 @@
 											"defaultValue": "true"
 										},
 										{
-											"id": 139,
+											"id": 144,
 											"name": "provide",
 											"kind": 32,
 											"kindString": "Variable",
@@ -10112,7 +11548,7 @@
 											"sources": [
 												{
 													"fileName": "core/form.ts",
-													"line": 8,
+													"line": 16,
 													"character": 15
 												}
 											],
@@ -10129,7 +11565,7 @@
 											"defaultValue": " NG_VALUE_ACCESSOR"
 										},
 										{
-											"id": 140,
+											"id": 145,
 											"name": "useExisting",
 											"kind": 32,
 											"kindString": "Variable",
@@ -10137,7 +11573,7 @@
 											"sources": [
 												{
 													"fileName": "core/form.ts",
-													"line": 9,
+													"line": 17,
 													"character": 19
 												}
 											],
@@ -10159,9 +11595,9 @@
 											"title": "Variables",
 											"kind": 32,
 											"children": [
-												141,
-												139,
-												140
+												146,
+												144,
+												145
 											]
 										}
 									]
@@ -10172,7 +11608,7 @@
 					"sources": [
 						{
 							"fileName": "core/form.ts",
-							"line": 6,
+							"line": 14,
 							"character": 31
 						}
 					]
@@ -10190,7 +11626,7 @@
 					"title": "Functions",
 					"kind": 64,
 					"children": [
-						134
+						139
 					]
 				}
 			],
@@ -10203,7 +11639,7 @@
 			]
 		},
 		{
-			"id": 557,
+			"id": 654,
 			"name": "\"index\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -10227,32 +11663,32 @@
 			"children": [
 				33,
 				86,
-				142,
-				192,
-				194,
-				198,
+				147,
+				202,
+				204,
+				208,
 				70,
 				84,
-				263,
-				200,
-				344,
-				265,
-				361,
-				346,
-				407,
-				363,
-				422,
-				409,
-				537,
-				424,
-				555,
+				278,
+				210,
+				364,
+				280,
+				423,
+				366,
+				506,
+				425,
+				521,
+				508,
+				634,
+				523,
+				652,
 				4,
-				539,
-				541,
+				636,
+				638,
 				1,
 				28,
 				88,
-				557
+				654
 			]
 		}
 	]

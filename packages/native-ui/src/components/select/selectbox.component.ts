@@ -11,6 +11,7 @@ import {
     QueryList, SimpleChanges
 } from "@angular/core";
 import {Subscription} from "rxjs";
+import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Directive({
     selector: 'dui-option',
@@ -33,23 +34,29 @@ export class OptionDirective {
             <dui-icon [size]="13" name="arrows"></dui-icon>
         </div>
 
-        <select (mousedown)="onMouseDown($event)" [ngModel]="model" (ngModelChange)="setValue($event)">
-            <option *ngFor="let option of options"
-                    [ngValue]="option.value">{{option.element.nativeElement.innerText}}</option>
+        <select (mousedown)="onMouseDown($event)" [ngModel]="innerValue" (ngModelChange)="setValue($event)">
+            <ng-container *ngIf="options">
+                <option *ngFor="let option of options.toArray()"
+                        [ngValue]="option.value">{{option.element.nativeElement.innerText}}</option>
+            </ng-container>
         </select>
     `,
-    styleUrls: ['./selectbox.component.scss']
+    styleUrls: ['./selectbox.component.scss'],
+    providers: [ngValueAccessor(SelectboxComponent)]
 })
-export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
+export class SelectboxComponent<T> extends ValueAccessorBase<T> implements AfterViewInit, OnDestroy, OnChanges {
     @Input() placeholder: string = '';
-
-    @Input() model: T | undefined;
-    @Output() modelChange = new EventEmitter<T>();
 
     @Input() disabled: boolean = false;
     @HostBinding('class.disabled')
     get isDisabled() {
         return false !== this.disabled;
+    }
+
+    @Input() textured: boolean = false;
+    @HostBinding('class.textured')
+    get isTextured() {
+        return false !== this.textured;
     }
 
     @ContentChildren(OptionDirective) options?: QueryList<OptionDirective>;
@@ -58,8 +65,6 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
     public optionsValueMap = new Map<T, string>();
 
     protected changeSubscription?: Subscription;
-
-    constructor(private cd: ChangeDetectorRef, private app: ApplicationRef) {}
 
     ngAfterViewInit(): void {
         if (this.options) {
@@ -83,7 +88,7 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
 
     @HostBinding('class.selected')
     get isSelected(): boolean {
-        return this.model !== undefined;
+        return this.innerValue !== undefined;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -94,17 +99,16 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
      * @hidden
      */
     public setValue(v: T) {
-        this.model = v;
-        this.modelChange.emit(this.model);
-        console.log('modelChange', this.model);
+        this.innerValue = v;
+    }
+
+    protected async onInnerValueChange(): Promise<any> {
         this.setLabel();
-        this.app.tick();
     }
 
     protected setLabel() {
-        if (this.model !== undefined) {
-            this.label = this.optionsValueMap.get(this.model) || '';
-            this.cd.detectChanges();
+        if (this.innerValue !== undefined) {
+            this.label = this.optionsValueMap.get(this.innerValue) || '';
         }
     }
 
@@ -117,6 +121,7 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
         }
 
         this.setLabel();
+        this.cd.detectChanges();
     }
 
 

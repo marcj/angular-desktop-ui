@@ -25,6 +25,7 @@ import {DuiButtonModule, DuiWindowModule, DuiTableModule, DuiInputModule} from '
 import {stack} from "@marcj/estdlib";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
+import {Converter} from 'showdown';
 
 @Component({
     selector: 'highlighter',
@@ -42,10 +43,10 @@ import {FormsModule} from "@angular/forms";
     `]
 })
 class Highlighter implements OnChanges {
-    @Input() code: string;
-    @Input() type: string;
+    @Input() code!: string;
+    @Input() type!: string;
 
-    highlighted: string;
+    highlighted?: string;
 
     ngOnChanges(changes: SimpleChanges): void {
         const type = decodeURIComponent(this.type);
@@ -56,9 +57,12 @@ class Highlighter implements OnChanges {
         code = code.replace(/^[\n]+|[\n\s]+$/g, "");
 
         //remove first intend
-        const indent = code.match(/^[\s]*/)[0].length;
-        const regEx = new RegExp('^ {' + indent + '}', 'gm');
-        code = code.replace(regEx, '');
+        const match = code.match(/^[\s]*/);
+        if (match && match[0]) {
+            const indent = match[0].length;
+            const regEx = new RegExp('^ {' + indent + '}', 'gm');
+            code = code.replace(regEx, '');
+        }
 
         this.highlighted = hljs.highlightAuto(code, [language]).value;
     }
@@ -170,7 +174,7 @@ type ApiDocFlags = {
 };
 type ApiDocGroups = { title: string, kind: number, children: number[] }[];
 type ApiDocSources = { fileName: string, line: number, character: number }[];
-type ApiDocType = { type: string, name: string, types?: ApiDocType[], typeArguments?: ApiDocType[]};
+type ApiDocType = { type: string, name: string, types?: ApiDocType[], typeArguments?: ApiDocType[] };
 
 
 interface ApiDocItemDecorator {
@@ -246,7 +250,7 @@ interface ApiDocItemChildClass {
     kind: 128;
     kindString: 'Class';
 
-    comment?: { shortText: string };
+    comment?: { shortText: string, text?: string };
 
     flags: ApiDocFlags;
     decorators: ApiDocDecorators;
@@ -336,19 +340,22 @@ export class ApiDocProvider {
     selector: 'api-doc',
     template: `
         <div class="title">
-            <h2 style="float: left; margin: 0;">API <code>&lt;{{selector}}&gt;</code></h2>
+            <h2 style="float: left; margin: 0;">API <code>{{selector}}</code></h2>
 
-            <dui-input icon="search" placeholder="Search" [(ngModel)]="filterQuery" clearer></dui-input>
+            <dui-input *ngIf="tableData.length" icon="search" placeholder="Search" [(ngModel)]="filterQuery"
+                       clearer></dui-input>
         </div>
-        
-        <p *ngIf="comment">
-            {{comment}}
+
+        <p *ngIf="comment" [innerHTML]="comment">
         </p>
 
-        <dui-table [items]="tableData" [selectable]="true"
-                   [filterQuery]="filterQuery"
-                   [filterFields]="['name', 'type', 'dataType', 'comment']">
-            <dui-table-column name="name" header="Name">
+        <dui-table
+            *ngIf="tableData.length"
+            [items]="tableData" [selectable]="true"
+            [filterQuery]="filterQuery"
+            [filterFields]="['name', 'type', 'dataType', 'comment']"
+        >
+            <dui-table-column name="name" header="Name" [width]="240">
                 <ng-container *duiTableCell="let row">
                     <ng-container *ngIf="row.type === 'input'">
                         @Input()
@@ -361,15 +368,15 @@ export class ApiDocProvider {
                     {{row.name}}
                 </ng-container>
             </dui-table-column>
-            <dui-table-column name="dataType" header="Type"></dui-table-column>
-            <dui-table-column name="comment" header="Description"></dui-table-column>
+            <dui-table-column name="dataType" header="Type" [width]="150"></dui-table-column>
+            <dui-table-column name="comment" header="Description" width="100%"></dui-table-column>
         </dui-table>
     `,
     styleUrls: ['./api-doc.component.scss']
 })
 export class ApiDocComponent implements OnChanges {
-    @Input() module: string;
-    @Input() component: string;
+    @Input() module!: string;
+    @Input() component!: string;
 
     comment = '';
 
@@ -389,7 +396,7 @@ export class ApiDocComponent implements OnChanges {
         this.tableData = [];
 
         for (const decorator of docs.decorators) {
-            if (decorator.name === "Component") {
+            if (decorator.name === "Component" || decorator.name === "Directive") {
                 const match = decorator.arguments.obj.match(/['"]?selector['"]?\s?:\s?['"]+([^'"]+)['"]+/i);
                 this.selector = match[1];
             }
@@ -397,6 +404,11 @@ export class ApiDocComponent implements OnChanges {
 
         if (docs.comment) {
             this.comment = docs.comment.shortText;
+            if (docs.comment.text) {
+                this.comment += '</br>' + docs.comment.text;
+            }
+            const converter = new Converter;
+            this.comment = converter.makeHtml(this.comment);
         }
 
         if (docs.children) {
@@ -457,7 +469,7 @@ export class MarkdownDocComponent implements AfterViewInit {
     protected component?: ComponentRef<any>;
     protected componentJavascript = '';
 
-    @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
+    @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
 
     constructor(
         private route: ActivatedRoute,
@@ -542,7 +554,7 @@ export class MarkdownDocComponent implements AfterViewInit {
         class TemplateComponent {
             constructor() {
                 for (const i in properties) {
-                    this[i] = properties[i];
+                    (this as any)[i] = (properties as any)[i];
                 }
             }
         }
@@ -560,7 +572,9 @@ export class MarkdownDocComponent implements AfterViewInit {
             comp.componentType === TemplateComponent
         );
 
-        this.component = this.container.createComponent(factory);
+        if (factory) {
+            this.component = this.container.createComponent(factory);
+        }
     }
 }
 
