@@ -6,7 +6,7 @@
 </p>
 
 ```bash
-npm instsall @marcj/angular-desktop-ui
+npm install @marcj/angular-desktop-ui
 ```
 
 <p>
@@ -22,6 +22,43 @@ npm instsall @marcj/angular-desktop-ui
             "styles": [
               "src/styles.scss",
               "node_modules/@marcj/angular-desktop-ui/src/scss/icon.scss"
+```
+
+<h2>Compiler adjustments</h2>
+
+<p>
+    Since this library comes only as Typescript source, you need to include the library in your compilation process. Do this by adjusting the tsconfig.json.
+</p>
+
+```json
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "strict": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "include": [
+    "./src",
+    "node_modules/@marcj/angular-desktop-ui/src/**/*.ts"
+  ]
+}
 ```
 
 <p>
