@@ -36,3 +36,5 @@ import {DuiButtonModule} from '@marcj/angular-desktop-ui';
     </dui-button-group>
 </p>
 ```
+
+<api-doc module="components/button/button.component" component="ButtonGroupComponent"></api-doc>

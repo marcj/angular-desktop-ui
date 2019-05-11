@@ -88,3 +88,9 @@ export class MyWindow {
 }
 ```
 </dui-code-frame>
+
+<api-doc module="components/table/table.component" component="TableComponent"></api-doc>
+
+<api-doc module="components/table/table.component" component="TableHeaderComponent"></api-doc>
+
+<api-doc module="components/table/table.component" component="TableColumnComponent"></api-doc>

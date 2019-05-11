@@ -30,7 +30,14 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
     `]
 })
 export class IconComponent implements OnInit {
+    /**
+     * The icon for this button. Either a icon name same as for dui-icon, or an image path.
+     */
     @Input() name?: string;
+
+    /**
+     * Change in the icon size. Should not be necessary usually.
+     */
     @Input() size: number = 17;
 
     @Input() clickable: boolean = false;

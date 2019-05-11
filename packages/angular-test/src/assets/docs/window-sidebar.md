@@ -52,3 +52,5 @@ import {DuiWindowComponent} from '@marcj/angular-desktop-ui';
     </dui-window>
 ```
 </dui-code-frame>
+
+<api-doc module="components/window/window-sidebar.component" component="WindowSidebarComponent"></api-doc>

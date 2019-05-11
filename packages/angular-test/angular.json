@@ -25,7 +25,8 @@
             "preserveSymlinks": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "./node_modules/@marcj/angular-desktop-ui/assets", "output": "assets" }
             ],
             "styles": [
               "src/styles.scss",

@@ -15,8 +15,19 @@ import {Subscription} from "rxjs";
     styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
+    /**
+     * The icon for this button. Either a icon name same as for dui-icon, or an image path.
+     */
     @Input() icon?: string;
+
+    /**
+     * Change in the icon size. Should not be necessary usually.
+     */
     @Input() iconSize?: number;
+
+    /**
+     * Whether the button is active. If it is not active all pointer events are disabled.
+     */
     @Input() active: boolean = false;
 
     constructor(
@@ -44,12 +55,20 @@ export class ButtonComponent {
     }
 }
 
+/**
+ * Used to group buttons together.
+ */
 @Component({
     selector: 'dui-button-group',
     template: '<ng-content></ng-content>',
     styleUrls: ['./button-group.component.scss']
 })
 export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
+    /**
+     * How the button should behave.
+     * `sidebar` means it aligns with the sidebar. Is the sidebar open, this button-group has a left margin.
+     * Is it closed, the margin is gone.
+     */
     @Input() float: 'static' | 'sidebar' | 'float' | 'right' = 'static';
 
     @Input() padding: 'normal' | 'none' = 'normal';
@@ -85,7 +104,7 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
                     this.siderbarVisibleSubscription.unsubscribe();
                 }
 
-                this.siderbarVisibleSubscription = this.windowComponent.content.sidebarVisibleChanged.subscribe(() => {
+                this.siderbarVisibleSubscription = this.windowComponent.content!.sidebarVisibleChanged.subscribe(() => {
                     this.handleSidebar()
                 });
 
@@ -94,7 +113,7 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    protected handleSidebar() {
+    private handleSidebar() {
         if (this.windowComponent.content) {
             if (this.windowComponent.content!.isSidebarVisible()) {
                 this.element.nativeElement.style.paddingLeft = (this.windowComponent.content.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';

@@ -16,3 +16,5 @@ return {active: false}
     Active: {{active}}
 </p>
 ```
+
+<api-doc module="components/checkbox/checkbox.component" component="CheckboxComponent"></api-doc>

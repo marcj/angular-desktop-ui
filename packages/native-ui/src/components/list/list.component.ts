@@ -1,15 +1,21 @@
 import {
     ChangeDetectorRef,
-    Component, ContentChildren,
+    Component,
+    ContentChildren,
     ElementRef,
-    EventEmitter, forwardRef,
+    forwardRef,
     HostBinding,
     HostListener,
+    Injector,
     Input,
-    Output, QueryList, Injector, OnChanges, SimpleChanges, SkipSelf, OnDestroy
+    OnChanges,
+    OnDestroy,
+    QueryList,
+    SimpleChanges,
+    SkipSelf
 } from '@angular/core';
 import {NavigationEnd, Router, UrlTree} from '@angular/router';
-import {ValueAccessorBase, ngValueAccessor} from "../../core/form";
+import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -40,6 +46,10 @@ export class ListComponent extends ValueAccessorBase<any> {
     @HostBinding('class.disabled')
     get isDisabled() {
         return this.disabled;
+    }
+
+    constructor(injector: Injector) {
+        super(injector);
     }
 
     @HostListener('keydown', ['$event'])

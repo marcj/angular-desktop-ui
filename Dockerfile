@@ -6,6 +6,7 @@ RUN apk --no-cache add git
 
 ADD . /lib
 RUN cd /lib && npm run bootstrap && npm-local-development --no-watcher
+RUN cd /lib/packages/native-ui && npm run docs
 RUN cd /lib/packages/angular-test && npm run build --prod
 
 FROM nginx:alpine

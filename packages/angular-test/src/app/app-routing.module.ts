@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {StaticDocComponent} from './components/static-doc.component';
+import {MarkdownDocComponent} from './components/doc.module';
 
 const routes: Routes = [
     {path: '', redirectTo: 'doc/start', pathMatch: 'full'},
-    {path: 'doc/:id', component: StaticDocComponent},
+    {path: 'doc/:id', component: MarkdownDocComponent},
 ];
 
 @NgModule({

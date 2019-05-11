@@ -33,3 +33,6 @@ return {disabled: false}
 
     <dui-checkbox [(ngModel)]="disabled">Disable all</dui-checkbox>
 ```
+
+
+<api-doc module="components/button/button.component" component="ButtonComponent"></api-doc>

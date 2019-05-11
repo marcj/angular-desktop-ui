@@ -19,3 +19,5 @@ return {radioValue: 'a'}
     Chosen: {{radioValue}}
 </p>
 ```
+
+<api-doc module="components/radiobox/radiobox.component" component="RadioboxComponent"></api-doc>

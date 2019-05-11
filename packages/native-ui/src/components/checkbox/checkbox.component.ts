@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener, Input} from "@angular/core";
+import {Component, HostBinding, HostListener, Injector, Input} from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
@@ -14,6 +14,10 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 })
 export class CheckboxComponent extends ValueAccessorBase<any> {
     @Input() disabled: boolean = false;
+
+    constructor(injector: Injector) {
+        super(injector);
+    }
 
     @HostBinding('class.disabled')
     get isDisabled() {

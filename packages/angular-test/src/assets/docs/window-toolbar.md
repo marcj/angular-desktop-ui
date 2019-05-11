@@ -45,3 +45,5 @@ import {DuiWindowComponent} from '@marcj/angular-desktop-ui';
     </dui-window>
 ```
 </dui-code-frame>
+
+<api-doc module="components/window/window-header.component" component="WindowToolbarComponent"></api-doc>

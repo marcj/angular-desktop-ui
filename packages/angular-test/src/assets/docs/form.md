@@ -9,7 +9,9 @@ return {disabled: false, disabledAll: false, i: 0}
 import {DuiFormComponent} from '@marcj/angular-desktop-ui';
 ```
 
+<dui-code-frame height="auto">
 ```html
+<dui-window-content>
 <dui-form>
     <dui-form-row label="Username">
         <dui-input [disabled]="disabled" clearer></dui-input>
@@ -87,4 +89,10 @@ import {DuiFormComponent} from '@marcj/angular-desktop-ui';
         <dui-checkbox [(ngModel)]="disabledAll">Disable all</dui-checkbox>
     </dui-form-row>
 </dui-form>
+</dui-window-content>
 ```
+</dui-code-frame>
+
+<api-doc module="components/form/form.component" component="FormComponent"></api-doc>
+
+<api-doc module="components/form/form.component" component="FormRowComponent"></api-doc>

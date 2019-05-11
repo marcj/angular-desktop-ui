@@ -21,3 +21,5 @@ return {radioValue: 'a'}
     Chosen: {{radioValue}}
 </p>
 ```
+
+<api-doc module="components/select/selectbox.component" component="SelectboxComponent"></api-doc>

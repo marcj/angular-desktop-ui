@@ -89,3 +89,15 @@ import {DuiWindowComponent} from '@marcj/angular-desktop-ui';
     </dui-window>
 ```
 </dui-code-frame>
+
+<api-doc module="components/window/window.component" component="WindowComponent"></api-doc>
+
+<api-doc module="components/window/window-content.component" component="WindowContentComponent"></api-doc>
+
+<api-doc module="components/window/window-header.component" component="WindowHeaderComponent"></api-doc>
+
+<api-doc module="components/window/window-header.component" component="WindowToolbarComponent"></api-doc>
+
+<api-doc module="components/window/window-sidebar.component" component="WindowSidebarComponent"></api-doc>
+
+<api-doc module="components/window/window-footer.component" component="WindowFooterComponent"></api-doc>

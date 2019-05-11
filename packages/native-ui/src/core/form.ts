@@ -1,5 +1,5 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
-import {ChangeDetectorRef, forwardRef, Inject, Injector, OnDestroy, SkipSelf, Type} from "@angular/core";
+import {ChangeDetectorRef, forwardRef, InjectFlags, Injector, OnDestroy, Type} from "@angular/core";
 import {Subject} from "rxjs";
 import {Subscriptions} from "@marcj/estdlib-rxjs";
 
@@ -12,24 +12,53 @@ export function ngValueAccessor<T>(clazz: Type<T>) {
 }
 
 export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
+    /**
+     * @hidden
+     */
     private _innerValue: T | undefined;
 
+    /**
+     * @hidden
+     */
     public readonly changed = new Subject<T | undefined>();
+
+    /**
+     * @hidden
+     */
     public readonly touched = new Subject<void>();
 
+    /**
+     * @hidden
+     */
     private _ngControl?: NgControl;
+
+    /**
+     * @hidden
+     */
     private _ngControlFetched = false;
 
     public disabled = false;
 
+    /**
+     * @hidden
+     */
     protected readonly subs = new Subscriptions();
 
-    constructor(
-        @Inject(Injector) protected injector: Injector,
-        @SkipSelf() @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef
-    ) {
+    /**
+     * @hidden
+     */
+    protected cd: ChangeDetectorRef;
+
+    constructor(protected injector: Injector) {
+        if (!injector) {
+            throw new Error('injector undefined');
+        }
+        this.cd = injector.get(ChangeDetectorRef as Type<ChangeDetectorRef>, undefined, InjectFlags.SkipSelf);
     }
 
+    /**
+     * @hidden
+     */
     get ngControl(): NgControl | undefined {
         if (!this._ngControlFetched) {
             try {
@@ -42,14 +71,23 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         return this._ngControl;
     }
 
+    /**
+     * @hidden
+     */
     setDisabledState(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
 
+    /**
+     * @hidden
+     */
     ngOnDestroy(): void {
         this.subs.unsubscribe();
     }
 
+    /**
+     * @hidden
+     */
     get innerValue(): T | undefined {
         return this._innerValue;
     }
@@ -58,6 +96,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
      * Sets the internal value with notifying all changed callbacks and onInnerValueChange callback.
      * Use `_innerValue` for hidden value change.
      * @param value
+     * @hidden
      */
     set innerValue(value: T | undefined) {
         if (this._innerValue !== value) {
@@ -68,18 +107,30 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         }
     }
 
+    /**
+     * @hidden
+     */
     protected onInnerValueChange() {
 
     }
 
+    /**
+     * @hidden
+     */
     touch() {
         this.touched.next();
     }
 
+    /**
+     * @hidden
+     */
     onTouched() {
         this.touched.next();
     }
 
+    /**
+     * @hidden
+     */
     writeValue(value?: T) {
         this._innerValue = value;
         this.changed.next(value);
@@ -87,10 +138,16 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         this.cd.detectChanges();
     }
 
+    /**
+     * @hidden
+     */
     registerOnChange(fn: (value: T | undefined) => void) {
         this.subs.add = this.changed.subscribe(fn);
     }
 
+    /**
+     * @hidden
+     */
     registerOnTouched(fn: () => void) {
         this.subs.add = this.touched.subscribe(fn);
     }

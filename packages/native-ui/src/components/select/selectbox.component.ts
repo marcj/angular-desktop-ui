@@ -71,6 +71,9 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
         }
     }
 
+    /**
+     * @hidden
+     */
     public onMouseDown($event: MouseEvent) {
         if (this.isDisabled) {
             $event.preventDefault();
@@ -87,6 +90,9 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
         this.setLabel();
     }
 
+    /**
+     * @hidden
+     */
     public setValue(v: T) {
         this.model = v;
         this.modelChange.emit(this.model);
@@ -95,7 +101,7 @@ export class SelectboxComponent<T> implements AfterViewInit, OnDestroy, OnChange
         this.app.tick();
     }
 
-    public setLabel() {
+    protected setLabel() {
         if (this.model !== undefined) {
             this.label = this.optionsValueMap.get(this.model) || '';
             this.cd.detectChanges();

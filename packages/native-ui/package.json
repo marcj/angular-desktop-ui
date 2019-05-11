@@ -7,13 +7,14 @@
   "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
   "license": "MIT",
   "scripts": {
-    "font": "ts-node create-font.ts"
+    "font": "ts-node create-font.ts",
+    "docs": "typedoc --json assets/docs.json --mode modules src"
   },
   "sideEffects": false,
   "dependencies": {
     "hammerjs": "^2.0.8",
-    "@marcj/estdlib": "^0.1.9",
-    "@marcj/estdlib-rxjs": "^0.1.9"
+    "@marcj/estdlib": "^0.1.10",
+    "@marcj/estdlib-rxjs": "^0.1.10"
   },
   "publishConfig": {
     "access": "public"
@@ -43,6 +44,7 @@
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
     "transformation-matrix-js": "2.7.1",
+    "typedoc": "^0.14.2",
     "ts-node": "^8.0.2",
     "ttf2woff": "^2.0.1",
     "typescript": "^3.2.1"

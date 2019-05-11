@@ -54,3 +54,9 @@ import {DuiListModule} from '@marcj/angular-desktop-ui';
     Selected dui-list-item: {{selected}}
 </p>
 ```
+
+<api-doc module="components/list/list.component" component="ListComponent"></api-doc>
+
+<api-doc module="components/list/list.component" component="ListItemComponent"></api-doc>
+
+<api-doc module="components/list/list.component" component="ListTitleComponent"></api-doc>

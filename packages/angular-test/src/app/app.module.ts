@@ -15,14 +15,13 @@ import {
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {StaticDocComponent} from "./components/static-doc.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {DocModule} from "./components/doc.module";
 
 @NgModule({
     declarations: [
         AppComponent,
-        StaticDocComponent,
     ],
     imports: [
         HttpClientModule,
@@ -40,6 +39,7 @@ import {FormsModule} from "@angular/forms";
         DuiListModule,
         DuiTableModule,
         DuiButtonModule,
+        DocModule.forRoot(AppModule),
     ],
     providers: [],
     bootstrap: [AppComponent]

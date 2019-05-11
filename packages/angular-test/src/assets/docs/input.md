@@ -40,3 +40,5 @@ return {name: 'Peter'}
 </p>
 
 ```
+
+<api-doc module="components/input/input.component" component="InputComponent"></api-doc>
