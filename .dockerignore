@@ -1,0 +1,4 @@
+packages/*/node_modules
+packages/angular-test/dist
+Dockerfile
+.dockerignore

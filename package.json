@@ -1,45 +1,44 @@
 {
-    "name": "root",
-    "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
-    "license": "closed",
-    "scripts": {
-        "test": "jest --coverage",
-        "docs": "echo todo",
-        "bootstrap": "lerna bootstrap --no-ci --nohoist \\*"
+  "name": "root",
+  "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --coverage",
+    "bootstrap": "lerna bootstrap --no-ci --nohoist \\*"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.5",
+    "coveralls": "^3.0.2",
+    "jest": "^23.6.0",
+    "jest-extended": "^0.11.0",
+    "lerna": "^3.4.3",
+    "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.9.1"
+  },
+  "engines": {
+    "node": ">= 8.9.0"
+  },
+  "jest": {
+    "testURL": "http://localhost/",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{ts}",
+      "!**/node_modules/**",
+      "!**/lib/**/*",
+      "!**/*.d.ts"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
     },
-    "devDependencies": {
-        "@types/jest": "^23.3.9",
-        "@types/node": "^10.12.5",
-        "coveralls": "^3.0.2",
-        "jest": "^23.6.0",
-        "jest-extended": "^0.11.0",
-        "lerna": "^3.4.3",
-        "ts-jest": "^23.10.4",
-        "ts-node": "^7.0.1",
-        "tslint": "^5.9.1"
-    },
-    "engines": {
-        "node": ">= 8.9.0"
-    },
-    "jest": {
-        "testURL": "http://localhost/",
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js"
-        ],
-        "collectCoverageFrom": [
-            "**/*.{ts}",
-            "!**/node_modules/**",
-            "!**/lib/**/*",
-            "!**/*.d.ts"
-        ],
-        "transform": {
-            "^.+\\.(ts|tsx)$": "ts-jest"
-        },
-        "testMatch": [
-            "**/*.spec.ts"
-        ],
-        "setupTestFrameworkScriptFile": "jest-extended"
-    }
+    "testMatch": [
+      "**/*.spec.ts"
+    ],
+    "setupTestFrameworkScriptFile": "jest-extended"
+  }
 }

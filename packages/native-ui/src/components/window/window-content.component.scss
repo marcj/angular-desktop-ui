@@ -1,6 +1,7 @@
 :host {
     display: flex;
     flex: 1;
+    overflow: hidden;
 
     .sidebar {
         flex-basis: 250px;

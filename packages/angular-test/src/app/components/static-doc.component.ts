@@ -88,7 +88,7 @@ class Highlighter implements OnChanges {
                 <dui-button-group padding="none">
                     <dui-button (click)="showPage('')" [active]="show === ''">Preview</dui-button>
                     <dui-button *ngIf="hasType('html')" (click)="showPage('html')" [active]="show === 'html'">HTML</dui-button>
-                    <dui-button *ngIf="hasType('typescript')" (click)="showPage('typescript')" [active]="show === 'ts'">TS</dui-button>
+                    <dui-button *ngIf="hasType('typescript')" (click)="showPage('typescript')" [active]="show === 'typescript'">TS</dui-button>
                     <dui-button *ngIf="hasType('scss')" (click)="showPage('scss')" [active]="show === 'scss'">SCSS</dui-button>
                 </dui-button-group>
             </div>

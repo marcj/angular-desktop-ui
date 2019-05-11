@@ -1,17 +1,18 @@
 FROM node:alpine
 
 RUN npm config set unsafe-perm true
-RUN npm i -g lerna
+RUN npm i -g lerna npm-local-development
 RUN apk --no-cache add git
 
 ADD . /lib
-RUN cd /lib && npm run bootstrap && npm run docs
+RUN cd /lib && npm run bootstrap && npm-local-development --no-watcher
+RUN cd /lib/packages/angular-test && npm run build --prod
 
 FROM nginx:alpine
 
 ENV PORT=8080
 
-COPY --from=0 /lib/docs /usr/share/nginx/html
+COPY --from=0 /lib/packages/angular-test/dist/angular-desktop-ui /usr/share/nginx/html
 
 RUN echo "gzip on; \
           gzip_buffers 16 8k; \
