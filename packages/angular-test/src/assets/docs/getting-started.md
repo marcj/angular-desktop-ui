@@ -1,3 +1,35 @@
+<h1>Getting started</h1>
+
+
+<p>
+    The library angular-desktop-ui is available in NPM.
+</p>
+
+```bash
+npm instsall @marcj/angular-desktop-ui
+```
+
+<p>
+    After the installation, you need add the icon font to your angular.json
+</p>
+
+```json
+  "projects": {
+    "myprojectName": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "src/styles.scss",
+              "node_modules/@marcj/angular-desktop-ui/src/scss/icon.scss"
+```
+
+<p>
+    Then you can import the modules of angular-desktop-ui. Make sure to import only what you need.
+</p>
+
+
+```typescript
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {
@@ -15,14 +47,12 @@ import {
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {StaticDocComponent} from "./components/static-doc.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
         AppComponent,
-        StaticDocComponent,
     ],
     imports: [
         HttpClientModule,
@@ -39,10 +69,11 @@ import {FormsModule} from "@angular/forms";
         DuiIconModule,
         DuiListModule,
         DuiTableModule,
-        DuiButtonModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+
+```

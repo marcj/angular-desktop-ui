@@ -35,6 +35,7 @@ async function createWindow() {
         vibrancy: 'appearance-based',
         webPreferences: {
             nodeIntegration: false,
+            webSecurity: false,
         },
         titleBarStyle: 'hidden',
         icon: path.join(assetsPath, 'icons/64x64.png')
@@ -83,18 +84,18 @@ async function createWindow() {
 
     win.webContents.openDevTools({mode: 'undocked'});
 
-    // win.loadURL('http://localhost:4200');
+    win.loadURL('http://localhost:4200');
     //when building
 
-    function loadIndex() {
-        win.loadURL(url.format({
-            pathname: path.join(__dirname, './iconfont-generator/index.html'),
-            protocol: 'file:',
-            slashes: true
-        }));
-    }
-
-    loadIndex();
+    // function loadIndex() {
+    //     win.loadURL(url.format({
+    //         pathname: path.join(__dirname, '/../angular-desktop-ui/index.html'),
+    //         protocol: 'file:',
+    //         slashes: true
+    //     }));
+    // }
+    //
+    // loadIndex();
 
     const setOSTheme = () => {
         const mode = systemPreferences.isDarkMode() ? 'dark' : 'light';
@@ -127,9 +128,9 @@ async function createWindow() {
         setOSTheme();
     });
 
-    win.webContents.on('did-fail-load', () => {
-        loadIndex();
-    });
+    // win.webContents.on('did-fail-load', () => {
+    //     loadIndex();
+    // });
 
     win.on('closed', () => {
         // Dereference the window object, usually you would store window

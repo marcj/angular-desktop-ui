@@ -7,7 +7,7 @@ module.exports = {
     entry: path.resolve(__dirname, 'src/electron.ts'),
     output: {
         filename: 'electron.js',
-        path: path.resolve(__dirname, 'dist/')
+        path: path.resolve(__dirname, 'dist/electron/')
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],

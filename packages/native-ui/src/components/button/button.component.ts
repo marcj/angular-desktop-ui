@@ -1,14 +1,4 @@
-import {
-    AfterViewInit,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    HostListener,
-    Input,
-    OnDestroy,
-    Output
-} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, HostBinding, Input, OnDestroy} from "@angular/core";
 import {WindowComponent} from "../window/window.component";
 import {Subscription} from "rxjs";
 
@@ -27,8 +17,13 @@ import {Subscription} from "rxjs";
 export class ButtonComponent {
     @Input() icon?: string;
     @Input() iconSize?: number;
-
     @Input() active: boolean = false;
+
+    constructor(
+        public element: ElementRef,
+    ) {
+        this.element.nativeElement.removeAttribute('tabindex');
+    }
 
     @Input() disabled: boolean = false;
     @HostBinding('class.disabled')
@@ -37,10 +32,15 @@ export class ButtonComponent {
     }
 
     @Input() square: boolean = false;
-
     @HostBinding('class.square')
     get isRound() {
         return false !== this.square;
+    }
+
+    @Input() textured: boolean = false;
+    @HostBinding('class.textured')
+    get isTextured() {
+        return false !== this.textured;
     }
 }
 
@@ -66,33 +66,40 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
 
     constructor(
         private windowComponent: WindowComponent,
-        private element: ElementRef,
+        private element: ElementRef<HTMLElement>,
     ) {
     }
 
     ngOnDestroy(): void {
+        if (this.siderbarVisibleSubscription) {
+            this.siderbarVisibleSubscription.unsubscribe();
+        }
     }
 
     ngAfterViewInit(): void {
         this.init = true;
 
         if (this.float === 'sidebar') {
-            const element = this.element.nativeElement as HTMLElement;
-
             if (this.windowComponent.content) {
-                console.log('buttonGroup', 'afterViewInit');
                 if (this.siderbarVisibleSubscription) {
                     this.siderbarVisibleSubscription.unsubscribe();
                 }
 
-                this.siderbarVisibleSubscription = this.windowComponent.content.sidebarVisibleChanged.subscribe((visible) => {
-                    console.log('visible', visible, this.windowComponent.content!.getSidebarWidth());
-                    if (visible) {
-                        element.style.paddingLeft = (this.windowComponent.content!.getSidebarWidth() - element.offsetLeft) + 'px';
-                    } else {
-                        element.style.paddingLeft = '0px';
-                    }
+                this.siderbarVisibleSubscription = this.windowComponent.content.sidebarVisibleChanged.subscribe(() => {
+                    this.handleSidebar()
                 });
+
+                this.handleSidebar()
+            }
+        }
+    }
+
+    protected handleSidebar() {
+        if (this.windowComponent.content) {
+            if (this.windowComponent.content!.isSidebarVisible()) {
+                this.element.nativeElement.style.paddingLeft = (this.windowComponent.content.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';
+            } else {
+                this.element.nativeElement.style.paddingLeft = '0px';
             }
         }
     }

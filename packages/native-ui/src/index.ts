@@ -9,4 +9,3 @@ export * from './components/icon';
 export * from './components/list';
 export * from './components/table';
 export * from './components/splitter';
-export * from './stdlib';

@@ -25,7 +25,7 @@
     margin-right: 6px;
 }
 
-:host.padding-none ::ng-deep dui-button {
+:host.padding-none ::ng-deep > * {
     margin-right: -1px;
 
     &:not(:first-child) {
@@ -34,7 +34,6 @@
     }
 
     &:not(:last-child) {
-        border-right: 0;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }

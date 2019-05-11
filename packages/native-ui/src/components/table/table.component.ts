@@ -20,7 +20,7 @@ import {
     ViewChild,
     ViewChildren,
 } from '@angular/core';
-import {arrayClear, arrayHasItem, arrayRemoveItem, eachPair, empty, first, indexOf, isNumber} from "../../stdlib";
+import {arrayClear, arrayHasItem, arrayRemoveItem, eachPair, empty, first, indexOf, isNumber} from "@marcj/estdlib";
 import * as Hammer from "hammerjs";
 
 export interface Column<T> {

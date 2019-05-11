@@ -4,6 +4,7 @@
     "license": "closed",
     "scripts": {
         "test": "jest --coverage",
+        "docs": "echo todo",
         "bootstrap": "lerna bootstrap --no-ci --nohoist \\*"
     },
     "devDependencies": {

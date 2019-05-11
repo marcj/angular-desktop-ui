@@ -5,8 +5,9 @@
     .sidebar {
         flex-basis: 250px;
         flex-shrink: 0;
-        transition: flex-basis 0.3s ease-in-out;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-overflow: ellipsis;
 
         border-right: 1px solid #9da0a5;
     }
@@ -14,6 +15,7 @@
     .sidebar-container {
         width: 100%;
         height: 100%;
+        max-height: 100%;
     }
 
     .content {
@@ -22,6 +24,8 @@
         padding: 20px;
         background-color: #ececec;
         overflow: auto;
+        max-height: 100%;
+        transition: margin-left 0.3s ease-in-out;
     }
 }
 
@@ -29,13 +33,6 @@
     .sidebar {
         border-right: 1px solid #c7ced3;
         background-color: #dfe6eb;
-    }
-}
-
-
-:host.sidebar-invisible {
-    .sidebar {
-        flex-basis: 0px;
     }
 }
 

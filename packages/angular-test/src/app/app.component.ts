@@ -1,6 +1,6 @@
 import {ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
-import {arrayRemoveItem} from "../../../native-ui/src";
+import {arrayRemoveItem} from "@marcj/estdlib";
 
 @Component({
     selector: 'app-root',
@@ -9,31 +9,12 @@ import {arrayRemoveItem} from "../../../native-ui/src";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-    public i: number = 1;
-
-    public radioValue: string = 'a';
-    public selectBox1?: string;
-
     public sidebarVisible = true;
-    public disabledAll = false;
+    public darkMode = false;
 
-    public items = [{title: 'first', i: 1, created: new Date}, {title: 'second', i: 2, created: new Date}];
-    public selectedItems = [];
-    public itemName: string = 'Item Name';
-
-    public removeItem() {
-        for (const item of this.selectedItems) {
-            arrayRemoveItem(this.items, item);
-        }
-        this.selectedItems = [];
-    }
-
-    public addItem() {
-        if (this.itemName) {
-            this.items.push({title: this.itemName, i: this.items.length + 1, created: new Date});
-            this.items = this.items.slice(0);
-            this.cd.detectChanges();
-        }
+    public toggleDarkMode() {
+        this.darkMode = !this.darkMode;
+        this.setDarkMode(this.darkMode);
     }
 
     public setDarkMode(active: boolean) {

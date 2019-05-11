@@ -1,141 +1,55 @@
-<dui-window>
+<dui-window class="main">
     <dui-window-header>
-        Window Title
+        Angular Desktop UI
 
         <dui-window-toolbar>
             <dui-button-group>
-                <dui-button [disabled]="disabledAll" class="textured" icon="envelop"></dui-button>
+                <dui-button (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode</dui-button>
             </dui-button-group>
 
             <dui-button-group float="sidebar">
-                <dui-button [disabled]="disabledAll" class="textured" (click)="sidebarVisible = !sidebarVisible;" icon="toggle_sidebar"></dui-button>
+                <dui-button textured (click)="sidebarVisible = !sidebarVisible;" icon="toggle_sidebar"></dui-button>
             </dui-button-group>
 
-            <dui-button-group padding="none">
-                <dui-button [disabled]="disabledAll" class="textured">Cool</dui-button>
-                <dui-button [disabled]="disabledAll" [active]="true" class="textured">Right</dui-button>
-                <dui-button [disabled]="disabledAll" class="textured">Yes</dui-button>
-            </dui-button-group>
-
-            <dui-button-group>
-                <dui-input [disabled]="disabledAll" style="width: 80px;" class="textured" round placeholder="What up?"></dui-input>
-            </dui-button-group>
-
-            <dui-input [disabled]="disabledAll" class="textured" icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
+            <dui-input textured icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
         </dui-window-toolbar>
     </dui-window-header>
-
 
     <dui-window-content [sidebarVisible]="sidebarVisible">
         <dui-window-sidebar>
             <dui-list>
-                <dui-list-title>iCloud</dui-list-title>
+                <dui-list-title>Angular Desktop UI</dui-list-title>
+                <dui-list-item routerLink="/doc/getting-started">Getting started</dui-list-item>
 
-                <dui-list-item value="all">All iCloud</dui-list-item>
-                <dui-list-item value="notes">Notes</dui-list-item>
-                <dui-list-item value="newFolder">New Folder</dui-list-item>
-                <dui-list-item value="private">Private</dui-list-item>
-                <dui-list-item value="deleted">Recently Deleted</dui-list-item>
+                <dui-list-title>Form controls</dui-list-title>
+                <dui-list-item routerLink="/doc/form">Form</dui-list-item>
+                <dui-list-item routerLink="/doc/input">Input</dui-list-item>
+                <dui-list-item routerLink="/doc/checkbox">Checkbox</dui-list-item>
+                <dui-list-item routerLink="/doc/radiobox">Radiobox</dui-list-item>
+                <dui-list-item routerLink="/doc/select">Select</dui-list-item>
+
+                <dui-list-title>Layout</dui-list-title>
+                <dui-list-item routerLink="/doc/list">List</dui-list-item>
+
+                <dui-list-title>Window</dui-list-title>
+                <dui-list-item routerLink="/doc/window">Window</dui-list-item>
+                <dui-list-item routerLink="/doc/window-toolbar">Toolbar</dui-list-item>
+                <dui-list-item routerLink="/doc/window-sidebar">Sidebar</dui-list-item>
+
+                <dui-list-title>Buttons & Indicators</dui-list-title>
+                <dui-list-item routerLink="/doc/button">Button</dui-list-item>
+                <dui-list-item routerLink="/doc/button-group">Button Group</dui-list-item>
+                <dui-list-item routerLink="/doc/icon">Icon</dui-list-item>
+                <dui-list-item routerLink="/doc/icon">Progress bar</dui-list-item>
+                <dui-list-item routerLink="/doc/icon">Progress spinner</dui-list-item>
+
+                <dui-list-title>Data table</dui-list-title>
+                <dui-list-item routerLink="/doc/table">Table</dui-list-item>
             </dui-list>
         </dui-window-sidebar>
 
-
-        <dui-button-group>
-            <dui-checkbox (modelChange)="setDarkMode($event)">Dark-Mode</dui-checkbox>
-            <dui-checkbox [(model)]="disabledAll">Disable all</dui-checkbox>
-        </dui-button-group>
-
-        <dui-form>
-            <dui-form-row label="Username">
-                <dui-input [disabled]="disabledAll" clearer></dui-input>
-            </dui-form-row>
-
-            <dui-form-row label="Name">
-                <dui-input [disabled]="disabledAll" placeholder="Your full name"></dui-input>
-            </dui-form-row>
-
-            <dui-form-row label="Nope">
-                <dui-input disabled placeholder="Disabled"></dui-input>
-            </dui-form-row>
-
-            <dui-form-row label="Textured">
-                <dui-input [disabled]="disabledAll" class="textured" round placeholder="and round"></dui-input>
-            </dui-form-row>
-
-            <dui-form-row label="Really?">
-                <dui-checkbox [disabled]="disabledAll">Checkbox A</dui-checkbox>
-            </dui-form-row>
-
-            <dui-form-row label="Which one">
-                <dui-radiobox [disabled]="disabledAll" [(model)]="radioValue" value="a">Radio A</dui-radiobox><br/>
-                <dui-radiobox [disabled]="disabledAll" [(model)]="radioValue" value="b">Radio B</dui-radiobox>
-                <p>
-                    Chosen: {{radioValue}}
-                </p>
-            </dui-form-row>
-
-            <dui-form-row label="Search">
-                <dui-input [disabled]="disabledAll" icon="search" round clearer style="margin-left: auto;"></dui-input>
-            </dui-form-row>
-
-            <dui-form-row label="Another one">
-                <dui-select [disabled]="disabledAll" [(model)]="radioValue" placeholder="Please choose">
-                    <dui-option value="a">Option A</dui-option>
-                    <dui-option value="b">Option B</dui-option>
-                </dui-select>
-            </dui-form-row>
-
-            <dui-form-row label="Empty">
-                <dui-select [disabled]="disabledAll" style="width: 100px;" [(model)]="selectBox1" placeholder="Please choose">
-                    <dui-option value="x">Option X</dui-option>
-                    <dui-option value="y">Option Y</dui-option>
-                </dui-select>
-            </dui-form-row>
-
-            <dui-form-row label="Textured">
-                <dui-select [disabled]="disabledAll" class="textured" [(model)]="radioValue" placeholder="Please choose">
-                    <dui-option value="a">Option A</dui-option>
-                    <dui-option value="b">Option B</dui-option>
-                </dui-select>
-            </dui-form-row>
-
-            <dui-form-row label="">
-                <dui-button [disabled]="disabledAll"
-                    (click)="i = i + 1"
-                ><dui-icon name="star"></dui-icon> Button</dui-button>
-                {{i}}
-            </dui-form-row>
-
-            <dui-form-row label="">
-                <dui-button [disabled]="disabledAll" class="textured">Textured Button</dui-button>
-            </dui-form-row>
-
-            <dui-form-row label="">
-                <dui-button [disabled]="disabledAll" square>Square button</dui-button>
-            </dui-form-row>
-        </dui-form>
-
-        <dui-table [items]="items" [selectable]="true" [(selected)]="selectedItems">
-            <dui-table-column name="title" header="Title"></dui-table-column>
-            <dui-table-column name="i"></dui-table-column>
-            <dui-table-column name="created" header="Created">
-                <ng-container *duiTableCell="let row">
-                    {{row.created|date:'mediumTime'}}
-                </ng-container>
-            </dui-table-column>
-        </dui-table>
-        <dui-button-group padding="none" style="margin-top: 10px;">
-            <dui-button
-                [disabled]="disabledAll || !selectedItems.length" (click)="removeItem()" square icon="remove"></dui-button>
-
-            <dui-button [disabled]="disabledAll" (click)="addItem()" square icon="add"></dui-button>
-            <!--<dui-input [disabled]="disabledAll" [(model)]="itemName" placeholder="Item name" clearer></dui-input>-->
-        </dui-button-group>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
     </dui-window-content>
-
-    <!--<dui-window-footer>-->
-        <!--Macintosh HD-->
-    <!--</dui-window-footer>-->
 </dui-window>
-
-<router-outlet></router-outlet>

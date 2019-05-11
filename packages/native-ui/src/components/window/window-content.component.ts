@@ -1,4 +1,5 @@
 import {
+    AfterViewInit,
     Component,
     ContentChild,
     ElementRef,
@@ -25,52 +26,48 @@ import {BehaviorSubject, Subject} from "rxjs";
             <ng-content></ng-content>
         </div>
     `,
-    host: {
-        '[class.sidebar-invisible]': '!sidebarVisible',
-    },
     styleUrls: ['./window-content.component.scss'],
 })
-export class WindowContentComponent implements OnChanges {
+export class WindowContentComponent implements OnChanges, AfterViewInit {
     @Input() sidebarVisible: boolean = true;
+    @Input() protected sidebarWidth = 250;
 
     @ContentChild(WindowSidebarComponent) toolbar?: WindowSidebarComponent;
 
-    @ViewChild('sidebar') public sidebar?: ElementRef;
-    @ViewChild('sidebarContainer') public sidebarContainer?: ElementRef;
-    @ViewChild('content') public content?: ElementRef;
+    @ViewChild('sidebar') public sidebar?: ElementRef<HTMLElement>;
+    @ViewChild('sidebarContainer') public sidebarContainer?: ElementRef<HTMLElement>;
+    @ViewChild('content') public content?: ElementRef<HTMLElement>;
 
-    private resetSidebarContainerWidthTimer: any;
-
-    public readonly sidebarVisibleChanged = new BehaviorSubject(this.sidebarVisible);
+    public readonly sidebarVisibleChanged = new Subject();
 
     constructor(private element: ElementRef) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.sidebar && this.sidebarContainer) {
-            clearTimeout(this.resetSidebarContainerWidthTimer);
-
             if (changes.sidebarVisible) {
-                if (!this.sidebarVisible) {
-                    (this.sidebarContainer.nativeElement as HTMLElement).style.width = ((this.sidebar.nativeElement as HTMLElement).offsetWidth) + 'px';
-                } else {
-                    this.resetSidebarContainerWidthTimer = setTimeout(() => {
-                        if (this.sidebarContainer) {
-                            (this.sidebarContainer.nativeElement as HTMLElement).style.width = null;
-                        }
-                    }, 300);
-                }
+                this.handleSidebarVisibility();
                 this.sidebarVisibleChanged.next(this.sidebarVisible);
             }
         }
     }
 
-    public getSidebarWidth(): number {
-        if (this.sidebarContainer) {
-            return (this.sidebarContainer.nativeElement as HTMLElement).offsetWidth;
-        }
+    ngAfterViewInit(): void {
+        this.handleSidebarVisibility();
+    }
 
-        return 0;
+    protected handleSidebarVisibility() {
+        if (this.content) {
+            if (this.sidebarVisible) {
+                this.content.nativeElement.style.marginLeft = '0px';
+            } else {
+                this.content.nativeElement.style.marginLeft = (-this.sidebarWidth) + 'px';
+            }
+        }
+    }
+
+    public getSidebarWidth(): number {
+        return this.sidebarWidth;
     }
 
     public isSidebarVisible(): boolean {

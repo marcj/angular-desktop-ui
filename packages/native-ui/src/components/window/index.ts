@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
-import {WindowComponent} from "./window.component";
+import {WindowComponent, WindowFrameComponent} from "./window.component";
 import {WindowFooterComponent} from "./window-footer.component";
 import {WindowToolbarComponent, WindowHeaderComponent} from "./window-header.component";
 import {CommonModule} from "@angular/common";
@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     declarations: [
         WindowContentComponent,
         WindowComponent,
+        WindowFrameComponent,
         WindowFooterComponent,
         WindowHeaderComponent,
         WindowToolbarComponent,
@@ -19,6 +20,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     exports: [
         WindowContentComponent,
         WindowComponent,
+        WindowFrameComponent,
         WindowFooterComponent,
         WindowHeaderComponent,
         WindowToolbarComponent,

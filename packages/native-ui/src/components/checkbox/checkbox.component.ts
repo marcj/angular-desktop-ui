@@ -1,4 +1,5 @@
-import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input, Output} from "@angular/core";
+import {Component, HostBinding, HostListener, Input} from "@angular/core";
+import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
     selector: 'dui-checkbox',
@@ -8,13 +9,12 @@ import {ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, I
         </span>
         <ng-content></ng-content>
     `,
-    styleUrls: ['./checkbox.component.scss']
+    styleUrls: ['./checkbox.component.scss'],
+    providers: [ngValueAccessor(CheckboxComponent)]
 })
-export class CheckboxComponent {
-    @Input() model: boolean = false;
-    @Output() modelChange = new EventEmitter<boolean>();
-
+export class CheckboxComponent extends ValueAccessorBase<any> {
     @Input() disabled: boolean = false;
+
     @HostBinding('class.disabled')
     get isDisabled() {
         return false !== this.disabled;
@@ -25,21 +25,15 @@ export class CheckboxComponent {
         return 1;
     }
 
-    constructor(private cd: ChangeDetectorRef) {
-
-    }
-
     @HostBinding('class.checked')
     get isChecked() {
-        return true === this.model;
+        return true === this.innerValue;
     }
 
     @HostListener('click')
     public onClick() {
         if (this.isDisabled) return;
 
-        this.model = !this.model;
-        this.modelChange.emit(this.model);
-        this.cd.detectChanges();
+        this.innerValue = !this.innerValue;
     }
 }
