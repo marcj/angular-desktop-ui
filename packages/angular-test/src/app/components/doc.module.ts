@@ -461,8 +461,7 @@ const regexCodeBlock = /^```([a-zA-Z0-9]*)\n(\/\/@angular\n)?([\s\S]*?)\n```/gm;
     template: `
         <div *ngIf="loading">Loading ...</div>
         <div #container></div>
-    `,
-    styleUrls: ['./markdown-doc.component.scss']
+    `
 })
 export class MarkdownDocComponent implements AfterViewInit {
     public loading = false;

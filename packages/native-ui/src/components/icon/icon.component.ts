@@ -20,6 +20,10 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
             color: #565656;
         }
         
+        :host:focus {
+            outline: 0;
+        }
+        
         :host-context(.dark) {
             color: white;
         }

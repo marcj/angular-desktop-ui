@@ -1,5 +1,6 @@
 import {lstatSync, readdir, createWriteStream, readFileSync, createReadStream, writeFileSync, readdirSync} from 'fs';
 import {join, basename, dirname} from 'path';
+import {ensureDirSync} from 'fs-extra';
 
 const svg2ttf = require('svg2ttf');
 const ttf2woff = require('ttf2woff');
@@ -20,12 +21,20 @@ function readFolder(dir: string, files: { [path: string]: string }) {
     }
 }
 
-const out = './assets/fonts';
+const projectOutput = process.argv[2] ? process.argv[2] : undefined;
+
+const out = './src/assets/fonts';
 const fontFileName = 'ui-icons';
+
+ensureDirSync(out);
 
 (async () => {
     const files: { [path: string]: string } = {};
-    readFolder('./assets/icons', files);
+
+    readFolder(__dirname + '/src/assets/icons', files);
+    if (projectOutput) {
+        readFolder(projectOutput, files);
+    }
 
     const fontStream = new SVGIcons2SVGFontStream({
         fontName: 'Desktop UI icon Mono',
@@ -50,6 +59,11 @@ const fontFileName = 'ui-icons';
                 const woff = new Buffer(ttf2woff(ttf, {}).buffer);
                 writeFileSync(`${out}/${fontFileName}.woff`, woff);
                 console.log('WOFF successfully created!')
+            }
+
+            if (projectOutput) {
+                console.log(`Done. Dont forget to add following code in your styles.scss.`);
+                console.log(readFileSync(__dirname + '/src/scss/icon.scss', 'utf8'))
             }
         })
         .on('error', function (err: any) {

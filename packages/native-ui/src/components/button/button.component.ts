@@ -61,6 +61,9 @@ export class ButtonComponent {
 @Component({
     selector: 'dui-button-group',
     template: '<ng-content></ng-content>',
+    host: {
+        '[class.float-right]': "float==='right'",
+    },
     styleUrls: ['./button-group.component.scss']
 })
 export class ButtonGroupComponent implements AfterViewInit, OnDestroy {

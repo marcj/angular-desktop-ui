@@ -11,6 +11,10 @@
     z-index: 1;
 }
 
+:host.float-right {
+    margin-left: auto;
+}
+
 :host.ready {
     transition: padding-left 300ms ease-in-out;
 }

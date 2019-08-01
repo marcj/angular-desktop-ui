@@ -10,6 +10,7 @@ import {
     SkipSelf,
     Type
 } from "@angular/core";
+import {getClassName} from "@marcj/estdlib";
 
 export function ngValueAccessor<T>(clazz: Type<T>) {
     return {
@@ -19,6 +20,20 @@ export function ngValueAccessor<T>(clazz: Type<T>) {
     };
 }
 
+/**
+ * If you sub class this class and have own constructor or property initialization you need
+ * to provide the dependencies of this class manually.
+ *
+ *
+    constructor(
+        protected injector: Injector,
+        protected cd: ChangeDetectorRef,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
+        super(injector, cd, cdParent);
+    }
+ *
+ */
 @Injectable()
 export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     /**
@@ -58,6 +73,10 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef,
         @Inject(ChangeDetectorRef) @SkipSelf() protected cdParent: ChangeDetectorRef,
     ) {
+        console.log(getClassName(this), injector, 'ChangeDetectorRef', ChangeDetectorRef);
+        if (!cd) {
+            throw new Error('ChangeDetectorRef is undefined for ' + getClassName(this));
+        }
     }
 
     /**
@@ -103,6 +122,8 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
 
     /**
      * Internal note: This method is called from outside. Either from Angular's form or other users.
+     *
+     * This DOES NOT call the registered callback of other components (registerOnChange).
      *
      * @hidden
      */

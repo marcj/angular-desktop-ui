@@ -5,3 +5,7 @@
     font-weight: 600;
     color: #60676c;
 }
+
+:host-context(.dark) {
+    color: #a6aaad;
+}

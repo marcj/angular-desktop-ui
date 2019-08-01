@@ -5,8 +5,7 @@ import {
     ElementRef,
     forwardRef,
     HostBinding,
-    HostListener,
-    Injector,
+    HostListener, Inject, Injectable, Injector,
     Input,
     OnChanges,
     OnDestroy,
@@ -38,6 +37,7 @@ export class ListTitleComponent {
     styleUrls: ['./list.component.scss'],
     providers: [ngValueAccessor(ListComponent)]
 })
+@Injectable()
 export class ListComponent extends ValueAccessorBase<any> {
     @HostBinding('tabindex') tabIndex: number = 1;
 
@@ -46,6 +46,14 @@ export class ListComponent extends ValueAccessorBase<any> {
     @HostBinding('class.disabled')
     get isDisabled() {
         return this.disabled;
+    }
+
+    constructor(
+        protected injector: Injector,
+        protected cd: ChangeDetectorRef,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
+        super(injector, cd, cdParent);
     }
 
     @HostListener('keydown', ['$event'])
@@ -136,11 +144,15 @@ export class ListItemComponent implements OnChanges, OnDestroy {
                 await this.router.navigateByUrl(this.router.serializeUrl(this.routerLink));
             }
         } else {
-            this.list.writeValue(this.value);
+            this.list.innerValue = this.value;
         }
     }
 
     public isSelected(): boolean {
+        if (this.value !== undefined) {
+            return this.list.innerValue === this.value;
+        }
+
         if (this.routerLink) {
             if ('string' === typeof this.routerLink) {
                 return this.router.isActive(this.routerLink, false);
@@ -151,11 +163,10 @@ export class ListItemComponent implements OnChanges, OnDestroy {
             }
         }
 
-        return this.list.innerValue === this.value;
     }
 
     @HostListener('click')
     public onClick() {
-        this.list.writeValue(this.value);
+        this.list.innerValue = this.value;
     }
 }
