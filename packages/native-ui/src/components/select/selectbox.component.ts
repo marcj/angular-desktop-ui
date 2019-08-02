@@ -4,11 +4,11 @@ import {
     ContentChildren,
     Directive,
     ElementRef,
-    EventEmitter, HostBinding,
+    EventEmitter, HostBinding, Injector,
     Input, OnChanges,
     OnDestroy,
     Output,
-    QueryList, SimpleChanges
+    QueryList, SimpleChanges, SkipSelf
 } from "@angular/core";
 import {Subscription} from "rxjs";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
@@ -65,6 +65,14 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
     public optionsValueMap = new Map<T, string>();
 
     protected changeSubscription?: Subscription;
+
+    constructor(
+        protected injector: Injector,
+        protected cd: ChangeDetectorRef,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
+        super(injector, cd, cdParent);
+    }
 
     ngAfterViewInit(): void {
         if (this.options) {

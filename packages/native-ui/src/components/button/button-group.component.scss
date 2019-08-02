@@ -15,7 +15,7 @@
     margin-left: auto;
 }
 
-:host.ready {
+:host.with-animation {
     transition: padding-left 300ms ease-in-out;
 }
 

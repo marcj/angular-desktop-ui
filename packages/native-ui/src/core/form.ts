@@ -1,12 +1,12 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 import {
-    ChangeDetectorRef,
-    forwardRef,
+    ChangeDetectorRef, EventEmitter,
+    forwardRef, HostBinding,
     Inject,
     Injectable,
     Injector,
     Input,
-    OnDestroy,
+    OnDestroy, Output,
     SkipSelf,
     Type
 } from "@angular/core";
@@ -54,7 +54,47 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     private _ngControl?: NgControl;
     private _ngControlFetched = false;
 
-    @Input() disabled: boolean = false;
+    @Input() valid?: boolean;
+    @HostBinding('class.valid')
+    get isValid() {
+        return this.valid === true;
+    }
+
+    @Input() error?: boolean;
+    @HostBinding('class.error')
+    get isError() {
+        if (undefined === this.error && this.ngControl) {
+            return (this.ngControl.dirty || this.ngControl.touched) && this.ngControl.invalid;
+        }
+
+        return this.error;
+    }
+
+    @Input()
+    disabled?: boolean;
+
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        if (undefined === this.disabled && this.ngControl) {
+            return this.ngControl.disabled;
+        }
+
+        return this.disabled === true;
+    }
+
+    @HostBinding('class.required')
+    @Input()
+    required: boolean = false;
+
+    @Output()
+    public readonly change = new EventEmitter<T>();
+
+    constructor(
+        @Inject(Injector) protected injector: Injector,
+        @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef,
+        @Inject(ChangeDetectorRef) @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
+    }
 
     get ngControl(): NgControl | undefined {
         if (!this._ngControlFetched) {
@@ -66,17 +106,6 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         }
 
         return this._ngControl;
-    }
-
-    constructor(
-        @Inject(Injector) protected injector: Injector,
-        @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef,
-        @Inject(ChangeDetectorRef) @SkipSelf() protected cdParent: ChangeDetectorRef,
-    ) {
-        console.log(getClassName(this), injector, 'ChangeDetectorRef', ChangeDetectorRef);
-        if (!cd) {
-            throw new Error('ChangeDetectorRef is undefined for ' + getClassName(this));
-        }
     }
 
     /**
@@ -115,6 +144,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
                 this.cd.markForCheck();
                 this.cdParent.detectChanges();
             });
+            this.change.emit(value);
         }
         this.cd.markForCheck();
         this.cdParent.detectChanges();
@@ -122,8 +152,6 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
 
     /**
      * Internal note: This method is called from outside. Either from Angular's form or other users.
-     *
-     * This DOES NOT call the registered callback of other components (registerOnChange).
      *
      * @hidden
      */

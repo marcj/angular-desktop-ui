@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, ContentChild, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ContentChild, forwardRef, Injectable, Injector, Input} from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
+import {WindowState} from "./window-state";
 
 /**
  * This is only for documentation purposes.
@@ -21,6 +22,9 @@ export class WindowFrameComponent {
     template: '<ng-content></ng-content>',
     styleUrls: ['./window.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        WindowState
+    ]
 })
 export class WindowComponent  {
     @ContentChild(WindowContentComponent) public content?: WindowContentComponent;

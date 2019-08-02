@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener, Input} from "@angular/core";
+import {ChangeDetectorRef, Component, HostBinding, HostListener, Injector, Input, SkipSelf} from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
@@ -28,6 +28,14 @@ export class RadioboxComponent<T> extends ValueAccessorBase<T> {
     @HostBinding('class.checked')
     get isChecked() {
         return this.value === this.innerValue;
+    }
+
+    constructor(
+        protected injector: Injector,
+        protected cd: ChangeDetectorRef,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
+        super(injector, cd, cdParent);
     }
 
     @HostListener('click')

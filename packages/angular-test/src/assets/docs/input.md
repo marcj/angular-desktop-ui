@@ -11,6 +11,12 @@ return {name: 'Peter'}
 ```
 
 ```html
+<dui-window-toolbar for="main">
+    <dui-button-group>
+        <dui-button textured [disabled]="name === ''" (click)="name = ''">clear</dui-button>
+    </dui-button-group>
+</dui-window-toolbar>
+
 <p>
     <dui-input placeholder="Username"></dui-input>
 </p>

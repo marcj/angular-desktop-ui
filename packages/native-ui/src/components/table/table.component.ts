@@ -185,6 +185,9 @@ export class TableHeaderDirective {
         </table>
     `,
     styleUrls: ['./table.component.scss'],
+    host: {
+        '[class.no-focus-outline]': 'noFocusOutline !== false'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
@@ -252,6 +255,8 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      * Against which fields filterQuery should run.
      */
     @Input() public filterFields?: string[];
+
+    @Input() noFocusOutline = false;
 
     public currentSort: string = '';
 
@@ -352,7 +357,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
 
     protected initHeaderMovement() {
-        console.log('InitHeaderMovement', this.header, this.ths);
+        // console.log('InitHeaderMovement', this.header, this.ths);
         if (this.header && this.ths) {
             const mc = new Hammer(this.header.nativeElement);
             mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));

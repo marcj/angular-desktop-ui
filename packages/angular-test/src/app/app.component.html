@@ -4,12 +4,14 @@
 
         <dui-window-toolbar>
             <dui-button-group>
-                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode</dui-button>
+                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode {{darkMode ? 'ON' : 'OFFFF'}}</dui-button>
             </dui-button-group>
 
             <dui-button-group float="sidebar">
                 <dui-button textured (click)="sidebarVisible = !sidebarVisible;" icon="toggle_sidebar"></dui-button>
             </dui-button-group>
+
+            <dui-window-toolbar-container name="main"></dui-window-toolbar-container>
 
             <dui-input textured icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
         </dui-window-toolbar>

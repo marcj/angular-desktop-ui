@@ -17,7 +17,6 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
             font-size: 17px;
             height: 17px;
             width: 17px;
-            color: #565656;
         }
         
         :host:focus {

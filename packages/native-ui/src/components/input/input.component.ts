@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, HostBinding, Injector, Input} from "@angular/core";
+import {ChangeDetectorRef, Component, HostBinding, Injector, Input, SkipSelf} from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
@@ -60,6 +60,14 @@ export class InputComponent extends ValueAccessorBase<any> {
     @HostBinding('class.has-icon')
     get hasIcon() {
         return !!this.icon;
+    }
+
+    constructor(
+        protected injector: Injector,
+        protected cd: ChangeDetectorRef,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
+    ) {
+        super(injector, cd, cdParent);
     }
 
     public async clear() {

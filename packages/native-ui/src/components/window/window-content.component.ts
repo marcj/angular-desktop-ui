@@ -3,15 +3,14 @@ import {
     Component,
     ContentChild,
     ElementRef,
-    EventEmitter,
     Input,
     OnChanges,
-    Output,
     SimpleChanges,
     ViewChild
 } from "@angular/core";
 import {WindowSidebarComponent} from "./window-sidebar.component";
-import {BehaviorSubject, Subject} from "rxjs";
+import {Subject} from "rxjs";
+import {WindowState} from "./window-state";
 
 @Component({
     selector: 'dui-window-content',
@@ -40,13 +39,13 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
 
     public readonly sidebarVisibleChanged = new Subject();
 
-    constructor(private element: ElementRef) {
+    constructor(private windowState: WindowState) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (this.sidebar && this.sidebarContainer) {
             if (changes.sidebarVisible) {
-                this.handleSidebarVisibility();
+                this.handleSidebarVisibility(true);
                 this.sidebarVisibleChanged.next(this.sidebarVisible);
             }
         }
@@ -56,7 +55,11 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
         this.handleSidebarVisibility();
     }
 
-    protected handleSidebarVisibility() {
+    protected handleSidebarVisibility(withAnimation = false) {
+        if (withAnimation && this.windowState.buttonGroupAlignedToSidebar) {
+            this.windowState.buttonGroupAlignedToSidebar.activateOneTimeAnimation();
+        }
+
         if (this.content) {
             if (this.sidebarVisible) {
                 this.content.nativeElement.style.marginLeft = '0px';

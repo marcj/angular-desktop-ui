@@ -26,7 +26,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "**/*", "input": "./node_modules/@marcj/angular-desktop-ui/assets", "output": "assets" }
+              { "glob": "**/*", "input": "./node_modules/@marcj/angular-desktop-ui/src/assets", "output": "assets" }
             ],
             "styles": [
               "src/styles.scss",
