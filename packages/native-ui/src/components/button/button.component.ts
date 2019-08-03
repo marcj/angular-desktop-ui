@@ -5,7 +5,7 @@ import {
     ElementRef,
     HostBinding,
     Input,
-    OnDestroy,
+    OnDestroy, OnInit,
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
@@ -20,7 +20,8 @@ import {WindowState} from "../window/window-state";
     `,
     host: {
         '[class.icon]': '!!icon',
-        '[class.active]': 'active'
+        '[class.active]': 'active',
+        '[class.highlighted]': 'highlighted !== false',
     },
     styleUrls: ['./button.component.scss'],
 })
@@ -36,9 +37,14 @@ export class ButtonComponent {
     @Input() iconSize?: number;
 
     /**
-     * Whether the button is active. If it is not active all pointer events are disabled.
+     * Whether the button is active (pressed)
      */
     @Input() active: boolean = false;
+
+    /**
+     * Whether the color is highlighted.
+     */
+    @Input() highlighted: boolean = false;
 
     constructor(
         public element: ElementRef,
@@ -153,3 +159,27 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
         }
     }
 }
+
+
+
+@Component({
+    selector: 'dui-button-groups',
+    template: `
+        <ng-content></ng-content>
+    `,
+    styles: [`
+        :host {
+            padding: 8px;
+            display: flex;
+            white-space: nowrap;
+            word-break: keep-all;
+        }
+        
+        :host ::ng-deep > *:not(dui-button-group) {
+            margin-right: 6px;
+        }
+    `]
+})
+export class ButtonGroupsComponent {
+}
+

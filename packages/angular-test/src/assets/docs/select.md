@@ -11,7 +11,14 @@ return {radioValue: 'a'}
 ```
 
 ```html
+<p>
 <dui-select [(ngModel)]="radioValue" placeholder="Please choose">
+    <dui-option value="a">Option A</dui-option>
+    <dui-option value="b">Option B</dui-option>
+    <dui-option value="c">Option C</dui-option>
+</dui-select>
+</p>
+<dui-select [(ngModel)]="radioValue" textured placeholder="Please choose">
     <dui-option value="a">Option A</dui-option>
     <dui-option value="b">Option B</dui-option>
     <dui-option value="c">Option C</dui-option>

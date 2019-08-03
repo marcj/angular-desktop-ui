@@ -88,7 +88,6 @@ export class WindowToolbarComponent implements OnDestroy, OnInit {
     }
 }
 
-
 @Component({
     selector: 'dui-window-toolbar-container',
     template: `
@@ -102,7 +101,7 @@ export class WindowToolbarComponent implements OnDestroy, OnInit {
         :host {
             display: flex;
         }
-    `]
+    `],
 })
 export class WindowToolbarContainerComponent implements OnInit, OnDestroy {
     @Input() name: string;

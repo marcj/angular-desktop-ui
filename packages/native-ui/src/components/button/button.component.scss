@@ -52,6 +52,9 @@ $buttonTextColor: #575757;
     }
 }
 
+:host.highlighted {
+    color: $highlightedDolor;
+}
 
 :host.disabled {
     color: #adadad !important;
@@ -67,7 +70,7 @@ $buttonTextColor: #575757;
 }
 
 :host.icon {
-    padding: 0 11px;
+    padding: 0 10px;
 
     &.square {
         padding: 0;

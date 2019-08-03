@@ -20,8 +20,19 @@ import {
     ViewChild,
     ViewChildren,
 } from '@angular/core';
-import {arrayClear, arrayHasItem, arrayRemoveItem, eachPair, empty, first, indexOf, isNumber} from "@marcj/estdlib";
+import {
+    arrayClear,
+    arrayHasItem,
+    arrayRemoveItem,
+    eachPair,
+    empty,
+    first,
+    indexOf,
+    isArray,
+    isNumber
+} from "@marcj/estdlib";
 import * as Hammer from "hammerjs";
+import {Observable} from "rxjs";
 
 export interface Column<T> {
     id: string;
@@ -140,12 +151,13 @@ export class TableHeaderDirective {
                 <th *ngFor="let column of sortedColumnDefs"
                     [style.width]="getColumnWidth(column)"
                     (click)="sortBy(column.name)"
+                    [style.top]="scrollTop + 'px'"
                     #th
                 >
                     <ng-container
-                        *ngIf="headerMapDef[column.name]"
-                        [ngTemplateOutlet]="headerMapDef[column.name].template"
-                        [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
+                            *ngIf="headerMapDef[column.name]"
+                            [ngTemplateOutlet]="headerMapDef[column.name].template"
+                            [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
 
                     <ng-container *ngIf="!headerMapDef[column.name]">
                         {{column.header || column.name}}
@@ -158,15 +170,15 @@ export class TableHeaderDirective {
 
                     <dui-splitter [element]="th" indicator position="right"></dui-splitter>
                 </th>
-                <th style="width: auto"></th>
+                <th [style.top]="scrollTop + 'px'" style="width: auto"></th>
             </tr>
             </thead>
             <tbody>
             <ng-container *ngFor="let row of sorted; trackBy: trackByFn">
                 <tr
-                    [class.selected]="selectedMap.has(row)"
-                    (click)="select(row, $event)"
-                    (dblclick)="dbclick.emit(row)"
+                        [class.selected]="selectedMap.has(row)"
+                        (click)="select(row, $event)"
+                        (dblclick)="dbclick.emit(row)"
                 >
                     <td *ngFor="let column of sortedColumnDefs"
                         [class]="column.class">
@@ -186,7 +198,8 @@ export class TableHeaderDirective {
     `,
     styleUrls: ['./table.component.scss'],
     host: {
-        '[class.no-focus-outline]': 'noFocusOutline !== false'
+        '[class.no-focus-outline]': 'noFocusOutline !== false',
+        '[class.borderless]': 'borderless !== false',
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -196,10 +209,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @HostBinding() tabindex = 0;
 
+    @Input() borderless = false;
+
     /**
      * Array of items that should be used for each row.
      */
-    @Input() public items!: T[];
+    @Input() public items!: T[] | Observable<T[]>;
 
     /**
      * Whether the header should be shown.
@@ -300,7 +315,17 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
     // private itemsSubscription?: Subscription;
 
-    constructor(private cd: ChangeDetectorRef) {
+    public scrollTop = 0;
+
+    constructor(
+        protected element: ElementRef,
+        protected cd: ChangeDetectorRef,
+    ) {
+        element.nativeElement.addEventListener('scroll', () => {
+            // console.log('element.nativeElement.scrollTop', element.nativeElement.scrollTop);
+            this.scrollTop = element.nativeElement.scrollTop;
+            cd.detectChanges();
+        });
     }
 
     public getColumnWidth(column: TableColumnDirective): string {
@@ -401,7 +426,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             mc.on('panend', (event: HammerInput) => {
                 if (element) {
                     element.style.left = 'auto';
-                    element.style.zIndex = 'auto';
+                    element.style.zIndex = '1';
                     console.log('new position', originalPosition, newPosition);
 
                     for (const box of THsBoxes) {
@@ -515,8 +540,20 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.sorted = this.items;
-        this.doSort();
+        if (changes.items) {
+            if (this.items instanceof Observable) {
+                this.items.subscribe((items: T[]) => {
+                    this.sorted = items;
+                    this.doSort();
+                })
+            } else if (isArray(this.items)) {
+                this.sorted = this.items;
+                this.doSort();
+            } else {
+                this.sorted = [];
+                this.doSort();
+            }
+        }
 
         if (changes.selected) {
             this.selectedMap.clear();
@@ -597,7 +634,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             }
 
             if (event.key === 'ArrowDown') {
-                if (empty(this.items)) {
+                if (empty(this.sorted)) {
                     return;
                 }
                 index++;

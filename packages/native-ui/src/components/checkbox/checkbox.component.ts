@@ -21,11 +21,6 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxComponent extends ValueAccessorBase<any>  {
-    @HostBinding('class.disabled')
-    get isDisabled() {
-        return false !== this.disabled;
-    }
-
     @HostBinding('tabindex')
     get tabIndex() {
         return 1;

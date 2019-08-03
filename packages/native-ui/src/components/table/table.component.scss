@@ -21,7 +21,9 @@ table {
         color: #303030;
         font-size: 11px;
         font-weight: 500;
-        border-bottom: 1px solid #cecece;
+        box-shadow: 0 1px 0 #cecece;
+        //border-bottom: 1px solid #cecece;
+        z-index: 1;
         //transition: left 0.3s ease-in-out;
 
         dui-icon {
@@ -47,6 +49,7 @@ table {
         padding: 3px 6px;
         line-height: 16px;
         vertical-align: top;
+        overflow-x: hidden;
     }
 
     tr.selected td {
@@ -56,7 +59,7 @@ table {
 
 :host:focus {
     table tr.selected td {
-        background-color: #0663e1;
+        background-color: $highlightedDolor;
         color: white;
     }
 }
@@ -67,6 +70,10 @@ table {
 
 :host:focus:not(.no-focus-outline) {
     @include focus-border;
+}
+
+:host.borderless {
+    border: 0;
 }
 
 :host-context(.dark) {

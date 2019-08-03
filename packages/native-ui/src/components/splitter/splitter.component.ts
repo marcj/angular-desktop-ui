@@ -7,6 +7,9 @@ import * as Hammer from 'hammerjs';
     styleUrls: ['./splitter.component.scss'],
     host: {
         '[class.right]': 'position === "right"',
+        '[class.left]': 'position === "left"',
+        '[class.top]': 'position === "top"',
+        '[class.bottom]': 'position === "bottom"',
         '[class.with-indicator]': 'indicator !== false',
     }
 })
@@ -21,18 +24,17 @@ export class SplitterComponent implements AfterViewInit {
     @Input() element?: HTMLElement;
 
     constructor(private host: ElementRef) {
-
     }
 
     ngAfterViewInit(): void {
         const mc = new Hammer(this.host.nativeElement);
         mc.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
 
-        if (!this.element) {
-            return;
-        }
+        // if (!this.element) {
+        //     return;
+        // }
 
-        let startWidth: number = 0;
+        let start: number = 0;
 
         this.host.nativeElement.addEventListener('click', (e: MouseEvent)  => {
            e.preventDefault();
@@ -45,18 +47,33 @@ export class SplitterComponent implements AfterViewInit {
         });
 
         mc.on('panstart', (event: HammerInput) => {
-            startWidth = this.model || (this.element ? this.element.clientWidth : 0);
+            if (this.position === 'right' || this.position === 'left') {
+                start = this.model || (this.element ? this.element.clientWidth : 0);
+            } else {
+                start = this.model || (this.element ? this.element.clientHeight : 0);
+            }
         });
 
         mc.on('pan', (event: HammerInput) => {
             // console.log('pan', startWidth + event.deltaX, event);
 
-            if (!this.element) return;
+            if (this.element) {
+                this.element.style.width = (start + event.deltaX) + 'px';
+            }
 
-            this.element.style.width = (startWidth + event.deltaX) + 'px';
-
-            this.model = (startWidth + event.deltaX);
-            this.modelChange.emit(startWidth + event.deltaX);
+            if (this.position === 'right') {
+                this.model = (start + event.deltaX);
+                this.modelChange.emit(start + event.deltaX);
+            } else if (this.position === 'left') {
+                this.model = (start - event.deltaX);
+                this.modelChange.emit(start - event.deltaX);
+            } else if (this.position === 'top') {
+                this.model = (start - event.deltaY);
+                this.modelChange.emit(start - event.deltaY);
+            } else if (this.position === 'bottom') {
+                this.model = (start + event.deltaY);
+                this.modelChange.emit(start + event.deltaY);
+            }
         })
     }
 }

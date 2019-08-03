@@ -10,6 +10,30 @@
     cursor: ew-resize;
 }
 
+:host.left {
+    width: 5px;
+    left: -2px;
+    top: 0;
+    bottom: 0;
+    cursor: ew-resize;
+}
+
+:host.top {
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    cursor: ns-resize;
+}
+
+:host.bottom {
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    cursor: ns-resize;
+}
+
 :host.with-indicator.right:before {
     content: '';
     position: absolute;
