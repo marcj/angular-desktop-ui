@@ -34,7 +34,7 @@ async function createWindow() {
         height: 750,
         vibrancy: 'appearance-based',
         webPreferences: {
-            nodeIntegration: false,
+            nodeIntegration: true,
             webSecurity: false,
         },
         titleBarStyle: 'hidden',

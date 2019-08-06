@@ -1,7 +1,7 @@
 <h1>Window</h1>
 
 ```typescript
-import {DuiWindowComponent} from '@marcj/angular-desktop-ui';
+import {DuiWindowModule} from '@marcj/angular-desktop-ui';
 ```
 
 

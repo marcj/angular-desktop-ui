@@ -1,4 +1,5 @@
 export * from './core/form';
+export * from './components/app';
 export * from './components/checkbox';
 export * from './components/button';
 export * from './components/input';

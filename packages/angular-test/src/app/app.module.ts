@@ -11,6 +11,7 @@ import {
     DuiIconModule,
     DuiListModule,
     DuiTableModule,
+    DuiAppModule,
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -40,6 +41,7 @@ import {DocModule} from "./components/doc.module";
         DuiListModule,
         DuiTableModule,
         DuiButtonModule,
+        DuiAppModule,
         DocModule.forRoot(AppModule),
     ],
     providers: [],

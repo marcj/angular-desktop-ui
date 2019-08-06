@@ -10,7 +10,7 @@ return {
 <h1>Window sidebar</h1>
 
 ```typescript
-import {DuiWindowComponent} from '@marcj/angular-desktop-ui';
+import {DuiWindowModule} from '@marcj/angular-desktop-ui';
 ```
 
 

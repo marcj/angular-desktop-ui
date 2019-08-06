@@ -286,6 +286,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Input() public selected: T[] = [];
 
+    @Output() public sortedChange: EventEmitter<T[]> = new EventEmitter();
     /**
      * Elements that are selected, by reference.
      */
@@ -582,13 +583,14 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             return;
         }
 
+        const sortField = this.currentSort || this.defaultSort;
         this.sorted.sort((a: any, b: any) => {
             if ((this.currentSortDirection || this.defaultSortDirection) === 'asc') {
-                if (a[this.currentSort || this.defaultSort] > b[this.currentSort || this.defaultSort]) return 1;
-                if (a[this.currentSort || this.defaultSort] < b[this.currentSort || this.defaultSort]) return -1;
+                if (a[sortField] > b[sortField]) return 1;
+                if (a[sortField] < b[sortField]) return -1;
             } else {
-                if (a[this.currentSort || this.defaultSort] > b[this.currentSort || this.defaultSort]) return -1;
-                if (a[this.currentSort || this.defaultSort] < b[this.currentSort || this.defaultSort]) return 1;
+                if (a[sortField] > b[sortField]) return -1;
+                if (a[sortField] < b[sortField]) return 1;
             }
 
             return 0;
@@ -596,6 +598,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
         //apply filter
         this.sorted = this.sorted.filter((v) => this.filterFn(v));
+        this.sortedChange.emit(this.sorted);
 
         this.cd.detectChanges();
     }

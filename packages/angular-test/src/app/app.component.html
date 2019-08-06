@@ -4,7 +4,7 @@
 
         <dui-window-toolbar>
             <dui-button-group>
-                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode {{darkMode ? 'ON' : 'OFFFF'}}</dui-button>
+                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode {{darkMode ? 'ON' : 'OFF'}}</dui-button>
             </dui-button-group>
 
             <dui-button-group float="sidebar">
@@ -23,6 +23,8 @@
                 <dui-list-title>Angular Desktop UI</dui-list-title>
                 <dui-list-item routerLink="/doc/start">Welcome</dui-list-item>
                 <dui-list-item routerLink="/doc/getting-started">Getting started</dui-list-item>
+
+                <dui-list-item routerLink="/doc/menu">Menu</dui-list-item>
 
                 <dui-list-title>Form controls</dui-list-title>
                 <dui-list-item routerLink="/doc/form">Form</dui-list-item>

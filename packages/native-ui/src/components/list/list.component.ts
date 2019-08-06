@@ -43,11 +43,6 @@ export class ListComponent extends ValueAccessorBase<any> {
 
     @ContentChildren(forwardRef(() => ListItemComponent)) list!: QueryList<ListItemComponent>;
 
-    @HostBinding('class.disabled')
-    get isDisabled() {
-        return this.disabled;
-    }
-
     constructor(
         protected injector: Injector,
         protected cd: ChangeDetectorRef,

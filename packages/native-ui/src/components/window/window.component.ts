@@ -1,6 +1,8 @@
-import {ChangeDetectionStrategy, Component, ContentChild, forwardRef, Injectable, Injector, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, ContentChild, Inject, Input} from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
 import {WindowState} from "./window-state";
+import {DOCUMENT} from "@angular/common";
+import {WindowMenuState} from "./window-menu";
 
 /**
  * This is only for documentation purposes.
@@ -23,9 +25,22 @@ export class WindowFrameComponent {
     styleUrls: ['./window.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
-        WindowState
+        WindowState,
+        WindowMenuState,
     ]
 })
-export class WindowComponent  {
+export class WindowComponent {
     @ContentChild(WindowContentComponent) public content?: WindowContentComponent;
+
+    constructor(
+        @Inject(DOCUMENT) document: Document,
+        windowMenuState: WindowMenuState,
+    ) {
+        document.addEventListener('focus', () => {
+            windowMenuState.focus();
+        });
+        //todo, windowMenuState.blur() when window is not focused anymore
+        // we can not store this WindowComponent in a list since this list
+        // is not shared across Electron windows.
+    }
 }
