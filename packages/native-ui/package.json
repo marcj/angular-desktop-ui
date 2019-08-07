@@ -32,6 +32,7 @@
     "@angular/forms": "~7.1.0",
     "@angular/platform-browser": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@angular/cdk": "^7.1.0",
     "rxjs": "~6.3.3"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
     "@angular/forms": "~7.1.0",
     "@angular/platform-browser": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@angular/cdk": "^7.1.0",
     "@types/hammerjs": "^2.0.36",
     "@types/node": "^11.9.4",
     "rxjs": "~6.3.3",

@@ -21,7 +21,7 @@ export class WindowMenuState {
     }
 
     removeMenu(menu: MenuDirective) {
-        this.subscriptions.get(menu).unsubscribe();
+        this.subscriptions.get(menu)!.unsubscribe();
         this.subscriptions.delete(menu);
         arrayRemoveItem(this.menus, menu);
         this.build();

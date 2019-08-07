@@ -1,6 +1,5 @@
-import {ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {ApplicationRef, ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
-import {arrayRemoveItem} from "@marcj/estdlib";
 
 @Component({
     selector: 'app-root',
@@ -11,6 +10,7 @@ import {arrayRemoveItem} from "@marcj/estdlib";
 export class AppComponent {
     public sidebarVisible = true;
     public darkMode = false;
+    public showDialog = false;
 
     public toggleDarkMode() {
         this.darkMode = !this.darkMode;
@@ -28,10 +28,10 @@ export class AppComponent {
         }
     }
 
+
     constructor(
         router: Router,
         private a: ApplicationRef,
-        private cd: ChangeDetectorRef,
     ) {
         //necessary to render all router-outlet once the router changes
         router.events.subscribe((event: Event) => {

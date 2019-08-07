@@ -34,8 +34,10 @@ async function createWindow() {
         height: 750,
         vibrancy: 'appearance-based',
         webPreferences: {
-            nodeIntegration: true,
-            webSecurity: false,
+            // nodeIntegration: true,
+            allowRunningInsecureContent: false,
+            preload: __dirname + '/../../node_modules/@marcj/angular-desktop-ui/preload.js',
+            sandbox: true,
         },
         titleBarStyle: 'hidden',
         icon: path.join(assetsPath, 'icons/64x64.png')

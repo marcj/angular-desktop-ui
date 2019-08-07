@@ -16,7 +16,7 @@ import {WindowState} from "./window-state";
     selector: 'dui-window-content',
     template: `
         <div class="sidebar" #sidebar *ngIf="toolbar">
-            <div class="sidebar-container" #sidebarContainer>
+            <div class="sidebar-container overlay-scrollbar" #sidebarContainer>
                 <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
             </div>
         </div>

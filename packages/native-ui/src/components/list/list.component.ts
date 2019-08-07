@@ -54,6 +54,7 @@ export class ListComponent extends ValueAccessorBase<any> {
     @HostListener('keydown', ['$event'])
     public async onKeyDown(event: KeyboardEvent) {
         if (event.key === 'ArrowDown') {
+            event.preventDefault();
             const selectedItem = this.getSelectedItem();
             if (selectedItem) {
                 const position = this.list.toArray().indexOf(selectedItem);
@@ -65,6 +66,7 @@ export class ListComponent extends ValueAccessorBase<any> {
         }
 
         if (event.key === 'ArrowUp') {
+            event.preventDefault();
             const selectedItem = this.getSelectedItem();
             if (selectedItem) {
                 const position = this.list.toArray().indexOf(selectedItem);
@@ -158,6 +160,7 @@ export class ListItemComponent implements OnChanges, OnDestroy {
             }
         }
 
+        return false;
     }
 
     @HostListener('click')

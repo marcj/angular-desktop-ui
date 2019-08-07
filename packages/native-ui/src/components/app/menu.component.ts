@@ -44,7 +44,7 @@ export class MenuBase implements AfterViewInit {
     protected registered = new Set<MenuBase>();
     protected subscriptions = new Map<MenuBase, Subscription>();
 
-    @ContentChildren(MenuBase) public child: QueryList<MenuBase>;
+    @ContentChildren(MenuBase) public child?: QueryList<MenuBase>;
 
     constructor() {
 
@@ -61,7 +61,7 @@ export class MenuBase implements AfterViewInit {
             }
         }
 
-        const result = {
+        const result: {[name: string]: any} = {
             click: () => {
                 this.click.emit()
             },
@@ -113,7 +113,7 @@ export class MenuBase implements AfterViewInit {
                     if (!arrayHasItem(items, item)) {
                         //got removed
                         this.registered.delete(item);
-                        this.subscriptions.get(item).unsubscribe();
+                        this.subscriptions.get(item)!.unsubscribe();
                         this.subscriptions.delete(item);
                     }
                 }

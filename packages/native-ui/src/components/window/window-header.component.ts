@@ -104,7 +104,7 @@ export class WindowToolbarComponent implements OnDestroy, OnInit {
     `],
 })
 export class WindowToolbarContainerComponent implements OnInit, OnDestroy {
-    @Input() name: string;
+    @Input() name: string = '';
 
     constructor(
         protected windowState: WindowState,

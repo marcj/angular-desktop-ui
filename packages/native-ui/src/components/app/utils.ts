@@ -1,6 +1,6 @@
-import {Directive, ElementRef, HostListener, Injectable, Input, OnChanges} from "@angular/core";
+import {Directive, ElementRef, HostListener, Input, OnChanges} from "@angular/core";
 
-const electron = (window as any).require ? (window as any).require('electron') : undefined;
+const electron = (window as any).require ? (window as any).require('electron') : (window as any).electron;
 
 @Directive({
     selector: '[openExternal]',
