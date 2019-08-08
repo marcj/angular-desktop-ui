@@ -34,12 +34,26 @@ return {showDialog: false}
 
     <dui-dialog-actions>
         <dui-button closeDialog>Close</dui-button>
-        <dui-button closeDialog highlighted>Ok</dui-button>
+        <dui-button closeDialog primary>Ok</dui-button>
     </dui-dialog-actions>
 </dui-dialog>
 
 <dui-dialog #dialog>
     <h3>Are you sure?</h3>
+    
+    <dui-dialog #anotherOne [maxWidth]="500">
+        <h3>No worries</h3>
+        <p>
+         There are many variations of passages of Lorem Ipsum available, 
+         but the majority have suffered alteration in some form, by injected humour.
+        </p>
+        <dui-button closeDialog>Ok, I'm sure now</dui-button>
+    </dui-dialog>
+
+    <p>
+        <dui-button (click)="anotherOne.show()">Not sure</dui-button>
+    </p>
+    
     <dui-dialog-actions>
         <dui-button closeDialog>Close</dui-button>
     </dui-dialog-actions>

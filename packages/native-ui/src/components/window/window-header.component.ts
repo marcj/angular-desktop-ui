@@ -1,15 +1,13 @@
 import {
     ChangeDetectorRef,
     Component,
-    ContentChild,
+    ContentChild, ElementRef,
     HostBinding,
     Input,
     OnDestroy, OnInit, SkipSelf,
     TemplateRef,
     ViewChild
 } from "@angular/core";
-import {arrayRemoveItem} from "@marcj/estdlib";
-import {ButtonGroupComponent} from "../button/button.component";
 import {WindowState} from "./window-state";
 
 
@@ -47,9 +45,14 @@ export class WindowHeaderComponent {
 
     constructor(
         public windowState: WindowState,
+        protected element: ElementRef,
         @SkipSelf() public readonly cd: ChangeDetectorRef,
     ) {
         windowState.header = this;
+    }
+
+    public getHeight(): number {
+        return this.element.nativeElement.clientHeight;
     }
 
     /**

@@ -7,12 +7,13 @@ import {
     HostListener,
     Input,
     OnChanges,
-    OnDestroy,
+    OnDestroy, Optional,
     Output,
     SimpleChanges, TemplateRef, ViewChild, ViewContainerRef
 } from "@angular/core";
 import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {TemplatePortal} from "@angular/cdk/portal";
+import {WindowComponent} from "../window/window.component";
 
 @Component({
     selector: 'dui-dialog-actions',
@@ -27,17 +28,13 @@ export class DialogActionsComponent {
     template: `
         <ng-template #template>
             <dui-window>
-                <dui-window-header>
-                    {{title}}
-                </dui-window-header>
-                
                 <dui-window-content>
                     <div class="content">
                         <ng-content></ng-content>
                     </div>
                 </dui-window-content>
 
-                <div class="actions" *ngIf="actions">
+                <div class="dialog-actions" *ngIf="actions">
                     <ng-container [ngTemplateOutlet]="actions.template"></ng-container>
                 </div>
             </dui-window>
@@ -48,13 +45,16 @@ export class DialogActionsComponent {
 export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() title: string = '';
 
-    @Input() visible: boolean = true;
+    @Input() visible: boolean = false;
     @Output() visibleChange = new EventEmitter<boolean>();
 
-    @Input() minWidth = 200;
-    @Input() minHeight = 50;
+    @Input() minWidth: number | string = 200;
+    @Input() minHeight: number | string = 50;
 
-    @Input() backDropCloses: boolean = true;
+    @Input() maxWidth?: number | string;
+    @Input() maxHeight?: number | string;
+
+    @Input() backDropCloses: boolean = false;
 
     @ViewChild('template') template?: TemplateRef<any>;
 
@@ -66,6 +66,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         protected applicationRef: ApplicationRef,
         private overlay: Overlay,
         private viewContainerRef: ViewContainerRef,
+        @Optional() private window?: WindowComponent,
     ) {
 
     }
@@ -83,16 +84,18 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             return;
         }
 
+        const offsetTop = this.window && this.window.header ? this.window.header.getHeight() : 0;
+
         this.overlayRef = this.overlay.create({
             minWidth: this.minWidth,
             minHeight: this.minHeight,
-            maxWidth: '90%',
-            maxHeight: '90%',
+            maxWidth: this.maxWidth || '90%',
+            maxHeight: this.maxHeight || '90%',
             hasBackdrop: true,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             positionStrategy: this.overlay
                 .position()
-                .global().centerHorizontally().centerVertically()
+                .global().centerHorizontally().top(offsetTop + 'px')
         });
 
         if (this.backDropCloses) {
@@ -103,6 +106,10 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
         this.overlayRef.attach(new TemplatePortal(this.template!, this.viewContainerRef));
         this.overlayRef.updatePosition();
+
+        // console.log('host', this.overlayRef!.hostElement);
+        // console.log('overlayElement', this.overlayRef!.overlayElement);
+        // this.overlayRef!.overlayElement.style.top = offsetTop + 'px';
 
         this.visible = true;
         this.visibleChange.emit(true);

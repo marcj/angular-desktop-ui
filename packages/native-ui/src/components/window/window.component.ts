@@ -3,6 +3,7 @@ import {WindowContentComponent} from "./window-content.component";
 import {WindowState} from "./window-state";
 import {DOCUMENT} from "@angular/common";
 import {WindowMenuState} from "./window-menu";
+import {WindowHeaderComponent} from "./window-header.component";
 
 /**
  * This is only for documentation purposes.
@@ -31,6 +32,7 @@ export class WindowFrameComponent {
 })
 export class WindowComponent {
     @ContentChild(WindowContentComponent) public content?: WindowContentComponent;
+    @ContentChild(WindowHeaderComponent) public header?: WindowHeaderComponent;
 
     constructor(
         @Inject(DOCUMENT) document: Document,

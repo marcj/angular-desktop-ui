@@ -22,6 +22,7 @@ import {WindowState} from "../window/window-state";
         '[class.icon]': '!!icon',
         '[class.active]': 'active !== false',
         '[class.highlighted]': 'highlighted !== false',
+        '[class.primary]': 'primary !== false',
     },
     styleUrls: ['./button.component.scss'],
 })
@@ -43,9 +44,14 @@ export class ButtonComponent {
     @Input() active: boolean = false;
 
     /**
-     * Whether the button is highlighted (primary).
+     * Whether the button is highlighted.
      */
     @Input() highlighted: boolean = false;
+
+    /**
+     * Whether the button is primary.
+     */
+    @Input() primary: boolean = false;
 
     /**
      * Whether the button is focused on initial loading.

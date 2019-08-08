@@ -52,6 +52,10 @@ $buttonTextColor: #575757;
 }
 
 :host.highlighted {
+    color: $highlightedDolor;
+}
+
+:host.primary {
     &:not(.disabled):not(.square) {
         color: white;
         //85% colors of :active above

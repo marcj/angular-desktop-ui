@@ -39,12 +39,23 @@ ol, ul {
     padding-left: 15px;
 }
 
+h1 {
+    font-weight: 600;
+}
+
+h2 {
+    font-weight: 600;
+}
+
+h3 {
+    font-weight: 600;
+}
 
 .overlay-scrollbar {
     overflow: overlay;
 
     &::-webkit-scrollbar {
-        width: 12px;
+        width: 11px;
         background: transparent;
     }
 
