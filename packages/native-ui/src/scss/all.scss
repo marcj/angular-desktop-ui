@@ -5,8 +5,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, "SF Pro Text";
-    //font-family: -apple-system, SFProText-Medium, "San", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    //font-family: -apple-system, "SF Pro Text";
+    font-family: -apple-system, SFProText-Medium, "San", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
     height: 100%;
     overflow: hidden;
@@ -34,21 +34,32 @@ p {
     margin: 15px 0;
 }
 
-
 ol, ul {
     padding-left: 15px;
 }
 
 h1 {
     font-weight: 600;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
 h2 {
     font-weight: 600;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
 h3 {
     font-weight: 600;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
 .overlay-scrollbar {
