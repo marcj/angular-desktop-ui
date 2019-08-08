@@ -1,30 +1,6 @@
 import {Directive, ElementRef, HostListener, Input, OnChanges} from "@angular/core";
 
-const electron = (window as any).require ? (window as any).require('electron') : (window as any).electron;
-
-@Directive({
-    selector: '[openExternal]',
-})
-export class OpenExternalDirective implements OnChanges {
-    @Input('openExternal') private openExternal: string = '';
-
-    constructor(private element: ElementRef) {
-        this.element.nativeElement.href = '#';
-    }
-
-    ngOnChanges(): void {
-        this.element.nativeElement.href = this.openExternal;
-    }
-
-    @HostListener('click', ['$event'])
-    onClick(event: Event) {
-        if (electron) {
-            event.preventDefault();
-            electron.shell.openExternal(this.openExternal);
-        }
-    }
-}
-
+const electron = (window as any).electron || ((window as any).require ? (window as any).require('electron') : undefined);
 
 export class Electron {
     public static getRemote(): any {
@@ -43,7 +19,31 @@ export class Electron {
         return electron ? electron.remote : undefined;
     }
 
-    public static getPlatform() {
-        return Electron.getRemote().require('os').platform();
+    public static getProcess() {
+        return Electron.getRemote().process;
+    }
+}
+
+
+@Directive({
+    selector: '[openExternal]',
+})
+export class OpenExternalDirective implements OnChanges {
+    @Input('openExternal') private openExternal: string = '';
+
+    constructor(private element: ElementRef) {
+        this.element.nativeElement.href = '#';
+    }
+
+    ngOnChanges(): void {
+        this.element.nativeElement.href = this.openExternal;
+    }
+
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        if (Electron.isAvailable()) {
+            event.preventDefault();
+            Electron.getRemote().shell.openExternal(this.openExternal);
+        }
     }
 }

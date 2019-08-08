@@ -1,4 +1,6 @@
 @import "./reset";
+@import "~@angular/cdk/overlay";
+@include cdk-overlay();
 
 html, body {
     margin: 0;
@@ -47,8 +49,7 @@ ol, ul {
     }
 
     &::-webkit-scrollbar-thumb {
-        //background: rgba(169, 173, 175, 0.77);
-        background: #aeb2b4;
+        background: rgba(131, 133, 134, 0.6);
         border: 2px solid rgba(0, 0, 0, 0.01);
         background-clip: padding-box;
 

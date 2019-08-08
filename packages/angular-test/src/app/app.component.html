@@ -1,23 +1,11 @@
-<dui-dialog [(visible)]="showDialog">
-    <dui-window>
-        <dui-window-header></dui-window-header>
-        <dui-window-content>
-            <h3>Hi this is a new window</h3>
-            <dui-button textured closeDialog>Close</dui-button>
-        </dui-window-content>
-    </dui-window>
-</dui-dialog>
-
 <dui-window class="main">
     <dui-window-header>
         Angular Desktop UI
 
         <dui-window-toolbar>
             <dui-button-group>
-                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode {{darkMode ? 'ON' : 'OFF'}}</dui-button>
-                <dui-button textured (click)="showDialog=!showDialog">
-                    {{showDialog ? 'Close' : 'Open'}} Dialog
-                </dui-button>
+                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">
+                    Dark-Mode {{darkMode ? 'ON' : 'OFF'}}</dui-button>
             </dui-button-group>
 
             <dui-button-group float="sidebar">
@@ -38,6 +26,7 @@
                 <dui-list-item routerLink="/doc/getting-started">Getting started</dui-list-item>
 
                 <dui-list-item routerLink="/doc/menu">Menu</dui-list-item>
+                <dui-list-item routerLink="/doc/dialog">Dialog</dui-list-item>
 
                 <dui-list-title>Form controls</dui-list-title>
                 <dui-list-item routerLink="/doc/form">Form</dui-list-item>

@@ -5,7 +5,7 @@ import {
     ElementRef,
     HostBinding,
     Input,
-    OnDestroy, OnInit,
+    OnDestroy,
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
@@ -20,12 +20,13 @@ import {WindowState} from "../window/window-state";
     `,
     host: {
         '[class.icon]': '!!icon',
-        '[class.active]': 'active',
+        '[class.active]': 'active !== false',
         '[class.highlighted]': 'highlighted !== false',
     },
     styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
+
     /**
      * The icon for this button. Either a icon name same as for dui-icon, or an image path.
      */
@@ -42,9 +43,14 @@ export class ButtonComponent {
     @Input() active: boolean = false;
 
     /**
-     * Whether the color is highlighted.
+     * Whether the button is highlighted (primary).
      */
     @Input() highlighted: boolean = false;
+
+    /**
+     * Whether the button is focused on initial loading.
+     */
+    @Input() focused: boolean = false;
 
     constructor(
         public element: ElementRef,
@@ -161,7 +167,6 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
 }
 
 
-
 @Component({
     selector: 'dui-button-groups',
     template: `
@@ -174,7 +179,7 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
             white-space: nowrap;
             word-break: keep-all;
         }
-        
+
         :host ::ng-deep > *:not(dui-button-group) {
             margin-right: 6px;
         }
