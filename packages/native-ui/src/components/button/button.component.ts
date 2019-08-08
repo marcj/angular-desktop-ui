@@ -159,9 +159,9 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
     get paddingLeft() {
         if (this.float === 'sidebar') {
             if (this.windowComponent.content) {
-                // console.log('getPaddingLeft', this.float, this.windowComponent.content!.isSidebarVisible(),
-                //     this.windowComponent.content.getSidebarWidth(), this.element.nativeElement.offsetLeft,
-                // );
+                console.log('getPaddingLeft', this.float, this.windowComponent.content!.isSidebarVisible(),
+                    this.windowComponent.content.getSidebarWidth(), this.element.nativeElement.offsetLeft,
+                );
                 if (this.windowComponent.content!.isSidebarVisible()) {
                     return Math.max(0, this.windowComponent.content.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';
                 } else {

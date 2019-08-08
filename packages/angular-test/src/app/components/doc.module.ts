@@ -354,6 +354,7 @@ export class ApiDocProvider {
             [items]="tableData" [selectable]="true"
             [filterQuery]="filterQuery"
             [filterFields]="['name', 'type', 'dataType', 'comment']"
+            noFocusOutline
         >
             <dui-table-column name="name" header="Name" [width]="240">
                 <ng-container *duiTableCell="let row">
@@ -468,7 +469,7 @@ export class MarkdownDocComponent implements AfterViewInit {
     protected component?: ComponentRef<any>;
     protected componentJavascript = '';
 
-    @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
+    @ViewChild('container', {read: ViewContainerRef, static: false}) container!: ViewContainerRef;
 
     constructor(
         private route: ActivatedRoute,

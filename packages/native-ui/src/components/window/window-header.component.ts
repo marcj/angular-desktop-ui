@@ -18,9 +18,7 @@ import {WindowState} from "./window-state";
             <ng-content></ng-content>
         </div>
         <div class="toolbar" *ngIf="windowState.toolbars['default']">
-            <ng-container *ngFor="let template of windowState.toolbars['default']">
-                <ng-container [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{}"></ng-container>
-            </ng-container>
+            <dui-window-toolbar-container></dui-window-toolbar-container>
         </div>
     `,
     styleUrls: ['./window-header.component.scss']
@@ -73,21 +71,17 @@ export class WindowHeaderComponent {
 })
 export class WindowToolbarComponent implements OnDestroy, OnInit {
     @Input() for: string = 'default';
-    @ViewChild('templateRef') template!: TemplateRef<any>;
+    @ViewChild('templateRef', {static: true}) template!: TemplateRef<any>;
 
     constructor(protected windowState: WindowState) {
     }
 
     ngOnInit() {
-        if (this.for) {
-            this.windowState.addToolbarContainer(this.for, this.template);
-        }
+        this.windowState.addToolbarContainer(this.for, this.template);
     }
 
     ngOnDestroy(): void {
-        if (this.windowState.header) {
-            this.windowState.removeToolbarContainer(this.for, this.template);
-        }
+        this.windowState.removeToolbarContainer(this.for, this.template);
     }
 }
 
@@ -107,7 +101,7 @@ export class WindowToolbarComponent implements OnDestroy, OnInit {
     `],
 })
 export class WindowToolbarContainerComponent implements OnInit, OnDestroy {
-    @Input() name: string = '';
+    @Input() name: string = 'default';
 
     constructor(
         protected windowState: WindowState,

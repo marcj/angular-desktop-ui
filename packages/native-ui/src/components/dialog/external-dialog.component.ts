@@ -41,7 +41,8 @@ export class ExternalDialogComponent implements AfterViewInit, OnDestroy, OnChan
     @Input() visible: boolean = true;
     @Output() visibleChange = new EventEmitter<boolean>();
 
-    @ViewChild('template') template?: TemplateRef<any>;
+
+    @ViewChild('template', {static: false}) template?: TemplateRef<any>;
 
     externalWindow?: Window;
 

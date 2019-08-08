@@ -31,8 +31,8 @@ export class WindowFrameComponent {
     ]
 })
 export class WindowComponent {
-    @ContentChild(WindowContentComponent) public content?: WindowContentComponent;
-    @ContentChild(WindowHeaderComponent) public header?: WindowHeaderComponent;
+    @ContentChild(WindowContentComponent, {static: false}) public content?: WindowContentComponent;
+    @ContentChild(WindowHeaderComponent, {static: false}) public header?: WindowHeaderComponent;
 
     constructor(
         @Inject(DOCUMENT) document: Document,

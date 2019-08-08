@@ -20,7 +20,7 @@ import {WindowComponent} from "../window/window.component";
     template: '<ng-template #template><ng-content></ng-content></ng-template>'
 })
 export class DialogActionsComponent {
-    @ViewChild('template') template!: TemplateRef<any>;
+    @ViewChild('template', {static: true}) template!: TemplateRef<any>;
 }
 
 @Component({
@@ -56,9 +56,9 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() backDropCloses: boolean = false;
 
-    @ViewChild('template') template?: TemplateRef<any>;
+    @ViewChild('template', {static: true}) template?: TemplateRef<any>;
 
-    @ContentChild(DialogActionsComponent) actions?: DialogActionsComponent;
+    @ContentChild(DialogActionsComponent, {static: false}) actions?: DialogActionsComponent;
 
     public overlayRef?: OverlayRef;
 
@@ -115,7 +115,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.visibleChange.emit(true);
     }
 
-    beforeUnload() {
+    protected beforeUnload() {
         if (this.overlayRef) {
             this.overlayRef.dispose();
             delete this.overlayRef;

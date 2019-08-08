@@ -97,7 +97,7 @@ export class TableColumnDirective {
      */
     ovewrittenPosition?: number;
 
-    @ContentChild(TableCellDirective) cell?: TableCellDirective;
+    @ContentChild(TableCellDirective, {static: false}) cell?: TableCellDirective;
 
     getWidth(): string | undefined {
         if (!this.width) return undefined;
@@ -139,7 +139,7 @@ export class TableHeaderDirective {
     @Input('name') name!: string;
     @Input('sortable') sortable: boolean = true;
 
-    @ViewChild('templateRef') template!: TemplateRef<any>;
+    @ViewChild('templateRef', {static: false}) template!: TemplateRef<any>;
 }
 
 @Component({
@@ -297,7 +297,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Output() public dbclick: EventEmitter<T> = new EventEmitter();
 
-    @ViewChild('header') header?: ElementRef;
+    @ViewChild('header', {static: false}) header?: ElementRef;
     @ViewChildren('th') ths?: QueryList<ElementRef>;
 
     @ContentChildren(TableColumnDirective) columnDefs?: QueryList<TableColumnDirective>;
@@ -385,7 +385,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     protected initHeaderMovement() {
         // console.log('InitHeaderMovement', this.header, this.ths);
         if (this.header && this.ths) {
-            const mc = new Hammer(this.header.nativeElement);
+            const mc = new Hammer(this.header!.nativeElement);
             mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
 
             interface Box {
@@ -527,7 +527,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         }
 
         if (this.filterQuery && this.filterFields) {
-            const q = this.filterQuery.toLowerCase();
+            const q = this.filterQuery!.toLowerCase();
             for (const field of this.filterFields) {
                 if (-1 !== String((item as any)[field]).toLowerCase().indexOf(q)) {
                     return true;

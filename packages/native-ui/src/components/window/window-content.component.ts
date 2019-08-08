@@ -31,11 +31,11 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
     @Input() sidebarVisible: boolean = true;
     @Input() protected sidebarWidth = 250;
 
-    @ContentChild(WindowSidebarComponent) toolbar?: WindowSidebarComponent;
+    @ContentChild(WindowSidebarComponent, {static: false}) toolbar?: WindowSidebarComponent;
 
-    @ViewChild('sidebar') public sidebar?: ElementRef<HTMLElement>;
-    @ViewChild('sidebarContainer') public sidebarContainer?: ElementRef<HTMLElement>;
-    @ViewChild('content') public content?: ElementRef<HTMLElement>;
+    @ViewChild('sidebar', {static: false}) public sidebar?: ElementRef<HTMLElement>;
+    @ViewChild('sidebarContainer', {static: false}) public sidebarContainer?: ElementRef<HTMLElement>;
+    @ViewChild('content', {static: true}) public content?: ElementRef<HTMLElement>;
 
     public readonly sidebarVisibleChanged = new Subject();
 
