@@ -24,3 +24,18 @@
     background-color: #434752;
 }
 
+
+
+:host-context(.light).white {
+    background-color: white;
+    border: 1px solid #c5c5c5;
+
+    &:not(:focus) ::ng-deep dui-list-item.selected {
+        background-color: #dcdcdc;
+    }
+}
+
+:host-context(.dark).white {
+    background-color: #1d262e;
+    border: 1px solid #565656;
+}

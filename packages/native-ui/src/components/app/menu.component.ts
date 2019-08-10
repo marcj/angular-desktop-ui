@@ -83,7 +83,7 @@ export class MenuBase implements AfterViewInit {
     }
 
     public validOs(): boolean {
-        if ('undefined' !== typeof Electron.isAvailable()) {
+        if (Electron.isAvailable()) {
             if (this.onlyMacOs !== false && Electron.getProcess().platform !== 'darwin') {
                 return false;
             }

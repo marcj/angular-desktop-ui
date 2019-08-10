@@ -104,7 +104,7 @@ export class WindowToolbarContainerComponent implements OnInit, OnDestroy {
     @Input() name: string = 'default';
 
     constructor(
-        protected windowState: WindowState,
+        public windowState: WindowState,
         protected cd: ChangeDetectorRef,
     ) {
     }

@@ -42,7 +42,7 @@ return {
             <dui-table [items]="items" [selectable]="true" [(selected)]="selectedItems">
                 <dui-table-column name="title" header="Title" [width]="150"></dui-table-column>
                 <dui-table-column name="i" [width]="30"></dui-table-column>
-                <dui-table-column name="created" header="Created" width="100%">
+                <dui-table=-column name="created" header="Created" width="100%">
                     <ng-container *duiTableCell="let row">
                         {{row.created|date:'mediumTime'}}
                     </ng-container>

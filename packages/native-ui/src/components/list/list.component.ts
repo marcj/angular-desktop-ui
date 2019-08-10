@@ -35,10 +35,16 @@ export class ListTitleComponent {
         <ng-content></ng-content>
     `,
     styleUrls: ['./list.component.scss'],
+    host: {
+        '[class.white]': 'white !==false',
+        '[class.overlay-scrollbar]': 'true',
+    },
     providers: [ngValueAccessor(ListComponent)]
 })
 @Injectable()
 export class ListComponent extends ValueAccessorBase<any> {
+    @Input() white = false;
+
     @HostBinding('tabindex') tabIndex: number = 1;
 
     @ContentChildren(forwardRef(() => ListItemComponent)) list!: QueryList<ListItemComponent>;

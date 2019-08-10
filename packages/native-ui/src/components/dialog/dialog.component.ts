@@ -1,6 +1,6 @@
 import {
     AfterViewInit,
-    ApplicationRef,
+    ApplicationRef, ChangeDetectorRef,
     Component, ContentChild,
     Directive,
     EventEmitter,
@@ -15,12 +15,12 @@ import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {TemplatePortal} from "@angular/cdk/portal";
 import {WindowComponent} from "../window/window.component";
 
-@Component({
-    selector: 'dui-dialog-actions',
-    template: '<ng-template #template><ng-content></ng-content></ng-template>'
+@Directive({
+    'selector': '[dialogContainer]',
 })
-export class DialogActionsComponent {
-    @ViewChild('template', {static: true}) template!: TemplateRef<any>;
+export class DialogDirective {
+    constructor(public template: TemplateRef<any>) {
+    }
 }
 
 @Component({
@@ -30,12 +30,17 @@ export class DialogActionsComponent {
             <dui-window>
                 <dui-window-content>
                     <div class="content">
-                        <ng-content></ng-content>
+                        <ng-container *ngIf="dialogDirective">
+                            <ng-container [ngTemplateOutlet]="dialogDirective.template"></ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!dialogDirective">
+                            <ng-content></ng-content>
+                        </ng-container>
                     </div>
                 </dui-window-content>
 
                 <div class="dialog-actions" *ngIf="actions">
-                    <ng-container [ngTemplateOutlet]="actions.template"></ng-container>
+                    <ng-container [ngTemplateOutlet]="actions"></ng-container>
                 </div>
             </dui-window>
         </ng-template>
@@ -57,18 +62,24 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() backDropCloses: boolean = false;
 
     @ViewChild('template', {static: true}) template?: TemplateRef<any>;
+    @ContentChild(DialogDirective, {static: true}) dialogDirective?: DialogDirective;
 
-    @ContentChild(DialogActionsComponent, {static: false}) actions?: DialogActionsComponent;
+    actions?: TemplateRef<any> | undefined;
 
     public overlayRef?: OverlayRef;
 
     constructor(
         protected applicationRef: ApplicationRef,
-        private overlay: Overlay,
-        private viewContainerRef: ViewContainerRef,
-        @Optional() private window?: WindowComponent,
+        protected overlay: Overlay,
+        protected viewContainerRef: ViewContainerRef,
+        protected cd: ChangeDetectorRef,
+        @Optional() protected window?: WindowComponent,
     ) {
+    }
 
+    public setActions(actions: TemplateRef<any> | undefined) {
+        this.actions = actions;
+        this.cd.detectChanges();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -84,6 +95,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             return;
         }
 
+        console.log('show dialog', this.template);
         const offsetTop = this.window && this.window.header ? this.window.header.getHeight() : 0;
 
         this.overlayRef = this.overlay.create({
@@ -99,13 +111,13 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         });
 
         if (this.backDropCloses) {
-            this.overlayRef.backdropClick().subscribe(() => {
+            this.overlayRef!.backdropClick().subscribe(() => {
                 this.close();
             });
         }
 
-        this.overlayRef.attach(new TemplatePortal(this.template!, this.viewContainerRef));
-        this.overlayRef.updatePosition();
+        this.overlayRef!.attach(new TemplatePortal(this.template!, this.viewContainerRef));
+        this.overlayRef!.updatePosition();
 
         // console.log('host', this.overlayRef!.hostElement);
         // console.log('overlayElement', this.overlayRef!.overlayElement);
@@ -138,6 +150,28 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.beforeUnload();
     }
 }
+
+@Component({
+    selector: 'dui-dialog-actions',
+    template: '<ng-template #template><ng-content></ng-content></ng-template>'
+})
+export class DialogActionsComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('template', {static: true}) template!: TemplateRef<any>;
+
+    constructor(protected dialog: DialogComponent) {
+    }
+
+    ngAfterViewInit(): void {
+        this.dialog.setActions(this.template);
+    }
+
+    ngOnDestroy(): void {
+        if (this.dialog.actions === this.template) {
+            this.dialog.setActions(undefined);
+        }
+    }
+}
+
 
 @Directive({
     selector: '[closeDialog]'

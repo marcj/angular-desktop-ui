@@ -66,6 +66,7 @@ h3 {
     overflow: overlay;
 
     &::-webkit-scrollbar {
+        height: 11px;
         width: 11px;
         background: transparent;
     }

@@ -200,6 +200,7 @@ export class TableHeaderDirective {
     host: {
         '[class.no-focus-outline]': 'noFocusOutline !== false',
         '[class.borderless]': 'borderless !== false',
+        '[class.overlay-scrollbar]': 'true',
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
