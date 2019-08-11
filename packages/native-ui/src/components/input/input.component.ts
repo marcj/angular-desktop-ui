@@ -5,13 +5,21 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
     selector: 'dui-input',
     template: `
         <div class="input-wrapper">
-            <input [type]="type" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
+            <input 
+                    *ngIf="type !== 'textarea'"
+                    [type]="type" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
                    [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="innerValue"/>
+            <textarea
+                    *ngIf="type === 'textarea'" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
+                    [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="innerValue"></textarea>
         </div>
         <dui-icon *ngIf="icon" class="icon" [size]="13" [name]="icon"></dui-icon>
         <dui-icon *ngIf="hasClearer" class="clearer" [size]="14" name="clear" (click)="clear()"></dui-icon>
     `,
     styleUrls: ['./input.component.scss'],
+    host: {
+        '[class.is-textarea]': 'type === "textarea"'
+    },
     providers: [ngValueAccessor(InputComponent)]
 })
 export class InputComponent extends ValueAccessorBase<any> {

@@ -38,7 +38,11 @@
     }
 }
 
-input {
+:host.is-textarea {
+    height: 60px;
+}
+
+textarea, input {
     border: 0;
     color: $colorInputs;
     background-color: transparent;
@@ -54,6 +58,11 @@ input {
     &:focus {
         outline: 0;
     }
+}
+
+textarea {
+    padding-top: 2px;
+    line-height: 16px;
 }
 
 dui-icon {

@@ -156,11 +156,13 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
      * @hidden
      */
     async writeValue(value?: T) {
-        this._innerValue = value;
-        await this.onInnerValueChange();
+        if (this._innerValue !== value) {
+            this._innerValue = value;
+            await this.onInnerValueChange();
 
-        this.cd.markForCheck();
-        this.cdParent.detectChanges();
+            this.cd.markForCheck();
+            this.cdParent.detectChanges();
+        }
     }
 
     /**
