@@ -18,6 +18,12 @@ html, body {
 
     -webkit-user-select: none;
     user-select: none;
+
+    --text-light: #737880;
+}
+
+.dark {
+    --text-light: #737880;
 }
 
 * {
@@ -25,6 +31,11 @@ html, body {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.text-light {
+    color: var(--text-light);
+}
+
 
 input, textarea, select, button {
     font-size: 13px;
