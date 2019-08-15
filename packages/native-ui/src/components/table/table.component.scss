@@ -48,7 +48,7 @@ table {
         position: relative;
         padding: 3px 6px;
         line-height: 16px;
-        vertical-align: top;
+        vertical-align: middle;
         overflow-x: hidden;
     }
 
@@ -84,14 +84,21 @@ table {
     background-color: #1e262e;
     border: 1px solid #565656;
 
-    th {
-        color: white;
-        background-color: #2a363f;
-        border-bottom-color: #445059;
-    }
+    table {
+        th {
+            color: white;
+            background-color: #2a363f;
+            border-bottom-color: #445059;
+            box-shadow: 0 1px 0 rgba(206, 206, 206, 0.23);
+        }
 
-    table th:active {
-        background-color: #43505a;
+        th:active {
+            background-color: #43505a;
+        }
+
+        tr:nth-child(odd) td {
+            background-color: rgba(245, 245, 245, 0.07);
+        }
     }
 
     &:focus tabel tr.selected td {

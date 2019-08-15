@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 
 @Component({
     selector: 'dui-form-row',
@@ -16,8 +16,26 @@ export class FormRowComponent {
 @Component({
     selector: 'dui-form',
     template: `
-        <ng-content></ng-content>`,
+        <form (submit)="$event.preventDefault();submitForm()">
+            <ng-content></ng-content>
+        </form>
+    `,
     styleUrls: ['./form.component.scss']
 })
 export class FormComponent {
+    @Input() submit?: ()=> Promise<boolean | void>;
+
+    @Output() success = new EventEmitter();
+
+    public submitting = false;
+
+    async submitForm() {
+        this.submitting = true;
+        if (this.submit) {
+            if (await this.submit()) {
+                this.success.emit();
+            }
+        }
+        this.submitting = false;
+    }
 }

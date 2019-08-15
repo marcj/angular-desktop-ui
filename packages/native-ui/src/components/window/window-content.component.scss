@@ -4,10 +4,19 @@
     overflow: hidden;
 
     .sidebar {
-        flex-basis: 250px;
+        position: relative;
+        width: 250px;
         flex-shrink: 0;
-
+        overflow: hidden;
         border-right: 1px solid #9da0a5;
+
+        &.with-animation {
+            transition: width 0.3s ease-in-out;
+        }
+
+        &.hidden {
+            width: 0 !important;
+        }
     }
 
     .sidebar-container {
@@ -21,11 +30,13 @@
     .content {
         flex: 1;
         position: relative;
-        padding: 20px;
-        background-color: #ececec;
+        padding: 14px;
         overflow: auto;
         max-height: 100%;
-        transition: margin-left 0.3s ease-in-out;
+    }
+
+    &:not(.transparent) .content {
+        background-color: var(--dui-window-content-bg);
     }
 }
 
@@ -41,10 +52,6 @@
         .sidebar {
             background-color: #2a3136;
         }
-    }
-
-    .content {
-        background-color: #2d373f;
     }
 
     .sidebar {

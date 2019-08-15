@@ -20,10 +20,13 @@ html, body {
     user-select: none;
 
     --text-light: #737880;
+
+    --dui-window-content-bg: #ececec;
 }
 
 .dark {
     --text-light: #737880;
+    --dui-window-content-bg: #2d373f;
 }
 
 * {

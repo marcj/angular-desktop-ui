@@ -11,6 +11,7 @@ import {CommonModule} from "@angular/common";
 import {WindowSidebarComponent} from "./window-sidebar.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {WindowMenuState} from "./window-menu";
+import {DuiSplitterModule} from "../splitter";
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {WindowMenuState} from "./window-menu";
     imports: [
         CommonModule,
         BrowserAnimationsModule,
+        DuiSplitterModule,
     ]
 })
 export class DuiWindowModule {

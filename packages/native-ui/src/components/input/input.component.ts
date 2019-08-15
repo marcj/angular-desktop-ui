@@ -1,4 +1,15 @@
-import {ChangeDetectorRef, Component, HostBinding, Injector, Input, SkipSelf} from "@angular/core";
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostBinding,
+    Injector,
+    Input,
+    OnInit,
+    SkipSelf,
+    ViewChild
+} from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
@@ -7,9 +18,11 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
         <div class="input-wrapper">
             <input 
                     *ngIf="type !== 'textarea'"
+                    #input
                     [type]="type" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
                    [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="innerValue"/>
             <textarea
+                    #input
                     *ngIf="type === 'textarea'" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
                     [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="innerValue"></textarea>
         </div>
@@ -22,7 +35,7 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
     },
     providers: [ngValueAccessor(InputComponent)]
 })
-export class InputComponent extends ValueAccessorBase<any> {
+export class InputComponent extends ValueAccessorBase<any> implements AfterViewInit {
     @Input() type: string = 'text';
 
     @Input() placeholder: string = '';
@@ -30,6 +43,10 @@ export class InputComponent extends ValueAccessorBase<any> {
     @Input() icon: string = '';
 
     @Input() disabled: boolean = false;
+
+    @Input() focus: boolean = false;
+
+    @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
     @HostBinding('class.disabled')
     get isDisabled() {
@@ -81,4 +98,16 @@ export class InputComponent extends ValueAccessorBase<any> {
     public async clear() {
         this.innerValue = '';
     }
+
+    ngAfterViewInit() {
+        if (this.focus !== false && this.input) {
+            setTimeout(() => {
+                this.input!.nativeElement.focus();
+                this.focused = true;
+                this.cd.detectChanges();
+            });
+        }
+    }
+
+
 }

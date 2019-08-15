@@ -1,10 +1,10 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectorRef,
     Component,
     ContentChild,
-    ElementRef,
+    ElementRef, EventEmitter,
     Input,
-    OnChanges,
+    OnChanges, Output,
     SimpleChanges,
     ViewChild
 } from "@angular/core";
@@ -15,21 +15,34 @@ import {WindowState} from "./window-state";
 @Component({
     selector: 'dui-window-content',
     template: `
-        <div class="sidebar" #sidebar *ngIf="toolbar">
-            <div class="sidebar-container overlay-scrollbar" #sidebarContainer>
+        <div class="sidebar"
+             (transitionend)="transitionEnded()"
+             #sidebar *ngIf="toolbar" [class.hidden]="!sidebarVisible "[class.with-animation]="withAnimation" 
+             [style.width.px]="sidebarWidth">
+            <div class="sidebar-container overlay-scrollbar" [style.width.px]="sidebarWidth" #sidebarContainer>
                 <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
             </div>
+            <dui-splitter position="right" [(model)]="sidebarWidth"
+                          (modelChange)="sidebarMoved()"></dui-splitter>
         </div>
 
         <div class="content" #content>
             <ng-content></ng-content>
         </div>
     `,
+    host: {
+        '[class.transparent]': 'transparent !== false',
+    },
     styleUrls: ['./window-content.component.scss'],
 })
 export class WindowContentComponent implements OnChanges, AfterViewInit {
+    @Input() transparent: boolean = false;
+
     @Input() sidebarVisible: boolean = true;
-    @Input() protected sidebarWidth = 250;
+
+    @Input() sidebarWidth = 250;
+
+    @Output() sidebarWidthChange = new EventEmitter<number>();
 
     @ContentChild(WindowSidebarComponent, {static: false}) toolbar?: WindowSidebarComponent;
 
@@ -37,9 +50,25 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
     @ViewChild('sidebarContainer', {static: false}) public sidebarContainer?: ElementRef<HTMLElement>;
     @ViewChild('content', {static: true}) public content?: ElementRef<HTMLElement>;
 
+    withAnimation: boolean = false;
     public readonly sidebarVisibleChanged = new Subject();
 
-    constructor(private windowState: WindowState) {
+    constructor(
+        private windowState: WindowState,
+        public cd: ChangeDetectorRef,
+    ) {
+    }
+
+    transitionEnded() {
+        this.withAnimation = false;
+        this.cd.detectChanges();
+    }
+
+    sidebarMoved() {
+        if (this.windowState.buttonGroupAlignedToSidebar) {
+            this.windowState.buttonGroupAlignedToSidebar.sidebarMoved();
+        }
+        this.cd.detectChanges();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -57,16 +86,17 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
 
     protected handleSidebarVisibility(withAnimation = false) {
         if (withAnimation && this.windowState.buttonGroupAlignedToSidebar) {
+            this.withAnimation = true;
             this.windowState.buttonGroupAlignedToSidebar.activateOneTimeAnimation();
         }
 
-        if (this.content) {
-            if (this.sidebarVisible) {
-                this.content.nativeElement.style.marginLeft = '0px';
-            } else {
-                this.content.nativeElement.style.marginLeft = (-this.sidebarWidth) + 'px';
-            }
-        }
+        // if (this.content) {
+        //     if (this.sidebarVisible) {
+        //         this.content.nativeElement.style.marginLeft = '0px';
+        //     } else {
+        //         this.content.nativeElement.style.marginLeft = (-this.sidebarWidth) + 'px';
+        //     }
+        // }
     }
 
     public getSidebarWidth(): number {

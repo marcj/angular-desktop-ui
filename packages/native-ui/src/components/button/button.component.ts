@@ -3,14 +3,15 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    HostBinding,
+    HostBinding, HostListener,
     Input,
-    OnDestroy,
+    OnDestroy, OnInit,
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
 import {Subscription} from "rxjs";
 import {WindowState} from "../window/window-state";
+import {FormComponent} from "../form/form.component";
 
 @Component({
     selector: 'dui-button',
@@ -58,6 +59,11 @@ export class ButtonComponent {
      */
     @Input() focused: boolean = false;
 
+    /**
+     * Whether the button is focused on initial loading.
+     */
+    @Input() submitForm?: FormComponent;
+
     constructor(
         public element: ElementRef,
     ) {
@@ -83,6 +89,13 @@ export class ButtonComponent {
     @HostBinding('class.textured')
     get isTextured() {
         return false !== this.textured;
+    }
+
+    @HostListener('click')
+    onClick() {
+        if (this.submitForm) {
+            this.submitForm.submitForm();
+        }
     }
 }
 
@@ -133,6 +146,10 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
 
     public activateOneTimeAnimation() {
         this.withAnimation = true;
+        this.cd.detectChanges();
+    }
+
+    public sidebarMoved() {
         this.cd.detectChanges();
     }
 
