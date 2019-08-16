@@ -54,8 +54,6 @@ export class WindowMenuState {
             ]);
         }
 
-        console.log('template', template);
-
         if (Electron.isAvailable()) {
             const remote: any = Electron.getRemote();
             if (remote) {

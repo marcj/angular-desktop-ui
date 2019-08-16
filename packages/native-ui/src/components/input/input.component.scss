@@ -15,8 +15,12 @@
 
     //box-shadow: 0 0.5px 0 0.5px rgba(0, 0, 0, 0.05);
 
-    &.focused {
+    &:not(.light-focus).focused {
         @include focus-border;
+    }
+
+    &.light-focus.focused {
+        border: 1px solid #949494;
     }
 
     &.round {
@@ -50,6 +54,7 @@ textarea, input {
     width: 100%;
     height: 100%;
     padding: 0 4px;
+    vertical-align: top;
 
     &::placeholder {
         color: #c5c5c5;
@@ -114,8 +119,12 @@ dui-icon {
     border-left: 1px solid #414951;
     border-right: 1px solid #414951;
 
-    &.focused {
+    &:not(.light-focus).focused {
         @include focus-border-dark;
+    }
+
+    &.light-focus.focused {
+        border: 1px solid #5d666e;
     }
 
     input {
@@ -126,7 +135,7 @@ dui-icon {
 :host.textured {
     @include box-textured;
 
-    &.focused {
+    &:not(.light-focus).focused {
         @include focus-border;
     }
 }

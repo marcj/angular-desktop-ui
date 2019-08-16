@@ -101,15 +101,11 @@ table {
         }
     }
 
-    &:focus tabel tr.selected td {
-        background-color: #0558d0;
-    }
-
     &:not(:focus) table tr.selected td {
         background-color: #444444;
     }
 
-    &:focus {
+    &:focus:not(.no-focus-outline) {
         @include focus-border-dark;
     }
 

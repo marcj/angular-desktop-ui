@@ -23,10 +23,6 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
             outline: 0;
         }
         
-        :host-context(.dark) {
-            color: white;
-        }
-        
         :host.disabled {
             opacity: 0.6;
         }

@@ -61,6 +61,7 @@ h1 {
 }
 
 h2 {
+    font-size: 18px;
     font-weight: 600;
 
     &:first-child {
@@ -69,6 +70,15 @@ h2 {
 }
 
 h3 {
+    font-size: 14px;
+    font-weight: 600;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+h4 {
     font-weight: 600;
 
     &:first-child {

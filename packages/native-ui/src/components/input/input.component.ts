@@ -31,7 +31,8 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
     `,
     styleUrls: ['./input.component.scss'],
     host: {
-        '[class.is-textarea]': 'type === "textarea"'
+        '[class.is-textarea]': 'type === "textarea"',
+        '[class.light-focus]': 'lightFocus !== false',
     },
     providers: [ngValueAccessor(InputComponent)]
 })
@@ -45,6 +46,8 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @Input() disabled: boolean = false;
 
     @Input() focus: boolean = false;
+
+    @Input() lightFocus: boolean = false;
 
     @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
