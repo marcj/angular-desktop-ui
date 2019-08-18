@@ -76,10 +76,6 @@ table {
     @include focus-border;
 }
 
-:host.borderless {
-    border: 0;
-}
-
 :host-context(.dark) {
     background-color: #1e262e;
     border: 1px solid #565656;
@@ -108,6 +104,8 @@ table {
     &:focus:not(.no-focus-outline) {
         @include focus-border-dark;
     }
-
 }
 
+:host.borderless {
+    border: 0;
+}
