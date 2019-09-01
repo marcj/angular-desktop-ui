@@ -33,6 +33,7 @@ import {
 } from "@marcj/estdlib";
 import * as Hammer from "hammerjs";
 import {Observable} from "rxjs";
+import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 export interface Column<T> {
     id: string;
@@ -79,7 +80,7 @@ export class TableColumnDirective {
     /**
      * Default width.
      */
-    @Input('width') width?: number | string;
+    @Input('width') width?: number | string = 100;
 
     /**
      * Adds additional class to the columns cells.
@@ -144,57 +145,64 @@ export class TableHeaderDirective {
 
 @Component({
     selector: 'dui-table',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <table>
-            <thead *ngIf="showHeader" #header>
-            <tr>
-                <th *ngFor="let column of sortedColumnDefs"
-                    [style.width]="getColumnWidth(column)"
-                    (click)="sortBy(column.name)"
-                    [style.top]="scrollTop + 'px'"
-                    #th
-                >
-                    <ng-container
-                            *ngIf="headerMapDef[column.name]"
-                            [ngTemplateOutlet]="headerMapDef[column.name].template"
-                            [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
+        <div class="header" *ngIf="showHeader" #header>
+            <div class="th"
+                 *ngFor="let column of sortedColumnDefs"
+                 [style.flex]="getColumnFlex(column)"
+                 (click)="sortBy(column.name)"
+                 [style.top]="scrollTop + 'px'"
+                 #th>
+                <ng-container
+                        *ngIf="headerMapDef[column.name]"
+                        [ngTemplateOutlet]="headerMapDef[column.name].template"
+                        [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
 
-                    <ng-container *ngIf="!headerMapDef[column.name]">
-                        {{column.header || column.name}}
-                    </ng-container>
+                <ng-container *ngIf="!headerMapDef[column.name]">
+                    {{column.header || column.name}}
+                </ng-container>
 
-                    <ng-container *ngIf="(currentSort || defaultSort) === column.name">
-                        <dui-icon *ngIf="!isAsc()" [size]="12" name="arrow_down"></dui-icon>
-                        <dui-icon *ngIf="isAsc()" [size]="12" name="arrow_up"></dui-icon>
-                    </ng-container>
+                <ng-container *ngIf="(currentSort || defaultSort) === column.name">
+                    <dui-icon *ngIf="!isAsc()" [size]="12" name="arrow_down"></dui-icon>
+                    <dui-icon *ngIf="isAsc()" [size]="12" name="arrow_up"></dui-icon>
+                </ng-container>
 
-                    <dui-splitter [element]="th" indicator position="right"></dui-splitter>
-                </th>
-                <th [style.top]="scrollTop + 'px'" style="width: auto"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let row of sorted; trackBy: trackByFn">
-                <tr
-                        [class.selected]="selectedMap.has(row)"
-                        (click)="select(row, $event)"
-                        (dblclick)="dbclick.emit(row)"
-                >
-                    <td *ngFor="let column of sortedColumnDefs"
-                        [class]="column.class">
-                        <ng-container *ngIf="column.cell">
-                            <ng-container [ngTemplateOutlet]="column.cell!.template"
-                                          [ngTemplateOutletContext]="{ $implicit: row }"></ng-container>
-                        </ng-container>
-                        <ng-container *ngIf="!column.cell">
-                            {{ row[column.name] }}
-                        </ng-container>
-                    </td>
-                    <td></td>
-                </tr>
-            </ng-container>
-            </tbody>
-        </table>
+                <dui-splitter [model]="column.width" (modelChange)="setColumnWidth(column, $event)" indicator
+                              position="right"></dui-splitter>
+            </div>
+
+            <div class="th" style="flex: 1"></div>
+        </div>
+
+        <div class="body">
+            <cdk-virtual-scroll-viewport #viewportElement
+                                         [itemSize]="itemHeight"
+            >
+                <ng-container *cdkVirtualFor="let row of sorted; trackBy: trackByFn.bind(this); odd as isOdd">
+                    <div class="table-row"
+                         [class.selected]="selectedMap.has(row)"
+                         [class.odd]="isOdd"
+                         (click)="select(row, $event)"
+                         (dblclick)="dbclick.emit(row)"
+                    >
+                        <div *ngFor="let column of sortedColumnDefs"
+                             [class]="column.class"
+                             [style.flex]="getColumnFlex(column)"
+                        >
+                            <ng-container *ngIf="column.cell">
+                                <ng-container [ngTemplateOutlet]="column.cell!.template"
+                                              [ngTemplateOutletContext]="{ $implicit: row }"></ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="!column.cell">
+                                {{ row[column.name] }}
+                            </ng-container>
+                        </div>
+                        <td></td>
+                    </div>
+                </ng-container>
+            </cdk-virtual-scroll-viewport>
+        </div>
     `,
     styleUrls: ['./table.component.scss'],
     host: {
@@ -202,7 +210,6 @@ export class TableHeaderDirective {
         '[class.borderless]': 'borderless !== false',
         '[class.overlay-scrollbar]': 'true',
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     /**
@@ -216,6 +223,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      * Array of items that should be used for each row.
      */
     @Input() public items!: T[] | Observable<T[]>;
+
+    /**
+     * Since dui-table has virtual-scroll active per default, it's required to define the itemHeight to
+     * make scrolling actually workable correctly.
+     */
+    @Input() public itemHeight: number = 25;
 
     /**
      * Whether the header should be shown.
@@ -304,6 +317,9 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     @ContentChildren(TableColumnDirective) columnDefs?: QueryList<TableColumnDirective>;
     @ContentChildren(TableHeaderDirective) headerDefs?: QueryList<TableHeaderDirective>;
 
+    @ViewChild(CdkVirtualScrollViewport, {static: true}) viewport: CdkVirtualScrollViewport;
+    @ViewChild('viewportElement', {static: true, read: ElementRef}) viewportElement: ElementRef;
+
     sortedColumnMap = new Map<HTMLElement, TableColumnDirective>();
     sortedColumnDefs: TableColumnDirective[] = [];
 
@@ -323,19 +339,15 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         protected element: ElementRef,
         protected cd: ChangeDetectorRef,
     ) {
-        element.nativeElement.addEventListener('scroll', () => {
-            // console.log('element.nativeElement.scrollTop', element.nativeElement.scrollTop);
-            this.scrollTop = element.nativeElement.scrollTop;
-            cd.detectChanges();
-        });
     }
 
-    public getColumnWidth(column: TableColumnDirective): string {
-        if (this.columnDefs!.length === 1) {
-            return '100%';
-        }
+    public getColumnFlex(column: TableColumnDirective): string {
+        return '0 0 ' + column.getWidth()!;
+    }
 
-        return column.getWidth()!;
+    public setColumnWidth(column: TableColumnDirective, width: number) {
+        column.width = width;
+        this.cd.detectChanges();
     }
 
     ngOnDestroy(): void {
@@ -382,9 +394,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         return this.trackFn ? this.trackFn(index, item) : index;
     }
 
-
     protected initHeaderMovement() {
-        // console.log('InitHeaderMovement', this.header, this.ths);
         if (this.header && this.ths) {
             const mc = new Hammer(this.header!.nativeElement);
             mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
@@ -403,7 +413,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             const columnDirectives = this.columnDefs!.toArray();
 
             mc.on('panstart', (event: HammerInput) => {
-                if (this.ths && event.target.tagName.toLowerCase() === 'th') {
+                if (this.ths && event.target.classList.contains('th')) {
                     element = event.target as HTMLElement;
                     element.style.zIndex = '1000000';
 
@@ -485,6 +495,10 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     ngAfterViewInit(): void {
+        this.viewport.renderedRangeStream.subscribe(() => {
+            this.cd.detectChanges();
+        });
+
         this.initHeaderMovement();
 
         if (this.columnDefs) {
@@ -651,11 +665,23 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 //     this.selected.push(item);
                 // } else {
                 this.select(item);
-                // }
+
+                const scrollTop = this.viewport.measureScrollOffset();
+                const viewportSize = this.viewport.getViewportSize();
+                const itemTop = this.itemHeight * index;
+
+                if (itemTop + this.itemHeight > viewportSize + scrollTop) {
+                    const diff = (itemTop + this.itemHeight) - (viewportSize + scrollTop);
+                    this.viewport.scrollToOffset(scrollTop + diff);
+                }
+
+                if (itemTop < scrollTop) {
+                    const diff = (itemTop) - (scrollTop);
+                    this.viewport.scrollToOffset(scrollTop + diff);
+                }
             }
             this.selectedChange.emit(this.selected);
             this.cd.markForCheck();
-
         }
     }
 
@@ -685,11 +711,5 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         }
         this.selectedChange.emit(this.selected);
         this.cd.detectChanges();
-
-        // setTimeout(() => {
-        //     scrollIntoView(document.getElementById('simple_table_item_' + (item as any)['id']), {
-        //         scrollMode: 'if-needed'
-        //     });
-        // }, 50);
     }
 }

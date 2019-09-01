@@ -7,12 +7,16 @@
     overflow: auto;
 }
 
-table {
-    width: 100%;
-    max-width: 100%;
-    table-layout: fixed;
+.cdk-virtual-scroll-viewport {
+    height: 100%;
+}
 
-    th {
+.header {
+    display: flex;
+    flex-wrap: nowrap;
+    max-height: 23px;
+
+    > div {
         position: relative;
         background-color: #f0f0f0;
         padding: 3px 6px;
@@ -22,9 +26,11 @@ table {
         font-size: 11px;
         font-weight: 500;
         box-shadow: 0 1px 0 #cecece;
-        //border-bottom: 1px solid #cecece;
         z-index: 1;
-        //transition: left 0.3s ease-in-out;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
         dui-icon {
             float: right;
@@ -37,32 +43,43 @@ table {
             right: 0;
             bottom: 3px;
         }
-    }
 
-    th:active {
-        background-color: #e3e3e3;
-        font-weight: 500;
+        &:active {
+            background-color: #e3e3e3;
+            font-weight: 500;
+        }
     }
+}
 
-    td {
+.body {
+    height: calc(100% - 23px);
+}
+
+.table-row {
+    display: flex;
+    flex-wrap: nowrap;
+
+    > div {
         position: relative;
         padding: 3px 6px;
         line-height: 16px;
         vertical-align: middle;
-        overflow-x: hidden;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
-    tr:nth-child(odd) td {
+    &.odd {
         background-color: #f5f5f5;
     }
 
-    tr.selected td {
+    &.selected {
         background-color: #dcdcdc;
     }
 }
 
 :host:focus {
-    table tr.selected td {
+    .table-row.selected {
         background-color: $highlightedDolor;
         color: white;
     }
@@ -80,24 +97,22 @@ table {
     background-color: #1e262e;
     border: 1px solid #565656;
 
-    table {
-        th {
-            color: white;
-            background-color: #2a363f;
-            border-bottom-color: #445059;
-            box-shadow: 0 1px 0 rgba(206, 206, 206, 0.23);
-        }
+    .th {
+        color: white;
+        background-color: #2a363f;
+        border-bottom-color: #445059;
+        box-shadow: 0 1px 0 rgba(206, 206, 206, 0.23);
 
-        th:active {
+        &:active {
             background-color: #43505a;
-        }
-
-        tr:nth-child(odd) td {
-            background-color: rgba(245, 245, 245, 0.07);
         }
     }
 
-    &:not(:focus) table tr.selected td {
+    .table-row.odd {
+        background-color: rgba(245, 245, 245, 0.07);
+    }
+
+    &:not(:focus) .table-row.selected {
         background-color: #444444;
     }
 

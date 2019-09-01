@@ -28,7 +28,7 @@ export class SplitterComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         const mc = new Hammer(this.host.nativeElement);
-        mc.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
+        mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
 
         // if (!this.element) {
         //     return;
@@ -36,14 +36,14 @@ export class SplitterComponent implements AfterViewInit {
 
         let start: number = 0;
 
-        this.host.nativeElement.addEventListener('click', (e: MouseEvent)  => {
-           e.preventDefault();
-           e.stopPropagation();
+        this.host.nativeElement.addEventListener('click', (e: MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
         });
 
-        this.host.nativeElement.addEventListener('mousedown', (e: MouseEvent)  => {
-           e.preventDefault();
-           e.stopPropagation();
+        this.host.nativeElement.addEventListener('mousedown', (e: MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
         });
 
         mc.on('panstart', (event: HammerInput) => {
@@ -64,16 +64,26 @@ export class SplitterComponent implements AfterViewInit {
             if (this.position === 'right') {
                 this.model = (start + event.deltaX);
                 this.modelChange.emit(start + event.deltaX);
+                this.triggerWindowResize();
             } else if (this.position === 'left') {
                 this.model = (start - event.deltaX);
                 this.modelChange.emit(start - event.deltaX);
+                this.triggerWindowResize();
             } else if (this.position === 'top') {
                 this.model = (start - event.deltaY);
                 this.modelChange.emit(start - event.deltaY);
+                this.triggerWindowResize();
             } else if (this.position === 'bottom') {
                 this.model = (start + event.deltaY);
                 this.modelChange.emit(start + event.deltaY);
+                this.triggerWindowResize();
             }
         })
+    }
+
+    protected triggerWindowResize() {
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        });
     }
 }

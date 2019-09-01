@@ -3,10 +3,11 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
+    EventEmitter,
     HostBinding,
     Injector,
     Input,
-    OnInit,
+    Output,
     SkipSelf,
     ViewChild
 } from "@angular/core";
@@ -16,15 +17,17 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
     selector: 'dui-input',
     template: `
         <div class="input-wrapper">
-            <input 
+            <input
                     *ngIf="type !== 'textarea'"
                     #input
                     [type]="type" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
-                   [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="innerValue"/>
+                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" [disabled]="isDisabled"
+                    [(ngModel)]="innerValue"/>
             <textarea
                     #input
                     *ngIf="type === 'textarea'" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
-                    [placeholder]="placeholder" [disabled]="isDisabled" [(ngModel)]="innerValue"></textarea>
+                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" [disabled]="isDisabled"
+                    [(ngModel)]="innerValue"></textarea>
         </div>
         <dui-icon *ngIf="icon" class="icon" [size]="13" [name]="icon"></dui-icon>
         <dui-icon *ngIf="hasClearer" class="clearer" [size]="14" name="clear" (click)="clear()"></dui-icon>
@@ -48,6 +51,9 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @Input() focus: boolean = false;
 
     @Input() lightFocus: boolean = false;
+
+    @Output() esc = new EventEmitter<KeyboardEvent>();
+    @Output() enter = new EventEmitter<KeyboardEvent>();
 
     @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -102,12 +108,23 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         this.innerValue = '';
     }
 
+    onKeyUp(event: KeyboardEvent) {
+        if (event.key.toLowerCase() === 'enter') {
+            this.enter.emit(event);
+        }
+
+        if (event.key.toLowerCase() === 'esc' || event.key.toLowerCase() === 'escape') {
+            this.esc.emit(event);
+        }
+    }
+
     ngAfterViewInit() {
         if (this.focus !== false && this.input) {
             setTimeout(() => {
                 this.input!.nativeElement.focus();
                 this.focused = true;
                 this.cd.detectChanges();
+                this.cdParent.detectChanges();
             });
         }
     }
