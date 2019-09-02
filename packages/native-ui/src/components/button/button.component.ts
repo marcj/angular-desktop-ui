@@ -195,19 +195,14 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
     template: `
         <ng-content></ng-content>
     `,
-    styles: [`
-        :host {
-            padding: 8px;
-            display: flex;
-            white-space: nowrap;
-            word-break: keep-all;
-        }
-
-        :host ::ng-deep > *:not(dui-button-group) {
-            margin-right: 6px;
-        }
-    `]
+    host: {
+        '[class.align-left]': `align === 'left'`,
+        '[class.align-center]': `align === 'center'`,
+        '[class.align-right]': `align === 'right'`,
+    },
+    styleUrls: ['./button-groups.component.scss'],
 })
 export class ButtonGroupsComponent {
+    @Input() align: 'left' | 'center' | 'right' = 'left';
 }
 

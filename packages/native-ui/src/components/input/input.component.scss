@@ -55,6 +55,7 @@ textarea, input {
     height: 100%;
     padding: 0 4px;
     vertical-align: top;
+    resize: none;
 
     &::placeholder {
         color: #c5c5c5;

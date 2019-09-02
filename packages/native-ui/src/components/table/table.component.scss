@@ -4,7 +4,7 @@
     display: block;
     border: 1px solid #c5c5c5;
     background-color: white;
-    overflow: auto;
+    height: 250px;
 }
 
 .cdk-virtual-scroll-viewport {
@@ -12,20 +12,23 @@
 }
 
 .header {
-    display: flex;
-    flex-wrap: nowrap;
-    max-height: 23px;
+    white-space: nowrap;
+    height: 23px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #cecece;
+    padding-right: 13px;
 
     > div {
         position: relative;
-        background-color: #f0f0f0;
+        display: inline-block;
+        height: 23px;
         padding: 3px 6px;
         line-height: 17px;
         text-align: left;
         color: #303030;
         font-size: 11px;
         font-weight: 500;
-        box-shadow: 0 1px 0 #cecece;
         z-index: 1;
 
         overflow: hidden;
@@ -56,13 +59,14 @@
 }
 
 .table-row {
-    display: flex;
-    flex-wrap: nowrap;
+    white-space: nowrap;
 
     > div {
         position: relative;
+        display: inline-block;
         padding: 3px 6px;
         line-height: 16px;
+        height: 100%;
         vertical-align: middle;
         overflow: hidden;
         white-space: nowrap;
@@ -97,11 +101,13 @@
     background-color: #1e262e;
     border: 1px solid #565656;
 
+    .header {
+        background-color: #2a363f;
+        border-bottom: 1px solid rgba(206, 206, 206, 0.23)
+    }
+
     .th {
         color: white;
-        background-color: #2a363f;
-        border-bottom-color: #445059;
-        box-shadow: 0 1px 0 rgba(206, 206, 206, 0.23);
 
         &:active {
             background-color: #43505a;

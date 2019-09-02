@@ -150,7 +150,7 @@ export class TableHeaderDirective {
         <div class="header" *ngIf="showHeader" #header>
             <div class="th"
                  *ngFor="let column of sortedColumnDefs"
-                 [style.flex]="getColumnFlex(column)"
+                 [style.width]="column.getWidth()"
                  (click)="sortBy(column.name)"
                  [style.top]="scrollTop + 'px'"
                  #th>
@@ -171,8 +171,6 @@ export class TableHeaderDirective {
                 <dui-splitter [model]="column.width" (modelChange)="setColumnWidth(column, $event)" indicator
                               position="right"></dui-splitter>
             </div>
-
-            <div class="th" style="flex: 1"></div>
         </div>
 
         <div class="body">
@@ -183,12 +181,13 @@ export class TableHeaderDirective {
                     <div class="table-row"
                          [class.selected]="selectedMap.has(row)"
                          [class.odd]="isOdd"
+                         [style.height.px]="itemHeight"
                          (click)="select(row, $event)"
                          (dblclick)="dbclick.emit(row)"
                     >
                         <div *ngFor="let column of sortedColumnDefs"
                              [class]="column.class"
-                             [style.flex]="getColumnFlex(column)"
+                             [style.width]="column.getWidth()"
                         >
                             <ng-container *ngIf="column.cell">
                                 <ng-container [ngTemplateOutlet]="column.cell!.template"
@@ -198,7 +197,6 @@ export class TableHeaderDirective {
                                 {{ row[column.name] }}
                             </ng-container>
                         </div>
-                        <td></td>
                     </div>
                 </ng-container>
             </cdk-virtual-scroll-viewport>
@@ -228,7 +226,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      * Since dui-table has virtual-scroll active per default, it's required to define the itemHeight to
      * make scrolling actually workable correctly.
      */
-    @Input() public itemHeight: number = 25;
+    @Input() public itemHeight: number = 23;
 
     /**
      * Whether the header should be shown.
@@ -339,10 +337,6 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         protected element: ElementRef,
         protected cd: ChangeDetectorRef,
     ) {
-    }
-
-    public getColumnFlex(column: TableColumnDirective): string {
-        return '0 0 ' + column.getWidth()!;
     }
 
     public setColumnWidth(column: TableColumnDirective, width: number) {
@@ -498,6 +492,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         this.viewport.renderedRangeStream.subscribe(() => {
             this.cd.detectChanges();
         });
+
+        this.viewportElement.nativeElement.addEventListener('scroll', (e) => {
+            const scrollLeft = this.viewportElement.nativeElement.scrollLeft;
+            this.header!.nativeElement.scrollLeft = scrollLeft;
+        })
 
         this.initHeaderMovement();
 
