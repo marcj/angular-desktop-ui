@@ -352,7 +352,6 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     public sortBy(name: string) {
-
         if (this.headerMapDef[name]) {
             const headerDef = this.headerMapDef[name];
             if (!headerDef.sortable) {
@@ -563,12 +562,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 })
             } else if (isArray(this.items)) {
                 this.sorted = this.items;
-                this.doSort();
             } else {
                 this.sorted = [];
-                this.doSort();
             }
         }
+        this.doSort();
 
         if (changes.selected) {
             this.selectedMap.clear();
@@ -611,7 +609,9 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         });
 
         //apply filter
-        this.sorted = this.sorted.filter((v) => this.filterFn(v));
+        if (this.filter || (this.filterQuery && this.filterFields)) {
+            this.sorted = this.sorted.filter((v) => this.filterFn(v));
+        }
         this.sortedChange.emit(this.sorted);
 
         this.cd.detectChanges();

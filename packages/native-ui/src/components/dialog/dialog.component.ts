@@ -1,28 +1,28 @@
 import {
     AfterViewInit,
-    ApplicationRef, ChangeDetectorRef,
-    Component, ComponentFactoryResolver, ComponentRef, ContentChild,
+    ApplicationRef,
+    ChangeDetectorRef,
+    Component,
+    ComponentRef,
     Directive,
     EventEmitter,
     HostListener,
     Input,
     OnChanges,
-    OnDestroy, Optional,
+    OnDestroy,
+    Optional,
     Output,
-    SimpleChanges, SkipSelf, TemplateRef, Type, ViewChild, ViewContainerRef
+    SimpleChanges,
+    SkipSelf,
+    TemplateRef,
+    Type,
+    ViewChild,
+    ViewContainerRef
 } from "@angular/core";
 import {Overlay, OverlayRef} from "@angular/cdk/overlay";
-import {ComponentPortal, TemplatePortal} from "@angular/cdk/portal";
+import {ComponentPortal} from "@angular/cdk/portal";
 import {WindowComponent} from "../window/window.component";
-import {eachPair} from "@marcj/estdlib";
 
-@Directive({
-    'selector': '[dialogContainer]',
-})
-export class DialogDirective {
-    constructor(public template: TemplateRef<any>) {
-    }
-}
 
 @Component({
     template: `
@@ -34,11 +34,11 @@ export class DialogDirective {
 
                 <ng-container *ngIf="content" [ngTemplateOutlet]="content"></ng-container>
                 
-                <ng-container *ngIf="dialogDirective">
-                    <ng-container [ngTemplateOutlet]="dialogDirective.template"></ng-container>
+                <ng-container *ngIf="container">
+                    <ng-container [ngTemplateOutlet]="container"></ng-container>
                 </ng-container>
 
-                <ng-container *ngIf="!dialogDirective">
+                <ng-container *ngIf="!container">
                     <ng-content></ng-content>
                 </ng-container>
             </dui-window-content>
@@ -51,12 +51,11 @@ export class DialogDirective {
     styleUrls: ['./dialog-wrapper.component.scss']
 })
 export class DialogWrapperComponent {
-    @Input() dialogDirective?: DialogDirective;
-
     @Input() component?: Type<any>;
     @Input() componentInputs: { [name: string]: any } = {};
 
     actions?: TemplateRef<any> | undefined;
+    container?: TemplateRef<any> | undefined;
     content?: TemplateRef<any> | undefined;
 
     constructor(
@@ -65,6 +64,11 @@ export class DialogWrapperComponent {
 
     public setActions(actions: TemplateRef<any> | undefined) {
         this.actions = actions;
+        this.cd.detectChanges();
+    }
+
+    public setDialogContainer(container: TemplateRef<any> | undefined) {
+        this.container = container;
         this.cd.detectChanges();
     }
 }
@@ -94,9 +98,9 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Output() closed = new EventEmitter<any>();
 
     @ViewChild('template', {static: true}) template?: TemplateRef<any>;
-    @ContentChild(DialogDirective, {static: false}) dialogDirective?: DialogDirective;
 
     actions?: TemplateRef<any> | undefined;
+    container?: TemplateRef<any> | undefined;
 
     public overlayRef?: OverlayRef;
     protected wrapperComponentRef?: ComponentRef<DialogWrapperComponent>;
@@ -119,6 +123,13 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
                 resolve(v);
             })
         })
+    }
+
+    public setDialogContainer(container: TemplateRef<any> | undefined) {
+        this.container = container;
+        if (this.wrapperComponentRef) {
+            this.wrapperComponentRef.instance.setDialogContainer(container);
+        }
     }
 
     public setActions(actions: TemplateRef<any> | undefined) {
@@ -166,12 +177,15 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.wrapperComponentRef = this.overlayRef!.attach(portal);
         this.wrapperComponentRef.instance.component = this.component!;
         this.wrapperComponentRef.instance.componentInputs = this.componentInputs;
-        this.wrapperComponentRef.instance.dialogDirective = this.dialogDirective!;
         this.wrapperComponentRef.instance.content = this.template!;
 
         if (this.actions) {
             this.wrapperComponentRef!.instance.setActions(this.actions);
         }
+        if (this.container) {
+            this.wrapperComponentRef!.instance.setDialogContainer(this.container);
+        }
+
         this.overlayRef!.updatePosition();
 
         this.visible = true;
@@ -211,6 +225,15 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         }
 
         this.beforeUnload();
+    }
+}
+
+@Directive({
+    'selector': '[dialogContainer]',
+})
+export class DialogDirective {
+    constructor(protected dialog: DialogComponent, public template: TemplateRef<any>) {
+        this.dialog.setDialogContainer(this.template);
     }
 }
 

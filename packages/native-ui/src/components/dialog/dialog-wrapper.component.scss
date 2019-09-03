@@ -14,10 +14,16 @@
         display: flex;
     }
 
+    .cdk-overlay-pane > ng-component {
+        display: block;
+        flex: 1;
+        display: flex;
+    }
     .cdk-overlay-pane dui-window {
         position: relative !important;
         animation: 0.2s dialog-fade-in ease-out;
 
+        flex: 1;
         height: auto;
         margin: 25px;
         width: calc(100% - 50px);

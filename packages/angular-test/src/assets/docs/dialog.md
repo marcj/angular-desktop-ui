@@ -60,6 +60,17 @@ return {
     </dui-dialog-actions>
 </dui-dialog>
 
+<dui-dialog #dialog2 [minHeight]="250" [minWidth]="500">
+    <ng-container *dialogContainer>
+        <div style="position: absolute;left: 0; right: 0; top: 0; bottom: 0; border: 2px solid red;">
+            I'm absolute
+        </div>
+        <dui-dialog-actions>
+            <dui-button closeDialog>Close</dui-button>
+        </dui-dialog-actions>
+    </ng-container>
+</dui-dialog>
+
 <dui-button-group>
     <dui-button textured (click)="showDialog=!showDialog">
         {{showDialog ? 'Close' : 'Open'}} Dialog
@@ -67,6 +78,7 @@ return {
     <dui-button textured (click)="dialog.show()">Open sureness</dui-button>
     <dui-button textured confirm="Really delete?" (click)="confirmed = confirmed+1">Confirm please {{confirmed}}</dui-button>
     <dui-button textured alert="This will delete stuff." (click)="confirmed = confirmed+1">Alert</dui-button>
+    <dui-button textured (click)="dialog2.show()">Absolute dialog</dui-button>
 </dui-button-group>
 ```
 
