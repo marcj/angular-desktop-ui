@@ -12,3 +12,4 @@ export * from './components/list';
 export * from './components/table';
 export * from './components/splitter';
 export * from './components/dialog';
+export * from './components/core';

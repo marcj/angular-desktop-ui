@@ -315,8 +315,8 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     @ContentChildren(TableColumnDirective) columnDefs?: QueryList<TableColumnDirective>;
     @ContentChildren(TableHeaderDirective) headerDefs?: QueryList<TableHeaderDirective>;
 
-    @ViewChild(CdkVirtualScrollViewport, {static: true}) viewport: CdkVirtualScrollViewport;
-    @ViewChild('viewportElement', {static: true, read: ElementRef}) viewportElement: ElementRef;
+    @ViewChild(CdkVirtualScrollViewport, {static: true}) viewport!: CdkVirtualScrollViewport;
+    @ViewChild('viewportElement', {static: true, read: ElementRef}) viewportElement!: ElementRef;
 
     sortedColumnMap = new Map<HTMLElement, TableColumnDirective>();
     sortedColumnDefs: TableColumnDirective[] = [];
@@ -493,7 +493,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             this.cd.detectChanges();
         });
 
-        this.viewportElement.nativeElement.addEventListener('scroll', (e) => {
+        this.viewportElement.nativeElement.addEventListener('scroll', () => {
             const scrollLeft = this.viewportElement.nativeElement.scrollLeft;
             this.header!.nativeElement.scrollLeft = scrollLeft;
         })

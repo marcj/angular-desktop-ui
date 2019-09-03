@@ -4,6 +4,7 @@
     dui-window.main {
         margin: 50px;
         height: calc(100% - 100px);
+        width: calc(100% - 100px);
         border-radius: 4px;
         overflow: hidden;
 
@@ -23,6 +24,15 @@
             filter: blur(20px);
             z-index: -1;
         }
+    }
+
+    .cdk-overlay-container {
+        width: auto;
+        height: auto;
+        left: 50px;
+        right: 50px;
+        top: 50px;
+        bottom: 50px;
     }
 
     &.light {

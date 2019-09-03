@@ -1,5 +1,6 @@
 import {ApplicationRef, ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivationEnd, Event, NavigationEnd, Router} from "@angular/router";
+import {DuiDialog} from "@marcj/angular-desktop-ui";
 
 @Component({
     selector: 'app-root',
@@ -32,6 +33,7 @@ export class AppComponent {
     constructor(
         router: Router,
         private a: ApplicationRef,
+        public dialog: DuiDialog,
     ) {
         //necessary to render all router-outlet once the router changes
         router.events.subscribe((event: Event) => {

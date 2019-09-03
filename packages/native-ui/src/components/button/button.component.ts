@@ -92,7 +92,9 @@ export class ButtonComponent {
     }
 
     @HostListener('click')
-    onClick() {
+    async onClick() {
+
+
         if (this.submitForm) {
             this.submitForm.submitForm();
         }

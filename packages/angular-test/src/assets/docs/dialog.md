@@ -7,7 +7,10 @@ import {DuiDialogModule} from '@marcj/angular-desktop-ui';
 
 ```javascript
 //@angular
-return {showDialog: false}
+return {
+    confirmed: 0,
+    showDialog: false,
+}
 ```
 
 ```html
@@ -50,9 +53,7 @@ return {showDialog: false}
         <dui-button closeDialog>Ok, I'm sure now</dui-button>
     </dui-dialog>
 
-    <p>
-        <dui-button (click)="anotherOne.show()">Not sure</dui-button>
-    </p>
+    <dui-button (click)="anotherOne.show()">Not sure</dui-button>
     
     <dui-dialog-actions>
         <dui-button closeDialog>Close</dui-button>
@@ -64,6 +65,8 @@ return {showDialog: false}
         {{showDialog ? 'Close' : 'Open'}} Dialog
     </dui-button>
     <dui-button textured (click)="dialog.show()">Open sureness</dui-button>
+    <dui-button textured confirm="Really delete?" (click)="confirmed = confirmed+1">Confirm please {{confirmed}}</dui-button>
+    <dui-button textured alert="This will delete stuff." (click)="confirmed = confirmed+1">Alert</dui-button>
 </dui-button-group>
 ```
 
