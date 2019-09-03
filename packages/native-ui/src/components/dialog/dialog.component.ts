@@ -115,7 +115,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     public toPromise(): Promise<any> {
         return new Promise((resolve) => {
-            this.closed.subscribe((v) => {
+            this.closed.subscribe((v: any) => {
                 resolve(v);
             })
         })
