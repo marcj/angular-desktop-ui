@@ -97,7 +97,6 @@ export class MenuBase implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        console.log('menuBase ngAfterViewInit', this);
         if (this.child) {
             this.child!.changes.subscribe((items: MenuBase[]) => {
                 for (const item of items) {

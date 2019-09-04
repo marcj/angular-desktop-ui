@@ -5,6 +5,10 @@
     border: 1px solid #c5c5c5;
     background-color: white;
     height: 100px;
+
+    &.auto-height {
+        height: auto;
+    }
 }
 
 .cdk-virtual-scroll-viewport {
@@ -55,7 +59,10 @@
 }
 
 .body {
-    height: calc(100% - 23px);
+    height: 100%;
+    &.with-header {
+        height: calc(100% - 23px);
+    }
 }
 
 .table-row {

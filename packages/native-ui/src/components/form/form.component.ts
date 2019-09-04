@@ -4,7 +4,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
     selector: 'dui-form-row',
     template: `
         <div>{{label}}</div>
-        <div>
+        <div class="field">
             <ng-content></ng-content>
         </div>`,
     styleUrls: ['./form-row.component.scss']

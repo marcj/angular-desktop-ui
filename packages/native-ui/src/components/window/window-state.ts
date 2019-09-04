@@ -18,8 +18,6 @@ export class WindowState {
 
         this.toolbars[forName].push(template);
 
-        console.log('addToolbarContainer', forName, this.toolbarContainers[forName]);
-
         if (this.toolbarContainers[forName]) {
             this.toolbarContainers[forName].toolbarsUpdated();
         }

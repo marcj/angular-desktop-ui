@@ -29,7 +29,7 @@ import {FormComponent} from "../form/form.component";
     },
     styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
 
     /**
      * The icon for this button. Either a icon name same as for dui-icon, or an image path.
@@ -98,10 +98,16 @@ export class ButtonComponent {
         return false !== this.textured;
     }
 
+    ngOnInit() {
+        if (this.focused !== false) {
+            setTimeout(() => {
+                this.element.nativeElement.focus();
+            }, 10);
+        }
+    }
+
     @HostListener('click')
     async onClick() {
-
-
         if (this.submitForm) {
             this.submitForm.submitForm();
         }

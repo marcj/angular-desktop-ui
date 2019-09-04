@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, ContentChild, Inject, Input} from "@angular/core";
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    Inject,
+    Input,
+    Optional,
+    SkipSelf
+} from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
 import {WindowState} from "./window-state";
 import {DOCUMENT} from "@angular/common";
@@ -35,6 +43,7 @@ export class WindowComponent {
     @ContentChild(WindowHeaderComponent, {static: false}) public header?: WindowHeaderComponent;
 
     constructor(
+        @SkipSelf() @Optional() protected parentWindow: WindowComponent,
         @Inject(DOCUMENT) document: Document,
         windowMenuState: WindowMenuState,
     ) {
@@ -44,5 +53,9 @@ export class WindowComponent {
         //todo, windowMenuState.blur() when window is not focused anymore
         // we can not store this WindowComponent in a list since this list
         // is not shared across Electron windows.
+    }
+
+    public getParentOrSelf(): WindowComponent {
+        return this.parentWindow ? this.parentWindow.getParentOrSelf() : this;
     }
 }

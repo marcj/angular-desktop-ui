@@ -6,7 +6,7 @@ import {
     ComponentRef,
     Directive,
     EventEmitter,
-    HostListener,
+    HostListener, Injector,
     Input,
     OnChanges,
     OnDestroy,
@@ -48,6 +48,9 @@ import {WindowComponent} from "../window/window.component";
             </div>
         </dui-window>
     `,
+    host: {
+        '[attr.tabindex]': '1'
+    },
     styleUrls: ['./dialog-wrapper.component.scss']
 })
 export class DialogWrapperComponent {
@@ -112,6 +115,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         protected overlay: Overlay,
         protected viewContainerRef: ViewContainerRef,
         protected cd: ChangeDetectorRef,
+        protected injector: Injector,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
         @Optional() protected window?: WindowComponent,
     ) {
@@ -152,7 +156,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             return;
         }
 
-        const offsetTop = this.window && this.window.header ? this.window.header.getHeight() : 0;
+        const window = this.window ? this.window.getParentOrSelf() : undefined;
+        const offsetTop = window && window.header ? window.header.getHeight() : 0;
 
         this.overlayRef = this.overlay.create({
             minWidth: this.minWidth,
@@ -172,8 +177,13 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
                 this.close(undefined);
             });
         }
-
-        const portal = new ComponentPortal(DialogWrapperComponent, this.viewContainerRef);
+        const injector = Injector.create({
+            parent: this.injector,
+            providers: [
+                {provide: DialogComponent, useValue: this},
+            ],
+        });
+        const portal = new ComponentPortal(DialogWrapperComponent, this.viewContainerRef, injector);
 
         this.wrapperComponentRef = this.overlayRef!.attach(portal);
         this.wrapperComponentRef.instance.component = this.component!;
@@ -193,6 +203,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.visibleChange.emit(true);
 
         this.wrapperComponentRef!.changeDetectorRef.detectChanges();
+        this.wrapperComponentRef!.location.nativeElement.focus();
         this.cd.detectChanges();
         this.cdParent.detectChanges();
     }
@@ -207,7 +218,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     ngAfterViewInit() {
     }
 
-    public close(v: any) {
+    public close(v?: any) {
         if (!this.visible) return;
 
         this.visible = false;

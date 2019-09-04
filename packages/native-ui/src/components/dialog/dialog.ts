@@ -6,12 +6,13 @@ import {
     Directive,
     ElementRef,
     Injectable,
-    Input,
+    Input, OnDestroy,
     Type,
     ViewContainerRef
 } from "@angular/core";
 import {Overlay} from "@angular/cdk/overlay";
 import {DialogComponent} from "./dialog.component";
+import {isTargetChildOf} from "../../core/utils";
 
 
 @Component({
@@ -117,8 +118,28 @@ export class DuiDialog {
 @Directive({
     selector: '[confirm]',
 })
-export class DuiDialogConfirmDirective {
+export class DuiDialogConfirmDirective implements OnDestroy {
     @Input() confirm!: string;
+
+    ignoreNextClick = false;
+
+    callback = async (event) => {
+        if (isTargetChildOf(event.target, this.element.nativeElement)) {
+            if (this.ignoreNextClick) {
+                this.ignoreNextClick = false;
+                return;
+            }
+
+            event.stopPropagation();
+            event.preventDefault();
+            const a = await this.dialog.confirm(this.viewContainerRef, this.confirm);
+            if (a) {
+                this.ignoreNextClick = true;
+                this.element.nativeElement.dispatchEvent(event);
+            }
+            this.cd.detectChanges();
+        }
+    };
 
     constructor(
         protected viewContainerRef: ViewContainerRef,
@@ -126,24 +147,11 @@ export class DuiDialogConfirmDirective {
         protected dialog: DuiDialog,
         protected cd: ChangeDetectorRef,
     ) {
-        let ignoreNextClick = false;
-        document.body!.addEventListener('click', async (event) => {
-            if (event.target === this.element.nativeElement) {
-                if (ignoreNextClick) {
-                    ignoreNextClick = false;
-                    return;
-                }
+        document.body!.addEventListener('click', this.callback, true);
+    }
 
-                event.stopPropagation();
-                event.preventDefault();
-                const a = await this.dialog.confirm(this.viewContainerRef, this.confirm);
-                if (a) {
-                    ignoreNextClick = true;
-                    this.element.nativeElement.dispatchEvent(event);
-                }
-                this.cd.detectChanges();
-            }
-        }, true);
+    ngOnDestroy() {
+        document.body!.removeEventListener('click', this.callback, true);
     }
 }
 
