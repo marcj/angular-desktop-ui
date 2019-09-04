@@ -26,13 +26,9 @@
         }
     }
 
-    .cdk-overlay-container {
-        width: auto;
-        height: auto;
-        left: 50px;
-        right: 50px;
-        top: 50px;
-        bottom: 50px;
+    .cdk-overlay-pane.dialog-overlay {
+        position: relative !important;
+        top: 50px !important;;
     }
 
     &.light {

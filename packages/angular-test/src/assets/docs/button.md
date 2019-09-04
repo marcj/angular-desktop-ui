@@ -31,6 +31,15 @@ return {disabled: false}
         <dui-button square [disabled]="disabled">+</dui-button>
     </p>
 
+    <p>
+        <dui-button textured (click)="dropdown1.open($event.target)">Dropdown</dui-button>
+        <dui-dropdown #dropdown1>
+            <div style="padding: 5px 25px;">
+                Hi there!
+            </div>
+        </dui-dropdown>
+    </p>
+
     <dui-checkbox [(ngModel)]="disabled">Disable all</dui-checkbox>
 ```
 

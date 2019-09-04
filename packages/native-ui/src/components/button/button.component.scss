@@ -95,6 +95,10 @@ $buttonTextColor: #575757;
     overflow: visible;
 }
 
+:host.small {
+    padding: 0 2px;
+}
+
 :host ::ng-deep dui-icon {
     position: relative;
     top: -1px;

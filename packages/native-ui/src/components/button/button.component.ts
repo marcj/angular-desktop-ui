@@ -21,6 +21,7 @@ import {FormComponent} from "../form/form.component";
     `,
     host: {
         '[class.icon]': '!!icon',
+        '[class.small]': 'small !== false',
         '[class.active]': 'active !== false',
         '[class.highlighted]': 'highlighted !== false',
         '[class.primary]': 'primary !== false',
@@ -43,6 +44,11 @@ export class ButtonComponent {
      * Whether the button is active (pressed)
      */
     @Input() active: boolean = false;
+
+    /**
+     * Whether the button has no padding.
+     */
+    @Input() small: boolean = false;
 
     /**
      * Whether the button is highlighted.

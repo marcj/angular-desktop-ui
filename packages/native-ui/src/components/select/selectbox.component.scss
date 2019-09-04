@@ -1,16 +1,28 @@
 @import "../../scss/mixins";
 
 :host {
+    &:focus {
+        outline: 0;
+    }
+}
+
+:host:not(.split) {
     display: inline-block;
     position: relative;
     vertical-align: middle;
     min-width: 100px;
     height: 20px;
-    line-height: 20px;
+    line-height: 18px;
     text-align: left;
     padding-left: 8px;
     padding-right: 20px;
     border-radius: 4px;
+    font-size: 12px;
+}
+
+:host.split {
+    display: inline-flex;
+    flex-direction: row;
 }
 
 :host.disabled {
@@ -29,11 +41,16 @@
     /* Sketch doesnt export gradient borders at this point */
     border-radius: 0 3px 3px 0;
     width: 17px;
-    text-align: center;
-
-    line-height: 17px;
     color: white;
 
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.split-knob {
+    flex: 0 25px;
 }
 
 dui-icon {
@@ -86,7 +103,7 @@ select {
     }
 }
 
-:host-context(.light) {
+:host-context(.light):not(.split) {
     background: white;
     border-top: 1px solid #c9c9c9;
     border-bottom: 1px solid #acacac;
@@ -111,12 +128,6 @@ select {
     &.textured {
         @include box-textured;
 
-        .knob {
-            bottom: 0;
-            top: 0;
-            right: 0;
-        }
-
         dui-icon {
             color: #585858;
         }
@@ -128,7 +139,7 @@ select {
     }
 }
 
-:host-context(.dark).textured {
+:host-context(.dark):not(.split).textured {
     background-color: #62696f;
 
     &.active,
@@ -137,19 +148,34 @@ select {
     }
 }
 
-:host-context(.dark) {
+:host-context(.dark):not(.split) {
     @include box-textured-dark;
 
-    .knob {
-        bottom: 0;
-        top: 0;
-        right: 0;
-        line-height: 15px;
-        border-top: 1px solid transparent;
+    &:not(.disabled):not(.textured) .knob {
+        border-top: 1px solid #293239;
+        border-bottom: 1px solid #232a31;
+        border-right: 1px solid #273037;
+        background-image: linear-gradient(-180deg, #1768E5 0%, #145CCC 100%);
+    }
+}
+
+.select-dropdown-item {
+    padding: 1px 23px;
+    position: relative;
+
+    dui-icon.selected {
+        position: absolute;
+        color: var(--color-black);
+        left: 6px;
+        top: 5px;
     }
 
-    &:not(.disabled):not(.textured) .knob {
-        border-top: 1px solid #2d79ea;
-        background-image: linear-gradient(-180deg, #1768E5 0%, #145CCC 100%);
+    &.selected {
+
+    }
+
+    &:hover {
+        background-color: var(--dui-selection);
+        color: white;
     }
 }

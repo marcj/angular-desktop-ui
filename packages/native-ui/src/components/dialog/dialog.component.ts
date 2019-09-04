@@ -160,6 +160,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             maxWidth: this.maxWidth || '90%',
             maxHeight: this.maxHeight || '90%',
             hasBackdrop: true,
+            panelClass: 'dialog-overlay',
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             positionStrategy: this.overlay
                 .position()

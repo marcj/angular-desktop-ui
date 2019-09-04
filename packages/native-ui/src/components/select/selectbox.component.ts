@@ -1,67 +1,107 @@
 import {
-    AfterViewInit, ApplicationRef, ChangeDetectorRef,
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
+    ContentChild,
     ContentChildren,
-    Directive,
     ElementRef,
-    EventEmitter, HostBinding, Injector,
-    Input, OnChanges,
+    HostBinding,
+    HostListener,
+    Injector,
+    Input,
+    OnChanges,
     OnDestroy,
-    Output,
-    QueryList, SimpleChanges, SkipSelf
+    QueryList,
+    SimpleChanges,
+    SkipSelf,
+    ViewChild
 } from "@angular/core";
 import {Subscription} from "rxjs";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
+import {Overlay} from "@angular/cdk/overlay";
+import {DropdownComponent} from "../button/dropdown.component";
+import {ButtonComponent} from "../button/button.component";
 
-@Directive({
+@Component({
     selector: 'dui-option',
+    template: `
+        <ng-content></ng-content>
+    `
 })
 export class OptionDirective {
     @Input() value: any;
 
-    constructor(public element: ElementRef) {
+    constructor(public readonly element: ElementRef) {
     }
 }
-
 
 @Component({
     selector: 'dui-select',
     template: `
-        <div class="placeholder" *ngIf="!isSelected">{{placeholder}}</div>
-        <div class="value" *ngIf="isSelected">{{label}}</div>
+        <ng-container *ngIf="button">
+            <dui-button-group padding="none">
+                <ng-content select="dui-button"></ng-content>
+                <dui-button class="split-knob"
+                            (click)="dropdown.open()"
+                            small textured [iconSize]="12" icon="arrow_down"></dui-button>
+            </dui-button-group>
+        </ng-container>
 
-        <div class="knob">
-            <dui-icon [size]="13" name="arrows"></dui-icon>
-        </div>
+        <ng-container *ngIf="!button">
+            <div class="placeholder" *ngIf="!isSelected">{{placeholder}}</div>
+            <div class="value">
+                <ng-container *ngIf="optionsValueMap.get(innerValue) as option">
+                    <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+                </ng-container>
+            </div>
 
-        <select (mousedown)="onMouseDown($event)" [ngModel]="innerValue" (ngModelChange)="setValue($event)">
-            <ng-container *ngIf="options">
-                <option *ngFor="let option of options.toArray()"
-                        [ngValue]="option.value">{{option.element.nativeElement.innerText}}</option>
-            </ng-container>
-        </select>
+            <div class="knob">
+                <dui-icon [size]="12" name="arrows"></dui-icon>
+            </div>
+        </ng-container>
+
+        <dui-dropdown #dropdown [host]="element.nativeElement">
+            <div class="select-dropdown-item"
+                 *ngFor="let option of options.toArray()"
+                 (click)="select(option.value)"
+                 [class.selected]="innerValue === option.value"
+            >
+                <dui-icon [size]="10" class="selected" *ngIf="innerValue === option.value" name="check"></dui-icon>
+                <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+            </div>
+        </dui-dropdown>
     `,
     styleUrls: ['./selectbox.component.scss'],
+    host: {
+        '[attr.tabIndex]': '1',
+        '[class.split]': '!!button',
+    },
     providers: [ngValueAccessor(SelectboxComponent)]
 })
 export class SelectboxComponent<T> extends ValueAccessorBase<T> implements AfterViewInit, OnDestroy, OnChanges {
     @Input() placeholder: string = '';
 
-    @Input() textured: boolean = false;
+    @Input() textured?: boolean = false;
+
     @HostBinding('class.textured')
     get isTextured() {
         return false !== this.textured;
     }
 
+    @ContentChild(ButtonComponent, {static: false}) button?: ButtonComponent;
+
     @ContentChildren(OptionDirective) options?: QueryList<OptionDirective>;
+    @ViewChild('dropdown', {static: false}) dropdown!: DropdownComponent;
 
     public label: string = '';
-    public optionsValueMap = new Map<T, string>();
+    public optionsValueMap = new Map<T, OptionDirective>();
 
     protected changeSubscription?: Subscription;
 
     constructor(
+        protected overlay: Overlay,
         protected injector: Injector,
+        protected element: ElementRef,
         protected cd: ChangeDetectorRef,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
     ) {
@@ -78,14 +118,20 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
         }
     }
 
-    /**
-     * @hidden
-     */
-    public onMouseDown($event: MouseEvent) {
-        if (this.isDisabled) {
-            $event.preventDefault();
-            $event.stopPropagation();
-        }
+    public select(value: T) {
+        this.innerValue = value;
+        this.dropdown.close();
+    }
+
+    @HostListener('click')
+    public onClick() {
+        if (this.disabled) return;
+        if (this.button) return;
+
+        this.dropdown.open();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
     }
 
     @HostBinding('class.selected')
@@ -93,36 +139,14 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
         return this.innerValue !== undefined;
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        this.setLabel();
-    }
-
-    /**
-     * @hidden
-     */
-    public setValue(v: T) {
-        this.innerValue = v;
-    }
-
-    protected async onInnerValueChange(): Promise<any> {
-        this.setLabel();
-    }
-
-    protected setLabel() {
-        if (this.innerValue !== undefined) {
-            this.label = this.optionsValueMap.get(this.innerValue) || '';
-        }
-    }
-
     protected updateMap() {
         this.optionsValueMap.clear();
         if (!this.options) return;
 
         for (const option of this.options.toArray()) {
-            this.optionsValueMap.set(option.value, option.element.nativeElement.innerText);
+            this.optionsValueMap.set(option.value, option);
         }
 
-        this.setLabel();
         this.cd.detectChanges();
     }
 

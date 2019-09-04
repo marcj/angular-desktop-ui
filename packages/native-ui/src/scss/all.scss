@@ -21,12 +21,40 @@ html, body {
 
     --text-light: #737880;
 
+    --color-black: black;
+    --dui-selection: #016dea;
+    --dui-background: #016dea;
+
     --dui-window-content-bg: #ececec;
+
+    color: var(--color-black);
 }
 
 .dark {
     --text-light: #737880;
     --dui-window-content-bg: #2d373f;
+    --color-black: #ffffff;
+}
+
+.text-selection {
+    user-select: text;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(169, 173, 175, 0.77);
+    border-radius: 3px;
+    border: 2px solid rgba(0, 0, 0, 0.01);
+    background-clip: padding-box;
 }
 
 * {
