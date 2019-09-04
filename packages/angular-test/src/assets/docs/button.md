@@ -32,11 +32,22 @@ return {disabled: false}
     </p>
 
     <p>
-        <dui-button textured (click)="dropdown1.open($event.target)">Dropdown</dui-button>
+        <dui-button textured [disabled]="disabled" [openDropdown]="dropdown1">Dropdown</dui-button>
         <dui-dropdown #dropdown1>
             <div style="padding: 5px 25px;">
                 Hi there!
             </div>
+        </dui-dropdown>
+    </p>
+
+    <p>
+        <dui-button textured [disabled]="disabled" [openDropdown]="dropdown2">Dropdown items</dui-button>
+        <dui-dropdown #dropdown2>
+            <dui-dropdown-item>Flag A</dui-dropdown-item>
+            <dui-dropdown-item [selected]="true">Flag B</dui-dropdown-item>
+            <dui-dropdown-item>Flag C</dui-dropdown-item>
+            <dui-dropdown-splitter></dui-dropdown-splitter>
+            <dui-dropdown-item>Reset</dui-dropdown-item>
         </dui-dropdown>
     </p>
 

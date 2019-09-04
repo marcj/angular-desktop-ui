@@ -18,10 +18,6 @@ $buttonTextColor: #575757;
 
     border-radius: 4px;
 
-    &:focus {
-        outline: 2px solid yellow;
-    }
-
     &.square {
         border-radius: 0;
         border: 1px solid #b4b4b4;

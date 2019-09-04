@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    padding: 1px 23px;
+    position: relative;
+
+    dui-icon.selected {
+        position: absolute;
+        color: var(--color-black);
+        left: 6px;
+        top: 5px;
+    }
+
+    &.selected {
+
+    }
+
+    &:hover {
+        background-color: var(--dui-selection);
+        color: white;
+    }
+}

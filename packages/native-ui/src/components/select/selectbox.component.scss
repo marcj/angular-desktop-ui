@@ -158,24 +158,3 @@ select {
         background-image: linear-gradient(-180deg, #1768E5 0%, #145CCC 100%);
     }
 }
-
-.select-dropdown-item {
-    padding: 1px 23px;
-    position: relative;
-
-    dui-icon.selected {
-        position: absolute;
-        color: var(--color-black);
-        left: 6px;
-        top: 5px;
-    }
-
-    &.selected {
-
-    }
-
-    &:hover {
-        background-color: var(--dui-selection);
-        color: white;
-    }
-}

@@ -20,6 +20,7 @@ import {FormComponent} from "../form/form.component";
         <ng-content></ng-content>
     `,
     host: {
+        '[attr.tabindex]': '1',
         '[class.icon]': '!!icon',
         '[class.small]': 'small !== false',
         '[class.active]': 'active !== false',

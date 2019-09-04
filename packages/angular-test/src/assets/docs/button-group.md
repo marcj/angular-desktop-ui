@@ -38,7 +38,7 @@ import {DuiButtonModule} from '@marcj/angular-desktop-ui';
 <p>
     <dui-button-group padding="none">
         <dui-button textured>Split button</dui-button>
-        <dui-button textured small [iconSize]="12" icon="arrow_down" (click)="dropdown1.open($event.target)"></dui-button>
+        <dui-button textured small [iconSize]="12" icon="arrow_down" [openDropdown]="dropdown1"></dui-button>
     </dui-button-group>
     <dui-dropdown #dropdown1>
         <div style="padding: 5px 25px;">

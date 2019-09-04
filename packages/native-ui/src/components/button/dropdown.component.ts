@@ -1,6 +1,6 @@
 import {
     ChangeDetectorRef,
-    Component,
+    Component, Directive,
     ElementRef, EventEmitter,
     HostListener, Input, Output,
     SkipSelf, TemplateRef,
@@ -11,6 +11,41 @@ import {TemplatePortal} from "@angular/cdk/portal";
 import {focusWatcher} from "../../core/utils";
 import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
+
+@Component({
+    selector: 'dui-dropdown-splitter',
+    template: `
+        <div></div>
+    `,
+    styles: [`
+        :host {
+            display: block;
+            padding: 4px 0;
+        }
+        
+        div {
+            border-top: 1px solid var(--line-color-light);
+        }
+    `]
+})
+export class DropdownSplitterComponent {
+}
+@Component({
+    selector: 'dui-dropdown-item',
+    template: `
+        <dui-icon [size]="10" class="selected" *ngIf="selected" name="check"></dui-icon>
+        <div>
+            <ng-content></ng-content>
+        </div>
+    `,
+    host: {
+        '[class.selected]': 'selected !== false',
+    },
+    styleUrls: ['./dropdown-item.component.scss']
+})
+export class DropdownItemComponent {
+    @Input() selected = false;
+}
 
 @Component({
     selector: 'dui-dropdown',
@@ -105,7 +140,7 @@ export class DropdownComponent {
 
         this.cd.detectChanges();
 
-        this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, this.allowedFocus).subscribe(() => {
+        this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, [...this.allowedFocus, target as any]).subscribe(() => {
             this.close();
         });
 
@@ -128,5 +163,19 @@ export class DropdownComponent {
         this.cd.detectChanges();
         this.hidden.emit();
     }
+}
 
+@Directive({
+    'selector': '[openDropdown]',
+})
+export class OpenDropdownDirective {
+    @Input() openDropdown: DropdownComponent;
+
+    constructor(protected elementRef: ElementRef) {
+    }
+
+    @HostListener('click')
+    onClick() {
+        this.openDropdown.open(this.elementRef);
+    }
 }

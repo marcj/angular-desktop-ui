@@ -52,7 +52,7 @@ export function focusWatcher(target: HTMLElement, allowedFocuses: HTMLElement[] 
             }
         }
 
-        function onFocusOut(event: FocusEvent) {
+        function onFocusOut() {
             currentlyFocused = null;
             requestAnimationFrame(check);
         }

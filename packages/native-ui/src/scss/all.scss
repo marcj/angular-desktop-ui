@@ -19,21 +19,34 @@ html, body {
     -webkit-user-select: none;
     user-select: none;
 
-    --text-light: #737880;
 
-    --color-black: black;
     --dui-selection: #016dea;
-    --dui-background: #016dea;
+
+    --text-light: #737880;
+    --color-black: black;
+
+    --line-color-light: #dddddd;
+    --line-color: #979797;
+    --line-color-prominent: #9fa4a9;
 
     --dui-window-content-bg: #ececec;
 
     color: var(--color-black);
 }
 
+*:focus {
+    outline: 0;
+}
+
 .dark {
     --text-light: #737880;
-    --dui-window-content-bg: #2d373f;
     --color-black: #ffffff;
+
+    --line-color-light: rgba(232, 232, 232, 0.16);
+    --line-color: rgba(220, 225, 230, 0.15);
+    --line-color-prominent: rgba(220, 225, 230, 0.8);
+
+    --dui-window-content-bg: #2d373f;
 }
 
 .text-selection {

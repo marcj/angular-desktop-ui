@@ -61,14 +61,13 @@ export class OptionDirective {
         </ng-container>
 
         <dui-dropdown #dropdown [host]="element.nativeElement">
-            <div class="select-dropdown-item"
+            <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
                  (click)="select(option.value)"
-                 [class.selected]="innerValue === option.value"
+                 [selected]="innerValue === option.value"
             >
-                <dui-icon [size]="10" class="selected" *ngIf="innerValue === option.value" name="check"></dui-icon>
                 <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
-            </div>
+            </dui-dropdown-item>
         </dui-dropdown>
     `,
     styleUrls: ['./selectbox.component.scss'],
