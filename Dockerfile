@@ -7,7 +7,7 @@ RUN apk --no-cache add git
 ADD package.json /lib/package.json
 ADD lerna.json /lib/lerna.json
 ADD packages/native-ui/package.json /lib/packages/native-ui/package.json
-ADD packages/native-ui/package-lock.json /lib/packages/native-ui/package-lock.json
+#ADD packages/native-ui/package-lock.json /lib/packages/native-ui/package-lock.json
 
 ADD packages/angular-test/package.json /lib/packages/angular-test/package.json
 ADD packages/angular-test/package-lock.json /lib/packages/angular-test/package-lock.json
@@ -36,5 +36,7 @@ RUN echo "gzip on; \
           ## No need for regexps. See \
           ## http://wiki.nginx.org/NginxHttpGzipModule#gzip_disable \
           gzip_disable msie6;" > /etc/nginx/conf.d/gzip.conf
+
+RUN sed -i -e "s/index.htm;/;\n        try_files \$uri \$uri\/ \/index.html;/g" /etc/nginx/conf.d/default.conf
 
 CMD sed -i -e "s/listen       80/listen       $PORT/g" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'

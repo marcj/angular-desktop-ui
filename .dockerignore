@@ -4,3 +4,4 @@ Dockerfile
 .dockerignore
 .git
 .idea
+Makefile

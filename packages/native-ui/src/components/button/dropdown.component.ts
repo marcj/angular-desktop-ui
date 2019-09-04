@@ -169,7 +169,7 @@ export class DropdownComponent {
     'selector': '[openDropdown]',
 })
 export class OpenDropdownDirective {
-    @Input() openDropdown: DropdownComponent;
+    @Input() openDropdown!: DropdownComponent;
 
     constructor(protected elementRef: ElementRef) {
     }
