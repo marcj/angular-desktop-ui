@@ -350,11 +350,13 @@ export class ApiDocProvider {
         </p>
 
         <dui-table
-            *ngIf="tableData.length"
-            [items]="tableData" [selectable]="true"
-            [filterQuery]="filterQuery"
-            [filterFields]="['name', 'type', 'dataType', 'comment']"
-            noFocusOutline
+                autoHeight
+                *ngIf="tableData.length"
+                [items]="tableData" 
+                [selectable]="true"
+                [filterQuery]="filterQuery"
+                [filterFields]="['name', 'type', 'dataType', 'comment']"
+                noFocusOutline
         >
             <dui-table-column name="name" header="Name" [width]="240">
                 <ng-container *duiTableCell="let row">

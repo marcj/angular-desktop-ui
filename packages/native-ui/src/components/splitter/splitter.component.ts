@@ -48,14 +48,13 @@ export class SplitterComponent implements AfterViewInit {
 
         mc.on('panstart', (event: HammerInput) => {
             if (this.position === 'right' || this.position === 'left') {
-                start = this.model || (this.element ? this.element.clientWidth : 0);
+                start = (this.element ? this.element.clientWidth : this.host.nativeElement!.parentElement.clientWidth);
             } else {
-                start = this.model || (this.element ? this.element.clientHeight : 0);
+                start = (this.element ? this.element.clientHeight : this.host.nativeElement!.parentElement.clientHeight);
             }
         });
 
         mc.on('pan', (event: HammerInput) => {
-            // console.log('pan', startWidth + event.deltaX, event);
 
             if (this.element) {
                 this.element.style.width = (start + event.deltaX) + 'px';

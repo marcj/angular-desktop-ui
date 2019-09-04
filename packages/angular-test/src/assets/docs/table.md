@@ -20,6 +20,7 @@ return {
         for (var item of this.selectedItems) {
             this.items.splice(this.items.indexOf(item), 1);
         }
+        this.items = this.items.slice(0);
         this.selectedItems = [];
     },
     addItem: function() {
@@ -39,10 +40,10 @@ return {
             Angular Desktop UI
         </dui-window-header>
         <dui-window-content>
-            <dui-table [items]="items" [selectable]="true" [(selected)]="selectedItems">
+            <dui-table autoHeight [items]="items" [selectable]="true" [(selected)]="selectedItems">
                 <dui-table-column name="title" header="Title" [width]="150"></dui-table-column>
                 <dui-table-column name="i" [width]="30"></dui-table-column>
-                <dui-table=-column name="created" header="Created" width="100%">
+                <dui-table-column name="created" header="Created">
                     <ng-container *duiTableCell="let row">
                         {{row.created|date:'mediumTime'}}
                     </ng-container>

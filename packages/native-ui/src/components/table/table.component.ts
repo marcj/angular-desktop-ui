@@ -15,7 +15,7 @@ import {
     OnDestroy,
     Output,
     QueryList,
-    SimpleChanges,
+    SimpleChanges, SkipSelf,
     TemplateRef,
     ViewChild,
     ViewChildren,
@@ -177,7 +177,7 @@ export class TableHeaderDirective {
             <cdk-virtual-scroll-viewport #viewportElement
                                          [itemSize]="itemHeight"
             >
-                <ng-container *cdkVirtualFor="let row of sorted; trackBy: trackByFn.bind(this); odd as isOdd">
+                <ng-container *cdkVirtualFor="let row of filterSorted(sorted); trackBy: trackByFn.bind(this); odd as isOdd">
                     <div class="table-row"
                          [class.selected]="selectedMap.has(row)"
                          [class.odd]="isOdd"
@@ -207,6 +207,7 @@ export class TableHeaderDirective {
         '[class.no-focus-outline]': 'noFocusOutline !== false',
         '[class.borderless]': 'borderless !== false',
         '[class.overlay-scrollbar]': 'true',
+        '[style.height.px]': 'autoHeight !== false ? height : undefined',
     },
 })
 export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
@@ -227,6 +228,16 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      * make scrolling actually workable correctly.
      */
     @Input() public itemHeight: number = 23;
+
+    /**
+     * Whether the table height is calculated based on current item count and [itemHeight].
+     */
+    @Input() public autoHeight: boolean =  false;
+
+    /**
+     * Current calculated height, used only when autoHeight is given.
+     */
+    public height: number = 23;
 
     /**
      * Whether the header should be shown.
@@ -318,24 +329,18 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     @ViewChild(CdkVirtualScrollViewport, {static: true}) viewport!: CdkVirtualScrollViewport;
     @ViewChild('viewportElement', {static: true, read: ElementRef}) viewportElement!: ElementRef;
 
-    sortedColumnMap = new Map<HTMLElement, TableColumnDirective>();
     sortedColumnDefs: TableColumnDirective[] = [];
 
     headerMapDef: { [name: string]: TableHeaderDirective } = {};
 
     public displayedColumns?: string[] = [];
 
-    // private directiveSubscriptions = new Subscriptions;
-
-    // private dataSubscriptions = new Subscriptions;
-
-    // private itemsSubscription?: Subscription;
-
     public scrollTop = 0;
 
     constructor(
         protected element: ElementRef,
         protected cd: ChangeDetectorRef,
+        @SkipSelf() protected parentCd: ChangeDetectorRef,
     ) {
     }
 
@@ -387,6 +392,15 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         return this.trackFn ? this.trackFn(index, item) : index;
     }
 
+    filterSorted(items: T[]) : T[] {
+        //apply filter
+        if (this.filter || (this.filterQuery && this.filterFields)) {
+            return items.filter((v) => this.filterFn(v));
+        }
+
+        return items;
+    }
+
     protected initHeaderMovement() {
         if (this.header && this.ths) {
             const mc = new Hammer(this.header!.nativeElement);
@@ -423,8 +437,6 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                             element: th.nativeElement
                         })
                     }
-
-                    console.log('THsBoxes', THsBoxes);
                 }
             });
 
@@ -432,7 +444,6 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 if (element) {
                     element.style.left = 'auto';
                     element.style.zIndex = '1';
-                    console.log('new position', originalPosition, newPosition);
 
                     for (const box of THsBoxes) {
                         box.element.style.left = 'auto';
@@ -495,7 +506,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         this.viewportElement.nativeElement.addEventListener('scroll', () => {
             const scrollLeft = this.viewportElement.nativeElement.scrollLeft;
             this.header!.nativeElement.scrollLeft = scrollLeft;
-        })
+        });
 
         this.initHeaderMovement();
 
@@ -562,11 +573,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 })
             } else if (isArray(this.items)) {
                 this.sorted = this.items;
+                this.doSort();
             } else {
                 this.sorted = [];
+                this.doSort();
             }
         }
-        this.doSort();
 
         if (changes.selected) {
             this.selectedMap.clear();
@@ -608,12 +620,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             return 0;
         });
 
-        //apply filter
-        if (this.filter || (this.filterQuery && this.filterFields)) {
-            this.sorted = this.sorted.filter((v) => this.filterFn(v));
-        }
         this.sortedChange.emit(this.sorted);
+        this.height = (this.sorted.length * this.itemHeight) + 25;
 
+        console.log('sorted', this.sorted);
+        this.parentCd.detectChanges();
         this.cd.detectChanges();
     }
 
