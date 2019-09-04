@@ -352,6 +352,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     ngOnDestroy(): void {
     }
 
+    @HostListener('window:resize')
+    onResize() {
+        this.viewport.checkViewportSize();
+    }
+
     public isAsc(): boolean {
         return (this.currentSortDirection || this.defaultSortDirection) === 'asc';
     }
