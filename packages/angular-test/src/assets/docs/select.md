@@ -26,13 +26,30 @@ return {
     <dui-option value="b">Option B</dui-option>
     <dui-option value="c">Option C</dui-option>
 </dui-select>
-<p>
-    Chosen: {{radioValue}}
-</p>
-<dui-select [(ngModel)]="radioValue" disabled placeholder="Please choose">
+<dui-select disabled [(ngModel)]="radioValue" textured placeholder="Please choose">
     <dui-option value="a">Option A</dui-option>
     <dui-option value="b">Option B</dui-option>
     <dui-option value="c">Option C</dui-option>
+</dui-select>
+<p>
+    Chosen: {{radioValue}}
+</p>
+<dui-select [(ngModel)]="radioValue" placeholder="Please choose">
+    <dui-option value="a">
+        <ng-container *dynamicOption>
+            <dui-emoji name="slightly_smiling_face"></dui-emoji> Option A
+        </ng-container>
+    </dui-option>
+    <dui-option value="b">
+        <ng-container *dynamicOption>
+            <dui-emoji name="sunglasses"></dui-emoji> Option B
+        </ng-container>
+    </dui-option>
+    <dui-option value="c">
+        <ng-container *dynamicOption>
+            <dui-emoji name="stuck_out_tongue"></dui-emoji> Option CCCCCCCCCC
+        </ng-container>
+    </dui-option>
 </dui-select>
 <p>
     <dui-select [(ngModel)]="radioValue">

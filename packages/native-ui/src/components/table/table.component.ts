@@ -635,6 +635,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         this.sortedChange.emit(this.sorted);
         this.height = (this.sorted.length * this.itemHeight) + (this.showHeader ? 23 : 0);
 
+        this.sorted = this.sorted.slice(0);
         this.parentCd.detectChanges();
         this.cd.detectChanges();
     }

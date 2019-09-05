@@ -5,6 +5,8 @@ import {DuiIconModule} from "../icon";
 import {DuiSplitterModule} from "../splitter";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 
+export {TableCellDirective, TableColumnDirective, TableComponent, TableHeaderDirective} from "./table.component";
+
 @NgModule({
     imports: [
         CommonModule,

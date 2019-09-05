@@ -13,3 +13,4 @@ export * from './components/table';
 export * from './components/splitter';
 export * from './components/dialog';
 export * from './components/core';
+export * from './components/emoji';

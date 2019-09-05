@@ -9,6 +9,13 @@ import {
     OpenDropdownDirective
 } from "./dropdown.component";
 
+export {
+    DropdownComponent,
+    DropdownItemComponent,
+    DropdownSplitterComponent,
+    OpenDropdownDirective
+} from "./dropdown.component";
+
 
 @NgModule({
     declarations: [

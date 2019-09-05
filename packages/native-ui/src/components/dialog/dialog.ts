@@ -123,7 +123,7 @@ export class DuiDialogConfirmDirective implements OnDestroy {
 
     ignoreNextClick = false;
 
-    callback = async (event) => {
+    callback = async (event: MouseEvent) => {
         if (isTargetChildOf(event.target, this.element.nativeElement)) {
             if (this.ignoreNextClick) {
                 this.ignoreNextClick = false;

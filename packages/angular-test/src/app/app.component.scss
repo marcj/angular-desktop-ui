@@ -7,33 +7,10 @@
         width: calc(100% - 100px);
         border-radius: 4px;
         overflow: hidden;
-
-        background: rgba(30, 30, 30, 0.8);
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-
-            margin: -50px;
-            background-image: url(../assets/bg.png);
-            -webkit-filter: blur(20px);
-            filter: blur(20px);
-            z-index: -1;
-        }
     }
 
     .cdk-overlay-pane.dialog-overlay {
         position: relative !important;
         top: 50px !important;;
-    }
-
-    &.light {
-        dui-window.main {
-            background: rgba(255, 255, 255, 0.85);
-        }
     }
 }

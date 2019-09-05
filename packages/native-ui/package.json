@@ -11,6 +11,7 @@
   "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
   "license": "MIT",
   "scripts": {
+    "emoji": "ts-node emoji-map.ts",
     "font": "ts-node create-font.ts",
     "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
@@ -18,6 +19,7 @@
   "dependencies": {
     "@marcj/estdlib": "^0.1.10",
     "@marcj/estdlib-rxjs": "^0.1.10",
+    "emoji-datasource": "^4.1.0",
     "hammerjs": "^2.0.8"
   },
   "publishConfig": {

@@ -20,12 +20,12 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
             <input
                     *ngIf="type !== 'textarea'"
                     #input
-                    [type]="type" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
+                    [type]="type" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
                     [placeholder]="placeholder" (keyup)="onKeyUp($event)" [disabled]="isDisabled"
                     [(ngModel)]="innerValue"/>
             <textarea
                     #input
-                    *ngIf="type === 'textarea'" (focus)="focused=true" (mousedown)="focused=true" (blur)="focused=false"
+                    *ngIf="type === 'textarea'" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
                     [placeholder]="placeholder" (keyup)="onKeyUp($event)" [disabled]="isDisabled"
                     [(ngModel)]="innerValue"></textarea>
         </div>
@@ -70,7 +70,9 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     }
 
     @HostBinding('class.focused')
-    focused: boolean = false;
+    get isFocused() {
+        return this.input ? document.activeElement === this.input!.nativeElement : false;
+    }
 
     @HostBinding('class.filled')
     get isFilled() {
@@ -118,11 +120,16 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         }
     }
 
+    focusInput() {
+        setTimeout(() => {
+            this.input!.nativeElement.focus();
+        });
+    }
+
     ngAfterViewInit() {
         if (this.focus !== false && this.input) {
             setTimeout(() => {
                 this.input!.nativeElement.focus();
-                this.focused = true;
                 this.cd.detectChanges();
                 this.cdParent.detectChanges();
             });

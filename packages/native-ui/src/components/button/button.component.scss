@@ -16,6 +16,10 @@ $buttonTextColor: #575757;
     text-overflow: ellipsis;
     text-align: center;
 
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
     border-radius: 4px;
 
     &.square {

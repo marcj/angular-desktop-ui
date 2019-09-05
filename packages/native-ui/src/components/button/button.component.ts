@@ -183,9 +183,6 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
         if (this.float === 'sidebar') {
             this.windowState.buttonGroupAlignedToSidebar = this;
         }
-        setTimeout(() => {
-            this.cd.detectChanges();
-        });
     }
 
     get paddingLeft() {

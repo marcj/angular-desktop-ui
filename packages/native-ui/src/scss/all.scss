@@ -22,14 +22,16 @@ html, body {
 
     --dui-selection: #016dea;
 
+    --text-grey: #6c6970;
     --text-light: #737880;
     --color-black: black;
 
-    --line-color-light: #dddddd;
+    --line-color-light: #d3d3d3;
     --line-color: #979797;
     --line-color-prominent: #9fa4a9;
 
     --dui-window-content-bg: #ececec;
+    --dui-window-content-bg-trans: #dcdcdcbf;
 
     color: var(--color-black);
 }
@@ -37,8 +39,8 @@ html, body {
 *:focus {
     outline: 0;
 }
-
 .dark {
+    --text-grey: #aaadb7;
     --text-light: #737880;
     --color-black: #ffffff;
 
@@ -47,6 +49,7 @@ html, body {
     --line-color-prominent: rgba(220, 225, 230, 0.8);
 
     --dui-window-content-bg: #2d373f;
+    --dui-window-content-bg-trans: #2d373f9f;
 }
 
 .text-selection {
@@ -128,6 +131,7 @@ h4 {
 }
 
 .overlay-scrollbar {
+    overflow: auto;
     overflow: overlay;
 
     &::-webkit-scrollbar {

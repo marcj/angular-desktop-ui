@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import {TemplatePortal} from "@angular/cdk/portal";
 import {focusWatcher} from "../../core/utils";
-import {Overlay, OverlayRef} from "@angular/cdk/overlay";
+import {Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -34,9 +34,7 @@ export class DropdownSplitterComponent {
     selector: 'dui-dropdown-item',
     template: `
         <dui-icon [size]="10" class="selected" *ngIf="selected" name="check"></dui-icon>
-        <div>
-            <ng-content></ng-content>
-        </div>
+        <ng-content></ng-content>
     `,
     host: {
         '[class.selected]': 'selected !== false',
@@ -51,11 +49,17 @@ export class DropdownItemComponent {
     selector: 'dui-dropdown',
     template: `
         <ng-template #dropdownTemplate>
-            <div class="dropdown overlay-scrollbar" tabindex="1" #dropdown>
-                <ng-content></ng-content>
+            <div class="dui-dropdown" tabindex="1" #dropdown>
+<!--                <div *ngIf="overlay !== false" class="dui-dropdown-arrow"></div>-->
+                <div class="content overlay-scrollbar">
+                    <ng-content></ng-content>
+                </div>
             </div>
         </ng-template>
     `,
+    host: {
+        '[class.overlay]': 'overlay !== false',
+    },
     styleUrls: ['./dropdow.component.scss']
 })
 export class DropdownComponent {
@@ -67,6 +71,29 @@ export class DropdownComponent {
 
     @Input() allowedFocus: HTMLElement[] = [];
 
+    /**
+     * For debugging purposes.
+     */
+    @Input() keepOpen?: true;
+
+    @Input() height?: number;
+
+    @Input() width?: number;
+
+    @Input() minWidth?: number;
+
+    @Input() minHeight?: number;
+
+    /**
+     * Whether the dropdown aligns to the horizontal center.
+     */
+    @Input() center: boolean = false;
+
+    /**
+     * Whether is styled as overlay
+     */
+    @Input() overlay?: boolean = false;
+
     @Output() shown = new EventEmitter();
 
     @Output() hidden = new EventEmitter();
@@ -75,7 +102,7 @@ export class DropdownComponent {
     @ViewChild('dropdown', {static: false}) dropdown!: ElementRef<HTMLElement>;
 
     constructor(
-        protected overlay: Overlay,
+        protected overlayService: Overlay,
         protected viewContainerRef: ViewContainerRef,
         protected cd: ChangeDetectorRef,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
@@ -111,41 +138,65 @@ export class DropdownComponent {
         }
 
         this.isOpen = true;
-        this.overlayRef = this.overlay.create({
+        const options: OverlayConfig = {
             minWidth: 50,
             maxWidth: 450,
             maxHeight: '90%',
             hasBackdrop: false,
-            scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            positionStrategy: this.overlay
+            scrollStrategy: this.overlayService.scrollStrategies.reposition(),
+            positionStrategy: this.overlayService
                 .position()
                 .flexibleConnectedTo(target)
-                .withFlexibleDimensions()
-                .withPositions([{
-                    originX: 'start',
-                    originY: 'bottom',
-                    overlayX: 'start',
-                    overlayY: 'top',
-                }])
-        });
+                .withFlexibleDimensions(false)
+                .withViewportMargin(12)
+                .withPush(true)
+                .withDefaultOffsetY(this.overlay !== false ? 15 : 0)
+                .withPositions([
+                    {
+                        originX: this.center ? 'center' : 'start',
+                        originY: 'bottom',
+                        overlayX: this.center ? 'center' : 'start',
+                        overlayY: 'top',
+                    },
+                    {
+                        originX: 'start',
+                        originY: 'bottom',
+                        overlayX: 'start',
+                        overlayY: 'top',
+                    },
+                    {
+                        originX: 'end',
+                        originY: 'bottom',
+                        overlayX: 'end',
+                        overlayY: 'top',
+                    }
+                ])
+        };
+        if (this.width) options.width = this.width;
+        if (this.height) options.height = this.height;
+        if (this.minWidth) options.minWidth = this.minWidth;
+        if (this.minHeight) options.minHeight = this.minHeight;
 
-        this.overlayRef!.backdropClick().subscribe(() => {
-            this.close();
-        });
+        this.overlayRef = this.overlayService.create(options);
 
         const portal = new TemplatePortal(this.dropdownTemplate, this.viewContainerRef);
 
         this.overlayRef!.attach(portal);
-        this.overlayRef!.updatePosition();
 
         this.cd.detectChanges();
 
         this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, [...this.allowedFocus, target as any]).subscribe(() => {
-            this.close();
+            if (!this.keepOpen) {
+                this.close();
+            }
         });
 
         this.overlayRef!.updatePosition();
         this.shown.emit();
+
+        setTimeout(() => {
+            this.overlayRef!.updatePosition();
+        }, 250);
     }
 
     public close() {

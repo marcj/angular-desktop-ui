@@ -451,7 +451,6 @@ export class ApiDocComponent implements OnChanges {
             }
         }
 
-        console.log('stats', this.tableData);
         this.cd.detectChanges();
     }
 }

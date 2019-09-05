@@ -51,3 +51,9 @@
     border-color: $focusOutlineColorDark;
     box-shadow: 3px 3px 0 $focusOutlineColorDark, -3px -3px 0 $focusOutlineColorDark, -3px 3px 0 $focusOutlineColorDark, 3px -3px 0 $focusOutlineColorDark;
 }
+
+
+@mixin background-vibrancy {
+    backdrop-filter: blur(10px);
+    background-color: var(--dui-window-content-bg-trans);
+}

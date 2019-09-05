@@ -3,7 +3,7 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
-    ContentChildren,
+    ContentChildren, Directive,
     ElementRef,
     HostBinding,
     HostListener,
@@ -13,7 +13,7 @@ import {
     OnDestroy,
     QueryList,
     SimpleChanges,
-    SkipSelf,
+    SkipSelf, TemplateRef,
     ViewChild
 } from "@angular/core";
 import {Subscription} from "rxjs";
@@ -21,6 +21,27 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 import {Overlay} from "@angular/cdk/overlay";
 import {DropdownComponent} from "../button/dropdown.component";
 import {ButtonComponent} from "../button/button.component";
+
+/**
+ * Necessary directive to get a dynamic rendered option.
+ *
+ * ```html
+ * <dui-option>
+ *     <ng-container *dynamicOption>
+ *          {{item.fieldName | date}}
+ *     </ng-container>
+ * </dui-option>
+ * ```
+ */
+@Directive({
+    selector: '[dynamicOption]',
+})
+export class DynamicOptionDirective {
+    constructor(
+        public template: TemplateRef<any>
+    ) {
+    }
+}
 
 @Component({
     selector: 'dui-option',
@@ -30,6 +51,7 @@ import {ButtonComponent} from "../button/button.component";
 })
 export class OptionDirective {
     @Input() value: any;
+    @ContentChild(DynamicOptionDirective, {static: false}) dynamic?: DynamicOptionDirective;
 
     constructor(public readonly element: ElementRef) {
     }
@@ -51,7 +73,12 @@ export class OptionDirective {
             <div class="placeholder" *ngIf="!isSelected">{{placeholder}}</div>
             <div class="value">
                 <ng-container *ngIf="optionsValueMap.get(innerValue) as option">
-                    <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+                    <div style="flex: 1">
+                        <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
+                        <div *ngIf="!option.dynamic">
+                            <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+                        </div>
+                    </div>
                 </ng-container>
             </div>
 
@@ -60,13 +87,18 @@ export class OptionDirective {
             </div>
         </ng-container>
 
-        <dui-dropdown #dropdown [host]="element.nativeElement">
+        <dui-dropdown #dropdown [host]="element.nativeElement" [keepOpen]="true">
             <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
                  (click)="select(option.value)"
                  [selected]="innerValue === option.value"
             >
-                <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+                <div style="flex: 1">
+                    <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
+                    <div *ngIf="!option.dynamic">
+                        <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+                    </div>
+                </div>
             </dui-dropdown-item>
         </dui-dropdown>
     `,

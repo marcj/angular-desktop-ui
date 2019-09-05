@@ -90,13 +90,6 @@
 }
 
 :host:focus {
-    .table-row.selected {
-        background-color: $highlightedDolor;
-        color: white;
-    }
-}
-
-:host:focus {
     outline: 0;
 }
 
@@ -136,4 +129,11 @@
 
 :host.borderless {
     border: 0;
+}
+
+:host:focus {
+    .table-row.selected {
+        background-color: $highlightedDolor;
+        color: white;
+    }
 }

@@ -1,7 +1,12 @@
 :host {
-    display: block;
     padding: 1px 23px;
     position: relative;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
 
     dui-icon.selected {
         position: absolute;
