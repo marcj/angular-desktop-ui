@@ -87,7 +87,7 @@ export class OptionDirective {
             </div>
         </ng-container>
 
-        <dui-dropdown #dropdown [host]="element.nativeElement" [keepOpen]="true">
+        <dui-dropdown #dropdown [host]="element.nativeElement">
             <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
                  (click)="select(option.value)"
