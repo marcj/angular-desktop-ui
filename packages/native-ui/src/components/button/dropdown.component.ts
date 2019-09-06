@@ -12,38 +12,6 @@ import {focusWatcher} from "../../core/utils";
 import {Overlay, OverlayConfig, OverlayRef, PositionStrategy} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
 
-@Component({
-    selector: 'dui-dropdown-splitter',
-    template: `
-        <div></div>
-    `,
-    styles: [`
-        :host {
-            display: block;
-            padding: 4px 0;
-        }
-        
-        div {
-            border-top: 1px solid var(--line-color-light);
-        }
-    `]
-})
-export class DropdownSplitterComponent {
-}
-@Component({
-    selector: 'dui-dropdown-item',
-    template: `
-        <dui-icon [size]="10" class="selected" *ngIf="selected" name="check"></dui-icon>
-        <ng-content></ng-content>
-    `,
-    host: {
-        '[class.selected]': 'selected !== false',
-    },
-    styleUrls: ['./dropdown-item.component.scss']
-})
-export class DropdownItemComponent {
-    @Input() selected = false;
-}
 
 @Component({
     selector: 'dui-dropdown',
@@ -253,14 +221,16 @@ export class DropdownComponent {
     'selector': '[openDropdown]',
 })
 export class OpenDropdownDirective {
-    @Input() openDropdown!: DropdownComponent;
+    @Input() openDropdown?: DropdownComponent;
 
     constructor(protected elementRef: ElementRef) {
     }
 
     @HostListener('click')
     onClick() {
-        this.openDropdown.open(this.elementRef);
+        if (this.openDropdown) {
+            this.openDropdown.open(this.elementRef);
+        }
     }
 }
 
@@ -271,15 +241,59 @@ export class OpenDropdownDirective {
     'selector': '[contextDropdown]',
 })
 export class ContextDropdownDirective {
-    @Input() contextDropdown!: DropdownComponent;
-
-    constructor(protected elementRef: ElementRef) {
-    }
+    @Input() contextDropdown?: DropdownComponent;
 
     @HostListener('contextmenu', ['$event'])
     onClick($event: MouseEvent) {
-        this.contextDropdown.close();
-        $event.preventDefault();
-        this.contextDropdown.open($event);
+        if (this.contextDropdown) {
+            this.contextDropdown.close();
+            $event.preventDefault();
+            this.contextDropdown.open($event);
+        }
+    }
+}
+
+@Component({
+    selector: 'dui-dropdown-splitter',
+    template: `
+        <div></div>
+    `,
+    styles: [`
+        :host {
+            display: block;
+            padding: 4px 0;
+        }
+        
+        div {
+            border-top: 1px solid var(--line-color-light);
+        }
+    `]
+})
+export class DropdownSplitterComponent {
+}
+
+
+@Component({
+    selector: 'dui-dropdown-item',
+    template: `
+        <dui-icon [size]="10" class="selected" *ngIf="selected" name="check"></dui-icon>
+        <ng-content></ng-content>
+    `,
+    host: {
+        '[class.selected]': 'selected !== false',
+        '[class.disabled]': 'disabled !== false',
+    },
+    styleUrls: ['./dropdown-item.component.scss']
+})
+export class DropdownItemComponent {
+    @Input() selected = false;
+
+    @Input() disabled?: boolean = false;
+
+    constructor(protected dropdown: DropdownComponent) {}
+
+    @HostListener('click')
+    onClick() {
+        this.dropdown.close();
     }
 }

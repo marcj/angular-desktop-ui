@@ -16,7 +16,7 @@ return {
     ],
     selectedItems: [],
     itemName: '',
-    removeItem: function() {
+    remove: function() {
         for (var item of this.selectedItems) {
             this.items.splice(this.items.indexOf(item), 1);
         }
@@ -41,7 +41,10 @@ return {
         </dui-window-header>
         <dui-window-content>
             <p>With right click on the header, you can display additional columns.</p>
-            <dui-table style="height: calc(100% - 80px)" [items]="items" [selectable]="true" [(selected)]="selectedItems">
+            <dui-table style="height: calc(100% - 80px)" multiSelect [items]="items" [selectable]="true" [(selected)]="selectedItems">
+                <dui-dropdown duiTableCustomRowContextMenu>
+                    <dui-dropdown-item [disabled]="!selectedItems.length" (click)="remove()">Delete</dui-dropdown-item>
+                </dui-dropdown>
                 <dui-table-column name="title" header="Title" [width]="150"></dui-table-column>
                 <dui-table-column name="i" [width]="30"></dui-table-column>
                 <dui-table-column name="created" header="Created">
@@ -61,8 +64,8 @@ return {
                 </dui-table-column>
             </dui-table>
             <dui-button-group padding="none" style="margin-top: 10px;">
-                <dui-input [(ngModel)]="itemName" required></dui-input>
-                <dui-button [disabled]="!selectedItems.length" (click)="removeItem()" square icon="remove"></dui-button>
+                <dui-input (enter)="itemName && addItem()" [(ngModel)]="itemName" required></dui-input>
+                <dui-button [disabled]="!selectedItems.length" (click)="remove()" square icon="remove"></dui-button>
                 <dui-button (click)="addItem()" [disabled]="!itemName" square icon="add"></dui-button>
             </dui-button-group>
         </dui-window-content>
@@ -83,7 +86,7 @@ export class MyWindow {
     
     itemName = '';
     
-    removeItem() {
+    remove(selected: any[]) {
         for (const item of this.selectedItems) {
             this.items.splice(this.items.indexOf(item), 1);
         }

@@ -54,29 +54,35 @@ export class SplitterComponent implements AfterViewInit {
             }
         });
 
+        let lastAnimationFrame: any;
         mc.on('pan', (event: HammerInput) => {
-
-            if (this.element) {
-                this.element.style.width = (start + event.deltaX) + 'px';
+            if (lastAnimationFrame) {
+                cancelAnimationFrame(lastAnimationFrame);
             }
 
-            if (this.position === 'right') {
-                this.model = (start + event.deltaX);
-                this.modelChange.emit(start + event.deltaX);
-                this.triggerWindowResize();
-            } else if (this.position === 'left') {
-                this.model = (start - event.deltaX);
-                this.modelChange.emit(start - event.deltaX);
-                this.triggerWindowResize();
-            } else if (this.position === 'top') {
-                this.model = (start - event.deltaY);
-                this.modelChange.emit(start - event.deltaY);
-                this.triggerWindowResize();
-            } else if (this.position === 'bottom') {
-                this.model = (start + event.deltaY);
-                this.modelChange.emit(start + event.deltaY);
-                this.triggerWindowResize();
-            }
+            lastAnimationFrame = requestAnimationFrame(() => {
+                if (this.element) {
+                    this.element.style.width = (start + event.deltaX) + 'px';
+                }
+
+                if (this.position === 'right') {
+                    this.model = (start + event.deltaX);
+                    this.modelChange.emit(start + event.deltaX);
+                    this.triggerWindowResize();
+                } else if (this.position === 'left') {
+                    this.model = (start - event.deltaX);
+                    this.modelChange.emit(start - event.deltaX);
+                    this.triggerWindowResize();
+                } else if (this.position === 'top') {
+                    this.model = (start - event.deltaY);
+                    this.modelChange.emit(start - event.deltaY);
+                    this.triggerWindowResize();
+                } else if (this.position === 'bottom') {
+                    this.model = (start + event.deltaY);
+                    this.modelChange.emit(start + event.deltaY);
+                    this.triggerWindowResize();
+                }
+            });
         })
     }
 

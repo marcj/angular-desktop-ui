@@ -1,34 +1,50 @@
 import {NgModule} from '@angular/core';
-import {TableCellDirective, TableColumnDirective, TableComponent, TableHeaderDirective} from "./table.component";
+import {
+    TableCellDirective,
+    TableColumnDirective,
+    TableComponent,
+    TableCustomHeaderContextMenuDirective,
+    TableCustomRowContextMenuDirective,
+    TableHeaderDirective
+} from "./table.component";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
 import {DuiSplitterModule} from "../splitter";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {DuiButtonModule} from "../button";
 
-export {TableCellDirective, TableColumnDirective, TableComponent, TableHeaderDirective} from "./table.component";
+export {
+    TableCellDirective,
+    TableColumnDirective,
+    TableComponent, TableCustomHeaderContextMenuDirective,
+    TableCustomRowContextMenuDirective,
+    TableHeaderDirective
+} from "./table.component";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DuiIconModule,
-        DuiSplitterModule,
-        ScrollingModule,
-        DuiButtonModule,
-    ],
     exports: [
         TableCellDirective,
         TableColumnDirective,
         TableHeaderDirective,
         TableComponent,
+        TableCustomRowContextMenuDirective,
+        TableCustomHeaderContextMenuDirective,
     ],
     declarations: [
         TableCellDirective,
         TableColumnDirective,
         TableHeaderDirective,
         TableComponent,
+        TableCustomRowContextMenuDirective,
+        TableCustomHeaderContextMenuDirective,
     ],
-    providers: [
+    providers: [],
+    imports: [
+        CommonModule,
+        DuiIconModule,
+        DuiSplitterModule,
+        ScrollingModule,
+        DuiButtonModule,
     ],
 })
 export class DuiTableModule {

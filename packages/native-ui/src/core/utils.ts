@@ -21,6 +21,11 @@ export function isTargetChildOf(target: HTMLElement | EventTarget | null, parent
     return false;
 }
 
+export function triggerResize() {
+    requestAnimationFrame(() => {
+        window.dispatchEvent(new Event('resize'));
+    });
+}
 
 export function focusWatcher(target: HTMLElement, allowedFocuses: HTMLElement[] = []): Observable<void> {
     return new Observable<void>((observer) => {
@@ -65,11 +70,11 @@ export function focusWatcher(target: HTMLElement, allowedFocuses: HTMLElement[] 
         window.addEventListener('focusin', onFocusIn as any);
         window.addEventListener('focusout', onFocusOut as any);
 
-        function unsubscribe() {
+        function unsubscribe(): void {
             window.removeEventListener('focusin', onFocusIn as any);
             window.removeEventListener('focusout', onFocusOut as any);
         }
 
-        return {unsubscribe};
+        return {unsubscribe: unsubscribe};
     });
 }

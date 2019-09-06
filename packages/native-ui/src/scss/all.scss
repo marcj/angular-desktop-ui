@@ -154,3 +154,13 @@ h4 {
         border-radius: 8px;;
     }
 }
+
+.panel {
+    background-color: white;
+    border: 1px solid #c5c5c5;
+}
+
+.dark .panel {
+    background-color: #1d262e;
+    border: 1px solid #565656;
+}

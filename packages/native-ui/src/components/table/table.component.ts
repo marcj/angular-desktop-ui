@@ -34,6 +34,7 @@ import {
 import * as Hammer from "hammerjs";
 import {Observable} from "rxjs";
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
+import {DropdownComponent} from "../button";
 
 export interface Column<T> {
     id: string;
@@ -57,6 +58,29 @@ export interface Column<T> {
 })
 export class TableCellDirective {
     constructor(public template: TemplateRef<any>) {
+    }
+}
+
+/**
+ * Can be used to define own dropdown items once the user opens the header context menu.
+ */
+@Directive({
+    selector: 'dui-dropdown[duiTableCustomHeaderContextMenu]',
+})
+export class TableCustomHeaderContextMenuDirective {
+    constructor(public readonly dropdown: DropdownComponent) {
+    }
+}
+
+
+/**
+ * Can be used to define own dropdown items once the user opens the row context menu.
+ */
+@Directive({
+    selector: 'dui-dropdown[duiTableCustomRowContextMenu]',
+})
+export class TableCustomRowContextMenuDirective {
+    constructor(public readonly dropdown: DropdownComponent) {
     }
 }
 
@@ -169,12 +193,11 @@ export class TableHeaderDirective {
     selector: 'dui-table',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <dui-dropdown #chooseColumns>
-
+        <dui-dropdown #headerDropdown>
             <dui-dropdown-item
                     *ngFor="let column of sortedColumnDefs; trackBy: trackByColumn"
                     [selected]="!column.isHidden()"
-                    (click)="column.toggleHidden(); sortColumnDefs(); chooseColumns.close()"
+                    (click)="column.toggleHidden(); sortColumnDefs(); headerDropdown.close()"
             >
                 <ng-container *ngIf="!headerMapDef[column.name]">
                     {{column.header || column.name}}
@@ -187,7 +210,7 @@ export class TableHeaderDirective {
         </dui-dropdown>
 
         <div [style.height]="autoHeight !== false ? height + 'px' : '100%'" [style.minHeight.px]="itemHeight">
-            <div class="header" *ngIf="showHeader" #header [contextDropdown]="chooseColumns">
+            <div class="header" *ngIf="showHeader" #header [contextDropdown]="customHeaderDropdown ? customHeaderDropdown.dropdown : headerDropdown">
                 <div class="th"
                      *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
                      [style.width]="column.getWidth()"
@@ -221,10 +244,12 @@ export class TableHeaderDirective {
                     <ng-container
                             *cdkVirtualFor="let row of filterSorted(sorted); trackBy: trackByFn.bind(this); odd as isOdd">
                         <div class="table-row"
+                             [contextDropdown]="customRowDropdown ? customRowDropdown.dropdown : undefined"
                              [class.selected]="selectedMap.has(row)"
                              [class.odd]="isOdd"
                              [style.height.px]="itemHeight"
                              (click)="select(row, $event)"
+                             (contextmenu)="select(row, $event)"
                              (dblclick)="dbclick.emit(row)"
                         >
                             <div *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
@@ -373,6 +398,9 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     @ContentChildren(TableColumnDirective) columnDefs?: QueryList<TableColumnDirective>;
     @ContentChildren(TableHeaderDirective) headerDefs?: QueryList<TableHeaderDirective>;
 
+    @ContentChild(TableCustomHeaderContextMenuDirective, {static: false}) customHeaderDropdown?: TableCustomHeaderContextMenuDirective;
+    @ContentChild(TableCustomRowContextMenuDirective, {static: false}) customRowDropdown?: TableCustomRowContextMenuDirective;
+
     @ViewChild(CdkVirtualScrollViewport, {static: true}) viewport!: CdkVirtualScrollViewport;
     @ViewChild('viewportElement', {static: true, read: ElementRef}) viewportElement!: ElementRef;
 
@@ -498,6 +526,10 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             let foundBox: Box | undefined;
             let rowCells: {cells: HTMLElement[]}[] = [];
 
+            let startOffsetLeft = 0;
+            let offsetLeft = 0;
+            let startOffsetWidth = 0;
+
             let animationFrame: any;
             mc.on('panstart', (event: HammerInput) => {
                 foundBox = undefined;
@@ -506,6 +538,10 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     element = event.target as HTMLElement;
                     element.style.zIndex = '1000000';
                     element.style.opacity = '0.8';
+
+                    startOffsetLeft = element.offsetLeft;
+                    offsetLeft = element.offsetLeft;
+                    startOffsetWidth = element.offsetWidth;
 
                     arrayClear(THsBoxes);
                     rowCells = [];
@@ -589,9 +625,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     cancelAnimationFrame(animationFrame);
                 }
 
+
                 animationFrame = requestAnimationFrame(() => {
                     if (element) {
                         element!.style.left = (event.deltaX) + 'px';
+                        const offsetLeft = startOffsetLeft + event.deltaX;
+
                         for (const cell of elementCells) {
                             cell.style.left = (event.deltaX) + 'px';
                         }
@@ -609,12 +648,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                                 cell.style.left = '0px';
                             }
 
-                            if (!afterElement && box.left + (box.width / 2) > element!.offsetLeft) {
+                            if (!afterElement && box.left + (box.width / 2) > offsetLeft) {
                                 //the dragged element is before the current
-                                box.element.style.left = element!.offsetWidth + 'px';
+                                box.element.style.left = startOffsetWidth + 'px';
 
                                 for (const cell of rowCells[i].cells) {
-                                    cell.style.left = element!.offsetWidth + 'px';
+                                    cell.style.left = startOffsetWidth + 'px';
                                 }
 
                                 if (foundBox && box.left > foundBox.left) {
@@ -623,11 +662,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                                 }
 
                                 foundBox = box;
-                            } else if (afterElement && box.left + (box.width / 2) < element!.offsetLeft + element!.offsetWidth) {
+                            } else if (afterElement && box.left + (box.width / 2) < offsetLeft + startOffsetWidth) {
                                 //the dragged element is after the current
-                                box.element.style.left = -element!.offsetWidth + 'px';
+                                box.element.style.left = -startOffsetWidth + 'px';
                                 for (const cell of rowCells[i].cells) {
-                                    cell.style.left = -element!.offsetWidth + 'px';
+                                    cell.style.left = -startOffsetWidth + 'px';
                                 }
                                 foundBox = box;
                             }
@@ -656,12 +695,17 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.headerMapDef[header.name] = header;
                 }
             }
+
+            this.columnDefs!.changes.subscribe(() => {
+                this.updateDisplayColumns();
+                this.sortColumnDefs();
+            });
             this.updateDisplayColumns();
             this.sortColumnDefs();
         }
     }
 
-    protected sortColumnDefs() {
+    public sortColumnDefs() {
         if (this.columnDefs) {
             const originalDefs = this.columnDefs.toArray();
 
@@ -856,6 +900,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 this.selectedMap.clear();
                 this.selectedMap.set(item, true);
             } else {
+                $event.preventDefault();
                 if (arrayHasItem(this.selected, item)) {
                     arrayRemoveItem(this.selected, item);
                     this.selectedMap.delete(item);
@@ -868,5 +913,6 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
         this.selectedChange.emit(this.selected);
         this.cd.detectChanges();
+        this.parentCd.detectChanges();
     }
 }

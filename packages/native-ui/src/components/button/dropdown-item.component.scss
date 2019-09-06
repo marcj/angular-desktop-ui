@@ -19,7 +19,12 @@
 
     }
 
-    &:hover {
+    &.disabled {
+        opacity: 0.8;
+        pointer-events: none;
+    }
+
+    &:not(.disabled):hover {
         background-color: var(--dui-selection);
         color: white;
     }
