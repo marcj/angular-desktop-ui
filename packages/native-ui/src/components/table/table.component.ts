@@ -365,6 +365,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Input() public filterFields?: string[];
 
+    /**
+     * Alternate object value fetcher, important for sorting and filtering.
+     */
+    @Input() public valueFetcher = (object: any, path: string): any => object[path];
+
     @Input() noFocusOutline = false;
 
     public currentSort: string = '';
@@ -796,12 +801,15 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
         const sortField = this.currentSort || this.defaultSort;
         this.sorted.sort((a: any, b: any) => {
+            const aV = this.valueFetcher(a, sortField);
+            const bV = this.valueFetcher(b, sortField);
+            
             if ((this.currentSortDirection || this.defaultSortDirection) === 'asc') {
-                if (a[sortField] > b[sortField]) return 1;
-                if (a[sortField] < b[sortField]) return -1;
+                if (aV > bV) return 1;
+                if (aV < bV) return -1;
             } else {
-                if (a[sortField] > b[sortField]) return -1;
-                if (a[sortField] < b[sortField]) return 1;
+                if (aV > bV) return -1;
+                if (aV < bV) return 1;
             }
 
             return 0;
