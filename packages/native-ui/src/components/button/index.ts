@@ -6,14 +6,16 @@ import {
     DropdownComponent,
     DropdownItemComponent,
     DropdownSplitterComponent,
-    OpenDropdownDirective
+    OpenDropdownDirective,
+    ContextDropdownDirective,
 } from "./dropdown.component";
 
 export {
     DropdownComponent,
     DropdownItemComponent,
     DropdownSplitterComponent,
-    OpenDropdownDirective
+    OpenDropdownDirective,
+    ContextDropdownDirective,
 } from "./dropdown.component";
 
 
@@ -26,6 +28,7 @@ export {
         DropdownItemComponent,
         DropdownSplitterComponent,
         OpenDropdownDirective,
+        ContextDropdownDirective,
     ],
     exports: [
         ButtonComponent,
@@ -35,6 +38,7 @@ export {
         DropdownItemComponent,
         DropdownSplitterComponent,
         OpenDropdownDirective,
+        ContextDropdownDirective,
     ],
     imports: [
         CommonModule,

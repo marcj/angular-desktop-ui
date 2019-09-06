@@ -372,7 +372,7 @@ export class ApiDocProvider {
                 </ng-container>
             </dui-table-column>
             <dui-table-column name="dataType" header="Type" [width]="150"></dui-table-column>
-            <dui-table-column name="comment" header="Description" width="100%"></dui-table-column>
+            <dui-table-column name="comment" header="Description" [width]="350"></dui-table-column>
         </dui-table>
     `,
     styleUrls: ['./api-doc.component.scss']

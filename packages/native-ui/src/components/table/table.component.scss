@@ -34,6 +34,7 @@
         font-size: 11px;
         font-weight: 500;
         z-index: 1;
+        left: 0;
 
         overflow: hidden;
         white-space: nowrap;
@@ -54,6 +55,10 @@
         &:active {
             background-color: #e3e3e3;
             font-weight: 500;
+        }
+
+        &.other-cell {
+            transition: left 0.1s ease-out;
         }
     }
 }
@@ -78,6 +83,17 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        left: 0;
+
+        &.active-drop {
+            opacity: 0.8;
+            border-left: 1px solid var(--line-color-light);
+            border-right: 1px solid var(--line-color-light);
+        }
+
+        &.other-cell {
+            transition: left 0.1s ease-out;
+        }
     }
 
     &.odd {

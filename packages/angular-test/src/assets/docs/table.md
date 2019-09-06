@@ -48,6 +48,16 @@ return {
                         {{row.created|date:'mediumTime'}}
                     </ng-container>
                 </dui-table-column>
+                <dui-table-column name="columnA" header="Another A" hidden>
+                    <ng-container *duiTableCell="let row">
+                        I'm just A
+                    </ng-container>
+                </dui-table-column>
+                <dui-table-column name="columnB" header="Another B" hidden>
+                    <ng-container *duiTableCell="let row">
+                        I'm just B
+                    </ng-container>
+                </dui-table-column>
             </dui-table>
             <dui-button-group padding="none" style="margin-top: 10px;">
                 <dui-input [(ngModel)]="itemName" required></dui-input>
@@ -76,6 +86,7 @@ export class MyWindow {
         for (const item of this.selectedItems) {
             this.items.splice(this.items.indexOf(item), 1);
         }
+        this.items = this.items.slice(0);
         this.selectedItems = [];
     }
     

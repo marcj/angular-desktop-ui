@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import {TemplatePortal} from "@angular/cdk/portal";
 import {focusWatcher} from "../../core/utils";
-import {Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
+import {Overlay, OverlayConfig, OverlayRef, PositionStrategy} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -117,7 +117,7 @@ export class DropdownComponent {
     }
 
     @HostListener('click')
-    public open(target?: HTMLElement | ElementRef) {
+    public open(target?: HTMLElement | ElementRef | MouseEvent) {
         if (this.isOpen) {
             this.close();
             return;
@@ -138,13 +138,33 @@ export class DropdownComponent {
         }
 
         this.isOpen = true;
-        const options: OverlayConfig = {
-            minWidth: 50,
-            maxWidth: 450,
-            maxHeight: '90%',
-            hasBackdrop: false,
-            scrollStrategy: this.overlayService.scrollStrategies.reposition(),
-            positionStrategy: this.overlayService
+        let position: PositionStrategy | undefined;
+
+        if (target instanceof MouseEvent) {
+            position = this.overlayService
+                .position()
+                .flexibleConnectedTo({x: target.pageX, y: target.pageY})
+                .withFlexibleDimensions(false)
+                .withViewportMargin(12)
+                .withPush(true)
+                .withDefaultOffsetY(this.overlay !== false ? 15 : 0)
+                .withPositions([
+                    {
+                        originX: 'start',
+                        originY: 'bottom',
+                        overlayX: 'start',
+                        overlayY: 'top',
+                    },
+                    {
+                        originX: 'end',
+                        originY: 'bottom',
+                        overlayX: 'end',
+                        overlayY: 'top',
+                    }
+                ]);
+            ;
+        } else {
+            position = this.overlayService
                 .position()
                 .flexibleConnectedTo(target)
                 .withFlexibleDimensions(false)
@@ -170,7 +190,17 @@ export class DropdownComponent {
                         overlayX: 'end',
                         overlayY: 'top',
                     }
-                ])
+                ]);
+        }
+
+
+        const options: OverlayConfig = {
+            minWidth: 50,
+            maxWidth: 450,
+            maxHeight: '90%',
+            hasBackdrop: false,
+            scrollStrategy: this.overlayService.scrollStrategies.reposition(),
+            positionStrategy: position || undefined
         };
         if (this.width) options.width = this.width;
         if (this.height) options.height = this.height;
@@ -216,6 +246,9 @@ export class DropdownComponent {
     }
 }
 
+/**
+ * A directive to open the given dropdown on regular left click.
+ */
 @Directive({
     'selector': '[openDropdown]',
 })
@@ -228,5 +261,25 @@ export class OpenDropdownDirective {
     @HostListener('click')
     onClick() {
         this.openDropdown.open(this.elementRef);
+    }
+}
+
+/**
+ * A directive to open the given dropdown upon right click / context menu.
+ */
+@Directive({
+    'selector': '[contextDropdown]',
+})
+export class ContextDropdownDirective {
+    @Input() contextDropdown!: DropdownComponent;
+
+    constructor(protected elementRef: ElementRef) {
+    }
+
+    @HostListener('contextmenu', ['$event'])
+    onClick($event: MouseEvent) {
+        this.contextDropdown.close();
+        $event.preventDefault();
+        this.contextDropdown.open($event);
     }
 }
