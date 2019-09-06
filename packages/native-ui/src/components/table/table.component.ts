@@ -508,6 +508,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     element.style.opacity = '0.8';
 
                     arrayClear(THsBoxes);
+                    rowCells = [];
 
                     for (const th of this.ths.toArray()) {
                         const directive: TableColumnDirective = this.sortedColumnDefs.find((v) => v.name === th.nativeElement.getAttribute('name')!)!;
@@ -542,6 +543,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 if (animationFrame) {
                     cancelAnimationFrame(animationFrame);
                 }
+
                 if (element) {
                     element.style.left = '0px';
                     element.style.zIndex = '1';
@@ -557,29 +559,25 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
                     this.ignoreThisSort = true;
 
-                    for (const [i, box] of eachPair(THsBoxes)) {
+                    for (const box of THsBoxes) {
                         box.element.style.left = '0px';
                         box.element.classList.remove('other-cell');
-                        for (const cell of rowCells[i].cells) {
-                            cell.style.left = '0px';
-                        }
                     }
 
-                    if (!foundBox) return;
+                    if (foundBox) {
+                        const newPosition = this.sortedColumnDefs.indexOf(foundBox.directive);
 
-                    const newPosition = this.sortedColumnDefs.indexOf(foundBox.directive);
+                        if (originalPosition !== newPosition) {
+                            const directive = this.sortedColumnDefs[originalPosition];
+                            this.sortedColumnDefs.splice(originalPosition, 1);
+                            this.sortedColumnDefs.splice(newPosition, 0, directive);
 
-                    if (originalPosition !== newPosition) {
-                        const directive = this.sortedColumnDefs[originalPosition];
-                        this.sortedColumnDefs.splice(originalPosition, 1);
-                        this.sortedColumnDefs.splice(newPosition, 0, directive);
+                            for (let [i, v] of eachPair(this.sortedColumnDefs)) {
+                                v.ovewrittenPosition = i;
+                            }
 
-                        for (let [i, v] of eachPair(this.sortedColumnDefs)) {
-                            v.ovewrittenPosition = i;
+                            this.sortColumnDefs();
                         }
-
-                        this.sortColumnDefs();
-
                     }
 
                     element = undefined;
@@ -679,9 +677,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 return 0;
             });
 
-            setTimeout(() => {
-                this.cd.detectChanges();
-            })
+            this.cd.detectChanges();
         }
     }
 

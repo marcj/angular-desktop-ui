@@ -33,14 +33,15 @@ return {
 }
 ```
 
-<dui-code-frame height="250">
+<dui-code-frame height="280">
 ```html
     <dui-window>
         <dui-window-header>
             Angular Desktop UI
         </dui-window-header>
         <dui-window-content>
-            <dui-table autoHeight [items]="items" [selectable]="true" [(selected)]="selectedItems">
+            <p>With right click on the header, you can display additional columns.</p>
+            <dui-table style="height: calc(100% - 80px)" [items]="items" [selectable]="true" [(selected)]="selectedItems">
                 <dui-table-column name="title" header="Title" [width]="150"></dui-table-column>
                 <dui-table-column name="i" [width]="30"></dui-table-column>
                 <dui-table-column name="created" header="Created">
