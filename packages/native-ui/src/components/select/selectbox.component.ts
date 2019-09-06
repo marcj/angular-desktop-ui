@@ -132,7 +132,7 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
     constructor(
         protected overlay: Overlay,
         protected injector: Injector,
-        protected element: ElementRef,
+        public element: ElementRef,
         protected cd: ChangeDetectorRef,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
     ) {
