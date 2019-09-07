@@ -16,8 +16,14 @@
     line-height: 22px;
     color: rgba(0, 0, 0, 0.73);
     letter-spacing: -0.08px;
-    -webkit-app-region: drag;
     font-weight: 500;
+    -webkit-app-region: drag;
+
+    ::ng-deep dui-window-toolbar-container {
+        *:not(dui-button-group) {
+            -webkit-app-region: no-drag;
+        }
+    }
 }
 
 :host-context(.dark) {

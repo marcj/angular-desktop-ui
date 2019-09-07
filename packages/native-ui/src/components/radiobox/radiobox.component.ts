@@ -43,5 +43,6 @@ export class RadioboxComponent<T> extends ValueAccessorBase<T> {
         if (this.isDisabled) return;
 
         this.innerValue = this.value;
+        this.touch();
     }
 }

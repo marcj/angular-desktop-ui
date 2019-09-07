@@ -12,8 +12,8 @@ import {DuiIconModule} from "../icon";
         InputComponent,
     ],
     imports: [
-        FormsModule,
         CommonModule,
+        FormsModule,
         DuiIconModule,
     ]
 })

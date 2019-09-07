@@ -24,7 +24,11 @@ html, body {
 
     --text-grey: #6c6970;
     --text-light: #737880;
+
     --color-black: black;
+    --color-green: green;
+    --color-red: red;
+    --color-orange: orange;
 
     --line-color-light: #d3d3d3;
     --line-color: #979797;
@@ -42,7 +46,11 @@ html, body {
 .dark {
     --text-grey: #aaadb7;
     --text-light: #737880;
+
     --color-black: #ffffff;
+    --color-green: #0bd40b;
+    --color-red: #ff5c5c;
+    --color-orange: orange;
 
     --line-color-light: rgba(232, 232, 232, 0.16);
     --line-color: rgba(220, 225, 230, 0.15);

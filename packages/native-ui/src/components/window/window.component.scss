@@ -6,12 +6,14 @@
     flex-direction: column;
 }
 
-:host-context(body:not(.electron)) {
+:host-context(body:not(.electron)),
+:host-context(body.platform-linux) {
     background: rgba(236, 236, 236, 0.8);
     backdrop-filter: blur(10px);
 }
 
-:host-context(body:not(.electron).dark) {
+:host-context(body:not(.electron).dark),
+:host-context(body.platform-linux.dark) {
     background: rgba(45, 55, 63, 0.81);
     backdrop-filter: blur(10px);
 }

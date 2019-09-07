@@ -64,7 +64,7 @@ export class OptionDirective {
             <dui-button-group padding="none">
                 <ng-content select="dui-button"></ng-content>
                 <dui-button class="split-knob"
-                            (click)="dropdown.open()"
+                            (click)="dropdown.open(); touch()"
                             small textured [iconSize]="12" icon="arrow_down"></dui-button>
             </dui-button-group>
         </ng-container>
@@ -180,7 +180,6 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
 
         this.cd.detectChanges();
     }
-
 
     ngOnDestroy(): void {
         if (this.changeSubscription) {

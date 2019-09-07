@@ -21,12 +21,12 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
                     *ngIf="type !== 'textarea'"
                     #input
                     [type]="type" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
-                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" [disabled]="isDisabled"
+                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" [disabled]="isDisabled"
                     [(ngModel)]="innerValue"/>
             <textarea
                     #input
                     *ngIf="type === 'textarea'" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
-                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" [disabled]="isDisabled"
+                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" [disabled]="isDisabled"
                     [(ngModel)]="innerValue"></textarea>
         </div>
         <dui-icon *ngIf="icon" class="icon" [size]="13" [name]="icon"></dui-icon>
@@ -108,6 +108,10 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
 
     public async clear() {
         this.innerValue = '';
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        this.touch();
     }
 
     onKeyUp(event: KeyboardEvent) {

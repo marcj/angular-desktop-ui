@@ -18,8 +18,8 @@ import {WindowState} from "./window-state";
         <div class="sidebar"
              (transitionend)="transitionEnded()"
              #sidebar *ngIf="toolbar" [class.hidden]="!sidebarVisible "[class.with-animation]="withAnimation" 
-             [style.width.px]="sidebarWidth">
-            <div class="sidebar-container overlay-scrollbar" [style.width.px]="sidebarWidth" #sidebarContainer>
+             [style.width.px]="getSidebarWidth()">
+            <div class="sidebar-container overlay-scrollbar" [style.width.px]="getSidebarWidth()" #sidebarContainer>
                 <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
             </div>
             <dui-splitter position="right" [(model)]="sidebarWidth"
@@ -41,6 +41,8 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
     @Input() sidebarVisible: boolean = true;
 
     @Input() sidebarWidth = 250;
+    @Input() sidebarMaxWidth = 550;
+    @Input() sidebarMinWidth = 100;
 
     @Output() sidebarWidthChange = new EventEmitter<number>();
 
@@ -57,6 +59,10 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
         private windowState: WindowState,
         public cd: ChangeDetectorRef,
     ) {
+    }
+
+    getSidebarWidth(): number {
+        return Math.min(this.sidebarMaxWidth, Math.max(this.sidebarMinWidth, this.sidebarWidth));
     }
 
     transitionEnded() {
@@ -97,10 +103,6 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
         //         this.content.nativeElement.style.marginLeft = (-this.sidebarWidth) + 'px';
         //     }
         // }
-    }
-
-    public getSidebarWidth(): number {
-        return this.sidebarWidth;
     }
 
     public isSidebarVisible(): boolean {

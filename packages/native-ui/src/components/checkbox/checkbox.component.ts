@@ -35,6 +35,7 @@ export class CheckboxComponent extends ValueAccessorBase<any>  {
     public onClick() {
         if (this.isDisabled) return;
 
+        this.touch();
         this.innerValue = !this.innerValue;
     }
 }

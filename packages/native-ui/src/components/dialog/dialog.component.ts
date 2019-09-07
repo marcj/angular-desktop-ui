@@ -90,8 +90,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() minWidth?: number | string;
     @Input() minHeight?: number | string;
 
-    @Input() width: number | string = 200;
-    @Input() height: number | string = 50;
+    @Input() width?: number | string;
+    @Input() height?: number | string;
 
     @Input() maxWidth?: number | string;
     @Input() maxHeight?: number | string;
@@ -163,8 +163,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         const offsetTop = window && window.header ? window.header.getHeight() : 0;
 
         this.overlayRef = this.overlay.create({
-            width: this.width,
-            height: this.height,
+            width: this.width || undefined,
+            height: this.height || undefined,
             minWidth: this.minWidth || undefined,
             minHeight: this.minHeight || undefined,
             maxWidth: this.maxWidth || '90%',
@@ -224,8 +224,6 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
 
     public close(v?: any) {
-        if (!this.visible) return;
-
         this.visible = false;
         this.visibleChange.emit(false);
         this.beforeUnload();
