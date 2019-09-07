@@ -125,7 +125,6 @@ export class EmojiDropdownComponent implements AfterViewInit {
                 element.scrollIntoView({behavior: 'smooth', block: 'center'});
             }
         }
-        this.touch();
     }
 
     find(search: string): string[] {
