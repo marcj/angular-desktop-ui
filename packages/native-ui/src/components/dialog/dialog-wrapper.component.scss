@@ -31,6 +31,12 @@
         max-height: 100%;
         border: 1px solid #b8b8b8;
         box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.22);
+
+        dui-window-content > .content {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            padding-bottom: 5px !important;
+        }
     }
 
     .cdk-overlay-dark-backdrop {
@@ -38,8 +44,10 @@
     }
 }
 
+
 .dialog-actions {
     padding: 20px;
+    padding-top: 15px;
     background-color: #ececec;
 
     text-align: right;

@@ -13,6 +13,7 @@ import {
 import {Overlay} from "@angular/cdk/overlay";
 import {DialogComponent} from "./dialog.component";
 import {isTargetChildOf} from "../../core/utils";
+import {eachPair} from "@marcj/estdlib";
 
 
 @Component({
@@ -75,15 +76,21 @@ export class DuiDialog {
 
     }
 
-    public open(viewContainerRef: ViewContainerRef, instance: Type<any>, inputs: { [name: string]: any } = {}): DialogComponent {
+    public open(viewContainerRef: ViewContainerRef, component: Type<any>, inputs: { [name: string]: any } = {}): DialogComponent {
         const factoryMain = this.resolver.resolveComponentFactory(DialogComponent);
         const original = (factoryMain.create as any).bind(factoryMain);
         factoryMain.create = function (...args: any[]) {
             const comp = original(...args);
 
             comp.instance.visible = true;
-            comp.instance.component = instance;
+            comp.instance.component = component;
             comp.instance.componentInputs = inputs;
+
+            if ((component as any).dialogDefaults) {
+                for (const [i, v] of eachPair((component as any).dialogDefaults)) {
+                    (comp.instance as any)[i] = v;
+                }
+            }
 
             return comp;
         };

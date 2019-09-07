@@ -11,6 +11,10 @@
 
     .field {
         flex: 1;
+
+        ::ng-deep > * {
+            width: 100%;
+        }
     }
 }
 
