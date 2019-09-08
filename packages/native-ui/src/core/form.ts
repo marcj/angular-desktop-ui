@@ -11,6 +11,7 @@ import {
     Type
 } from "@angular/core";
 import {getClassName} from "@marcj/estdlib";
+import {FormComponent} from "../components/form/form.component";
 
 export function ngValueAccessor<T>(clazz: Type<T>) {
     return {
@@ -54,6 +55,18 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     private _ngControl?: NgControl;
     private _ngControlFetched = false;
 
+    @Input() disabled?: boolean;
+    @HostBinding('class.disabled')
+    get isDisabled() {
+        if (this.formComponent && this.formComponent.disabled) return true;
+
+        if (undefined === this.disabled && this.ngControl) {
+            return this.ngControl.disabled;
+        }
+
+        return this.disabled === true;
+    }
+
     @Input() valid?: boolean;
     @HostBinding('class.valid')
     get isValid() {
@@ -70,18 +83,6 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         return this.error;
     }
 
-    @Input()
-    disabled?: boolean;
-
-    @HostBinding('class.disabled')
-    get isDisabled() {
-        if (undefined === this.disabled && this.ngControl) {
-            return this.ngControl.disabled;
-        }
-
-        return this.disabled === true;
-    }
-
     @HostBinding('class.required')
     @Input()
     required: boolean = false;
@@ -89,11 +90,16 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     @Output()
     public readonly change = new EventEmitter<T>();
 
+    protected formComponent?: FormComponent;
+
     constructor(
         @Inject(Injector) protected injector: Injector,
         @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef,
         @Inject(ChangeDetectorRef) @SkipSelf() protected cdParent: ChangeDetectorRef,
     ) {
+        try {
+            this.formComponent = injector.get(FormComponent, undefined);
+        } catch (e) {}
     }
 
     get ngControl(): NgControl | undefined {

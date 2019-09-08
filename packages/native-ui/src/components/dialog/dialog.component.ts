@@ -273,6 +273,14 @@ export class DialogActionsComponent implements AfterViewInit, OnDestroy {
     }
 }
 
+@Component({
+    selector: 'dui-dialog-error',
+    template: '<ng-content></ng-content>',
+    styleUrls: ['./dialog-error.component.scss']
+})
+export class DialogErrorComponent {
+}
+
 
 @Directive({
     selector: '[closeDialog]'

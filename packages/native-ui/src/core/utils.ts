@@ -1,4 +1,5 @@
 import {Observable} from "rxjs";
+import {ChangeDetectorRef} from "@angular/core";
 
 const electron = (window as any).electron || ((window as any).require ? (window as any).require('electron') : undefined);
 
@@ -21,6 +22,38 @@ export class Electron {
 
     public static getProcess() {
         return Electron.getRemote().process;
+    }
+}
+
+export class ExecutionState {
+    public running = false;
+    public error: string = '';
+
+    constructor(
+        protected readonly cd: ChangeDetectorRef,
+        protected readonly func: (...args: any[]) => Promise<any> | any,
+    ) {
+    }
+
+    public async execute() {
+        if (this.running) {
+            throw new Error('Executor still running');
+        }
+
+        this.running = true;
+        this.error = '';
+        this.cd.detectChanges();
+
+        try {
+            return await this.func(...arguments);
+        } catch (error) {
+            this.error = error.message || error.toString();
+            throw error;
+        } finally {
+            this.running = false;
+            this.cd.detectChanges();
+        }
+
     }
 }
 

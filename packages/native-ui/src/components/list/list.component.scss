@@ -11,20 +11,19 @@
     opacity: 0.6;
 }
 
-:host:focus ::ng-deep dui-list-item.selected {
+:host ::ng-deep dui-list-item.selected {
+    background-color: #999ca399;
+}
+
+:host-context(.dark) ::ng-deep dui-list-item.selected {
+    background-color: #434752;
+}
+
+:host:focus.focusable ::ng-deep dui-list-item.selected {
     background-color: var(--dui-selection);
     color: white;
     --text-light: #d1d1d1;
 }
-
-:host:not(:focus) ::ng-deep dui-list-item.selected {
-    background-color: #bdcbd2;
-}
-
-:host-context(.dark):not(:focus) ::ng-deep dui-list-item.selected {
-    background-color: #434752;
-}
-
 
 :host-context(.light).white {
     background-color: white;

@@ -5,7 +5,8 @@ import {
     DialogActionsComponent,
     DialogComponent,
     DialogDirective,
-    DialogWrapperComponent
+    DialogWrapperComponent,
+    DialogErrorComponent,
 } from "./dialog.component";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {CommonModule} from "@angular/common";
@@ -39,6 +40,7 @@ export {DuiDialog} from "./dialog";
         DuiDialogConfirm,
         DuiDialogPrompt,
         DialogWrapperComponent,
+        DialogErrorComponent,
     ],
     exports: [
         DialogDirective,
@@ -51,6 +53,7 @@ export {DuiDialog} from "./dialog";
         DuiDialogAlert,
         DuiDialogConfirm,
         DuiDialogPrompt,
+        DialogErrorComponent,
     ],
     entryComponents: [
         DialogComponent,

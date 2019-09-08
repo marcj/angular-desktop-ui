@@ -43,7 +43,7 @@
     }
 }
 
-:host-context(.linux.light) {
+:host-context(.platform-linux.light) {
     .closer > div {
         &:active {
             border-radius: 4px;
@@ -52,7 +52,7 @@
     }
 }
 
-:host-context(.linux.dark) {
+:host-context(.platform-linux.dark) {
     .closer > div {
         border-radius: 20px;
         width: 20px;
@@ -81,7 +81,7 @@
     }
 }
 
-:host-context(.linux) {
+:host-context(.platform-linux) {
     .closer {
         display: block;
     }

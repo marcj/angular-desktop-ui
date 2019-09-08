@@ -38,12 +38,15 @@ export class ListTitleComponent {
     host: {
         '[class.white]': 'white !==false',
         '[class.overlay-scrollbar]': 'true',
+        '[class.focusable]': 'focusColor',
     },
     providers: [ngValueAccessor(ListComponent)]
 })
 @Injectable()
 export class ListComponent extends ValueAccessorBase<any> {
     @Input() white = false;
+
+    @Input() focusColor = true;
 
     @HostBinding('tabindex') tabIndex: number = 1;
 

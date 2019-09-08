@@ -5,7 +5,7 @@ import {
     ElementRef,
     HostBinding, HostListener,
     Input,
-    OnDestroy, OnInit,
+    OnDestroy, OnInit, Optional,
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
@@ -73,6 +73,8 @@ export class ButtonComponent implements OnInit {
 
     constructor(
         public element: ElementRef,
+        @SkipSelf() public cdParent: ChangeDetectorRef,
+        @Optional() public formComponent: FormComponent,
     ) {
         this.element.nativeElement.removeAttribute('tabindex');
     }
@@ -81,6 +83,8 @@ export class ButtonComponent implements OnInit {
 
     @HostBinding('class.disabled')
     get isDisabled() {
+        if (this.formComponent && this.formComponent.disabled) return true;
+
         return false !== this.disabled;
     }
 
@@ -108,6 +112,8 @@ export class ButtonComponent implements OnInit {
 
     @HostListener('click')
     async onClick() {
+        if (this.isDisabled) return;
+
         if (this.submitForm) {
             this.submitForm.submitForm();
         }

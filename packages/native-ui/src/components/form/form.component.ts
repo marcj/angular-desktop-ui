@@ -1,4 +1,13 @@
-import {ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, Output, SkipSelf} from "@angular/core";
+import {
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output, SimpleChanges,
+    SkipSelf
+} from "@angular/core";
 import {FormGroup, NgControl} from "@angular/forms";
 
 @Component({
@@ -38,13 +47,18 @@ export class FormRowComponent {
     `,
     styleUrls: ['./form.component.scss']
 })
-export class FormComponent {
+export class FormComponent implements OnChanges {
     @Input() formGroup!: FormGroup;
+
+    @Input()
+    disabled: boolean = false;
 
     @Input() submit?: () => Promise<any> | any;
 
     @Output() success = new EventEmitter();
     @Output() error = new EventEmitter();
+
+    @Output() disableChange = new EventEmitter();
 
     public errorText = '';
     public submitting = false;
@@ -55,8 +69,16 @@ export class FormComponent {
     ) {
     }
 
+    ngOnChanges(changes: SimpleChanges){
+        if (changes.disabled) {
+            this.disableChange.emit(this.disabled);
+        }
+    }
+
     async submitForm() {
+        if (this.disabled) return;
         if (this.formGroup.invalid) return;
+
         this.submitting = true;
         this.cd.detectChanges();
         this.cdParent.detectChanges();

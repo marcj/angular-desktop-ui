@@ -53,6 +53,7 @@
     text-align: right;
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
 
     ::ng-deep > * {
         margin: 0 5px;

@@ -13,13 +13,6 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 export class RadioboxComponent<T> extends ValueAccessorBase<T> {
     @Input() value?: T;
 
-    @Input() disabled: boolean = false;
-
-    @HostBinding('class.disabled')
-    get isDisabled() {
-        return false !== this.disabled;
-    }
-
     @HostBinding('tabindex')
     get tabIndex() {
         return 1;

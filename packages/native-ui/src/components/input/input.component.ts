@@ -46,8 +46,6 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
 
     @Input() icon: string = '';
 
-    @Input() disabled: boolean = false;
-
     @Input() focus: boolean = false;
 
     @Input() lightFocus: boolean = false;
@@ -56,11 +54,6 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @Output() enter = new EventEmitter<KeyboardEvent>();
 
     @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
-
-    @HostBinding('class.disabled')
-    get isDisabled() {
-        return false !== this.disabled;
-    }
 
     @Input() textured: boolean = false;
 

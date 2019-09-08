@@ -13,6 +13,10 @@
     background: white;
     border: 1px solid #bdbdbd;
 
+    &.semi-transparent {
+        background: #ffffffd6;
+    }
+
     //box-shadow: 0 0.5px 0 0.5px rgba(0, 0, 0, 0.05);
 
     &:not(.light-focus).focused {
@@ -111,10 +115,13 @@ dui-icon {
     pointer-events: all;
 }
 
-
 :host-context(.dark) {
     color: white;
     background-image: linear-gradient(-180deg, #373F46 5%, #3A4249 6%, #3B434B 12%, #3B434B 100%);
+
+    &.semi-transparent {
+        background-image: linear-gradient(-180deg, #373F46e0 5%, #3A4249e0 6%, #3B434Be0 12%, #3B434Be0 100%);
+    }
 
     border: 1px solid #464d53;
     border-left: 1px solid #414951;
