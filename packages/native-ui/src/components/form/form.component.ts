@@ -24,7 +24,7 @@ import {FormGroup, NgControl} from "@angular/forms";
 export class FormRowComponent {
     @Input() label: string = '';
 
-    @ContentChild(NgControl, {static: false}) ngControl: NgControl;
+    @ContentChild(NgControl, {static: false}) ngControl?: NgControl;
 }
 
 @Component({

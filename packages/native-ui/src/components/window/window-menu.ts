@@ -2,7 +2,7 @@ import {MenuDirective} from "../app/menu.component";
 import {arrayRemoveItem} from "@marcj/estdlib";
 import {Subscription} from "rxjs";
 import {Injectable} from "@angular/core";
-import {Electron} from "../app/utils";
+import {Electron} from "../../core/utils";
 
 @Injectable()
 export class WindowMenuState {

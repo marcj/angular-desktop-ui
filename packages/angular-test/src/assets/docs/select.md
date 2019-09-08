@@ -37,17 +37,17 @@ return {
 <dui-select [(ngModel)]="radioValue" placeholder="Please choose">
     <dui-option value="a">
         <ng-container *dynamicOption>
-            <dui-emoji name="slightly_smiling_face"></dui-emoji> Option A
+            <dui-emoji name="slightly_smiling_face" style="margin-right: 5px;"></dui-emoji>Option A
         </ng-container>
     </dui-option>
     <dui-option value="b">
         <ng-container *dynamicOption>
-            <dui-emoji name="sunglasses"></dui-emoji> Option B
+            <dui-emoji name="sunglasses" style="margin-right: 5px;"></dui-emoji>Option B
         </ng-container>
     </dui-option>
     <dui-option value="c">
         <ng-container *dynamicOption>
-            <dui-emoji name="stuck_out_tongue"></dui-emoji> Option CCCCCCCCCC
+            <dui-emoji name="stuck_out_tongue" style="margin-right: 5px;"></dui-emoji>Option CCCCCCCCCC
         </ng-container>
     </dui-option>
 </dui-select>

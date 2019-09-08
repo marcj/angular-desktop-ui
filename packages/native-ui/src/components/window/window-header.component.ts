@@ -1,21 +1,28 @@
 import {
     ChangeDetectorRef,
     Component,
-    ContentChild, ElementRef,
+    ElementRef,
     HostBinding,
     Input,
-    OnDestroy, OnInit, SkipSelf,
+    OnDestroy,
+    OnInit,
+    SkipSelf,
     TemplateRef,
     ViewChild
 } from "@angular/core";
 import {WindowState} from "./window-state";
-
+import {Electron} from "../../core/utils";
 
 @Component({
     selector: 'dui-window-header',
     template: `
         <div class="title">
             <ng-content></ng-content>
+            <div class="closer">
+                <div (click)="minimize()"><dui-icon [size]="18" name="gnome_minimize"></dui-icon></div>
+                <div (click)="maximize()"><dui-icon [size]="18" name="gnome_maximize"></dui-icon></div>
+                <div (click)="close()" class="highlight"><dui-icon [size]="18" name="gnome_close"></dui-icon></div>
+            </div>
         </div>
         <div class="toolbar" *ngIf="windowState.toolbars['default']">
             <dui-window-toolbar-container></dui-window-toolbar-container>
@@ -51,6 +58,23 @@ export class WindowHeaderComponent {
 
     public getHeight(): number {
         return this.element.nativeElement.clientHeight;
+    }
+
+    maximize() {
+        const win = Electron.getRemote().BrowserWindow.getFocusedWindow();
+        if (!win.isMaximized()) {
+            Electron.getRemote().BrowserWindow.getFocusedWindow().maximize();
+        } else {
+            Electron.getRemote().BrowserWindow.getFocusedWindow().unmaximize();
+        }
+    }
+
+    minimize() {
+        Electron.getRemote().BrowserWindow.getFocusedWindow().minimize();
+    }
+
+    close() {
+        Electron.getRemote().BrowserWindow.getFocusedWindow().close();
     }
 
     /**

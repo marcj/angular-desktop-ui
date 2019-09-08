@@ -4,8 +4,12 @@
 
         <dui-window-toolbar>
             <dui-button-group>
-                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">
-                    Dark-Mode {{darkMode ? 'ON' : 'OFF'}}</dui-button>
+                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode</dui-button>
+                <dui-select textured [ngModel]="platform" (ngModelChange)="setPlatform($event)">
+                    <dui-option value="darwin">macOS</dui-option>
+                    <dui-option value="linux">Linux</dui-option>
+                    <dui-option value="win32">Windows</dui-option>
+                </dui-select>
             </dui-button-group>
 
             <dui-button-group float="sidebar">

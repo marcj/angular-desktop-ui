@@ -1,4 +1,4 @@
-import {Injectable, TemplateRef} from "@angular/core";
+import {Injectable, Input, TemplateRef} from "@angular/core";
 import {ButtonGroupComponent} from "../button/button.component";
 import {WindowHeaderComponent, WindowToolbarContainerComponent} from "./window-header.component";
 import {arrayRemoveItem, each} from "@marcj/estdlib";
@@ -10,6 +10,10 @@ export class WindowState {
 
     public toolbars: {[name: string]: TemplateRef<any>[]} = {};
     public toolbarContainers: {[name: string]: WindowToolbarContainerComponent} = {};
+
+    closable = true;
+    maximizable = true;
+    minimizable = true;
 
     public addToolbarContainer(forName: string, template: TemplateRef<any>) {
         if (!this.toolbars[forName]) {

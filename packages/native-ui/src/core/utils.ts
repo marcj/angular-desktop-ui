@@ -1,8 +1,32 @@
+import {Observable} from "rxjs";
+
+const electron = (window as any).electron || ((window as any).require ? (window as any).require('electron') : undefined);
+
+export class Electron {
+    public static getRemote(): any {
+        if (!electron) {
+            throw new Error('No Electron available.');
+        }
+
+        return electron.remote;
+    }
+
+    public static isAvailable(): any {
+        return !!electron;
+    }
+
+    public static getRemoteOrUndefined(): any {
+        return electron ? electron.remote : undefined;
+    }
+
+    public static getProcess() {
+        return Electron.getRemote().process;
+    }
+}
+
 /**
  * Checks if `target` is children of `parent` or if `target` is `parent`.
  */
-import {Observable, Subject} from "rxjs";
-
 export function isTargetChildOf(target: HTMLElement | EventTarget | null, parent: HTMLElement): boolean {
     if (!target) return false;
 

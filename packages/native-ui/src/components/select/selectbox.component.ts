@@ -73,11 +73,9 @@ export class OptionDirective {
             <div class="placeholder" *ngIf="!isSelected">{{placeholder}}</div>
             <div class="value">
                 <ng-container *ngIf="optionsValueMap.get(innerValue) as option">
-                    <div style="flex: 1">
-                        <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
-                        <div *ngIf="!option.dynamic">
-                            <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
-                        </div>
+                    <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
+                    <div *ngIf="!option.dynamic">
+                        <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
                     </div>
                 </ng-container>
             </div>
@@ -87,17 +85,15 @@ export class OptionDirective {
             </div>
         </ng-container>
 
-        <dui-dropdown #dropdown [host]="element.nativeElement">
+        <dui-dropdown #dropdown [host]="element.nativeElement" [keepOpen]="true">
             <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
                  (click)="select(option.value)"
                  [selected]="innerValue === option.value"
             >
-                <div style="flex: 1">
-                    <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
-                    <div *ngIf="!option.dynamic">
-                        <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
-                    </div>
+                <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
+                <div *ngIf="!option.dynamic">
+                    <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
                 </div>
             </dui-dropdown-item>
         </dui-dropdown>

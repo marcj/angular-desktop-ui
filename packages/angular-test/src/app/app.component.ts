@@ -13,6 +13,8 @@ export class AppComponent {
     public darkMode = false;
     public showDialog = false;
 
+    public platform: string = 'darwin';
+
     public toggleDarkMode() {
         this.darkMode = !this.darkMode;
         this.setDarkMode(this.darkMode);
@@ -27,8 +29,18 @@ export class AppComponent {
         } else {
             document.body.classList.add('light');
         }
+        localStorage.setItem('dui-darkmode', active ? 'true' : 'false');
     }
 
+    public setPlatform(platform: string) {
+        this.platform = platform;
+        document.body.classList.remove('linux');
+        document.body.classList.remove('darwin');
+        document.body.classList.remove('win32');
+
+        document.body.classList.add(platform);
+        localStorage.setItem('dui-platform', platform);
+    }
 
     constructor(
         router: Router,
@@ -41,6 +53,12 @@ export class AppComponent {
                 a.tick();
             }
         });
+
+        this.platform = localStorage.getItem('dui-platform') || 'darwin';
+        console.log('wtf', localStorage.getItem('dui-platform'), this.platform);
+        this.darkMode = (localStorage.getItem('dui-darkmode') || 'false') === 'true';
+        this.setDarkMode(this.darkMode);
+        this.setPlatform(this.platform);
 
         document.addEventListener('click', () => a.tick());
         document.addEventListener('focus', () => a.tick());

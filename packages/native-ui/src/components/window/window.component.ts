@@ -3,8 +3,8 @@ import {
     Component,
     ContentChild,
     Inject,
-    Input,
-    Optional,
+    Input, OnChanges,
+    Optional, SimpleChanges,
     SkipSelf
 } from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
@@ -38,13 +38,18 @@ export class WindowFrameComponent {
         WindowMenuState,
     ]
 })
-export class WindowComponent {
+export class WindowComponent implements OnChanges {
     @ContentChild(WindowContentComponent, {static: false}) public content?: WindowContentComponent;
     @ContentChild(WindowHeaderComponent, {static: false}) public header?: WindowHeaderComponent;
+
+    @Input() closable = true;
+    @Input() maximizable = true;
+    @Input() minimizable = true;
 
     constructor(
         @SkipSelf() @Optional() protected parentWindow: WindowComponent,
         @Inject(DOCUMENT) document: Document,
+        public windowState: WindowState,
         windowMenuState: WindowMenuState,
     ) {
         document.addEventListener('focus', () => {
@@ -57,5 +62,11 @@ export class WindowComponent {
 
     public getParentOrSelf(): WindowComponent {
         return this.parentWindow ? this.parentWindow.getParentOrSelf() : this;
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        this.windowState.closable = this.closable;
+        this.windowState.minimizable = this.minimizable;
+        this.windowState.maximizable = this.maximizable;
     }
 }

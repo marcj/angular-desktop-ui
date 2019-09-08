@@ -13,7 +13,7 @@ import {
 import {WindowMenuState} from "../window/window-menu";
 import {arrayHasItem} from "@marcj/estdlib";
 import {Subscription} from "rxjs";
-import {Electron} from "./utils";
+import {Electron} from "../../core/utils";
 
 @Injectable()
 export class MenuBase implements AfterViewInit {
