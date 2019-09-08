@@ -102,6 +102,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() componentInputs: { [name: string]: any } = {};
 
     @Output() closed = new EventEmitter<any>();
+    @Output() open = new EventEmitter<any>();
 
     @ViewChild('template', {static: true}) template?: TemplateRef<any>;
 
@@ -188,6 +189,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
                 {provide: DialogComponent, useValue: this},
             ],
         });
+
+        this.open.emit();
         const portal = new ComponentPortal(DialogWrapperComponent, this.viewContainerRef, injector);
 
         this.wrapperComponentRef = this.overlayRef!.attach(portal);
@@ -209,6 +212,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
         this.wrapperComponentRef!.changeDetectorRef.detectChanges();
         this.wrapperComponentRef!.location.nativeElement.focus();
+
         this.cd.detectChanges();
         this.cdParent.detectChanges();
     }

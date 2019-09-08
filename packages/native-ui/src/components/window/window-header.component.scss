@@ -35,6 +35,7 @@
     top: 3px;
     display: none;
     color: #3d3c37;
+    -webkit-app-region: no-drag;
 
     > div {
         display: inline-flex;
