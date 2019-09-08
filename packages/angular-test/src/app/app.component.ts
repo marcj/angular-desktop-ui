@@ -34,11 +34,11 @@ export class AppComponent {
 
     public setPlatform(platform: string) {
         this.platform = platform;
-        document.body.classList.remove('linux');
-        document.body.classList.remove('darwin');
-        document.body.classList.remove('win32');
+        document.body.classList.remove('platform-linux');
+        document.body.classList.remove('platform-darwin');
+        document.body.classList.remove('platform-win32');
 
-        document.body.classList.add(platform);
+        document.body.classList.add('platform-' + platform);
         localStorage.setItem('dui-platform', platform);
     }
 
