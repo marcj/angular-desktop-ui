@@ -17,8 +17,8 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@marcj/estdlib": "^0.1.10",
-    "@marcj/estdlib-rxjs": "^0.1.10",
+    "@marcj/estdlib": "^0.1.11",
+    "@marcj/estdlib-rxjs": "^0.1.13",
     "emoji-datasource": "^4.1.0",
     "hammerjs": "^2.0.8"
   },
