@@ -34,8 +34,7 @@
     "@angular/core": "~8.2.0",
     "@angular/forms": "~8.2.0",
     "@angular/platform-browser": "~8.2.0",
-    "@angular/router": "^8.2.0",
-    "rxjs": "^6.5.2"
+    "@angular/router": "^8.2.0"
   },
   "devDependencies": {
     "@angular/animations": "^8.2.0",
@@ -46,9 +45,10 @@
     "@angular/forms": "^8.2.0",
     "@angular/platform-browser": "^8.2.0",
     "@angular/router": "^8.2.0",
+    "@angular-devkit/schematics": "8.2.0",
     "@types/hammerjs": "^2.0.36",
     "@types/node": "^11.9.4",
-    "rxjs": "~6.3.3",
+    "rxjs": "~6.5.3",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
     "transformation-matrix-js": "2.7.1",
