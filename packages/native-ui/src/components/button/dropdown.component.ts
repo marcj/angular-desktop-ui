@@ -290,10 +290,14 @@ export class DropdownItemComponent {
 
     @Input() disabled?: boolean = false;
 
+    @Input() closeOnClick: boolean = true;
+
     constructor(protected dropdown: DropdownComponent) {}
 
     @HostListener('click')
     onClick() {
-        this.dropdown.close();
+        if (this.closeOnClick) {
+            this.dropdown.close();
+        }
     }
 }

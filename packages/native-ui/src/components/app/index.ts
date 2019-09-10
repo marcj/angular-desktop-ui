@@ -8,6 +8,9 @@ import {
     MenuSeparatorDirective
 } from "./menu.component";
 import {OpenExternalDirective} from "./utils";
+import {HiddenDirective} from "./dui-view.directive";
+import {CdCounterComponent} from "./cd-counter.component";
+import {DuiResponsiveDirective} from "./dui-responsive.directive";
 
 @NgModule({
     declarations: [
@@ -17,6 +20,9 @@ import {OpenExternalDirective} from "./utils";
         MenuCheckboxDirective,
         MenuItemDirective,
         OpenExternalDirective,
+        HiddenDirective,
+        CdCounterComponent,
+        DuiResponsiveDirective,
     ],
     exports: [
         MenuDirective,
@@ -25,6 +31,9 @@ import {OpenExternalDirective} from "./utils";
         MenuCheckboxDirective,
         MenuItemDirective,
         OpenExternalDirective,
+        HiddenDirective,
+        CdCounterComponent,
+        DuiResponsiveDirective,
     ],
     providers: [
     ],

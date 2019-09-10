@@ -1,0 +1,35 @@
+import {Directive, ElementRef, HostListener, Input, OnInit} from "@angular/core";
+import {eachPair} from "@marcj/estdlib";
+
+@Directive({
+    selector: '[duiClassMin]',
+})
+export class DuiResponsiveDirective implements OnInit {
+    clazz: { [className: string]: boolean } = {};
+
+    @Input() duiClassMin: { [className: string]: number } = {};
+
+    constructor(
+        private element: ElementRef,
+    ) {}
+
+    ngOnInit() {
+        this.onResize();
+    }
+
+    @HostListener('window:resize')
+    onResize() {
+        const element: HTMLElement = this.element.nativeElement;
+        for (const [name, number] of eachPair(this.duiClassMin)) {
+            const valid = element.offsetWidth > number;
+            if (this.clazz[name] !== valid) {
+                this.clazz[name] = valid;
+                if (valid) {
+                    element.classList.add(name);
+                } else {
+                    element.classList.remove(name);
+                }
+            }
+        }
+    }
+}
