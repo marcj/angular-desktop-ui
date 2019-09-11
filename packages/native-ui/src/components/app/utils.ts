@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener, Input, OnChanges} from "@angular/core";
+import {ChangeDetectorRef, Directive, ElementRef, HostListener, Input, OnChanges} from "@angular/core";
 import {Electron} from "../../core/utils";
 
 
@@ -23,4 +23,27 @@ export class OpenExternalDirective implements OnChanges {
             Electron.getRemote().shell.openExternal(this.openExternal);
         }
     }
+}
+
+
+let lastFrameRequest: any;
+let lastFrameRequestStack = new Set<ChangeDetectorRef>();
+
+/**
+ * This handy function makes sure that in the next animation frame the given ChangeDetectorRef is called.
+ * It makes automatically sure that it is only called once per frame.
+ */
+export function detectChangesNextFrame(cd: ChangeDetectorRef) {
+    if (lastFrameRequest) {
+        cancelAnimationFrame(lastFrameRequest);
+    }
+
+    lastFrameRequestStack.add(cd);
+
+    requestAnimationFrame(() => {
+        for (const i of lastFrameRequestStack) {
+            i.detectChanges();
+        }
+        lastFrameRequestStack.clear();
+    });
 }

@@ -8,7 +8,7 @@ import {
     HostListener, Inject, Injectable, Injector,
     Input,
     OnChanges,
-    OnDestroy,
+    OnDestroy, Optional,
     QueryList,
     SimpleChanges,
     SkipSelf
@@ -113,27 +113,31 @@ export class ListItemComponent implements OnChanges, OnDestroy {
     @Input() value: any;
     @Input() routerLink?: string | UrlTree | any[];
 
-    protected routerSub: Subscription;
+    protected routerSub?: Subscription;
 
     constructor(
         public list: ListComponent,
         public element: ElementRef,
-        public router: Router,
         @SkipSelf() public cd: ChangeDetectorRef,
+        @Optional() public router?: Router,
     ) {
         this.element.nativeElement.removeAttribute('tabindex');
         this.list.registerOnChange(() => {
             this.cd.detectChanges();
         });
-        this.routerSub = this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                this.cd.detectChanges();
-            }
-        })
+        if (this.router) {
+            this.routerSub = this.router.events.subscribe((event) => {
+                if (event instanceof NavigationEnd) {
+                    this.cd.detectChanges();
+                }
+            })
+        }
     }
 
     ngOnDestroy(): void {
-        this.routerSub.unsubscribe();
+        if (this.routerSub) {
+            this.routerSub.unsubscribe();
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -141,13 +145,13 @@ export class ListItemComponent implements OnChanges, OnDestroy {
     }
 
     public async select() {
-        if (this.routerLink) {
+        if (this.routerLink && this.router) {
             if ('string' === typeof this.routerLink) {
                 await this.router.navigateByUrl(this.routerLink);
             } else if (Array.isArray(this.routerLink)) {
                 await this.router.navigate(this.routerLink);
             } else {
-                await this.router.navigateByUrl(this.router.serializeUrl(this.routerLink));
+                await this.router.navigateByUrl(this.router.serializeUrl(this.routerLink!));
             }
         } else {
             this.list.innerValue = this.value;
@@ -159,20 +163,20 @@ export class ListItemComponent implements OnChanges, OnDestroy {
             return this.list.innerValue === this.value;
         }
 
-        if (this.routerLink) {
+        if (this.routerLink && this.router) {
             if ('string' === typeof this.routerLink) {
                 return this.router.isActive(this.routerLink, false);
             } else if (Array.isArray(this.routerLink)) {
                 return this.router.isActive(this.router.createUrlTree(this.routerLink), false);
             } else {
-                return this.router.isActive(this.routerLink, false);
+                return this.router.isActive(this.routerLink!, false);
             }
         }
 
         return false;
     }
 
-    @HostListener('click')
+    @HostListener('mousedown')
     public onClick() {
         this.list.innerValue = this.value;
     }

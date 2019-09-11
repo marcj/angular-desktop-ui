@@ -21,6 +21,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DocModule} from "./components/doc.module";
 import {DuiEmojiModule} from "@marcj/angular-desktop-ui";
+import {DocuModule} from "./docu/docu.module";
 
 @NgModule({
     declarations: [
@@ -46,7 +47,10 @@ import {DuiEmojiModule} from "@marcj/angular-desktop-ui";
         DuiAppModule,
         DuiDialogModule,
         DuiEmojiModule,
+        DocuModule,
         DocModule.forRoot(AppModule),
+    ],
+    entryComponents: [
     ],
     providers: [],
     bootstrap: [AppComponent]

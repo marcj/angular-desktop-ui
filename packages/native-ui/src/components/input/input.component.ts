@@ -127,7 +127,6 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         if (this.focus !== false && this.input) {
             setTimeout(() => {
                 this.input!.nativeElement.focus();
-                this.cd.detectChanges();
                 this.cdParent.detectChanges();
             });
         }

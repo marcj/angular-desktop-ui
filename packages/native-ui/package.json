@@ -28,7 +28,7 @@
   "main": "src/index.ts",
   "peerDependencies": {
     "@angular/animations": "^8.2.0",
-    "@angular/cdk": "^8.1.2",
+    "@angular/cdk": "~8.2.0",
     "@angular/common": "^8.2.0",
     "@angular/compiler": "^8.2.0",
     "@angular/core": "~8.2.0",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@angular/animations": "^8.2.0",
-    "@angular/cdk": "^8.1.2",
+    "@angular/cdk": "~8.2.0",
     "@angular/common": "^8.2.0",
     "@angular/compiler": "^8.2.0",
     "@angular/core": "^8.2.0",
@@ -57,5 +57,8 @@
     "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   },
-  "gitHead": "03f7222f6b45c5d8d8f5f0d5633511c9ae3790fb"
+  "gitHead": "03f7222f6b45c5d8d8f5f0d5633511c9ae3790fb",
+  "__processed_by_ivy_ngcc__": {
+    "main": "8.2.5"
+  }
 }

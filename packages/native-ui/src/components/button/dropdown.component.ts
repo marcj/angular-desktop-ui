@@ -193,7 +193,9 @@ export class DropdownComponent {
         this.shown.emit();
 
         setTimeout(() => {
-            this.overlayRef!.updatePosition();
+            if (this.overlayRef) {
+                this.overlayRef.updatePosition();
+            }
         }, 250);
     }
 

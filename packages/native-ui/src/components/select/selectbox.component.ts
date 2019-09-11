@@ -63,9 +63,7 @@ export class OptionDirective {
         <ng-container *ngIf="button">
             <dui-button-group padding="none">
                 <ng-content select="dui-button"></ng-content>
-                <dui-button class="split-knob"
-                            (click)="dropdown.open(); touch()"
-                            small textured [iconSize]="12" icon="arrow_down"></dui-button>
+                <dui-button class="split-knob" small textured [iconSize]="12" icon="arrow_down"></dui-button>
             </dui-button-group>
         </ng-container>
 
@@ -88,7 +86,7 @@ export class OptionDirective {
         <dui-dropdown #dropdown [host]="element.nativeElement" >
             <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
-                 (click)="select(option.value)"
+                 (mouseup)="select(option.value)"
                  [selected]="innerValue === option.value"
             >
                 <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
@@ -147,10 +145,11 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
 
     public select(value: T) {
         this.innerValue = value;
+        this.touch();
         this.dropdown.close();
     }
 
-    @HostListener('click')
+    @HostListener('mousedown')
     public onClick() {
         if (this.disabled) return;
         if (this.button) return;

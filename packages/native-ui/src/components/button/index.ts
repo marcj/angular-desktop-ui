@@ -1,5 +1,10 @@
 import {NgModule} from "@angular/core";
-import {ButtonComponent, ButtonGroupComponent, ButtonGroupsComponent} from "./button.component";
+import {
+    ButtonComponent,
+    ButtonGroupComponent,
+    ButtonGroupsComponent,
+    FileChooserDirective
+} from "./button.component";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
 import {
@@ -9,6 +14,7 @@ import {
     OpenDropdownDirective,
     ContextDropdownDirective,
 } from "./dropdown.component";
+import {FormsModule} from "@angular/forms";
 
 export {
     DropdownComponent,
@@ -29,6 +35,7 @@ export {
         DropdownSplitterComponent,
         OpenDropdownDirective,
         ContextDropdownDirective,
+        FileChooserDirective,
     ],
     exports: [
         ButtonComponent,
@@ -39,9 +46,11 @@ export {
         DropdownSplitterComponent,
         OpenDropdownDirective,
         ContextDropdownDirective,
+        FileChooserDirective,
     ],
     imports: [
         CommonModule,
+        FormsModule,
         DuiIconModule,
     ]
 })

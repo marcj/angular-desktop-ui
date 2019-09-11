@@ -8,9 +8,14 @@ import {
     MenuSeparatorDirective
 } from "./menu.component";
 import {OpenExternalDirective} from "./utils";
-import {HiddenDirective} from "./dui-view.directive";
+import {ViewDirective, ViewState} from "./dui-view.directive";
 import {CdCounterComponent} from "./cd-counter.component";
 import {DuiResponsiveDirective} from "./dui-responsive.directive";
+import {CommonModule} from "@angular/common";
+
+export * from "./dui-view.directive";
+export * from "./utils";
+
 
 @NgModule({
     declarations: [
@@ -20,7 +25,7 @@ import {DuiResponsiveDirective} from "./dui-responsive.directive";
         MenuCheckboxDirective,
         MenuItemDirective,
         OpenExternalDirective,
-        HiddenDirective,
+        ViewDirective,
         CdCounterComponent,
         DuiResponsiveDirective,
     ],
@@ -31,13 +36,13 @@ import {DuiResponsiveDirective} from "./dui-responsive.directive";
         MenuCheckboxDirective,
         MenuItemDirective,
         OpenExternalDirective,
-        HiddenDirective,
+        ViewDirective,
         CdCounterComponent,
         DuiResponsiveDirective,
     ],
-    providers: [
-    ],
+    providers: [],
     imports: [
+        CommonModule,
         DuiWindowModule,
     ]
 })

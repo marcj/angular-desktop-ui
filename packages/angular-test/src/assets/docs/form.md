@@ -12,7 +12,7 @@ import {DuiFormComponent} from '@marcj/angular-desktop-ui';
 <dui-code-frame height="auto">
 ```html
 <dui-window-content>
-<dui-form>
+<dui-form style="max-width: 450px;">
     <dui-form-row label="Username">
         <dui-input [disabled]="disabled" clearer></dui-input>
     </dui-form-row>

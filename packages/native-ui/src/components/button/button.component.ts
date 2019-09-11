@@ -1,17 +1,18 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ApplicationRef,
     ChangeDetectorRef,
-    Component,
-    ElementRef,
-    HostBinding, HostListener,
+    Component, Directive,
+    ElementRef, EventEmitter,
+    HostBinding, HostListener, Injector,
     Input,
-    OnDestroy, OnInit, Optional,
+    OnDestroy, OnInit, Optional, Output,
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
 import {Subscription} from "rxjs";
 import {WindowState} from "../window/window-state";
 import {FormComponent} from "../form/form.component";
+import {ngValueAccessor, ValueAccessorBase} from "../..";
 
 @Component({
     selector: 'dui-button',
@@ -224,3 +225,56 @@ export class ButtonGroupsComponent {
     @Input() align: 'left' | 'center' | 'right' = 'left';
 }
 
+@Directive({
+    selector: '[duiFileChooser]',
+    providers: [ngValueAccessor(FileChooserDirective)]
+})
+export class FileChooserDirective extends ValueAccessorBase<any> implements OnDestroy {
+    @Input() duiFileMultiple?: boolean = false;
+    @Input() duiFileDirectory?: boolean = false;
+
+    // @Input() duiFileChooser?: string | string[];
+    @Output() duiFileChooserChange = new EventEmitter<string | string[]>();
+
+    protected input: HTMLInputElement;
+
+    constructor(
+        protected injector: Injector,
+        protected cd: ChangeDetectorRef,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
+        private app: ApplicationRef,
+    ) {
+        super(injector, cd, cdParent);
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        this.input = input;
+        this.input.addEventListener('change', (event: any) => {
+            const files = event.target.files as FileList;
+            if (files.length) {
+                if (this.duiFileMultiple !== false) {
+                    const paths: string[] = [];
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files.item(0) as any as { path: string, name: string };
+                        paths.push(file.path);
+                    }
+                    this.innerValue = paths;
+                } else {
+                    const file = files.item(0) as any as { path: string, name: string };
+                    this.innerValue = file.path;
+                }
+                this.duiFileChooserChange.emit(this.innerValue);
+                this.app.tick();
+            }
+        })
+    }
+
+    ngOnDestroy() {
+    }
+
+    @HostListener('click')
+    onClick() {
+        (this.input as any).webkitdirectory = this.duiFileDirectory !== false;
+        this.input.multiple = this.duiFileMultiple !== false;
+        this.input.click();
+    }
+}

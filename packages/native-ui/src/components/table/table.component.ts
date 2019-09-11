@@ -35,6 +35,7 @@ import * as Hammer from "hammerjs";
 import {Observable} from "rxjs";
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {DropdownComponent} from "../button";
+import {detectChangesNextFrame} from "../app/utils";
 
 export interface Column<T> {
     id: string;
@@ -197,7 +198,7 @@ export class TableHeaderDirective {
             <dui-dropdown-item
                     *ngFor="let column of sortedColumnDefs; trackBy: trackByColumn"
                     [selected]="!column.isHidden()"
-                    (click)="column.toggleHidden(); sortColumnDefs(); headerDropdown.close()"
+                    (mousedown)="column.toggleHidden(); sortColumnDefs(); headerDropdown.close()"
             >
                 <ng-container *ngIf="!headerMapDef[column.name]">
                     {{column.header || column.name}}
@@ -214,7 +215,7 @@ export class TableHeaderDirective {
                 <div class="th"
                      *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
                      [style.width]="column.getWidth()"
-                     (click)="sortBy(column.name)"
+                     (mousedown)="sortBy(column.name)"
                      [attr.name]="column.name"
                      [style.top]="scrollTop + 'px'"
                      #th>
@@ -248,7 +249,7 @@ export class TableHeaderDirective {
                              [class.selected]="selectedMap.has(row)"
                              [class.odd]="isOdd"
                              [style.height.px]="itemHeight"
-                             (click)="select(row, $event)"
+                             (mousedown)="select(row, $event)"
                              (contextmenu)="select(row, $event)"
                              (dblclick)="dbclick.emit(row)"
                         >
@@ -427,7 +428,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
     public setColumnWidth(column: TableColumnDirective, width: number) {
         column.width = width;
-        this.cd.detectChanges();
+        detectChangesNextFrame(this.cd);
     }
 
     ngOnDestroy(): void {
@@ -684,7 +685,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
     ngAfterViewInit(): void {
         this.viewport.renderedRangeStream.subscribe(() => {
-            this.cd.detectChanges();
+            detectChangesNextFrame(this.cd);
         });
 
         this.viewportElement.nativeElement.addEventListener('scroll', () => {
@@ -726,7 +727,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 return 0;
             });
 
-            this.cd.detectChanges();
+            detectChangesNextFrame(this.cd);
         }
     }
 
@@ -803,7 +804,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         this.sorted.sort((a: any, b: any) => {
             const aV = this.valueFetcher(a, sortField);
             const bV = this.valueFetcher(b, sortField);
-            
+
             if ((this.currentSortDirection || this.defaultSortDirection) === 'asc') {
                 if (aV > bV) return 1;
                 if (aV < bV) return -1;
@@ -819,8 +820,8 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         this.height = (this.sorted.length * this.itemHeight) + (this.showHeader ? 23 : 0);
 
         this.sorted = this.sorted.slice(0);
-        this.parentCd.detectChanges();
-        this.cd.detectChanges();
+        detectChangesNextFrame(this.parentCd);
+        // this.cd.detectChanges();
     }
 
     /**
@@ -920,7 +921,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         }
 
         this.selectedChange.emit(this.selected);
-        this.cd.detectChanges();
-        this.parentCd.detectChanges();
+        // this.cd.detectChanges();
+        detectChangesNextFrame(this.parentCd);
     }
 }

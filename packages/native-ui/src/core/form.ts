@@ -1,17 +1,20 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 import {
-    ChangeDetectorRef, EventEmitter,
-    forwardRef, HostBinding,
+    ChangeDetectorRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
     Inject,
     Injectable,
     Injector,
     Input,
-    OnDestroy, Output,
+    OnDestroy,
+    Output,
     SkipSelf,
     Type
 } from "@angular/core";
-import {getClassName} from "@marcj/estdlib";
 import {FormComponent} from "../components/form/form.component";
+import {detectChangesNextFrame} from "../components/app/utils";
 
 export function ngValueAccessor<T>(clazz: Type<T>) {
     return {
@@ -26,11 +29,11 @@ export function ngValueAccessor<T>(clazz: Type<T>) {
  * to provide the dependencies of this class manually.
  *
  *
-    constructor(
-        protected injector: Injector,
-        protected cd: ChangeDetectorRef,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
-    ) {
+ constructor(
+ protected injector: Injector,
+ protected cd: ChangeDetectorRef,
+ @SkipSelf() protected cdParent: ChangeDetectorRef,
+ ) {
         super(injector, cd, cdParent);
     }
  *
@@ -56,6 +59,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     private _ngControlFetched = false;
 
     @Input() disabled?: boolean;
+
     @HostBinding('class.disabled')
     get isDisabled() {
         if (this.formComponent && this.formComponent.disabled) return true;
@@ -68,12 +72,14 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     }
 
     @Input() valid?: boolean;
+
     @HostBinding('class.valid')
     get isValid() {
         return this.valid === true;
     }
 
     @Input() error?: boolean;
+
     @HostBinding('class.error')
     get isError() {
         if (undefined === this.error && this.ngControl) {
@@ -99,7 +105,9 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     ) {
         try {
             this.formComponent = injector.get(FormComponent, undefined);
-        } catch (e) {}
+        } catch (e) {
+        }
+
     }
 
     get ngControl(): NgControl | undefined {
@@ -147,13 +155,11 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
                 callback(value);
             }
             this.onInnerValueChange().then(() => {
-                this.cd.markForCheck();
-                this.cdParent.detectChanges();
+                detectChangesNextFrame(this.cdParent);
             });
             this.change.emit(value);
+            detectChangesNextFrame(this.cdParent);
         }
-        this.cd.markForCheck();
-        this.cdParent.detectChanges();
     }
 
     /**
@@ -164,11 +170,8 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     async writeValue(value?: T) {
         if (this._innerValue !== value) {
             this._innerValue = value;
-            await this.onInnerValueChange();
-
-            this.cd.markForCheck();
-            this.cdParent.detectChanges();
         }
+        detectChangesNextFrame(this.cdParent);
     }
 
     /**
@@ -176,7 +179,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
      *
      * @hidden
      */
-    protected async onInnerValueChange() {
+    async onInnerValueChange() {
 
     }
 

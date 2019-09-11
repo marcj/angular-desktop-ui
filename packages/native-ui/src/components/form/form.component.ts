@@ -41,7 +41,6 @@ export class FormRowComponent {
     template: `
         <form [formGroup]="formGroup" (submit)="$event.preventDefault();submitForm()">
             <ng-content></ng-content>
-
             <div *ngIf="errorText" class="error">{{errorText}}</div>
         </form>
     `,
@@ -104,6 +103,8 @@ export class FormComponent implements OnChanges {
                 } else {
                     this.errorText = error.message || error;
                 }
+
+                console.error(error);
             }
         }
 
