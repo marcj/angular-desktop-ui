@@ -28,7 +28,7 @@ export class SplitterComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         const mc = new Hammer(this.host.nativeElement);
-        mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
+        mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 1}));
 
         // if (!this.element) {
         //     return;
@@ -42,9 +42,9 @@ export class SplitterComponent implements AfterViewInit {
         });
 
         this.host.nativeElement.addEventListener('mousedown', (e: MouseEvent) => {
-            e.preventDefault();
             e.stopPropagation();
-        });
+            e.preventDefault();
+        }, true);
 
         mc.on('panstart', (event: HammerInput) => {
             if (this.position === 'right' || this.position === 'left') {

@@ -6,6 +6,7 @@ import {eachPair} from "@marcj/estdlib";
 })
 export class DuiResponsiveDirective implements OnInit {
     clazz: { [className: string]: boolean } = {};
+    protected lastRequest: any;
 
     @Input() duiClassMin: { [className: string]: number } = {};
 
@@ -19,17 +20,23 @@ export class DuiResponsiveDirective implements OnInit {
 
     @HostListener('window:resize')
     onResize() {
-        const element: HTMLElement = this.element.nativeElement;
-        for (const [name, number] of eachPair(this.duiClassMin)) {
-            const valid = element.offsetWidth > number;
-            if (this.clazz[name] !== valid) {
-                this.clazz[name] = valid;
-                if (valid) {
-                    element.classList.add(name);
-                } else {
-                    element.classList.remove(name);
+        if (this.lastRequest) {
+            cancelAnimationFrame(this.lastRequest);
+        }
+
+        this.lastRequest = requestAnimationFrame(() => {
+            const element: HTMLElement = this.element.nativeElement;
+            for (const [name, number] of eachPair(this.duiClassMin)) {
+                const valid = element.offsetWidth > number;
+                if (this.clazz[name] !== valid) {
+                    this.clazz[name] = valid;
+                    if (valid) {
+                        element.classList.add(name);
+                    } else {
+                        element.classList.remove(name);
+                    }
                 }
             }
-        }
+        });
     }
 }

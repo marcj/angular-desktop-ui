@@ -436,7 +436,9 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
     @HostListener('window:resize')
     onResize() {
-        this.viewport.checkViewportSize();
+        requestAnimationFrame(() => {
+            this.viewport.checkViewportSize();
+        });
     }
 
     /**
@@ -515,7 +517,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     protected initHeaderMovement() {
         if (this.header && this.ths) {
             const mc = new Hammer(this.header!.nativeElement);
-            mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 2}));
+            mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 1}));
 
             interface Box {
                 left: number;
