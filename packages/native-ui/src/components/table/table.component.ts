@@ -215,7 +215,7 @@ export class TableHeaderDirective {
                 <div class="th"
                      *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
                      [style.width]="column.getWidth()"
-                     (mousedown)="sortBy(column.name)"
+                     (mousedown)="sortBy(column.name, $event)"
                      [attr.name]="column.name"
                      [style.top]="scrollTop + 'px'"
                      #th>
@@ -451,11 +451,13 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * Toggles the sort by the given column name.
      */
-    public sortBy(name: string) {
+    public sortBy(name: string, $event?: MouseEvent) {
         if (this.ignoreThisSort) {
             this.ignoreThisSort = false;
             return;
         }
+
+        if ($event && $event.button === 2) return;
 
         if (this.headerMapDef[name]) {
             const headerDef = this.headerMapDef[name];
