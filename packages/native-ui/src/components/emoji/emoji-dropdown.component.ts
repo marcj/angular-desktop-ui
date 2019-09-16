@@ -118,7 +118,7 @@ export class EmojiDropdownComponent implements AfterViewInit {
             this.cd.detectChanges();
         }
 
-        this.dropdown.open(target);
+        this.dropdown.toggle(target);
         if (this.emoji) {
             const element = document.getElementById('emoji_' + this.emoji);
             if (element) {

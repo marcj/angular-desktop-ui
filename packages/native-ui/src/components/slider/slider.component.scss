@@ -1,0 +1,46 @@
+:host {
+    display: inline-block;
+    position: relative;
+    width: 150px;
+    height: 17px;
+}
+
+.bg {
+    margin-top: 7px;
+    height: 3px;
+    background-color: var(--line-color);
+    border-radius: 1px;
+}
+
+.active-line {
+    margin-top: 7px;
+    border-radius: 100%;
+    width: 30%;
+    height: 3px;
+    background-color: var(--dui-selection);
+}
+
+.knob-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 17px;
+}
+
+.knob {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #c9c9c9;
+    background-color: white;
+    border-radius: 100%;
+}
+
+:host-context(.dark) .knob {
+    background-color: #cbcbcb;
+    top: 1px;
+    width: 15px;
+    height: 15px;
+}

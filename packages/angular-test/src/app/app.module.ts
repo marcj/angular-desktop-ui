@@ -13,6 +13,7 @@ import {
     DuiTableModule,
     DuiAppModule,
     DuiDialogModule,
+    DuiSliderModule,
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -47,6 +48,7 @@ import {DocuModule} from "./docu/docu.module";
         DuiAppModule,
         DuiDialogModule,
         DuiEmojiModule,
+        DuiSliderModule,
         DocuModule,
         DocModule.forRoot(AppModule),
     ],

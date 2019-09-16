@@ -86,7 +86,7 @@ export class OptionDirective {
         <dui-dropdown #dropdown [host]="element.nativeElement" >
             <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
-                 (mouseup)="select(option.value)"
+                 (click)="select(option.value)"
                  [selected]="innerValue === option.value"
             >
                 <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
@@ -154,7 +154,7 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
         if (this.disabled) return;
         if (this.button) return;
 
-        this.dropdown.open();
+        this.dropdown.toggle();
     }
 
     ngOnChanges(changes: SimpleChanges) {

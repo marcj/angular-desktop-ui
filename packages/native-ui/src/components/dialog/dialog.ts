@@ -23,7 +23,7 @@ import {eachPair} from "@marcj/estdlib";
 
         <dui-dialog-actions>
             <dui-button [closeDialog]="false">Cancel</dui-button>
-            <dui-button [closeDialog]="true">OK</dui-button>
+            <dui-button focus [closeDialog]="true">OK</dui-button>
         </dui-dialog-actions>
     `
 })
@@ -38,7 +38,7 @@ export class DuiDialogConfirm {
         <div *ngIf="content">{{content}}</div>
 
         <dui-dialog-actions>
-            <dui-button [closeDialog]="true">OK</dui-button>
+            <dui-button focus [closeDialog]="true">OK</dui-button>
         </dui-dialog-actions>
     `
 })
@@ -51,7 +51,9 @@ export class DuiDialogAlert {
     template: `
         <h3>{{title || 'No title'}}</h3>
         <div *ngIf="content">{{content}}</div>
-        <dui-input [(ngModel)]="value"></dui-input>
+        <div style="padding-top: 5px;">
+            <dui-input (enter)="dialog.close(value)" focus [(ngModel)]="value"></dui-input>
+        </div>
 
         <dui-dialog-actions>
             <dui-button [closeDialog]="false">Cancel</dui-button>
@@ -64,6 +66,8 @@ export class DuiDialogPrompt {
     @Input() content: string = '';
 
     @Input() value: string = '';
+
+    constructor(public dialog: DialogComponent) {}
 }
 
 @Injectable()
@@ -76,7 +80,12 @@ export class DuiDialog {
 
     }
 
-    public open(viewContainerRef: ViewContainerRef, component: Type<any>, inputs: { [name: string]: any } = {}): DialogComponent {
+    public open(
+        viewContainerRef: ViewContainerRef,
+        component: Type<any>,
+        inputs: { [name: string]: any } = {},
+        dialogInputs: { [name: string]: any } = {},
+    ): DialogComponent {
         const factoryMain = this.resolver.resolveComponentFactory(DialogComponent);
         const original = (factoryMain.create as any).bind(factoryMain);
         factoryMain.create = function (...args: any[]) {
@@ -85,6 +94,9 @@ export class DuiDialog {
             comp.instance.visible = true;
             comp.instance.component = component;
             comp.instance.componentInputs = inputs;
+            for (const [i, v] of eachPair(dialogInputs)) {
+                (comp.instance as any)[i] = v;
+            }
 
             if ((component as any).dialogDefaults) {
                 for (const [i, v] of eachPair((component as any).dialogDefaults)) {
@@ -106,18 +118,18 @@ export class DuiDialog {
         return comp.instance;
     }
 
-    public async alert(viewContainerRef: ViewContainerRef, title: string, content?: string): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogAlert, {title, content});
+    public async alert(viewContainerRef: ViewContainerRef, title: string, content?: string, dialoInputs: { [name: string]: any } = {}): Promise<boolean> {
+        const dialog = this.open(viewContainerRef, DuiDialogAlert, {title, content}, dialoInputs);
         return dialog.toPromise();
     }
 
-    public async confirm(viewContainerRef: ViewContainerRef, title: string, content?: string): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogConfirm, {title, content});
+    public async confirm(viewContainerRef: ViewContainerRef, title: string, content?: string, dialoInputs: { [name: string]: any } = {}): Promise<boolean> {
+        const dialog = this.open(viewContainerRef, DuiDialogConfirm, {title, content}, dialoInputs);
         return dialog.toPromise();
     }
 
-    public async prompt(viewContainerRef: ViewContainerRef, title: string, value: string, content?: string): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content});
+    public async prompt(viewContainerRef: ViewContainerRef, title: string, value: string, content?: string, dialoInputs: { [name: string]: any } = {}): Promise<false | string> {
+        const dialog = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content}, dialoInputs);
         return dialog.toPromise();
     }
 }

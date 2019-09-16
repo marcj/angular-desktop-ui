@@ -20,6 +20,7 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
             <input
                     *ngIf="type !== 'textarea'"
                     #input
+                    [step]="step"
                     [type]="type" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
                     [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" [disabled]="isDisabled"
                     [(ngModel)]="innerValue"/>
@@ -41,6 +42,8 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 })
 export class InputComponent extends ValueAccessorBase<any> implements AfterViewInit {
     @Input() type: string = 'text';
+
+    @Input() step: number = 1;
 
     @Input() placeholder: string = '';
 

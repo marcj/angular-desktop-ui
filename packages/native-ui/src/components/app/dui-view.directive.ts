@@ -65,7 +65,11 @@ export class ViewDirective implements OnDestroy {
 
         if (this.visible) {
             if (this.view) {
-                this.view.rootNodes.map(element => element.style.display = '');
+                this.view.rootNodes.map(element => {
+                    if (element.style) {
+                        element.style.display = '';
+                    }
+                });
                 // console.log('rettach', this.viewStates);
                 this.view!.reattach();
                 detectChangesNextFrame(this.view);
@@ -79,7 +83,11 @@ export class ViewDirective implements OnDestroy {
             currentViewDirective = old;
         } else {
             if (this.view) {
-                this.view!.rootNodes.map(element => element.style.display = 'none');
+                this.view!.rootNodes.map(element => {
+                    if (element.style) {
+                        element.style.display = 'none';
+                    }
+                });
                 this.view!.detach();
                 detectChangesNextFrame(this.view);
             }

@@ -84,13 +84,15 @@ export class DropdownComponent {
         }
     }
 
-    @HostListener('click')
-    public open(target?: HTMLElement | ElementRef | MouseEvent) {
+    public toggle(target?: HTMLElement | ElementRef | MouseEvent) {
         if (this.isOpen) {
             this.close();
-            return;
+        } else {
+            this.open(target);
         }
+    }
 
+    public open(target?: HTMLElement | ElementRef | MouseEvent) {
         if (this.lastFocusWatcher) {
             this.lastFocusWatcher.unsubscribe();
         }
@@ -104,8 +106,6 @@ export class DropdownComponent {
         if (!target) {
             throw new Error('No target or host specified for dropdown');
         }
-
-        this.isOpen = true;
         let position: PositionStrategy | undefined;
 
         if (target instanceof MouseEvent) {
@@ -161,42 +161,47 @@ export class DropdownComponent {
                 ]);
         }
 
+        if (this.overlayRef) {
+            this.overlayRef.updatePositionStrategy(position);
+            this.overlayRef.updatePosition();
+        } else {
+            this.isOpen = true;
+            const options: OverlayConfig = {
+                minWidth: 50,
+                maxWidth: 450,
+                maxHeight: '90%',
+                hasBackdrop: false,
+                scrollStrategy: this.overlayService.scrollStrategies.reposition(),
+                positionStrategy: position || undefined
+            };
+            if (this.width) options.width = this.width;
+            if (this.height) options.height = this.height;
+            if (this.minWidth) options.minWidth = this.minWidth;
+            if (this.minHeight) options.minHeight = this.minHeight;
 
-        const options: OverlayConfig = {
-            minWidth: 50,
-            maxWidth: 450,
-            maxHeight: '90%',
-            hasBackdrop: false,
-            scrollStrategy: this.overlayService.scrollStrategies.reposition(),
-            positionStrategy: position || undefined
-        };
-        if (this.width) options.width = this.width;
-        if (this.height) options.height = this.height;
-        if (this.minWidth) options.minWidth = this.minWidth;
-        if (this.minHeight) options.minHeight = this.minHeight;
+            this.overlayRef = this.overlayService.create(options);
 
-        this.overlayRef = this.overlayService.create(options);
+            const portal = new TemplatePortal(this.dropdownTemplate, this.viewContainerRef);
 
-        const portal = new TemplatePortal(this.dropdownTemplate, this.viewContainerRef);
+            this.overlayRef!.attach(portal);
 
-        this.overlayRef!.attach(portal);
+            this.cd.detectChanges();
 
-        this.cd.detectChanges();
+            this.overlayRef!.updatePosition();
+            this.shown.emit();
+
+            setTimeout(() => {
+                if (this.overlayRef) {
+                    this.overlayRef.updatePosition();
+                }
+            }, 250);
+        }
 
         this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, [...this.allowedFocus, target as any]).subscribe(() => {
             if (!this.keepOpen) {
                 this.close();
             }
         });
-
-        this.overlayRef!.updatePosition();
-        this.shown.emit();
-
-        setTimeout(() => {
-            if (this.overlayRef) {
-                this.overlayRef.updatePosition();
-            }
-        }, 250);
     }
 
     public close() {
@@ -231,7 +236,7 @@ export class OpenDropdownDirective {
     @HostListener('click')
     onClick() {
         if (this.openDropdown) {
-            this.openDropdown.open(this.elementRef);
+            this.openDropdown.toggle(this.elementRef);
         }
     }
 }
