@@ -689,7 +689,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
 
     ngAfterViewInit(): void {
         this.viewport.renderedRangeStream.subscribe(() => {
-            detectChangesNextFrame(this.cd);
+            this.cd.detectChanges();
         });
 
         this.viewportElement.nativeElement.addEventListener('scroll', () => {

@@ -30,6 +30,10 @@ import {eachPair} from "@marcj/estdlib";
 export class DuiDialogConfirm {
     @Input() title: string = 'Confirm';
     @Input() content: string = '';
+
+    static dialogDefaults = {
+        maxWidth: '700px'
+    }
 }
 
 @Component({
@@ -45,6 +49,10 @@ export class DuiDialogConfirm {
 export class DuiDialogAlert {
     @Input() title: string = 'Alert';
     @Input() content: string = '';
+
+    static dialogDefaults = {
+        maxWidth: '700px'
+    }
 }
 
 @Component({
@@ -66,6 +74,10 @@ export class DuiDialogPrompt {
     @Input() content: string = '';
 
     @Input() value: string = '';
+
+    static dialogDefaults = {
+        maxWidth: '700px'
+    }
 
     constructor(public dialog: DialogComponent) {}
 }
@@ -94,14 +106,15 @@ export class DuiDialog {
             comp.instance.visible = true;
             comp.instance.component = component;
             comp.instance.componentInputs = inputs;
-            for (const [i, v] of eachPair(dialogInputs)) {
-                (comp.instance as any)[i] = v;
-            }
 
             if ((component as any).dialogDefaults) {
                 for (const [i, v] of eachPair((component as any).dialogDefaults)) {
                     (comp.instance as any)[i] = v;
                 }
+            }
+
+            for (const [i, v] of eachPair(dialogInputs)) {
+                (comp.instance as any)[i] = v;
             }
 
             return comp;

@@ -73,9 +73,7 @@ export class ViewDirective implements OnDestroy {
                 // console.log('rettach', this.viewStates);
                 this.view!.reattach();
                 this.view.markForCheck();
-                requestAnimationFrame(() => {
-                    window.dispatchEvent(new Event('resize'));
-                });
+                window.dispatchEvent(new Event('resize'));
                 return;
             }
 
