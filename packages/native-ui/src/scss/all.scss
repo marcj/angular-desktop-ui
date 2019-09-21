@@ -35,7 +35,7 @@ html, body {
     --line-color-prominent: #9fa4a9;
 
     --dui-window-content-bg: #ececec;
-    --dui-window-content-bg-trans: #dcdcdce2;
+    --dui-window-content-bg-trans: #dcdcdcee;
 
     color: var(--color-black);
 }
@@ -76,7 +76,7 @@ html, body {
 
 ::-webkit-scrollbar-thumb {
     background: rgba(169, 173, 175, 0.77);
-    border-radius: 3px;
+    border-radius: 8px;
     border: 2px solid rgba(0, 0, 0, 0.01);
     background-clip: padding-box;
 }
@@ -159,7 +159,7 @@ h4 {
             background-clip: padding-box;
         }
 
-        border-radius: 8px;;
+        border-radius: 8px;
     }
 }
 

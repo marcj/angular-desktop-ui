@@ -51,7 +51,14 @@ export class ViewDirective implements OnDestroy {
         // if (this.parentViewDirective) return this.parentViewDirective.isVisible();
 
         if (this.view) {
-            return !this.view.rootNodes.some((v) => v.offsetParent === null);
+            for (const node of this.view.rootNodes) {
+                if (node.style && node.offsetParent !== null) {
+                    return true;
+                }
+            }
+
+            return false;
+            // return !this.view.rootNodes.some((v) => v.offsetParent === null);
         }
 
         return this.visible;
@@ -89,6 +96,7 @@ export class ViewDirective implements OnDestroy {
                     }
                 });
                 this.view!.detach();
+                this.view.markForCheck();
                 detectChangesNextFrame(this.view);
             }
         }

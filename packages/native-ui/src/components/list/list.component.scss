@@ -12,11 +12,11 @@
 }
 
 :host ::ng-deep dui-list-item.selected {
-    background-color: #999ca399;
+    background-color: #999ca352;
 }
 
 :host-context(.dark) ::ng-deep dui-list-item.selected {
-    background-color: #434752;
+    background-color: #acaeb936;
 }
 
 :host:focus.focusable ::ng-deep dui-list-item.selected {

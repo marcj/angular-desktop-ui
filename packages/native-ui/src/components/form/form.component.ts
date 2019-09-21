@@ -105,6 +105,7 @@ export class FormComponent implements OnChanges {
                 }
 
                 console.error(error);
+                throw error;
             }
         }
 
