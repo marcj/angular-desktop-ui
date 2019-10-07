@@ -55,13 +55,14 @@ export class MenuBase implements AfterViewInit {
         if (this.child) {
             for (const item of this.child.toArray()) {
                 if (item === this) continue;
-                if (item.validOs()) {
-                    submenu.push(item.buildTemplate());
+                if (!item.validOs()) {
+                    continue
                 }
+                submenu.push(item.buildTemplate());
             }
         }
 
-        const result: {[name: string]: any} = {
+        const result: { [name: string]: any } = {
             click: () => {
                 this.click.emit()
             },
@@ -162,7 +163,7 @@ export class MenuRadioDirective extends MenuBase {
     selector: 'dui-menu-separator',
     providers: [{provide: MenuBase, useExisting: forwardRef(() => MenuSeparatorDirective)}]
 })
-export class MenuSeparatorDirective {
+export class MenuSeparatorDirective extends MenuBase {
     type = 'separator';
 }
 

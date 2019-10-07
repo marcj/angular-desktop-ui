@@ -29,6 +29,10 @@
     }
 }
 
+::ng-deep .cdk-overlay-pane {
+    -webkit-app-region: no-drag;
+}
+
 .closer {
     position: absolute;
     right: 8px;

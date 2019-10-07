@@ -12,6 +12,14 @@ export class Electron {
         return electron.remote;
     }
 
+    public static getIpc(): any {
+        if (!electron) {
+            throw new Error('No Electron available.');
+        }
+
+        return electron.ipcRenderer;
+    }
+
     public static isAvailable(): any {
         return !!electron;
     }
