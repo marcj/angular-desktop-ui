@@ -1,6 +1,6 @@
 {
   "name": "angular-desktop-ui",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -52,7 +52,7 @@
     "@angular/language-service": "^8.2.5",
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6",
-    "@marcj/angular-desktop-ui": "^0.2.4",
+    "@marcj/angular-desktop-ui": "^0.2.5",
     "@types/highlight.js": "^9.12.3",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
