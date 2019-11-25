@@ -16,29 +16,30 @@
 
 @mixin box-textured-dark {
     color: white;
-    background-color: #62696f;
-    border-top: 1px solid #293239;
-    border-bottom: 1px solid #232a31;
-    border-left: 1px solid #273037;
-    border-right: 1px solid #273037;
-    box-shadow: 0 1px 0 #2c353d;
+
+    background-image: linear-gradient(-180deg, #787878 1px, #696969 1px, #696969 95%);
+    border-top: 1px solid #313131;
+    border-bottom: 1px solid #2a2a2a;
+    border-left: 1px solid #303030;
+    border-right: 1px solid #303030;
 }
 
 @mixin box-textured-dark-active {
+    background-image: none;
     background-color: #797f84;
 }
 
 @mixin box-textured-dark-toolbar {
-    background-image: linear-gradient(-180deg, #667079 0%, #626B74 100%);
-    border-top: 1px solid #7a828a;
-    border-bottom: 1px solid #656c74;
-    border-left: 1px solid #3f484f;
-    border-right: 1px solid #3f484f;
+    background-image: linear-gradient(-180deg, #6B6B6B 0%, #656565 100%);
+    border-top: 1px solid #797979;
+    border-bottom: 1px solid #646464;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
     box-shadow: none;
 }
 
 @mixin box-textured-dark-toolbar-active {
-    background: #7f8992
+    background-image: linear-gradient(180deg, #868686 0%, #7A7A7A 100%);
 }
 
 @mixin focus-border {

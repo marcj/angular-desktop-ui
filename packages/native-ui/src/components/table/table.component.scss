@@ -114,12 +114,12 @@
 }
 
 :host-context(.dark) {
-    background-color: #1e262e;
+    background-color: #1e1e1e;
     border: 1px solid #565656;
 
     .header {
-        background-color: #2a363f;
-        border-bottom: 1px solid rgba(206, 206, 206, 0.23)
+        background-color: #2d2d2d;
+        border-bottom: 1px solid #474747;
     }
 
     .th {

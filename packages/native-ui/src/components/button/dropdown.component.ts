@@ -172,7 +172,7 @@ export class DropdownComponent {
                 maxHeight: '90%',
                 hasBackdrop: false,
                 scrollStrategy: this.overlayService.scrollStrategies.reposition(),
-                positionStrategy: position || undefined
+                positionStrategy: position
             };
             if (this.width) options.width = this.width;
             if (this.height) options.height = this.height;

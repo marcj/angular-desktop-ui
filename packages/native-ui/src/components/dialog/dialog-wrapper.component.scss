@@ -70,7 +70,7 @@
 
 ::ng-deep .dark {
     .dialog-actions {
-        background-color: #2d373f;
+        background-color: var(--dui-window-content-bg);
     }
 
     ::ng-deep .cdk-overlay-pane dui-window {

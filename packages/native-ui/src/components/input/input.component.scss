@@ -115,20 +115,34 @@ dui-icon {
     pointer-events: all;
 }
 
+:host.textured {
+    @include box-textured;
+
+    &:not(.light-focus).focused {
+        border: 1px solid #4991bc;
+    }
+}
+
 :host-context(.dark) {
     color: white;
-    background-image: linear-gradient(-180deg, #373F46 5%, #3A4249 6%, #3B434B 12%, #3B434B 100%);
+    background-image: linear-gradient(-180deg, #3D3D3D 0%, #414141 10%, #414141 100%);
 
     &.semi-transparent {
-        background-image: linear-gradient(-180deg, #373F46e0 5%, #3A4249e0 6%, #3B434Be0 12%, #3B434Be0 100%);
+        background-image: linear-gradient(-180deg, #3D3D3De0 0%, #414141e0 10%, #414141e0 100%);
     }
 
-    border: 1px solid #464d53;
-    border-left: 1px solid #414951;
-    border-right: 1px solid #414951;
+    border-top: 1px solid #565656;
+    border-bottom: 1px solid #565656;
+    border-left: 1px solid #484848 ;
+    border-right: 1px solid #484848;
 
     &:not(.light-focus).focused {
         @include focus-border-dark;
+    }
+
+    &.textured:not(.light-focus).focused {
+        @include focus-border-dark;
+        border: 1px solid #4991bc;
     }
 
     &.light-focus.focused {
@@ -137,14 +151,6 @@ dui-icon {
 
     input, textarea {
         color: white;
-    }
-}
-
-:host.textured {
-    @include box-textured;
-
-    &:not(.light-focus).focused {
-        @include focus-border;
     }
 }
 

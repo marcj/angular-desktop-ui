@@ -34,7 +34,7 @@
 .dui-dropdown-arrow {
     position: absolute;
     top: -14px;
-    left: calc(50% - 28px/2);
+    left: calc(50% - 28px / 2);
     width: 28px;
     height: 15px;
 
@@ -49,7 +49,7 @@
     }
 
     .dui-dropdown {
-        box-shadow: 0 4px 12px 0 rgba(45,45,45,0.77);
+        box-shadow: 0 4px 12px 0 rgba(45, 45, 45, 0.77);
 
         border-top: 1px solid #0a0b0c;
         border-left: 1px solid #07090a;
@@ -57,10 +57,10 @@
         border-bottom: 1px solid #050607;
 
         > div.content {
-            border-top: 1px solid #505459;
-            border-left: 1px solid #4c525d;
-            border-right: 1px solid #4c525d;
-            border-bottom: 1px solid #485052;
+            border-top: 1px solid #5f5f5f;
+            border-left: 1px solid #5f5f5f;
+            border-right: 1px solid #5f5f5f;
+            border-bottom: 1px solid #5f5f5f;
         }
 
     }

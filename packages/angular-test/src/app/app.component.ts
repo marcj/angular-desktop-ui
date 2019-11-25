@@ -55,7 +55,6 @@ export class AppComponent {
         });
 
         this.platform = localStorage.getItem('dui-platform') || 'darwin';
-        console.log('wtf', localStorage.getItem('dui-platform'), this.platform);
         this.darkMode = (localStorage.getItem('dui-darkmode') || 'false') === 'true';
         this.setDarkMode(this.darkMode);
         this.setPlatform(this.platform);

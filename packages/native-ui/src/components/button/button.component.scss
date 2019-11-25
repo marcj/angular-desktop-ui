@@ -1,11 +1,18 @@
 @import "../../scss/mixins";
 
 $buttonTextColor: #575757;
+/*
+In macOS we have 4 types of buttons:
+ - default
+ - default.primary
+ - textured
+ - square
+ - window-toolbar
+*/
 
 :host {
     vertical-align: middle;
     position: relative;
-    display: inline-block;
     font-weight: 500;
     height: 21px;
     color: $buttonTextColor;
@@ -143,11 +150,11 @@ $buttonTextColor: #575757;
 
 :host-context(.dark) {
     color: white;
-    background-color: #62696f;
-    border-top: 1px solid #2c353c;
-    border-bottom: 1px solid #283036;
-    border-left: 1px solid #2a3239;
-    border-right: 1px solid #2a3239;
+    background-image: linear-gradient(-180deg, #787878 1px, #696969 1px, #696969 95%);
+    border-top: 1px solid #313131;
+    border-bottom: 1px solid #2a2a2a;
+    border-left: 1px solid #303030;
+    border-right: 1px solid #303030;
     box-shadow: 0 1px 0 #2c353d;
 
     &.highlighted {
@@ -165,12 +172,12 @@ $buttonTextColor: #575757;
     }
 
     &.square {
-        background-color: #475057;
-        border: 1px solid #62696f;
+        background-image: linear-gradient(-180deg, #515151 0%, #4B4B4B 100%);
+        border: 1px solid #656565;
 
         &:not(.disabled).active,
         &:not(.disabled):active {
-            background-image: linear-gradient(-180deg, #62696F 0%, #586066 100%);
+            background-image: linear-gradient(-180deg, #656565 0%, #5C5C5C 100%);
         }
     }
 
@@ -191,10 +198,11 @@ $buttonTextColor: #575757;
 
 :host-context(.dark).textured {
     background-color: #62696f;
+    box-shadow: none;
 
     &.active,
     &:active {
-        background: #797f84;
+        background: #7e7e7d;
     }
 }
 

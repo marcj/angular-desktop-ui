@@ -152,6 +152,11 @@ select {
 :host-context(.dark):not(.split) {
     @include box-textured-dark;
 
+    &.active,
+    &:active {
+        @include box-textured-dark-active;
+    }
+
     &:not(.disabled):not(.textured) .knob {
         border-top: 1px solid #293239;
         border-bottom: 1px solid #232a31;

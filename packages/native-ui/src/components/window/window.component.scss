@@ -6,14 +6,32 @@
     flex-direction: column;
 }
 
+:host-context(.dark) {
+    border-top: 1px solid #868686;
+    border-right: 1px solid #5d5d5d;
+    border-left: 1px solid #5d5d5d;
+    border-bottom: 1px solid #5b5b5b;
+}
+
+:host-context(body:not(.electron).dark) {
+    outline: 1px solid #010101;
+}
+
 :host-context(body:not(.electron)),
 :host-context(body.platform-linux) {
     background: rgba(236, 236, 236, 0.8);
     backdrop-filter: blur(10px);
 }
 
+:host-context(body:not(.electron).light) {
+    border-top: 1px solid #d3d3d3;
+    border-right: 1px solid #b4b4b4;
+    border-left: 1px solid #b4b4b4 ;
+    border-bottom: 1px solid #989898;
+}
+
 :host-context(body:not(.electron).dark),
 :host-context(body.platform-linux.dark) {
-    background: rgba(45, 55, 63, 0.81);
+    background: var(--dui-window-content-bg-trans);
     backdrop-filter: blur(10px);
 }

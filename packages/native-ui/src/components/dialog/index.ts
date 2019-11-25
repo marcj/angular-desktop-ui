@@ -23,6 +23,7 @@ import {DuiButtonModule} from "../button";
 import {DuiCoreModule} from "../core";
 import {DuiInputModule} from "../input";
 import {FormsModule} from "@angular/forms";
+import {DuiDialogProgress} from "./progress-dialog.component";
 
 export * from "./dialog.component";
 export {DuiDialog} from "./dialog";
@@ -39,6 +40,7 @@ export {DuiDialog} from "./dialog";
         DuiDialogAlert,
         DuiDialogConfirm,
         DuiDialogPrompt,
+        DuiDialogProgress,
         DialogWrapperComponent,
         DialogErrorComponent,
     ],
@@ -53,6 +55,7 @@ export {DuiDialog} from "./dialog";
         DuiDialogAlert,
         DuiDialogConfirm,
         DuiDialogPrompt,
+        DuiDialogProgress,
         DialogErrorComponent,
     ],
     entryComponents: [

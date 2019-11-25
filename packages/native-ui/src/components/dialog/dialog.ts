@@ -6,7 +6,8 @@ import {
     Directive,
     ElementRef,
     Injectable,
-    Input, OnDestroy,
+    Input,
+    OnDestroy,
     Type,
     ViewContainerRef
 } from "@angular/core";
@@ -14,6 +15,7 @@ import {Overlay} from "@angular/cdk/overlay";
 import {DialogComponent} from "./dialog.component";
 import {isTargetChildOf} from "../../core/utils";
 import {eachPair} from "@marcj/estdlib";
+import {DuiDialogProgress, ProgressDialogState} from "./progress-dialog.component";
 
 
 @Component({
@@ -79,7 +81,8 @@ export class DuiDialogPrompt {
         maxWidth: '700px'
     }
 
-    constructor(public dialog: DialogComponent) {}
+    constructor(public dialog: DialogComponent) {
+    }
 }
 
 @Injectable()
@@ -131,19 +134,25 @@ export class DuiDialog {
         return comp.instance;
     }
 
-    public async alert(viewContainerRef: ViewContainerRef, title: string, content?: string, dialoInputs: { [name: string]: any } = {}): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogAlert, {title, content}, dialoInputs);
+    public async alert(viewContainerRef: ViewContainerRef, title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
+        const dialog = this.open(viewContainerRef, DuiDialogAlert, {title, content}, dialodInputs);
         return dialog.toPromise();
     }
 
-    public async confirm(viewContainerRef: ViewContainerRef, title: string, content?: string, dialoInputs: { [name: string]: any } = {}): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogConfirm, {title, content}, dialoInputs);
+    public async confirm(viewContainerRef: ViewContainerRef, title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
+        const dialog = this.open(viewContainerRef, DuiDialogConfirm, {title, content}, dialodInputs);
         return dialog.toPromise();
     }
 
-    public async prompt(viewContainerRef: ViewContainerRef, title: string, value: string, content?: string, dialoInputs: { [name: string]: any } = {}): Promise<false | string> {
-        const dialog = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content}, dialoInputs);
+    public async prompt(viewContainerRef: ViewContainerRef, title: string, value: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<false | string> {
+        const dialog = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content}, dialodInputs);
         return dialog.toPromise();
+    }
+
+    public progress(viewContainerRef: ViewContainerRef): ProgressDialogState {
+        const state$ = new ProgressDialogState;
+        this.open(viewContainerRef, DuiDialogProgress, {state$});
+        return state$;
     }
 }
 

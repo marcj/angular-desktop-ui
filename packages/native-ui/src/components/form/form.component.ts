@@ -47,7 +47,7 @@ export class FormRowComponent {
     styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnChanges {
-    @Input() formGroup!: FormGroup;
+    @Input() formGroup: FormGroup = new FormGroup({});
 
     @Input()
     disabled: boolean = false;

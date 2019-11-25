@@ -6,7 +6,7 @@
     flex-shrink: 0;
     flex-grow: 0;
 
-    background-image: linear-gradient(-180deg, #EDECED 1%, #D2D1D2 97%);
+    background-image: linear-gradient(-180deg, white 1px, #EDECED 1%, #D2D1D2 97%);
     border-bottom: 1px solid #a8a8a7;
 
     padding: 0 70px;
@@ -58,6 +58,9 @@
 }
 
 :host-context(.platform-linux.dark) {
+    .closer {
+        top: 1px;
+    }
     .closer > div {
         border-radius: 20px;
         width: 20px;
@@ -78,8 +81,8 @@
         }
     }
 
-    background-image: linear-gradient(180deg, #5A584F 0%, #3D3C37 100%);
-    border-bottom-color: #3D3C37;
+    //background-image: linear-gradient(180deg, #5A584F 0%, #3D3C37 100%);
+    //border-bottom-color: #3D3C37;
 
     .title {
         color: rgba(255, 255, 255, 0.73);
@@ -93,7 +96,7 @@
 }
 
 :host-context(.dark) {
-    background-image: linear-gradient(-180deg, #434C55 0%, #363D44 100%);
+    background-image: linear-gradient(-180deg, #424242 0%, #353535 100%);
     border-bottom: 1px solid #000000;
 
     .title {
@@ -149,18 +152,18 @@
         }
 
         &:not(.disabled):not(.square).active {
-            background-image: linear-gradient(-180deg, #C6C9CC 0%, #C2C5C8 100%, #C1C4C7 100%) !important;
-            border-top: 1px solid #cfd3d6 !important;
-            border-bottom: 1px solid #c1c4c7 !important;
-            border-left: 1px solid #c3cbd0 !important;
-            border-right: 1px solid #c3cbd0 !important;
+            background-image: linear-gradient(180deg, #C9C9C9 0%, #C3C3C3 100%) !important;
+            border-top: 1px solid #d2d2d2 !important;
+            border-bottom: 1px solid #c3c3c3 !important;
+            border-left: 1px solid transparent !important;
+            border-right: 1px solid transparent !important;
 
             &:active {
-                background-image: linear-gradient(-180deg, #E9ECEF 0%, #E4E8EA 100%) !important;
-                border-top: 1px solid #eff3f6 !important;
-                border-bottom: 1px solid #e4e8ea !important;
-                border-left: 1px solid #e5edf2 !important;
-                border-right: 1px solid #e5edf2 !important;
+                background-image: linear-gradient(-180deg, #ECECEC 0%, #E7E7E7 100%)  !important;
+                border-top: 1px solid #f2f2f2 !important;
+                border-bottom: 1px solid #e6e6e6 !important;
+                border-left: 1px solid transparent !important;
+                border-right: 1px solid transparent !important;
             }
         }
     }
