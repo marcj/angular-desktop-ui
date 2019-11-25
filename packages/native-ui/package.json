@@ -13,7 +13,7 @@
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
     "font": "ts-node create-font.ts",
-    "docs": "typedoc --json src/assets/docs.json --mode modules src",
+    "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
   "sideEffects": false,
   "dependencies": {
