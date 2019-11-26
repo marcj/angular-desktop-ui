@@ -3,7 +3,7 @@ import {
     ChangeDetectorRef,
     Component, DoCheck,
     HostBinding,
-    HostListener,
+    HostListener, Injectable,
     Injector, SkipSelf
 } from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
@@ -38,4 +38,13 @@ export class CheckboxComponent extends ValueAccessorBase<any>  {
         this.touch();
         this.innerValue = !this.innerValue;
     }
+
+    constructor(
+        protected injector: Injector,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
+    ) {
+        super(injector, cd, cdParent);
+    }
+
 }

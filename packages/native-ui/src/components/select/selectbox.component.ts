@@ -127,8 +127,8 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
         protected overlay: Overlay,
         protected injector: Injector,
         public element: ElementRef,
-        protected cd: ChangeDetectorRef,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
     ) {
         super(injector, cd, cdParent);
     }

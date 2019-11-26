@@ -57,8 +57,13 @@ export class WindowMenuState {
         if (Electron.isAvailable()) {
             const remote: any = Electron.getRemote();
             if (remote) {
-                const menu = remote.Menu.buildFromTemplate(template);
-                remote.Menu.setApplicationMenu(menu);
+                try {
+                    const menu = remote.Menu.buildFromTemplate(template);
+                    remote.Menu.setApplicationMenu(menu);
+                } catch (error) {
+                    console.error('Could not buildFromTemplate', template);
+                    console.error(error);
+                }
             } else {
                 console.warn('Not in electron environment');
             }

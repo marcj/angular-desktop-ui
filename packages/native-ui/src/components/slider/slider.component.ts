@@ -32,8 +32,8 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
 
     constructor(
         protected injector: Injector,
-        protected cd: ChangeDetectorRef,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
         protected element: ElementRef,
     ) {
         super(injector, cd, cdParent);

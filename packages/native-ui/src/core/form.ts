@@ -99,9 +99,9 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     protected formComponent?: FormComponent;
 
     constructor(
-        @Inject(Injector) protected injector: Injector,
-        @Inject(ChangeDetectorRef) protected cd: ChangeDetectorRef,
-        @Inject(ChangeDetectorRef) @SkipSelf() protected cdParent: ChangeDetectorRef,
+        @Inject(Injector) protected readonly injector: Injector,
+        @Inject(ChangeDetectorRef) public readonly cd: ChangeDetectorRef,
+        @Inject(ChangeDetectorRef) @SkipSelf() public readonly cdParent: ChangeDetectorRef,
     ) {
         try {
             this.formComponent = injector.get(FormComponent, undefined);

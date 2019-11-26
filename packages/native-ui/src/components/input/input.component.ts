@@ -4,7 +4,7 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    HostBinding,
+    HostBinding, Injectable,
     Injector,
     Input,
     Output,
@@ -96,8 +96,8 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
 
     constructor(
         protected injector: Injector,
-        protected cd: ChangeDetectorRef,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
     ) {
         super(injector, cd, cdParent);
     }

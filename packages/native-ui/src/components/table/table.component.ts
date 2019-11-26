@@ -500,7 +500,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * @hidden
      */
-    trackByColumn(column: TableColumnDirective) {
+    trackByColumn(index: number, column: TableColumnDirective) {
         return column.name;
     }
 
@@ -898,7 +898,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         }
     }
 
-    private select(item: T, $event?: MouseEvent) {
+    public select(item: T, $event?: MouseEvent) {
         if (this.selectable === false) {
             return;
         }

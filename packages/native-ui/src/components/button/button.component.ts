@@ -240,8 +240,8 @@ export class FileChooserDirective extends ValueAccessorBase<any> implements OnDe
 
     constructor(
         protected injector: Injector,
-        protected cd: ChangeDetectorRef,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
         private app: ApplicationRef,
     ) {
         super(injector, cd, cdParent);

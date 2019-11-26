@@ -54,8 +54,8 @@ export class ListComponent extends ValueAccessorBase<any> {
 
     constructor(
         protected injector: Injector,
-        protected cd: ChangeDetectorRef,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
     ) {
         super(injector, cd, cdParent);
     }
