@@ -19,9 +19,9 @@
         flex: 1;
         display: flex;
     }
+
     .cdk-overlay-pane dui-window {
         position: relative !important;
-        animation: 0.2s dialog-fade-in ease-out;
 
         flex: 1;
         height: auto;
@@ -37,6 +37,10 @@
             padding-right: 20px !important;
             padding-bottom: 5px !important;
         }
+    }
+
+    .dialog-overlay-with-animation dui-window {
+        animation: 0.2s dialog-fade-in ease-out;
     }
 
     .cdk-overlay-dark-backdrop {

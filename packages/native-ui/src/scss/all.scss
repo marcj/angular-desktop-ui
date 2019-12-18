@@ -38,11 +38,16 @@ html, body {
     --dui-window-content-bg-trans: #dcdcdcee;
 
     color: var(--color-black);
+
+    a, a:link {
+        color: #255273;
+    }
 }
 
 *:focus {
     outline: 0;
 }
+
 .dark {
     --text-grey: #aaadb7;
     --text-light: #737880;
@@ -58,6 +63,10 @@ html, body {
 
     --dui-window-content-bg: #323232;
     --dui-window-content-bg-trans: #323232f2;
+
+    a, a:link {
+        color: #78a1bf;
+    }
 }
 
 .text-selection {
@@ -138,7 +147,8 @@ h4 {
     }
 }
 
-.overlay-scrollbar {
+.overlay-scrollbar,
+.overlay-scrollbar-small, {
     overflow: auto;
     overflow: overlay;
 
@@ -149,7 +159,8 @@ h4 {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgba(131, 133, 134, 0.6);
+        background: rgba(169, 173, 175, 0.77);
+        border-radius: 8px;
         border: 2px solid rgba(0, 0, 0, 0.01);
         background-clip: padding-box;
 
@@ -163,12 +174,19 @@ h4 {
     }
 }
 
+.overlay-scrollbar-small {
+    &::-webkit-scrollbar {
+        height: 8px;
+        width: 8px;
+    }
+}
+
 .panel {
     background-color: white;
     border: 1px solid #c5c5c5;
 }
 
 .dark .panel {
-    background-color: #1d262e;
+    background-color: #1e1e1e;
     border: 1px solid #565656;
 }

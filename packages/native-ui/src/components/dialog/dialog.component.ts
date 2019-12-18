@@ -33,7 +33,7 @@ import {WindowComponent} from "../window/window.component";
                 </div>
 
                 <ng-container *ngIf="content" [ngTemplateOutlet]="content"></ng-container>
-                
+
                 <ng-container *ngIf="container">
                     <ng-container [ngTemplateOutlet]="container"></ng-container>
                 </ng-container>
@@ -95,6 +95,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     @Input() maxWidth?: number | string;
     @Input() maxHeight?: number | string;
+
+    @Input() center: boolean = false;
 
     @Input() backDropCloses: boolean = false;
 
@@ -162,6 +164,15 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
         const window = this.window ? this.window.getParentOrSelf() : undefined;
         const offsetTop = window && window.header ? window.header.getHeight() : 0;
+        let positionStrategy = this.overlay
+            .position()
+            .global().centerHorizontally().top(offsetTop + 'px');
+
+        if (this.center) {
+            positionStrategy = this.overlay
+                .position()
+                .global().centerHorizontally().centerVertically();
+        }
 
         this.overlayRef = this.overlay.create({
             width: this.width || undefined,
@@ -171,11 +182,9 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             maxWidth: this.maxWidth || '90%',
             maxHeight: this.maxHeight || '90%',
             hasBackdrop: true,
-            panelClass: 'dialog-overlay',
+            panelClass: (this.center ? 'dialog-overlay': 'dialog-overlay-with-animation'),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            positionStrategy: this.overlay
-                .position()
-                .global().centerHorizontally().top(offsetTop + 'px')
+            positionStrategy: positionStrategy
         });
 
         if (this.backDropCloses) {
