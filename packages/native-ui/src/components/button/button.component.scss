@@ -102,6 +102,13 @@ In macOS we have 4 types of buttons:
     overflow: visible;
 }
 
+:host.icon-right {
+    dui-icon {
+        margin-left: 3px;
+    }
+    padding-right: 2px;
+}
+
 :host.small {
     padding: 0 2px;
 }
