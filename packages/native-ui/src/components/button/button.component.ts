@@ -17,8 +17,8 @@ import {ngValueAccessor, ValueAccessorBase} from "../..";
 @Component({
     selector: 'dui-button',
     template: `
-        <dui-icon *ngIf="icon" [name]="icon" [size]="iconSize"></dui-icon>
         <ng-content></ng-content>
+        <dui-icon *ngIf="icon" [name]="icon" [size]="iconSize"></dui-icon>
     `,
     host: {
         '[attr.tabindex]': '1',
@@ -27,6 +27,7 @@ import {ngValueAccessor, ValueAccessorBase} from "../..";
         '[class.active]': 'active !== false',
         '[class.highlighted]': 'highlighted !== false',
         '[class.primary]': 'primary !== false',
+        '[class.icon-right]': 'iconRight !== false',
     },
     styleUrls: ['./button.component.scss'],
 })
@@ -41,6 +42,8 @@ export class ButtonComponent implements OnInit {
      * Change in the icon size. Should not be necessary usually.
      */
     @Input() iconSize?: number;
+
+    @Input() iconRight?: boolean = false;
 
     /**
      * Whether the button is active (pressed)

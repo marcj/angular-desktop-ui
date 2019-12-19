@@ -141,6 +141,8 @@ export class EmojiDropdownComponent implements AfterViewInit {
     }
 
     choose(name: string) {
+        name = ':' + name + ':';
+
         this.emoji = name;
         this.emojiChange.emit(name);
 

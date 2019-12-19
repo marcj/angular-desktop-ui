@@ -20,6 +20,8 @@ export class EmojiComponent {
     @Input() size: number = 16;
 
     get emoji(): Emoji {
-        return emojis[this.name];
+        if (this.name) {
+            return emojis[this.name.substring(1, this.name.length - 1)];
+        }
     }
 }

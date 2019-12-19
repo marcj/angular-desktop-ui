@@ -11,13 +11,14 @@ import {
 import {WindowSidebarComponent} from "./window-sidebar.component";
 import {Subject} from "rxjs";
 import {WindowState} from "./window-state";
+import {triggerResize} from "../../";
 
 @Component({
     selector: 'dui-window-content',
     template: `
         <div class="sidebar"
              (transitionend)="transitionEnded()"
-             #sidebar *ngIf="toolbar" [class.hidden]="!sidebarVisible "[class.with-animation]="withAnimation" 
+             #sidebar *ngIf="toolbar" [class.hidden]="!sidebarVisible "[class.with-animation]="withAnimation"
              [style.width.px]="getSidebarWidth()">
             <div class="sidebar-container overlay-scrollbar" [style.width.px]="getSidebarWidth()" #sidebarContainer>
                 <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
@@ -67,6 +68,7 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
 
     transitionEnded() {
         this.withAnimation = false;
+        triggerResize();
         this.cd.detectChanges();
     }
 
@@ -74,6 +76,7 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
         if (this.windowState.buttonGroupAlignedToSidebar) {
             this.windowState.buttonGroupAlignedToSidebar.sidebarMoved();
         }
+        triggerResize();
         this.cd.detectChanges();
     }
 
