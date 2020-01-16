@@ -13,7 +13,6 @@ design those elements when you want to provide a native look and feel. Material 
 The most obvious use-case is for Electron apps. Although it also works in browsers directly, you get the most out of it when using Electron since it
 provides certain Electron features to make your life easier.
 
-
 ## Features
 
 - Button, Inputs, Radiobox, Checkbox, Slider, Dropdown
@@ -21,6 +20,7 @@ provides certain Electron features to make your life easier.
 - Lists and tables with sorting, dynamic columns, context menu
 - Emoji chooser
 - Form handling
+- Custom icon abstraction (converting automatically into svg font) for your svg icons.
 - Simple dialog system (build-in alert, prompt, confirm)
 - Zoneless support for high-performance
 - App menu abstraction ("File, Edit, View" menus of desktop applications)
