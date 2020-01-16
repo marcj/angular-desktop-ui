@@ -1,6 +1,7 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl} from "@angular/forms";
 import {
     ChangeDetectorRef,
+    Directive,
     EventEmitter,
     forwardRef,
     HostBinding,
@@ -38,7 +39,7 @@ export function ngValueAccessor<T>(clazz: Type<T>) {
     }
  *
  */
-@Injectable()
+@Directive()
 export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     /**
      * @hidden
@@ -58,7 +59,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     private _ngControl?: NgControl;
     private _ngControlFetched = false;
 
-    @Input() disabled?: boolean;
+    @Input() disabled: boolean = false;
 
     @HostBinding('class.disabled')
     get isDisabled() {
@@ -68,14 +69,14 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
             return this.ngControl.disabled;
         }
 
-        return this.disabled === true;
+        return this.disabled !== false;
     }
 
     @Input() valid?: boolean;
 
     @HostBinding('class.valid')
     get isValid() {
-        return this.valid === true;
+        return this.valid !== false;
     }
 
     @Input() error?: boolean;
@@ -155,10 +156,10 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
                 callback(value);
             }
             this.onInnerValueChange().then(() => {
-                detectChangesNextFrame(this.cdParent);
+                detectChangesNextFrame(this.cd);
             });
             this.change.emit(value);
-            detectChangesNextFrame(this.cdParent);
+            detectChangesNextFrame(this.cd);
         }
     }
 
@@ -171,7 +172,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
         if (this._innerValue !== value) {
             this._innerValue = value;
         }
-        detectChangesNextFrame(this.cdParent);
+        detectChangesNextFrame(this.cd);
     }
 
     /**

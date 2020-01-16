@@ -83,7 +83,7 @@ export class OptionDirective {
             </div>
         </ng-container>
 
-        <dui-dropdown #dropdown [host]="element.nativeElement" >
+        <dui-dropdown #dropdown [host]="element.nativeElement">
             <dui-dropdown-item
                  *ngFor="let option of options.toArray()"
                  (click)="select(option.value)"
@@ -115,7 +115,7 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
 
     @ContentChild(ButtonComponent, {static: false}) button?: ButtonComponent;
 
-    @ContentChildren(OptionDirective) options?: QueryList<OptionDirective>;
+    @ContentChildren(OptionDirective) options: QueryList<OptionDirective> = new QueryList;
     @ViewChild('dropdown', {static: false}) dropdown!: DropdownComponent;
 
     public label: string = '';

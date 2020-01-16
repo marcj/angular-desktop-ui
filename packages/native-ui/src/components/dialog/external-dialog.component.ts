@@ -19,7 +19,7 @@ function PopupCenter(url: string, title: string, w: number, h: number): Window {
     const newWindow: Window = window.open(url, title, 'alwaysRaised,scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)!;
 
     // Puts focus on the newWindow
-    if (window.focus) newWindow.focus();
+    newWindow.focus();
 
     return newWindow;
 }

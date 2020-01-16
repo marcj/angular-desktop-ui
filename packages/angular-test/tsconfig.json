@@ -22,5 +22,8 @@
   "include": [
     "./src",
     "node_modules/@marcj/angular-desktop-ui/src/**/*.ts"
+  ],
+  "exclude": [
+    "src/electron.ts"
   ]
 }

@@ -14,18 +14,35 @@ import {
     QueryList,
     SimpleChanges,
     ViewChild,
-    ViewContainerRef
+    ViewContainerRef,
+    ɵcompileComponent, ɵcompileNgModule, ɵresolveComponentResources
 } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import * as hljs from 'highlight.js';
 import {RegisteredDocComponents} from "../decorators";
-import {DuiButtonModule, DuiWindowModule, DuiTableModule, DuiInputModule} from '@marcj/angular-desktop-ui';
+import {
+    DuiCheckboxModule,
+    DuiButtonModule,
+    DuiInputModule,
+    DuiFormComponent,
+    DuiRadioboxModule,
+    DuiSelectModule,
+    DuiWindowModule,
+    DuiIconModule,
+    DuiListModule,
+    DuiTableModule,
+    DuiAppModule,
+    DuiDialogModule,
+    DuiEmojiModule,
+    DuiSliderModule,
+} from '@marcj/angular-desktop-ui';
 import {stack} from "@marcj/estdlib";
 import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Converter} from 'showdown';
+import '@angular/compiler';
 
 @Component({
     selector: 'highlighter',
@@ -42,7 +59,7 @@ import {Converter} from 'showdown';
         }
     `]
 })
-class Highlighter implements OnChanges {
+export class Highlighter implements OnChanges {
     @Input() code!: string;
     @Input() type!: string;
 
@@ -350,13 +367,13 @@ export class ApiDocProvider {
         </p>
 
         <dui-table
-                autoHeight
-                *ngIf="tableData.length"
-                [items]="tableData" 
-                [selectable]="true"
-                [filterQuery]="filterQuery"
-                [filterFields]="['name', 'type', 'dataType', 'comment']"
-                noFocusOutline
+            autoHeight
+            *ngIf="tableData.length"
+            [items]="tableData"
+            [selectable]="true"
+            [filterQuery]="filterQuery"
+            [filterFields]="['name', 'type', 'dataType', 'comment']"
+            noFocusOutline
         >
             <dui-table-column name="name" header="Name" [width]="240">
                 <ng-container *duiTableCell="let row">
@@ -478,6 +495,7 @@ export class MarkdownDocComponent implements AfterViewInit {
         private compiler: Compiler,
         private resolver: ComponentFactoryResolver,
         private cd: ChangeDetectorRef,
+        private componentFactoryResolver: ComponentFactoryResolver
     ) {
     }
 
@@ -507,8 +525,12 @@ export class MarkdownDocComponent implements AfterViewInit {
         const content = await this.http.get('/assets/docs/' + name + '.md', {responseType: "text"}).toPromise();
 
         this.loading = false;
-        this.addComponent(this.parseHtml(content));
+        await this.addComponent(this.parseHtml(content));
         this.cd.detectChanges();
+
+        requestAnimationFrame(() => {
+            this.cd.detectChanges();
+        });
     }
 
     private parseHtml(content: string) {
@@ -538,7 +560,7 @@ export class MarkdownDocComponent implements AfterViewInit {
         return content;
     }
 
-    private addComponent(template: string) {
+    private async addComponent(template: string) {
         if (this.component) {
             this.component.destroy();
         }
@@ -548,11 +570,10 @@ export class MarkdownDocComponent implements AfterViewInit {
         if (this.componentJavascript) {
             const js = this.componentJavascript.replace(/^[\n\s]+|[\n\s]+$/g, "");
             properties = new Function(`${js};`)();
-
         }
 
-        @Component({template})
-        class TemplateComponent {
+        // @Component({template: 'hi' + template})
+        class HigherOrderComponent {
             constructor() {
                 for (const i in properties) {
                     (this as any)[i] = (properties as any)[i];
@@ -560,25 +581,32 @@ export class MarkdownDocComponent implements AfterViewInit {
             }
         }
 
-        @NgModule({
-            declarations: [TemplateComponent],
-            imports: [DocModule, DocModule.parent.__annotations__[0].imports]
-        })
+        await ɵresolveComponentResources(fetch).then(() => {
+            ɵcompileComponent(HigherOrderComponent, {template: template});
+        });
+
+        // @NgModule()
         class TemplateModule {
         }
 
+        ɵcompileNgModule(TemplateModule, {
+            declarations: [HigherOrderComponent],
+            // imports: [DocModule]
+            imports: [DocModule, DocModule.parent.ɵmod.imports as any[]]
+        });
+
         const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
-
+        //
         const factory = mod.componentFactories.find((comp) =>
-            comp.componentType === TemplateComponent
+            comp.componentType === HigherOrderComponent
         );
-
-        if (factory) {
-            this.component = this.container.createComponent(factory);
-        }
+        //
+        // if (factory) {
+        // const factory = this.componentFactoryResolver.resolveComponentFactory(HigherOrderComponent);
+        this.component = this.container.createComponent(factory!);
+        // }
     }
 }
-
 
 @NgModule({
     declarations: [
@@ -589,8 +617,9 @@ export class MarkdownDocComponent implements AfterViewInit {
     ],
     imports: [
         CommonModule,
-        FormsModule,
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         DuiButtonModule,
         DuiWindowModule,
@@ -606,8 +635,7 @@ export class MarkdownDocComponent implements AfterViewInit {
 export class DocModule {
     public static parent: any;
 
-    static forRoot(parent: any): ModuleWithProviders {
-        DocModule.parent = parent;
+    static forRoot(): ModuleWithProviders {
         return {
             ngModule: DocModule,
             providers: [

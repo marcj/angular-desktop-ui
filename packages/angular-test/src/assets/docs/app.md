@@ -24,7 +24,7 @@ return {
 <dui-button (click)="tab = 'third'">Third</dui-button>
 
 <div>
-    result:
+    result: (tab={{tab}}, deep={{deep}})
     <view-debugger *duiView="tab === 'first'">
         <view-debugger *duiView="deep"></view-debugger>
     </view-debugger>

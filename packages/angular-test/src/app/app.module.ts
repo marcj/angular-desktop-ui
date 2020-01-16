@@ -24,6 +24,8 @@ import {DocModule} from "./components/doc.module";
 import {DuiEmojiModule} from "@marcj/angular-desktop-ui";
 import {DocuModule} from "./docu/docu.module";
 
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -50,7 +52,7 @@ import {DocuModule} from "./docu/docu.module";
         DuiEmojiModule,
         DuiSliderModule,
         DocuModule,
-        DocModule.forRoot(AppModule),
+        DocModule.forRoot(),
     ],
     entryComponents: [
     ],
@@ -59,3 +61,5 @@ import {DocuModule} from "./docu/docu.module";
 })
 export class AppModule {
 }
+
+DocModule.parent = AppModule;

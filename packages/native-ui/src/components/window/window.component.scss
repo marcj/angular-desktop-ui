@@ -20,7 +20,8 @@
 :host-context(body:not(.electron)),
 :host-context(body.platform-linux) {
     background: rgba(236, 236, 236, 0.8);
-    backdrop-filter: blur(10px);
+    //costs a lot of performance and ui rendering issues in chrome:
+    //backdrop-filter: blur(10px);
 }
 
 :host-context(body:not(.electron).light) {
@@ -33,5 +34,6 @@
 :host-context(body:not(.electron).dark),
 :host-context(body.platform-linux.dark) {
     background: var(--dui-window-content-bg-trans);
-    backdrop-filter: blur(10px);
+    //costs a lot of performance and ui rendering issues in chrome:
+    //backdrop-filter: blur(10px);
 }

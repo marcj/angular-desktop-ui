@@ -11,6 +11,7 @@ import {
     HostBinding,
     HostListener,
     Input,
+    NgZone,
     OnChanges,
     OnDestroy,
     Output,
@@ -423,6 +424,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         protected element: ElementRef,
         protected cd: ChangeDetectorRef,
         @SkipSelf() protected parentCd: ChangeDetectorRef,
+        protected zone: NgZone,
     ) {
     }
 
@@ -692,9 +694,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             this.cd.detectChanges();
         });
 
-        this.viewportElement.nativeElement.addEventListener('scroll', () => {
-            const scrollLeft = this.viewportElement.nativeElement.scrollLeft;
-            this.header!.nativeElement.scrollLeft = scrollLeft;
+        this.zone.runOutsideAngular(() => {
+            this.viewportElement.nativeElement.addEventListener('scroll', () => {
+                const scrollLeft = this.viewportElement.nativeElement.scrollLeft;
+                this.header!.nativeElement.scrollLeft = scrollLeft;
+            });
         });
 
         this.initHeaderMovement();

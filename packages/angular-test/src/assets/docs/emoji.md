@@ -8,8 +8,8 @@ import {DuiEmojiModule} from '@marcj/angular-desktop-ui';
 ```javascript
 //@angular
 return {
-    emoji: 'slightly_smiling_face',
-    lastUses: ['slightly_smiling_face', '+1', '-1']
+    emoji: ':slightly_smiling_face:',
+    lastUses: [':slightly_smiling_face:', ':+1:', ':-1:']
 }
 ```
 

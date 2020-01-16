@@ -11,7 +11,6 @@ export class CdCounterComponent {
 
     get counter() {
         this.i++;
-        console.log('counter', this.name);
         return this.i;
     }
 }

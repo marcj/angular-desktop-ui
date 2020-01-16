@@ -9,6 +9,10 @@
         overflow: hidden;
     }
 
+    dui-window-content > div.sidebar {
+        backdrop-filter: blur(10px);
+    }
+
     .cdk-overlay-pane.dialog-overlay {
         position: relative !important;
         top: 50px !important;;

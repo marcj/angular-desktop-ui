@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, Output} from "@angular/core";
 import * as Hammer from 'hammerjs';
 
 @Component({
@@ -23,67 +23,68 @@ export class SplitterComponent implements AfterViewInit {
 
     @Input() element?: HTMLElement;
 
-    constructor(private host: ElementRef) {
+    constructor(
+        private host: ElementRef,
+        private zone: NgZone,
+    ) {
     }
 
     ngAfterViewInit(): void {
-        const mc = new Hammer(this.host.nativeElement);
-        mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
+        this.zone.runOutsideAngular(() => {
+            const mc = new Hammer(this.host.nativeElement);
+            mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
 
-        // if (!this.element) {
-        //     return;
-        // }
+            let start: number = 0;
 
-        let start: number = 0;
+            this.host.nativeElement.addEventListener('pointerdown', (e: MouseEvent) => {
+                e.stopPropagation();
+                e.preventDefault();
+            });
 
-        this.host.nativeElement.addEventListener('pointerdown', (e: MouseEvent) => {
-            e.stopPropagation();
-            e.preventDefault();
-        });
+            this.host.nativeElement.addEventListener('pointermove', (e: MouseEvent) => {
+                e.stopPropagation();
+                e.preventDefault();
+            });
 
-        this.host.nativeElement.addEventListener('pointermove', (e: MouseEvent) => {
-            e.stopPropagation();
-            e.preventDefault();
-        });
-
-        mc.on('panstart', (event: HammerInput) => {
-            if (this.position === 'right' || this.position === 'left') {
-                start = (this.element ? this.element.clientWidth : this.host.nativeElement!.parentElement.clientWidth);
-            } else {
-                start = (this.element ? this.element.clientHeight : this.host.nativeElement!.parentElement.clientHeight);
-            }
-        });
-
-        let lastAnimationFrame: any;
-        mc.on('pan', (event: HammerInput) => {
-            if (lastAnimationFrame) {
-                cancelAnimationFrame(lastAnimationFrame);
-            }
-
-            lastAnimationFrame = requestAnimationFrame(() => {
-                if (this.element) {
-                    this.element.style.width = (start + event.deltaX) + 'px';
-                }
-
-                if (this.position === 'right') {
-                    this.model = (start + event.deltaX);
-                    this.modelChange.emit(start + event.deltaX);
-                    this.triggerWindowResize();
-                } else if (this.position === 'left') {
-                    this.model = (start - event.deltaX);
-                    this.modelChange.emit(start - event.deltaX);
-                    this.triggerWindowResize();
-                } else if (this.position === 'top') {
-                    this.model = (start - event.deltaY);
-                    this.modelChange.emit(start - event.deltaY);
-                    this.triggerWindowResize();
-                } else if (this.position === 'bottom') {
-                    this.model = (start + event.deltaY);
-                    this.modelChange.emit(start + event.deltaY);
-                    this.triggerWindowResize();
+            mc.on('panstart', (event: HammerInput) => {
+                if (this.position === 'right' || this.position === 'left') {
+                    start = (this.element ? this.element.clientWidth : this.host.nativeElement!.parentElement.clientWidth);
+                } else {
+                    start = (this.element ? this.element.clientHeight : this.host.nativeElement!.parentElement.clientHeight);
                 }
             });
-        })
+
+            let lastAnimationFrame: any;
+            mc.on('pan', (event: HammerInput) => {
+                if (lastAnimationFrame) {
+                    cancelAnimationFrame(lastAnimationFrame);
+                }
+
+                lastAnimationFrame = requestAnimationFrame(() => {
+                    if (this.element) {
+                        this.element.style.width = (start + event.deltaX) + 'px';
+                    }
+
+                    if (this.position === 'right') {
+                        this.model = (start + event.deltaX);
+                        this.modelChange.emit(start + event.deltaX);
+                        this.triggerWindowResize();
+                    } else if (this.position === 'left') {
+                        this.model = (start - event.deltaX);
+                        this.modelChange.emit(start - event.deltaX);
+                        this.triggerWindowResize();
+                    } else if (this.position === 'top') {
+                        this.model = (start - event.deltaY);
+                        this.modelChange.emit(start - event.deltaY);
+                        this.triggerWindowResize();
+                    } else if (this.position === 'bottom') {
+                        this.model = (start + event.deltaY);
+                        this.modelChange.emit(start + event.deltaY);
+                        this.triggerWindowResize();
+                    }
+                });
+            })
+        });
     }
 
     protected triggerWindowResize() {

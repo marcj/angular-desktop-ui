@@ -105,7 +105,10 @@ export class EmojiDropdownComponent implements AfterViewInit {
     getLast(emojis: string[]): string[] | undefined {
         if (!emojis.length) return;
 
-        return [...new Set(emojis)];
+        return [...new Set(emojis.map(v => {
+            if (v[0] === ':') return v.substring(1, v.length - 1);
+            return v[0];
+        }))];
     }
 
     ngAfterViewInit() {
