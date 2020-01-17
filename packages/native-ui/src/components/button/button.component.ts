@@ -12,7 +12,7 @@ import {WindowComponent} from "../window/window.component";
 import {Subscription} from "rxjs";
 import {WindowState} from "../window/window-state";
 import {FormComponent} from "../form/form.component";
-import {ngValueAccessor, ValueAccessorBase} from "../..";
+import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 
 @Component({
     selector: 'dui-button',

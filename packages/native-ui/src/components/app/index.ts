@@ -74,8 +74,6 @@ export class DuiApp {
             const remote = Electron.getRemote();
             this.win = remote.getCurrentWindow();
 
-            console.log('remote', remote);
-
             let overwrittenDarkMode = localStorage.getItem('duiApp/darkMode');
             if (overwrittenDarkMode) {
                 this.setDarkMode(JSON.parse(overwrittenDarkMode));
@@ -135,6 +133,23 @@ export class DuiApp {
         this.setDarkMode();
     }
 
+    get theme(): 'auto' | 'light' | 'dark' {
+        if (this.isDarkModeOverwritten()) {
+            return this.isDarkMode() ? 'dark' : 'light';
+        }
+
+        return 'auto';
+    }
+
+    set theme(theme: 'auto' | 'light' | 'dark') {
+        if (theme === 'auto') {
+            this.setAutoDarkMode();
+            return;
+        }
+
+        this.setDarkMode(theme === 'dark');
+    }
+
     isDarkModeOverwritten() {
         return localStorage.getItem('duiApp/darkMode') !== null;
     }
@@ -161,7 +176,6 @@ export class DuiApp {
         }
 
         const vibrancy = this.darkMode ? 'ultra-dark' : 'window';
-        console.log('setDarkMode', this.darkMode, vibrancy);
         this.win.setVibrancy(vibrancy);
 
         document.body.classList.remove('dark');

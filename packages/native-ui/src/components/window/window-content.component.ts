@@ -11,7 +11,7 @@ import {
 import {WindowSidebarComponent} from "./window-sidebar.component";
 import {Subject} from "rxjs";
 import {WindowState} from "./window-state";
-import {triggerResize} from "../../";
+import {triggerResize} from "../../core/utils";
 
 @Component({
     selector: 'dui-window-content',

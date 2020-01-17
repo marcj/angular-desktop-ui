@@ -10,13 +10,14 @@
   "repository": "https://github.com/marcj/angular-desktop-ui",
   "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
   "license": "MIT",
+  "sideEffects": false,
+  "main": "./src/index.ts",
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
     "font": "ts-node create-font.ts",
     "docs": "typedoc --json src/assets/docs.json --mode modules src",
     "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by NGCC. This is not allowed.\\nPlease delete and rebuild the package, without compiling with NGCC, before attempting to publish.\\nNote that NGCC may have been run by importing this package into another project that is being built with Ivy enabled.\\n')\" && exit 1"
   },
-  "sideEffects": false,
   "dependencies": {
     "@marcj/estdlib": "^0.1.11",
     "@marcj/estdlib-rxjs": "^0.1.13",
@@ -26,8 +27,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "lib": "src/index.ts",
-  "main": "src/index.ts",
   "peerDependencies": {
     "@angular/animations": "^9.0.0-rc.9",
     "@angular/cdk": "^9.0.0-rc.7",
