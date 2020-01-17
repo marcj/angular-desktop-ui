@@ -14,6 +14,7 @@ import {
     DuiAppModule,
     DuiDialogModule,
     DuiSliderModule,
+    DuiEmojiModule,
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -21,7 +22,6 @@ import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DocModule} from "./components/doc.module";
-import {DuiEmojiModule} from "@marcj/angular-desktop-ui";
 import {DocuModule} from "./docu/docu.module";
 
 
@@ -36,6 +36,9 @@ import {DocuModule} from "./docu/docu.module";
         ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
+
+        DuiAppModule.forRoot(),
+
         DuiCheckboxModule,
         DuiButtonModule,
         DuiInputModule,
@@ -47,10 +50,10 @@ import {DocuModule} from "./docu/docu.module";
         DuiListModule,
         DuiTableModule,
         DuiButtonModule,
-        DuiAppModule,
         DuiDialogModule,
         DuiEmojiModule,
         DuiSliderModule,
+
         DocuModule,
         DocModule.forRoot(),
     ],

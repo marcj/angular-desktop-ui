@@ -34,35 +34,36 @@ npm install @marcj/angular-desktop-ui
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
     "strict": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "downlevelIteration": true,
-    "importHelpers": true,
-    "target": "es5",
+    "target": "es2017",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2017",
+      "es2016",
+      "es2015",
       "dom"
     ]
   },
   "include": [
     "./src",
     "node_modules/@marcj/angular-desktop-ui/src/**/*.ts"
+  ],
+  "exclude": [
+    "src/electron.ts"
   ]
 }
 ```
 
 <p>
-    Then you can import the modules of angular-desktop-ui. Make sure to import only what you need.
+    Then you can import the modules of angular-desktop-ui. Make sure to import only what you need, but you have to import at least `DuiAppModule`.
 </p>
 
 
@@ -80,22 +81,28 @@ import {
     DuiIconModule,
     DuiListModule,
     DuiTableModule,
+    DuiAppModule,
+    DuiDialogModule,
+    DuiSliderModule,
+    DuiEmojiModule,
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
         AppComponent,
     ],
     imports: [
-        HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
+        
+        DuiAppModule.forRoot(), //<--- important
+        
         DuiCheckboxModule,
         DuiButtonModule,
         DuiInputModule,
@@ -106,6 +113,10 @@ import {FormsModule} from "@angular/forms";
         DuiIconModule,
         DuiListModule,
         DuiTableModule,
+        DuiButtonModule,
+        DuiDialogModule,
+        DuiEmojiModule,
+        DuiSliderModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
@@ -113,4 +124,44 @@ import {FormsModule} from "@angular/forms";
 export class AppModule {
 }
 
+```
+
+<h2>Disable Zone.js</h2>
+
+<p>
+    To get better performance you should disable Zone.js. This library implemented some workarounds to make most other libraries working without 
+    Zonejs, but that's not guaranteed.
+</p>
+
+<p>
+    Open `main.ts` and adjust accordingly. The important part is `ngZone: 'noop'`.
+</p>
+
+```typescript
+import {enableProdMode} from '@angular/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
+import {AppModule} from './app/app.module';
+import {environment} from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule, {
+  ngZone: 'noop'
+})
+  .catch(err => console.error(err));
+
+```
+
+Open `polyfills.ts` and uncomment the import of zone.js. Make sure to provide a simple noop implementation as follows:
+
+```typescript
+// import 'zone.js/dist/zone';  // Included with Angular CLI.
+(window as any)['Zone'] = {
+    current: {
+        get: function() {}
+    }
+};
 ```

@@ -4,8 +4,13 @@
 
         <dui-window-toolbar>
             <dui-button-group>
-                <dui-button textured (click)="toggleDarkMode()" [active]="darkMode">Dark-Mode</dui-button>
-                <dui-select textured [ngModel]="platform" (ngModelChange)="setPlatform($event)">
+                <dui-select textured [(ngModel)]="theme">
+                    <dui-option value="auto">Auto theme</dui-option>
+                    <dui-option value="dark">Dark theme</dui-option>
+                    <dui-option value="light">Light theme</dui-option>
+                </dui-select>
+
+                <dui-select textured [ngModel]="duiApp.getPlatform()" (ngModelChange)="setPlatform($event)">
                     <dui-option value="darwin">macOS</dui-option>
                     <dui-option value="linux">Linux</dui-option>
                     <dui-option value="win32">Windows</dui-option>
@@ -53,9 +58,9 @@
                 <dui-list-item routerLink="/doc/button">Button</dui-list-item>
                 <dui-list-item routerLink="/doc/button-group">Button Group</dui-list-item>
                 <dui-list-item routerLink="/doc/icon">Icon</dui-list-item>
-                <dui-list-item routerLink="/doc/progress-bar">Progress bar</dui-list-item>
                 <dui-list-item routerLink="/doc/slider">Slider</dui-list-item>
-                <dui-list-item routerLink="/doc/progress-spinner">Progress spinner</dui-list-item>
+<!--                <dui-list-item routerLink="/doc/progress-bar">Progress bar</dui-list-item>-->
+<!--                <dui-list-item routerLink="/doc/progress-spinner">Progress spinner</dui-list-item>-->
 
                 <dui-list-title>Data table</dui-list-title>
                 <dui-list-item routerLink="/doc/table">Table</dui-list-item>

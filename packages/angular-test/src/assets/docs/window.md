@@ -12,20 +12,23 @@ import {DuiWindowModule} from '@marcj/angular-desktop-ui';
 
 <p>
     If you use electron, you need to make sure the electron window is rendering without borders. You do this by setting to titleBarStyle to none.
+    To work correctly, this library requires you to set certain window options correctly. Following is an example:
 </p>
 
 ```javascript
-    win = new BrowserWindow({
-        center: true,
-        width: 750,
-        height: 750,
-        vibrancy: 'appearance-based',
-        webPreferences: {
-            nodeIntegration: false,
-        },
-        titleBarStyle: 'hidden',
-        icon: path.join(assetsPath, 'icons/64x64.png')
-    });
+win = new BrowserWindow({
+    center: true,
+    width: 750,
+    height: 750,
+    vibrancy: 'window',
+    webPreferences: {
+        allowRunningInsecureContent: false,
+        preload: __dirname + '/../../node_modules/@marcj/angular-desktop-ui/preload.js',
+        sandbox: true,
+    },
+    titleBarStyle: 'hidden',
+    icon: path.join(assetsPath, 'icons/64x64.png')
+});
 ```
 
 <dui-code-frame height="150">

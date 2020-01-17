@@ -13,7 +13,8 @@
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
     "font": "ts-node create-font.ts",
-    "docs": "typedoc --json src/assets/docs.json --mode modules src"
+    "docs": "typedoc --json src/assets/docs.json --mode modules src",
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by NGCC. This is not allowed.\\nPlease delete and rebuild the package, without compiling with NGCC, before attempting to publish.\\nNote that NGCC may have been run by importing this package into another project that is being built with Ivy enabled.\\n')\" && exit 1"
   },
   "sideEffects": false,
   "dependencies": {
@@ -25,6 +26,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "lib": "src/index.ts",
   "main": "src/index.ts",
   "peerDependencies": {
     "@angular/animations": "^9.0.0-rc.9",
@@ -35,6 +37,7 @@
     "@angular/forms": "^9.0.0-rc.9",
     "@angular/platform-browser": "^9.0.0-rc.9",
     "@angular/router": "^9.0.0-rc.9",
+    "electron": "^7.1.9",
     "rxjs": "~6.5.3"
   },
   "devDependencies": {
@@ -57,5 +60,14 @@
     "ttf2woff": "^2.0.1",
     "typedoc": "^0.16.7",
     "typescript": "^3.7.5"
+  },
+  "__processed_by_ivy_ngcc__": {
+    "fesm2015": "9.0.0-rc.9",
+    "fesm5": "9.0.0-rc.9",
+    "es2015": "9.0.0-rc.9",
+    "esm2015": "9.0.0-rc.9",
+    "esm5": "9.0.0-rc.9",
+    "main": "9.0.0-rc.9",
+    "module": "9.0.0-rc.9"
   }
 }

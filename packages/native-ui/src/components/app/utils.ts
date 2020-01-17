@@ -45,12 +45,14 @@ export class ZonelessChangeDetector {
  * This handy function makes sure that in the next animation frame the given ChangeDetectorRef is called.
  * It makes automatically sure that it is only called once per frame.
  */
-export function detectChangesNextFrame(cd: ChangeDetectorRef) {
+export function detectChangesNextFrame(cd?: ChangeDetectorRef) {
     if (lastFrameRequest) {
         cancelAnimationFrame(lastFrameRequest);
     }
 
-    lastFrameRequestStack.add(cd);
+    if (cd) {
+        lastFrameRequestStack.add(cd);
+    }
 
     requestAnimationFrame(() => {
         for (const i of lastFrameRequestStack) {
