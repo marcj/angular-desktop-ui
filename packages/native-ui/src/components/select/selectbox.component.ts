@@ -108,7 +108,7 @@ export class OptionDirective {
 export class SelectboxComponent<T> extends ValueAccessorBase<T> implements AfterViewInit, OnDestroy, OnChanges {
     @Input() placeholder: string = '';
 
-    @Input() textured?: boolean = false;
+    @Input() textured: boolean | '' = false;
 
     @HostBinding('class.textured')
     get isTextured() {

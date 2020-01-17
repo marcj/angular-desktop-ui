@@ -92,7 +92,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
 
     @HostBinding('class.required')
     @Input()
-    required: boolean = false;
+    required: boolean | '' = false;
 
     @Output()
     public readonly change = new EventEmitter<T>();

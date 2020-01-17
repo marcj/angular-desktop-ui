@@ -23,8 +23,7 @@ import {triggerResize} from "../../core/utils";
             <div class="sidebar-container overlay-scrollbar" [style.width.px]="getSidebarWidth()" #sidebarContainer>
                 <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
             </div>
-            <dui-splitter position="right" [(model)]="sidebarWidth"
-                          (modelChange)="sidebarMoved()"></dui-splitter>
+            <dui-splitter position="right" (modelChange)="sidebarWidth = $event; sidebarMoved()"></dui-splitter>
         </div>
 
         <div class="content" #content>
@@ -37,7 +36,7 @@ import {triggerResize} from "../../core/utils";
     styleUrls: ['./window-content.component.scss'],
 })
 export class WindowContentComponent implements OnChanges, AfterViewInit {
-    @Input() transparent: boolean = false;
+    @Input() transparent: boolean | '' = false;
 
     @Input() sidebarVisible: boolean = true;
 

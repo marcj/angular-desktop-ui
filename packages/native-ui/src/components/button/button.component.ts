@@ -56,27 +56,27 @@ export class ButtonComponent implements OnInit {
     /**
      * Whether the button is active (pressed)
      */
-    @Input() active: boolean = false;
+    @Input() active: boolean | '' = false;
 
     /**
      * Whether the button has no padding.
      */
-    @Input() small: boolean = false;
+    @Input() small: boolean | '' = false;
 
     /**
      * Whether the button is highlighted.
      */
-    @Input() highlighted: boolean = false;
+    @Input() highlighted: boolean | '' = false;
 
     /**
      * Whether the button is primary.
      */
-    @Input() primary: boolean = false;
+    @Input() primary: boolean | '' = false;
 
     /**
      * Whether the button is focused on initial loading.
      */
-    @Input() focused: boolean = false;
+    @Input() focused: boolean | '' = false;
 
     /**
      * Whether the button is focused on initial loading.
@@ -103,14 +103,14 @@ export class ButtonComponent implements OnInit {
         return false !== this.disabled;
     }
 
-    @Input() square: boolean = false;
+    @Input() square: boolean | '' = false;
 
     @HostBinding('class.square')
     get isRound() {
         return false !== this.square;
     }
 
-    @Input() textured: boolean = false;
+    @Input() textured: boolean | '' = false;
 
     @HostBinding('class.textured')
     get isTextured() {
@@ -244,8 +244,8 @@ export class ButtonGroupsComponent {
     providers: [ngValueAccessor(FileChooserDirective)]
 })
 export class FileChooserDirective extends ValueAccessorBase<any> implements OnDestroy {
-    @Input() duiFileMultiple?: boolean = false;
-    @Input() duiFileDirectory?: boolean = false;
+    @Input() duiFileMultiple?: boolean | '' = false;
+    @Input() duiFileDirectory?: boolean | '' = false;
 
     // @Input() duiFileChooser?: string | string[];
     @Output() duiFileChooserChange = new EventEmitter<string | string[]>();

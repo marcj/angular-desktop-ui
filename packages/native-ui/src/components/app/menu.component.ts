@@ -15,7 +15,7 @@ import {arrayHasItem} from "@marcj/estdlib";
 import {Subscription} from "rxjs";
 import {Electron} from "../../core/utils";
 
-@Injectable()
+@Directive()
 export class MenuBase implements AfterViewInit {
     @Input() label?: string;
     @Input() sublabel?: string;
@@ -26,8 +26,8 @@ export class MenuBase implements AfterViewInit {
 
     @Input() visible: boolean = true;
 
-    @Input() onlyMacOs: boolean | undefined = false;
-    @Input() noMacOs: boolean | undefined = false;
+    @Input() onlyMacOs: boolean | '' = false;
+    @Input() noMacOs: boolean | '' = false;
 
     @Input() id?: string;
     @Input() before?: string;

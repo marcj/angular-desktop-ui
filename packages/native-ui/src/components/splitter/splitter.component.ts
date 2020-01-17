@@ -14,10 +14,9 @@ import * as Hammer from 'hammerjs';
     }
 })
 export class SplitterComponent implements AfterViewInit {
-    @Input() model?: number;
     @Output() modelChange = new EventEmitter<number>();
 
-    @Input() indicator: boolean = false;
+    @Input() indicator: boolean | '' = false;
 
     @Input() position: 'right' | 'left' | 'top' | 'bottom' = 'right';
 
@@ -66,19 +65,15 @@ export class SplitterComponent implements AfterViewInit {
                     }
 
                     if (this.position === 'right') {
-                        this.model = (start + event.deltaX);
                         this.modelChange.emit(start + event.deltaX);
                         this.triggerWindowResize();
                     } else if (this.position === 'left') {
-                        this.model = (start - event.deltaX);
                         this.modelChange.emit(start - event.deltaX);
                         this.triggerWindowResize();
                     } else if (this.position === 'top') {
-                        this.model = (start - event.deltaY);
                         this.modelChange.emit(start - event.deltaY);
                         this.triggerWindowResize();
                     } else if (this.position === 'bottom') {
-                        this.model = (start + event.deltaY);
                         this.modelChange.emit(start + event.deltaY);
                         this.triggerWindowResize();
                     }

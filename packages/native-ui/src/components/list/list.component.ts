@@ -45,9 +45,9 @@ export class ListTitleComponent {
 })
 @Injectable()
 export class ListComponent extends ValueAccessorBase<any> {
-    @Input() white = false;
+    @Input() white: boolean | '' = false;
 
-    @Input() focusColor = true;
+    @Input() focusColor: boolean | '' = true;
 
     @HostBinding('tabindex') tabIndex: number = 1;
 

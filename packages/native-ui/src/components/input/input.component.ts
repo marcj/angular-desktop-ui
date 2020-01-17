@@ -53,16 +53,16 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
 
     @Input() icon: string = '';
 
-    @Input() focus: boolean = false;
+    @Input() focus: boolean | '' = false;
 
-    @Input() lightFocus?: boolean = false;
+    @Input() lightFocus: boolean | '' = false;
 
     @Output() esc = new EventEmitter<KeyboardEvent>();
     @Output() enter = new EventEmitter<KeyboardEvent>();
 
     @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
-    @Input() textured?: boolean = false;
+    @Input() textured: boolean | '' = false;
 
     @HostBinding('class.textured')
     get isTextured() {
@@ -79,14 +79,14 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         return !!this.innerValue;
     }
 
-    @Input() round?: boolean = false;
+    @Input() round: boolean | '' = false;
 
     @HostBinding('class.round')
     get isRound() {
         return false !== this.round;
     }
 
-    @Input() clearer: boolean = false;
+    @Input() clearer: boolean | '' = false;
 
     @HostBinding('class.has-clearer')
     get hasClearer() {

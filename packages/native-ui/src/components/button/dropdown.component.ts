@@ -60,7 +60,7 @@ export class DropdownComponent {
     /**
      * Whether is styled as overlay
      */
-    @Input() overlay?: boolean = false;
+    @Input() overlay: boolean | '' = false;
 
     @Output() shown = new EventEmitter();
 
@@ -271,7 +271,7 @@ export class ContextDropdownDirective {
             display: block;
             padding: 4px 0;
         }
-        
+
         div {
             border-top: 1px solid var(--line-color-light);
         }

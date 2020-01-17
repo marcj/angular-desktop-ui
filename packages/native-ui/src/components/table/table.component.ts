@@ -235,7 +235,7 @@ export class TableHeaderDirective {
                         <dui-icon *ngIf="isAsc()" [size]="12" name="arrow_up"></dui-icon>
                     </ng-container>
 
-                    <dui-splitter [model]="column.width" (modelChange)="setColumnWidth(column, $event)"
+                    <dui-splitter (modelChange)="setColumnWidth(column, $event)"
                                   indicator position="right"></dui-splitter>
                 </div>
             </div>
@@ -288,7 +288,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @HostBinding() tabindex = 0;
 
-    @Input() borderless = false;
+    @Input() borderless: boolean | '' = false;
 
     /**
      * Array of items that should be used for each row.
@@ -373,7 +373,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Input() public valueFetcher = (object: any, path: string): any => object[path];
 
-    @Input() noFocusOutline = false;
+    @Input() noFocusOutline: boolean | '' = false;
 
     public currentSort: string = '';
 
