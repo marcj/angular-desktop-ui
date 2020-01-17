@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {MarkdownDocComponent} from './components/doc.module';
 
 const routes: Routes = [
-    {path: '', redirectTo: 'doc/start', pathMatch: 'full'},
+    {path: '', redirectTo: 'doc/welcome', pathMatch: 'full'},
     {path: 'doc/:id', component: MarkdownDocComponent},
 ];
 
