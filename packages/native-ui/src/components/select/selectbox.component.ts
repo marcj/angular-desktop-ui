@@ -63,7 +63,7 @@ export class OptionDirective {
         <ng-container *ngIf="button">
             <dui-button-group padding="none">
                 <ng-content select="dui-button"></ng-content>
-                <dui-button class="split-knob" small textured [iconSize]="12" icon="arrow_down"></dui-button>
+                <dui-button class="split-knob" [openDropdown]="dropdown" small textured [iconSize]="12" icon="arrow_down"></dui-button>
             </dui-button-group>
         </ng-container>
 

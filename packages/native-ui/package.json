@@ -55,7 +55,7 @@
     "transformation-matrix-js": "2.7.1",
     "ts-node": "^8.0.2",
     "ttf2woff": "^2.0.1",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.7.2"
+    "typedoc": "^0.16.7",
+    "typescript": "^3.7.5"
   }
 }
