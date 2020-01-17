@@ -16,6 +16,7 @@ import {
 import {NavigationEnd, Router, UrlTree} from '@angular/router';
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 import {Subscription} from "rxjs";
+import {OptionDirective} from "../select";
 
 @Component({
     selector: 'dui-list-title',
@@ -50,7 +51,7 @@ export class ListComponent extends ValueAccessorBase<any> {
 
     @HostBinding('tabindex') tabIndex: number = 1;
 
-    @ContentChildren(forwardRef(() => ListItemComponent)) list!: QueryList<ListItemComponent>;
+    @ContentChildren(forwardRef(() => ListItemComponent), {descendants: true}) list!: QueryList<ListItemComponent>;
 
     constructor(
         protected injector: Injector,

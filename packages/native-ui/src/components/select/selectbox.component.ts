@@ -84,16 +84,18 @@ export class OptionDirective {
         </ng-container>
 
         <dui-dropdown #dropdown [host]="element.nativeElement">
-            <dui-dropdown-item
-                 *ngFor="let option of options.toArray()"
-                 (click)="select(option.value)"
-                 [selected]="innerValue === option.value"
-            >
-                <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
-                <div *ngIf="!option.dynamic">
-                    <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
-                </div>
-            </dui-dropdown-item>
+            <ng-container *ngIf="options">
+                <dui-dropdown-item
+                     *ngFor="let option of options.toArray()"
+                     (click)="select(option.value)"
+                     [selected]="innerValue === option.value"
+                >
+                    <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
+                    <div *ngIf="!option.dynamic">
+                        <div [innerHTML]="option.element.nativeElement.innerHTML"></div>
+                    </div>
+                </dui-dropdown-item>
+            </ng-container>
         </dui-dropdown>
     `,
     styleUrls: ['./selectbox.component.scss'],
@@ -115,7 +117,7 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
 
     @ContentChild(ButtonComponent, {static: false}) button?: ButtonComponent;
 
-    @ContentChildren(OptionDirective) options: QueryList<OptionDirective> = new QueryList;
+    @ContentChildren(OptionDirective, {descendants: true}) options?: QueryList<OptionDirective>;
     @ViewChild('dropdown', {static: false}) dropdown!: DropdownComponent;
 
     public label: string = '';

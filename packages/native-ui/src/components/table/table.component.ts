@@ -37,6 +37,7 @@ import {Observable} from "rxjs";
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {DropdownComponent} from "../button";
 import {detectChangesNextFrame} from "../app/utils";
+import {OptionDirective} from "../select";
 
 export interface Column<T> {
     id: string;
@@ -402,8 +403,8 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     @ViewChild('header', {static: false}) header?: ElementRef;
     @ViewChildren('th') ths?: QueryList<ElementRef<HTMLElement>>;
 
-    @ContentChildren(TableColumnDirective) columnDefs?: QueryList<TableColumnDirective>;
-    @ContentChildren(TableHeaderDirective) headerDefs?: QueryList<TableHeaderDirective>;
+    @ContentChildren(TableColumnDirective, {descendants: true}) columnDefs?: QueryList<TableColumnDirective>;
+    @ContentChildren(TableHeaderDirective, {descendants: true}) headerDefs?: QueryList<TableHeaderDirective>;
 
     @ContentChild(TableCustomHeaderContextMenuDirective, {static: false}) customHeaderDropdown?: TableCustomHeaderContextMenuDirective;
     @ContentChild(TableCustomRowContextMenuDirective, {static: false}) customRowDropdown?: TableCustomRowContextMenuDirective;
