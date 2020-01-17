@@ -2,13 +2,14 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
-    EventEmitter,
+    EventEmitter, HostListener,
     Input,
     OnChanges,
     Output, SimpleChanges,
     SkipSelf
 } from "@angular/core";
 import {FormGroup, NgControl} from "@angular/forms";
+import {detectChangesNextFrame} from "../app";
 
 @Component({
     selector: 'dui-form-row',
@@ -49,8 +50,7 @@ export class FormRowComponent {
 export class FormComponent implements OnChanges {
     @Input() formGroup: FormGroup = new FormGroup({});
 
-    @Input()
-    disabled: boolean = false;
+    @Input() disabled: boolean = false;
 
     @Input() submit?: () => Promise<any> | any;
 
@@ -68,19 +68,30 @@ export class FormComponent implements OnChanges {
     ) {
     }
 
-    ngOnChanges(changes: SimpleChanges){
+    @HostListener('keyup', ['$event'])
+    onEnter(event: KeyboardEvent) {
+        if (this.submit && event.key.toLowerCase() === 'enter') {
+            this.submitForm();
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
         if (changes.disabled) {
             this.disableChange.emit(this.disabled);
         }
     }
 
+    get invalid() {
+        return this.formGroup.invalid;
+    }
+
     async submitForm() {
         if (this.disabled) return;
+        if (this.submitting) return;
         if (this.formGroup.invalid) return;
 
         this.submitting = true;
-        this.cd.detectChanges();
-        this.cdParent.detectChanges();
+        detectChangesNextFrame(this.cd);
 
         if (this.submit) {
             try {
@@ -110,7 +121,6 @@ export class FormComponent implements OnChanges {
         }
 
         this.submitting = false;
-        this.cd.detectChanges();
-        this.cdParent.detectChanges();
+        detectChangesNextFrame(this.cd);
     }
 }

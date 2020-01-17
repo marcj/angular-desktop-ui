@@ -18,3 +18,14 @@
         top: 50px !important;;
     }
 }
+
+
+::ng-deep body.platform-web {
+    dui-window.main {
+        margin: 0;
+        border: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
+}

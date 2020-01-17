@@ -76,7 +76,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
 
     @HostBinding('class.valid')
     get isValid() {
-        return this.valid !== false;
+        return this.valid === true;
     }
 
     @Input() error?: boolean;

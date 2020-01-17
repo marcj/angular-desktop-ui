@@ -1,11 +1,19 @@
 import {
-    AfterViewInit, ApplicationRef,
+    AfterViewInit,
+    ApplicationRef,
     ChangeDetectorRef,
-    Component, Directive,
-    ElementRef, EventEmitter,
-    HostBinding, HostListener, Injector,
+    Component,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
+    Injector,
     Input,
-    OnDestroy, OnInit, Optional, Output,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
@@ -88,6 +96,9 @@ export class ButtonComponent implements OnInit {
     @HostBinding('class.disabled')
     get isDisabled() {
         if (this.formComponent && this.formComponent.disabled) return true;
+        if (this.submitForm && (this.submitForm.invalid || this.submitForm.disabled || this.submitForm.submitting)) {
+            return true;
+        }
 
         return false !== this.disabled;
     }

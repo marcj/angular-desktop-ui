@@ -13,9 +13,6 @@ export class AppComponent {
         public duiApp: DuiApp,
         public dialog: DuiDialog,
     ) {
-    }
-
-    public setPlatform(platform: string) {
-        this.duiApp.setPlatform(platform);
+        this.duiApp.setPlatform('darwin');
     }
 }

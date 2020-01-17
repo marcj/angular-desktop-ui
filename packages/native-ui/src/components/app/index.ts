@@ -52,9 +52,12 @@ export class UiComponentComponent extends BaseComponent {
 
 @Injectable()
 export class DuiApp {
-    protected darkMode = false;
-    protected platform = '';
+    protected darkMode?: boolean = false;
+    protected platform: 'web' | 'darwin' | 'linux' | 'win32' = 'darwin';
 
+    /**
+     * BrowserWindow from Electron.
+     */
     protected win?: any;
 
     constructor(
@@ -78,20 +81,21 @@ export class DuiApp {
             if (overwrittenDarkMode) {
                 this.setDarkMode(JSON.parse(overwrittenDarkMode));
             } else {
-                this.setDarkMode(remote.systemPreferences.isDarkMode());
+                this.setDarkMode();
             }
 
             this.setPlatform(remote.process.platform);
-
-            if (this.platform === 'darwin') {
-                remote.systemPreferences.subscribeNotification('AppleInterfaceThemeChangedNotification', () => {
-                    if (localStorage.getItem('duiApp/darkMode') === null) {
-                        this.setAutoDarkMode();
-                        this.app.tick();
-                    }
-                })
-            }
+        } else {
+            this.setPlatform('web');
+            this.setDarkMode();
         }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (localStorage.getItem('duiApp/darkMode') === null) {
+                this.setAutoDarkMode();
+                this.app.tick();
+            }
+        });
 
         if ('undefined' !== typeof document) {
             document.addEventListener('click', () => detectChangesNextFrame());
@@ -113,11 +117,17 @@ export class DuiApp {
         }
     }
 
-    setPlatform(platform: string) {
+    setPlatform(platform: 'web' | 'darwin' | 'linux' | 'win32') {
         this.platform = platform;
         document.body.classList.remove('platform-linux');
         document.body.classList.remove('platform-darwin');
         document.body.classList.remove('platform-win32');
+        document.body.classList.remove('platform-native');
+        document.body.classList.remove('platform-web');
+
+        if (this.platform !== 'web') {
+            document.body.classList.add('platform-native');
+        }
         document.body.classList.add('platform-' + platform);
     }
 
@@ -165,23 +175,26 @@ export class DuiApp {
 
     setDarkMode(darkMode?: boolean) {
         if (darkMode === undefined) {
-            const remote = Electron.getRemote();
-            this.darkMode = remote.systemPreferences.isDarkMode();
+            this.darkMode = this.isPreferDarkColorSchema();
             localStorage.removeItem('duiApp/darkMode');
         } else {
-            if (this.darkMode !== darkMode) {
-                localStorage.setItem('duiApp/darkMode', JSON.stringify(darkMode));
-            }
+            localStorage.setItem('duiApp/darkMode', JSON.stringify(darkMode));
             this.darkMode = darkMode;
         }
 
-        const vibrancy = this.darkMode ? 'ultra-dark' : 'window';
-        this.win.setVibrancy(vibrancy);
+        if (this.win) {
+            const vibrancy = this.darkMode ? 'ultra-dark' : 'window';
+            this.win.setVibrancy(vibrancy);
+        }
 
         document.body.classList.remove('dark');
         document.body.classList.remove('light');
         document.body.classList.add(this.darkMode ? 'dark' : 'light');
         window.dispatchEvent(new Event('theme-changed'));
+    }
+
+    protected isPreferDarkColorSchema() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
 }
 

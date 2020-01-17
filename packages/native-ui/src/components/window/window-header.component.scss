@@ -6,9 +6,6 @@
     flex-shrink: 0;
     flex-grow: 0;
 
-    background-image: linear-gradient(-180deg, white 1px, #EDECED 1%, #D2D1D2 97%);
-    border-bottom: 1px solid #a8a8a7;
-
     padding: 0 70px;
     text-align: center;
 
@@ -61,6 +58,7 @@
     .closer {
         top: 1px;
     }
+
     .closer > div {
         border-radius: 20px;
         width: 20px;
@@ -95,8 +93,27 @@
     }
 }
 
-:host-context(.dark) {
+:host-context(.platform-native.light) {
+    background-image: linear-gradient(-180deg, white 1px, #EDECED 1%, #D2D1D2 97%);
+    border-bottom: 1px solid #a8a8a7;
+}
+
+:host-context(.platform-native.dark) {
     background-image: linear-gradient(-180deg, #424242 0%, #353535 100%);
+    border-bottom: 1px solid #000000;
+
+    .title {
+        color: #bbc3cc;
+    }
+}
+
+:host-context(:not(.platform-native).light) {
+    background-color: #e2e2e2;
+    border-bottom: 1px solid #c7c7c7;
+}
+
+:host-context(:not(.platform-native).dark) {
+    background-color: #424242;
     border-bottom: 1px solid #000000;
 
     .title {
@@ -159,7 +176,7 @@
             border-right: 1px solid transparent !important;
 
             &:active {
-                background-image: linear-gradient(-180deg, #ECECEC 0%, #E7E7E7 100%)  !important;
+                background-image: linear-gradient(-180deg, #ECECEC 0%, #E7E7E7 100%) !important;
                 border-top: 1px solid #f2f2f2 !important;
                 border-bottom: 1px solid #e6e6e6 !important;
                 border-left: 1px solid transparent !important;

@@ -10,7 +10,8 @@
                     <dui-option value="light">Light theme</dui-option>
                 </dui-select>
 
-                <dui-select textured [ngModel]="duiApp.getPlatform()" (ngModelChange)="setPlatform($event)">
+                <dui-select textured [ngModel]="duiApp.getPlatform()" (ngModelChange)="duiApp.setPlatform($event)">
+                    <dui-option value="web">Web</dui-option>
                     <dui-option value="darwin">macOS</dui-option>
                     <dui-option value="linux">Linux</dui-option>
                     <dui-option value="win32">Windows</dui-option>
@@ -31,7 +32,7 @@
         <dui-window-sidebar>
             <dui-list>
                 <dui-list-title>Angular Desktop UI</dui-list-title>
-                <dui-list-item routerLink="/doc/start">Welcome</dui-list-item>
+                <dui-list-item routerLink="/doc/welcome">Welcome</dui-list-item>
                 <dui-list-item routerLink="/doc/getting-started">Getting started</dui-list-item>
 
                 <dui-list-item routerLink="/doc/app">App</dui-list-item>

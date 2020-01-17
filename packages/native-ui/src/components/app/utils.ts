@@ -3,24 +3,29 @@ import {Electron} from "../../core/utils";
 
 
 @Directive({
-    selector: '[openExternal]',
+    selector: '[openExternal], a[href]',
 })
 export class OpenExternalDirective implements OnChanges {
     @Input('openExternal') private openExternal: string = '';
+    @Input('href') private href: string = '';
 
     constructor(private element: ElementRef) {
-        this.element.nativeElement.href = '#';
+        // this.element.nativeElement.href = '#';
     }
 
     ngOnChanges(): void {
-        this.element.nativeElement.href = this.openExternal;
+        // this.element.nativeElement.href = this.getLink();
+    }
+
+    getLink() {
+        return this.openExternal || this.href;
     }
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
         if (Electron.isAvailable()) {
             event.preventDefault();
-            Electron.getRemote().shell.openExternal(this.openExternal);
+            Electron.getRemote().shell.openExternal(this.getLink());
         }
     }
 }
