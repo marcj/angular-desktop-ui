@@ -5,8 +5,8 @@ import {
     DialogActionsComponent,
     DialogComponent,
     DialogDirective,
-    DialogWrapperComponent,
     DialogErrorComponent,
+    DialogWrapperComponent,
 } from "./dialog.component";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {CommonModule} from "@angular/common";

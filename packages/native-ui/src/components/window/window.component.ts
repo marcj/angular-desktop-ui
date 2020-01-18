@@ -32,6 +32,9 @@ export class WindowFrameComponent {
     selector: 'dui-window',
     template: '<ng-content></ng-content>',
     styleUrls: ['./window.component.scss'],
+    host: {
+        '[class.in-dialog]': 'isInDialog()',
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         WindowState,
@@ -47,11 +50,11 @@ export class WindowComponent implements OnChanges, OnDestroy {
     @Input() minimizable = true;
 
     constructor(
-        @SkipSelf() @Optional() protected parentWindow: WindowComponent,
         @Inject(DOCUMENT) document: Document,
         protected registry: WindowRegistry,
         public windowState: WindowState,
         windowMenuState: WindowMenuState,
+        @SkipSelf() @Optional() protected parentWindow?: WindowComponent,
     ) {
         registry.register(this, windowState, windowMenuState);
 
@@ -72,6 +75,10 @@ export class WindowComponent implements OnChanges, OnDestroy {
 
     focus() {
         this.registry.focus(this);
+    }
+
+    public isInDialog(): boolean {
+        return !!this.parentWindow;
     }
 
     public getParentOrSelf(): WindowComponent {

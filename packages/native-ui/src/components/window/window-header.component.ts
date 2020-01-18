@@ -56,8 +56,9 @@ export class WindowHeaderComponent {
         windowState.header = this;
     }
 
-    public getHeight(): number {
-        return this.element.nativeElement.clientHeight;
+    public getBottomPosition(): number {
+        const rect = this.element.nativeElement.getBoundingClientRect();
+        return rect.y + rect.height;
     }
 
     maximize() {

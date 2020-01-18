@@ -10,7 +10,7 @@
     background: #ffffffad;
 }
 
-:host-context(.platform-native.dark) {
+:host-context(.platform-native.dark):not(.in-dialog) {
     border-top: 1px solid #868686;
     border-right: 1px solid #5d5d5d;
     border-left: 1px solid #5d5d5d;

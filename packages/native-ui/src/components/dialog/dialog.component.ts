@@ -64,7 +64,8 @@ export class DialogWrapperComponent {
 
     constructor(
         protected cd: ChangeDetectorRef,
-    ){}
+    ) {
+    }
 
     public setActions(actions: TemplateRef<any> | undefined) {
         this.actions = actions;
@@ -79,8 +80,13 @@ export class DialogWrapperComponent {
 
 @Component({
     selector: 'dui-dialog',
-    template: `<ng-template #template><ng-content></ng-content></ng-template>`,
-    styles: [`:host {display: none;}`]
+    template: `
+        <ng-template #template>
+            <ng-content></ng-content>
+        </ng-template>`,
+    styles: [`:host {
+        display: none;
+    }`]
 })
 export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     @Input() title: string = '';
@@ -165,7 +171,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         }
 
         const window = this.window ? this.window.getParentOrSelf() : this.registry.getOuterActiveWindow();
-        const offsetTop = window && window.header ? window.header.getHeight() : 0;
+        const offsetTop = window && window.header ? window.header.getBottomPosition() - 1 : 0;
+
         let positionStrategy = this.overlay
             .position()
             .global().centerHorizontally().top(offsetTop + 'px');
@@ -184,7 +191,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             maxWidth: this.maxWidth || '90%',
             maxHeight: this.maxHeight || '90%',
             hasBackdrop: true,
-            panelClass: (this.center ? 'dialog-overlay': 'dialog-overlay-with-animation'),
+            panelClass: (this.center ? 'dialog-overlay' : 'dialog-overlay-with-animation'),
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             positionStrategy: positionStrategy
         });

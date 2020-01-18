@@ -9,10 +9,6 @@
         overflow: hidden;
         background: var(--dui-window-content-bg-trans);
     }
-
-    .cdk-global-overlay-wrapper {
-        top: 50px !important;;
-    }
 }
 
 ::ng-deep body.platform-web {
