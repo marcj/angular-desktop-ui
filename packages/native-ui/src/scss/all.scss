@@ -33,10 +33,11 @@ html, body {
     --line-color-light: #d3d3d3;
     --line-color: #979797;
     --line-color-prominent: #9fa4a9;
-    --line-sidebar: #d4d4d4;
+    --line-sidebar: #c3c2c3;
 
     --dui-window-content-bg: #ececec;
     --dui-window-content-bg-trans: #dcdcdcee;
+    --dui-toolbar-bg-trans: #dcdcdcde;
 
     color: var(--color-black);
 
@@ -65,6 +66,7 @@ html, body {
 
     --dui-window-content-bg: #323232;
     --dui-window-content-bg-trans: #323232f2;
+    --dui-toolbar-bg-trans: #323232e3;
 
     a, a:link {
         color: #78a1bf;

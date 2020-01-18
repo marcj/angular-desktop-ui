@@ -73,11 +73,6 @@ export class WindowMenuState {
     focus() {
         //set our electron menu
         //Menu.setApplicationMenu()
-        this.focused = true;
         this.build();
-    }
-
-    blur() {
-        this.focused = false;
     }
 }

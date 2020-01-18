@@ -62,7 +62,7 @@ export class DuiDialogAlert {
         <h3>{{title || 'No title'}}</h3>
         <div *ngIf="content">{{content}}</div>
         <div style="padding-top: 5px;">
-            <dui-input (enter)="dialog.close(value)" focus [(ngModel)]="value"></dui-input>
+            <dui-input style="width: 100%" (enter)="dialog.close(value)" focus [(ngModel)]="value"></dui-input>
         </div>
 
         <dui-dialog-actions>
@@ -103,6 +103,7 @@ export class DuiDialog {
     ): DialogComponent {
         const factoryMain = this.resolver.resolveComponentFactory(DialogComponent);
         const original = (factoryMain.create as any).bind(factoryMain);
+
         factoryMain.create = function (...args: any[]) {
             const comp = original(...args);
 

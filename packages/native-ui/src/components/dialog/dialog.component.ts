@@ -21,6 +21,7 @@ import {
 } from "@angular/core";
 import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {ComponentPortal} from "@angular/cdk/portal";
+import {WindowRegistry} from "../window/window-state";
 import {WindowComponent} from "../window/window.component";
 
 
@@ -123,6 +124,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         protected cd: ChangeDetectorRef,
         protected injector: Injector,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
+        protected registry: WindowRegistry,
         @Optional() protected window?: WindowComponent,
     ) {
     }
@@ -162,7 +164,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             return;
         }
 
-        const window = this.window ? this.window.getParentOrSelf() : undefined;
+        const window = this.window ? this.window.getParentOrSelf() : this.registry.getOuterActiveWindow();
         const offsetTop = window && window.header ? window.header.getHeight() : 0;
         let positionStrategy = this.overlay
             .position()

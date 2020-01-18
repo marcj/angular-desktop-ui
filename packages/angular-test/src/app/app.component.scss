@@ -7,18 +7,13 @@
         width: calc(100% - 100px);
         border-radius: 4px;
         overflow: hidden;
+        background: var(--dui-window-content-bg-trans);
     }
 
-    dui-window-content > div.sidebar {
-        //backdrop-filter: blur(10px);
-    }
-
-    .cdk-overlay-pane.dialog-overlay {
-        position: relative !important;
+    .cdk-global-overlay-wrapper {
         top: 50px !important;;
     }
 }
-
 
 ::ng-deep body.platform-web {
     dui-window.main {

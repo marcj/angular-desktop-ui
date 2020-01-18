@@ -183,7 +183,7 @@ export class DuiApp {
         }
 
         if (this.win) {
-            const vibrancy = this.darkMode ? 'ultra-dark' : 'window';
+            const vibrancy = this.darkMode ? 'ultra-dark' : 'light';
             this.win.setVibrancy(vibrancy);
         }
 

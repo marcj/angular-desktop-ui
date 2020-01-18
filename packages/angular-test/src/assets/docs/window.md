@@ -21,6 +21,8 @@ win = new BrowserWindow({
     width: 750,
     height: 750,
     vibrancy: 'window',
+    transparent: true, //necessary for vibrancy fix on macos
+    backgroundColor: "#80FFFFFF", //necessary for vibrancy fix on macos
     webPreferences: {
         allowRunningInsecureContent: false,
         preload: __dirname + '/../../node_modules/@marcj/angular-desktop-ui/preload.js',

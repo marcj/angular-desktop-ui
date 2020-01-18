@@ -19,7 +19,7 @@ import {Subscription} from "rxjs";
         <ng-template #dropdownTemplate>
             <div class="dui-dropdown" tabindex="1" #dropdown>
 <!--                <div *ngIf="overlay !== false" class="dui-dropdown-arrow"></div>-->
-                <div class="content overlay-scrollbar">
+                <div class="content overlay-scrollbar-small">
                     <ng-content></ng-content>
                 </div>
             </div>

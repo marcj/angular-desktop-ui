@@ -3,12 +3,12 @@ import {
     Component,
     ContentChild,
     Inject,
-    Input, OnChanges,
+    Input, OnChanges, OnDestroy,
     Optional, SimpleChanges,
     SkipSelf
 } from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
-import {WindowState} from "./window-state";
+import {WindowRegistry, WindowState} from "./window-state";
 import {DOCUMENT} from "@angular/common";
 import {WindowMenuState} from "./window-menu";
 import {WindowHeaderComponent} from "./window-header.component";
@@ -38,7 +38,7 @@ export class WindowFrameComponent {
         WindowMenuState,
     ]
 })
-export class WindowComponent implements OnChanges {
+export class WindowComponent implements OnChanges, OnDestroy {
     @ContentChild(WindowContentComponent, {static: false}) public content?: WindowContentComponent;
     @ContentChild(WindowHeaderComponent, {static: false}) public header?: WindowHeaderComponent;
 
@@ -49,15 +49,29 @@ export class WindowComponent implements OnChanges {
     constructor(
         @SkipSelf() @Optional() protected parentWindow: WindowComponent,
         @Inject(DOCUMENT) document: Document,
+        protected registry: WindowRegistry,
         public windowState: WindowState,
         windowMenuState: WindowMenuState,
     ) {
+        registry.register(this, windowState, windowMenuState);
+
         document.addEventListener('focus', () => {
-            windowMenuState.focus();
+            this.focus();
         });
+
+        this.focus();
+
         //todo, windowMenuState.blur() when window is not focused anymore
         // we can not store this WindowComponent in a list since this list
         // is not shared across Electron windows.
+    }
+
+    ngOnDestroy() {
+        this.registry.unregister(this);
+    }
+
+    focus() {
+        this.registry.focus(this);
     }
 
     public getParentOrSelf(): WindowComponent {

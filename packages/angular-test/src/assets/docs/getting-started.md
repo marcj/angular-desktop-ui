@@ -101,7 +101,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         BrowserModule,
         AppRoutingModule,
         
-        DuiAppModule.forRoot(), //<--- important
+        DuiAppModule.forRoot(), //<--- important#
+        DuiWindowModule.forRoot(),
         
         DuiCheckboxModule,
         DuiButtonModule,
@@ -109,7 +110,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         DuiFormComponent,
         DuiRadioboxModule,
         DuiSelectModule,
-        DuiWindowModule,
         DuiIconModule,
         DuiListModule,
         DuiTableModule,

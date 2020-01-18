@@ -38,7 +38,7 @@ export class ListTitleComponent {
     styleUrls: ['./list.component.scss'],
     host: {
         '[class.white]': 'white !==false',
-        '[class.overlay-scrollbar]': 'true',
+        '[class.overlay-scrollbar-small]': 'true',
         '[class.focusable]': 'focusColor',
     },
     providers: [ngValueAccessor(ListComponent)]

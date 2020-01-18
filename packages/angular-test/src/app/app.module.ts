@@ -38,6 +38,7 @@ import {DocuModule} from "./docu/docu.module";
         AppRoutingModule,
 
         DuiAppModule.forRoot(),
+        DuiWindowModule.forRoot(),
 
         DuiCheckboxModule,
         DuiButtonModule,
@@ -45,7 +46,6 @@ import {DocuModule} from "./docu/docu.module";
         DuiFormComponent,
         DuiRadioboxModule,
         DuiSelectModule,
-        DuiWindowModule,
         DuiIconModule,
         DuiListModule,
         DuiTableModule,

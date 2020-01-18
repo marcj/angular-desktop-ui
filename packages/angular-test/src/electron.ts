@@ -24,6 +24,8 @@ async function createWindow() {
         width: 750,
         height: 750,
         vibrancy: 'window',
+        transparent: true,
+        backgroundColor: "#80FFFFFF",
         webPreferences: {
             allowRunningInsecureContent: false,
             preload: __dirname + '/../../node_modules/@marcj/angular-desktop-ui/preload.js',

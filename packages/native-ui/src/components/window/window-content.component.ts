@@ -20,7 +20,7 @@ import {triggerResize} from "../../core/utils";
              (transitionend)="transitionEnded()"
              #sidebar *ngIf="toolbar" [class.hidden]="!sidebarVisible "[class.with-animation]="withAnimation"
              [style.width.px]="getSidebarWidth()">
-            <div class="sidebar-container overlay-scrollbar" [style.width.px]="getSidebarWidth()" #sidebarContainer>
+            <div class="sidebar-container overlay-scrollbar-small" [style.width.px]="getSidebarWidth()" #sidebarContainer>
                 <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
             </div>
             <dui-splitter position="right" (modelChange)="sidebarWidth = $event; sidebarMoved()"></dui-splitter>
