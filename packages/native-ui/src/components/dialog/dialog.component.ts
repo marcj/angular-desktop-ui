@@ -205,6 +205,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             parent: this.injector,
             providers: [
                 {provide: DialogComponent, useValue: this},
+                {provide: WindowComponent, useValue: window},
             ],
         });
 
