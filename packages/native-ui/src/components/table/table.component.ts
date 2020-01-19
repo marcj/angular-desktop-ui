@@ -252,7 +252,6 @@ export class TableHeaderDirective {
                              [class.odd]="isOdd"
                              [style.height.px]="itemHeight"
                              (mousedown)="select(row, $event)"
-                             (contextmenu)="select(row, $event)"
                              (dblclick)="dbclick.emit(row)"
                         >
                             <div *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
@@ -900,9 +899,15 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.viewport.scrollToOffset(scrollTop + diff);
                 }
             }
-            this.selectedChange.emit(this.selected);
+            this.selectedChange.emit(this.selected.slice(0));
             this.cd.markForCheck();
         }
+    }
+
+    public deselect(item: T) {
+        arrayRemoveItem(this.selected, item);
+        this.selectedMap.delete(item);
+        detectChangesNextFrame(this.parentCd);
     }
 
     public select(item: T, $event?: MouseEvent) {
@@ -952,9 +957,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.selected.push(item);
                 }
             } else {
-                this.selected = [item];
-                this.selectedMap.clear();
-                this.selectedMap.set(item, true);
+                const rightClick = $event && $event.button === 2;
+                if (!rightClick || !this.selected.length) {
+                    this.selected = [item];
+                    this.selectedMap.clear();
+                    this.selectedMap.set(item, true);
+                }
             }
         }
 
