@@ -44,13 +44,13 @@ export class DropdownComponent {
      */
     @Input() keepOpen?: true;
 
-    @Input() height?: number;
+    @Input() height?: number | string;
 
-    @Input() width?: number;
+    @Input() width?: number | string;
 
-    @Input() minWidth?: number;
+    @Input() minWidth?: number | string;
 
-    @Input() minHeight?: number;
+    @Input() minHeight?: number | string;
 
     @Input() scrollbars: boolean = true;
 
