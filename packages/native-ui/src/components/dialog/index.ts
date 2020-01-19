@@ -14,7 +14,6 @@ import {ExternalDialogComponent} from "./external-dialog.component";
 import {
     DuiDialog,
     DuiDialogAlert,
-    DuiDialogAlertDirective,
     DuiDialogConfirm,
     DuiDialogConfirmDirective,
     DuiDialogPrompt
@@ -36,7 +35,6 @@ export {DuiDialog} from "./dialog";
         CloseDialogDirective,
         ExternalDialogComponent,
         DuiDialogConfirmDirective,
-        DuiDialogAlertDirective,
         DuiDialogAlert,
         DuiDialogConfirm,
         DuiDialogPrompt,
@@ -51,7 +49,6 @@ export {DuiDialog} from "./dialog";
         CloseDialogDirective,
         ExternalDialogComponent,
         DuiDialogConfirmDirective,
-        DuiDialogAlertDirective,
         DuiDialogAlert,
         DuiDialogConfirm,
         DuiDialogPrompt,
