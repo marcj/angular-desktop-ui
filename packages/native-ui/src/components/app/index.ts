@@ -15,6 +15,7 @@ import {CommonModule} from "@angular/common";
 import {Component, HostBinding, Input} from "@angular/core";
 import {Electron} from "../../core/utils";
 import {ActivationEnd, NavigationEnd, Router, Event as RouterEvent} from "@angular/router";
+import {WindowRegistry} from "../window/window-state";
 
 export * from "./dui-view.directive";
 export * from "./utils";
@@ -62,6 +63,7 @@ export class DuiApp {
 
     constructor(
         protected app: ApplicationRef,
+        protected windowRegistry: WindowRegistry,
         @Optional() protected router?: Router
     ) {
         ZonelessChangeDetector.app = app;
@@ -76,6 +78,18 @@ export class DuiApp {
 
             const remote = Electron.getRemote();
             this.win = remote.getCurrentWindow();
+
+            if (this.win) {
+                this.win.addListener('blur', () => {
+                    this.windowRegistry.focused.next(false);
+                    detectChangesNextFrame();
+                });
+
+                this.win.addListener('focus', () => {
+                    this.windowRegistry.focused.next(true);
+                    detectChangesNextFrame();
+                });
+            }
 
             let overwrittenDarkMode = localStorage.getItem('duiApp/darkMode');
             if (overwrittenDarkMode) {

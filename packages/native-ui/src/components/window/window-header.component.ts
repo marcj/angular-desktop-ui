@@ -17,20 +17,30 @@ import {Electron} from "../../core/utils";
     selector: 'dui-window-header',
     template: `
         <div class="title">
+            {{windowState.focus.value}}
             <ng-content></ng-content>
             <div class="closer">
-                <div (click)="minimize()"><dui-icon [size]="18" name="gnome_minimize"></dui-icon></div>
-                <div (click)="maximize()"><dui-icon [size]="18" name="gnome_maximize"></dui-icon></div>
-                <div (click)="close()" class="highlight"><dui-icon [size]="18" name="gnome_close"></dui-icon></div>
+                <div (click)="minimize()">
+                    <dui-icon [size]="18" name="gnome_minimize"></dui-icon>
+                </div>
+                <div (click)="maximize()">
+                    <dui-icon [size]="18" name="gnome_maximize"></dui-icon>
+                </div>
+                <div (click)="close()" class="highlight">
+                    <dui-icon [size]="18" name="gnome_close"></dui-icon>
+                </div>
             </div>
         </div>
         <div class="toolbar" *ngIf="windowState.toolbars['default']">
             <dui-window-toolbar-container></dui-window-toolbar-container>
         </div>
     `,
+    host: {
+        '[class.inactive]': '!windowState.focus.value'
+    },
     styleUrls: ['./window-header.component.scss']
 })
-export class WindowHeaderComponent {
+export class WindowHeaderComponent implements OnDestroy {
     @Input() public size: 'small' | 'medium' | 'large' = 'small';
 
     @HostBinding('class.with-toolbar')
@@ -48,12 +58,20 @@ export class WindowHeaderComponent {
         return this.size === 'large';
     }
 
+    protected focusSub = this.windowState.focus.subscribe((v) => {
+        this.cdParent.markForCheck();
+    });
+
     constructor(
         public windowState: WindowState,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
         protected element: ElementRef,
-        @SkipSelf() public readonly cd: ChangeDetectorRef,
     ) {
         windowState.header = this;
+    }
+
+    ngOnDestroy() {
+        this.focusSub.unsubscribe();
     }
 
     public getBottomPosition(): number {

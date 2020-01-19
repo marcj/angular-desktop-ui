@@ -1,5 +1,6 @@
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChild,
     Inject,
@@ -53,16 +54,13 @@ export class WindowComponent implements OnChanges, OnDestroy {
         @Inject(DOCUMENT) document: Document,
         protected registry: WindowRegistry,
         public windowState: WindowState,
+        cd: ChangeDetectorRef,
         windowMenuState: WindowMenuState,
         @SkipSelf() @Optional() protected parentWindow?: WindowComponent,
     ) {
-        registry.register(this, windowState, windowMenuState);
+        registry.register(this, cd, windowState, windowMenuState);
 
-        document.addEventListener('focus', () => {
-            this.focus();
-        });
-
-        this.focus();
+        this.registry.focus(this);
 
         //todo, windowMenuState.blur() when window is not focused anymore
         // we can not store this WindowComponent in a list since this list
@@ -71,10 +69,6 @@ export class WindowComponent implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         this.registry.unregister(this);
-    }
-
-    focus() {
-        this.registry.focus(this);
     }
 
     public isInDialog(): boolean {
