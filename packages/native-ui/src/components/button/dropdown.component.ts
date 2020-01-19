@@ -19,7 +19,7 @@ import {Subscription} from "rxjs";
         <ng-template #dropdownTemplate>
             <div class="dui-dropdown" tabindex="1" #dropdown>
 <!--                <div *ngIf="overlay !== false" class="dui-dropdown-arrow"></div>-->
-                <div class="content overlay-scrollbar-small">
+                <div class="content" [class.overlay-scrollbar-small]="scrollbars">
                     <ng-content></ng-content>
                 </div>
             </div>
@@ -51,6 +51,8 @@ export class DropdownComponent {
     @Input() minWidth?: number;
 
     @Input() minHeight?: number;
+
+    @Input() scrollbars: boolean = true;
 
     /**
      * Whether the dropdown aligns to the horizontal center.

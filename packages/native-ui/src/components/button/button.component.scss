@@ -26,6 +26,8 @@ In macOS we have 4 types of buttons:
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    cursor: default;
+    user-select: none;
 
     border-radius: 4px;
 
