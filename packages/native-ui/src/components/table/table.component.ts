@@ -37,7 +37,6 @@ import {Observable} from "rxjs";
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {DropdownComponent} from "../button";
 import {detectChangesNextFrame} from "../app/utils";
-import {OptionDirective} from "../select";
 
 export interface Column<T> {
     id: string;
@@ -198,22 +197,23 @@ export class TableHeaderDirective {
     template: `
         <dui-dropdown #headerDropdown>
             <dui-dropdown-item
-                    *ngFor="let column of sortedColumnDefs; trackBy: trackByColumn"
-                    [selected]="!column.isHidden()"
-                    (mousedown)="column.toggleHidden(); sortColumnDefs(); headerDropdown.close()"
+                *ngFor="let column of sortedColumnDefs; trackBy: trackByColumn"
+                [selected]="!column.isHidden()"
+                (mousedown)="column.toggleHidden(); sortColumnDefs(); headerDropdown.close()"
             >
                 <ng-container *ngIf="!headerMapDef[column.name]">
                     {{column.header || column.name}}
                 </ng-container>
                 <ng-container
-                        *ngIf="headerMapDef[column.name]"
-                        [ngTemplateOutlet]="headerMapDef[column.name].template"
-                        [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
+                    *ngIf="headerMapDef[column.name]"
+                    [ngTemplateOutlet]="headerMapDef[column.name].template"
+                    [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
             </dui-dropdown-item>
         </dui-dropdown>
 
         <div [style.height]="autoHeight !== false ? height + 'px' : '100%'" [style.minHeight.px]="itemHeight">
-            <div class="header" *ngIf="showHeader" #header [contextDropdown]="customHeaderDropdown ? customHeaderDropdown.dropdown : headerDropdown">
+            <div class="header" *ngIf="showHeader" #header
+                 [contextDropdown]="customHeaderDropdown ? customHeaderDropdown.dropdown : headerDropdown">
                 <div class="th"
                      *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
                      [style.width]="column.getWidth()"
@@ -222,9 +222,9 @@ export class TableHeaderDirective {
                      [style.top]="scrollTop + 'px'"
                      #th>
                     <ng-container
-                            *ngIf="headerMapDef[column.name]"
-                            [ngTemplateOutlet]="headerMapDef[column.name].template"
-                            [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
+                        *ngIf="headerMapDef[column.name]"
+                        [ngTemplateOutlet]="headerMapDef[column.name].template"
+                        [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
 
                     <ng-container *ngIf="!headerMapDef[column.name]">
                         {{column.header || column.name}}
@@ -245,7 +245,7 @@ export class TableHeaderDirective {
                                              [itemSize]="itemHeight"
                 >
                     <ng-container
-                            *cdkVirtualFor="let row of filterSorted(sorted); trackBy: trackByFn.bind(this); odd as isOdd">
+                        *cdkVirtualFor="let row of filterSorted(sorted); trackBy: trackByFn.bind(this); odd as isOdd">
                         <div class="table-row"
                              [contextDropdown]="customRowDropdown ? customRowDropdown.dropdown : undefined"
                              [class.selected]="selectedMap.has(row)"
@@ -329,12 +329,12 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * Whether rows are selectable.
      */
-    @Input() public selectable: boolean = false;
+    @Input() public selectable: boolean | '' = false;
 
     /**
      * Whether multiple rows are selectable at the same time.
      */
-    @Input() public multiSelect: boolean = false;
+    @Input() public multiSelect: boolean | '' = false;
 
     /**
      * TrackFn for ngFor to improve performance. Default is order by index.
@@ -387,6 +387,8 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      * Elements that are selected, by reference.
      */
     @Input() public selected: T[] = [];
+
+    protected selectedHistory: T[] = [];
 
     /**
      * Elements that are selected, by reference.
@@ -537,7 +539,7 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             let elementCells: HTMLElement[] = [];
             let originalPosition = -1;
             let foundBox: Box | undefined;
-            let rowCells: {cells: HTMLElement[]}[] = [];
+            let rowCells: { cells: HTMLElement[] }[] = [];
 
             let startOffsetLeft = 0;
             let offsetLeft = 0;
@@ -913,12 +915,35 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
             this.selectedMap.clear();
             this.selectedMap.set(item, true);
         } else {
-            if (!$event || !$event.metaKey) {
-                this.selected = [item];
-                this.selectedMap.clear();
-                this.selectedMap.set(item, true);
-            } else {
-                $event.preventDefault();
+            if ($event && $event.shiftKey) {
+                const indexSelected = this.sorted.indexOf(item);
+
+                if (this.selected[0]) {
+                    const firstSelected = this.sorted.indexOf(this.selected[0]);
+                    this.selectedMap.clear();
+                    this.selected = [];
+
+                    if (firstSelected < indexSelected) {
+                        //we select all from index -> indexSelected, downwards
+                        for (let i = firstSelected; i <= indexSelected; i++) {
+                            this.selected.push(this.sorted[i]);
+                            this.selectedMap.set(this.sorted[i], true);
+                        }
+                    } else {
+                        //we select all from indexSelected -> index, upwards
+                        for (let i = firstSelected; i >= indexSelected; i--) {
+                            this.selected.push(this.sorted[i]);
+                            this.selectedMap.set(this.sorted[i], true);
+                        }
+                    }
+                } else {
+                    //we start at 0 and select all until index
+                    for (let i = 0; i <= indexSelected; i++) {
+                        this.selected.push(this.sorted[i]);
+                        this.selectedMap.set(this.sorted[i], true);
+                    }
+                }
+            } else if ($event && $event.metaKey) {
                 if (arrayHasItem(this.selected, item)) {
                     arrayRemoveItem(this.selected, item);
                     this.selectedMap.delete(item);
@@ -926,11 +951,14 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.selectedMap.set(item, true);
                     this.selected.push(item);
                 }
+            } else {
+                this.selected = [item];
+                this.selectedMap.clear();
+                this.selectedMap.set(item, true);
             }
         }
 
         this.selectedChange.emit(this.selected);
-        // this.cd.detectChanges();
         detectChangesNextFrame(this.parentCd);
     }
 }

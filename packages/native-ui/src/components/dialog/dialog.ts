@@ -174,7 +174,8 @@ export class DuiDialogConfirmDirective implements OnDestroy {
 
             event.stopPropagation();
             event.preventDefault();
-            const a = await this.dialog.confirm(this.viewContainerRef, this.confirm);
+            const [title, text] = this.confirm.split('\n');
+            const a = await this.dialog.confirm(this.viewContainerRef, title, text);
             if (a) {
                 this.ignoreNextClick = true;
                 this.element.nativeElement.dispatchEvent(event);
@@ -194,36 +195,5 @@ export class DuiDialogConfirmDirective implements OnDestroy {
 
     ngOnDestroy() {
         document.body!.removeEventListener('click', this.callback, true);
-    }
-}
-
-@Directive({
-    selector: '[alert]',
-})
-export class DuiDialogAlertDirective {
-    @Input() confirm!: string;
-
-    constructor(
-        protected viewContainerRef: ViewContainerRef,
-        protected element: ElementRef<HTMLElement>,
-        protected dialog: DuiDialog,
-        protected cd: ChangeDetectorRef,
-    ) {
-        let ignoreNextClick = false;
-        document.body!.addEventListener('click', async (event) => {
-            if (event.target === this.element.nativeElement) {
-                if (ignoreNextClick) {
-                    ignoreNextClick = false;
-                    return;
-                }
-
-                event.stopPropagation();
-                event.preventDefault();
-                await this.dialog.alert(this.viewContainerRef, this.confirm);
-                ignoreNextClick = true;
-                this.element.nativeElement.dispatchEvent(event);
-                this.cd.detectChanges();
-            }
-        }, true);
     }
 }
