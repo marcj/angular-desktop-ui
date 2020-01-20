@@ -244,8 +244,6 @@ export class DropdownComponent {
     }
 
     public close() {
-        console.log('close', this.isOpen);
-
         if (!this.isOpen) {
             return;
         }
