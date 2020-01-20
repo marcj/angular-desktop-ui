@@ -17,7 +17,7 @@ export class RenderComponentDirective implements AfterViewInit, OnDestroy {
     @Input() renderComponent: any;
     @Input() renderComponentInputs: { [name: string]: any } = {};
 
-    protected component?: ComponentRef<any>;
+    public component?: ComponentRef<any>;
 
     constructor(
         protected app: ApplicationRef,

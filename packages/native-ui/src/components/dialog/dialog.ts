@@ -3,6 +3,7 @@ import {
     ChangeDetectorRef,
     Component,
     ComponentFactoryResolver,
+    ComponentRef,
     Directive,
     ElementRef,
     Injectable,
@@ -95,12 +96,12 @@ export class DuiDialog {
 
     }
 
-    public open(
+    public open<T>(
         viewContainerRef: ViewContainerRef,
-        component: Type<any>,
+        component: Type<T>,
         inputs: { [name: string]: any } = {},
         dialogInputs: { [name: string]: any } = {},
-    ): DialogComponent {
+    ): { dialog: DialogComponent, component: T } {
         const factoryMain = this.resolver.resolveComponentFactory(DialogComponent);
         const original = (factoryMain.create as any).bind(factoryMain);
 
@@ -124,7 +125,7 @@ export class DuiDialog {
             return comp;
         };
 
-        const comp = viewContainerRef.createComponent(factoryMain, 0, viewContainerRef.injector);
+        const comp: ComponentRef<DialogComponent> = viewContainerRef.createComponent(factoryMain, 0, viewContainerRef.injector);
 
         comp.instance.show();
         comp.changeDetectorRef.detectChanges();
@@ -132,21 +133,25 @@ export class DuiDialog {
         comp.instance.closed.subscribe(() => {
             comp.destroy();
         });
-        return comp.instance;
+
+        return {
+            dialog: comp.instance,
+            component: comp.instance.wrapperComponentRef!.instance!.renderComponentDirective.component.instance,
+        };
     }
 
     public async alert(viewContainerRef: ViewContainerRef, title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogAlert, {title, content}, dialodInputs);
+        const {dialog} = this.open(viewContainerRef, DuiDialogAlert, {title, content}, dialodInputs);
         return dialog.toPromise();
     }
 
     public async confirm(viewContainerRef: ViewContainerRef, title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
-        const dialog = this.open(viewContainerRef, DuiDialogConfirm, {title, content}, dialodInputs);
+        const {dialog} = this.open(viewContainerRef, DuiDialogConfirm, {title, content}, dialodInputs);
         return dialog.toPromise();
     }
 
     public async prompt(viewContainerRef: ViewContainerRef, title: string, value: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<false | string> {
-        const dialog = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content}, dialodInputs);
+        const {dialog} = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content}, dialodInputs);
         return dialog.toPromise();
     }
 

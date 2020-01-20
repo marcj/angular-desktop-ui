@@ -23,15 +23,17 @@ import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {WindowRegistry} from "../window/window-state";
 import {WindowComponent} from "../window/window.component";
+import {RenderComponentDirective} from "../core/render-component.directive";
 
 
 @Component({
     template: `
         <dui-window>
             <dui-window-content>
-                <div *ngIf="component"
+                <ng-container *ngIf="component"
+                     #renderComponentDirective
                      [renderComponent]="component" [renderComponentInputs]="componentInputs">
-                </div>
+                </ng-container>
 
                 <ng-container *ngIf="content" [ngTemplateOutlet]="content"></ng-container>
 
@@ -61,6 +63,8 @@ export class DialogWrapperComponent {
     actions?: TemplateRef<any> | undefined;
     container?: TemplateRef<any> | undefined;
     content?: TemplateRef<any> | undefined;
+
+    @ViewChild(RenderComponentDirective, {static: false}) renderComponentDirective?: RenderComponentDirective;
 
     constructor(
         protected cd: ChangeDetectorRef,
@@ -119,9 +123,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     container?: TemplateRef<any> | undefined;
 
     public overlayRef?: OverlayRef;
-    protected wrapperComponentRef?: ComponentRef<DialogWrapperComponent>;
-
-    protected dynamicComponentRef?: ComponentRef<any>;
+    public wrapperComponentRef?: ComponentRef<DialogWrapperComponent>;
 
     constructor(
         protected applicationRef: ApplicationRef,
@@ -258,10 +260,6 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
 
     ngOnDestroy(): void {
-        if (this.dynamicComponentRef) {
-            this.dynamicComponentRef.destroy();
-        }
-
         this.beforeUnload();
     }
 }
