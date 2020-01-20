@@ -17,7 +17,6 @@ import {Electron} from "../../core/utils";
     selector: 'dui-window-header',
     template: `
         <div class="title">
-            {{windowState.focus.value}}
             <ng-content></ng-content>
             <div class="closer">
                 <div (click)="minimize()">
