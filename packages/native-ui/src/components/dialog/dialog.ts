@@ -3,20 +3,22 @@ import {
     ChangeDetectorRef,
     Component,
     ComponentFactoryResolver,
-    ComponentRef,
     Directive,
     ElementRef,
+    Inject,
     Injectable,
+    Injector,
     Input,
     OnDestroy,
     Type,
     ViewContainerRef
 } from "@angular/core";
-import {Overlay} from "@angular/cdk/overlay";
 import {DialogComponent} from "./dialog.component";
 import {isTargetChildOf} from "../../core/utils";
 import {eachPair} from "@marcj/estdlib";
 import {DuiDialogProgress, ProgressDialogState} from "./progress-dialog.component";
+import {DOCUMENT} from "@angular/common";
+import {WindowRegistry} from "../window/window-state";
 
 
 @Component({
@@ -89,43 +91,39 @@ export class DuiDialogPrompt {
 @Injectable()
 export class DuiDialog {
     constructor(
-        protected app: ApplicationRef,
-        protected overlay: Overlay,
         protected resolver: ComponentFactoryResolver,
+        protected app: ApplicationRef,
+        protected injector: Injector,
+        protected registry: WindowRegistry,
     ) {
-
     }
 
     public open<T>(
-        viewContainerRef: ViewContainerRef,
         component: Type<T>,
         inputs: { [name: string]: any } = {},
         dialogInputs: { [name: string]: any } = {},
+        viewContainerRef: ViewContainerRef | null = null,
     ): { dialog: DialogComponent, component: T } {
-        const factoryMain = this.resolver.resolveComponentFactory(DialogComponent);
-        const original = (factoryMain.create as any).bind(factoryMain);
+        if (!viewContainerRef) {
+            viewContainerRef = this.registry.getCurrentViewContainerRef();
+        }
 
-        factoryMain.create = function (...args: any[]) {
-            const comp = original(...args);
+        const factory = this.resolver.resolveComponentFactory(DialogComponent);
+        const comp = viewContainerRef.createComponent(factory);
 
-            comp.instance.visible = true;
-            comp.instance.component = component;
-            comp.instance.componentInputs = inputs;
+        comp.instance.visible = true;
+        comp.instance.component = component;
+        comp.instance.componentInputs = inputs;
 
-            if ((component as any).dialogDefaults) {
-                for (const [i, v] of eachPair((component as any).dialogDefaults)) {
-                    (comp.instance as any)[i] = v;
-                }
-            }
-
-            for (const [i, v] of eachPair(dialogInputs)) {
+        if ((component as any).dialogDefaults) {
+            for (const [i, v] of eachPair((component as any).dialogDefaults)) {
                 (comp.instance as any)[i] = v;
             }
+        }
 
-            return comp;
-        };
-
-        const comp: ComponentRef<DialogComponent> = viewContainerRef.createComponent(factoryMain, 0, viewContainerRef.injector);
+        for (const [i, v] of eachPair(dialogInputs)) {
+            (comp.instance as any)[i] = v;
+        }
 
         comp.instance.show();
         comp.changeDetectorRef.detectChanges();
@@ -136,28 +134,28 @@ export class DuiDialog {
 
         return {
             dialog: comp.instance,
-            component: comp.instance.wrapperComponentRef!.instance!.renderComponentDirective.component.instance,
+            component: comp.instance.wrapperComponentRef!.instance!.renderComponentDirective!.component!.instance,
         };
     }
 
-    public async alert(viewContainerRef: ViewContainerRef, title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
-        const {dialog} = this.open(viewContainerRef, DuiDialogAlert, {title, content}, dialodInputs);
+    public async alert(title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
+        const {dialog} = this.open(DuiDialogAlert, {title, content}, dialodInputs);
         return dialog.toPromise();
     }
 
-    public async confirm(viewContainerRef: ViewContainerRef, title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
-        const {dialog} = this.open(viewContainerRef, DuiDialogConfirm, {title, content}, dialodInputs);
+    public async confirm(title: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<boolean> {
+        const {dialog} = this.open(DuiDialogConfirm, {title, content}, dialodInputs);
         return dialog.toPromise();
     }
 
-    public async prompt(viewContainerRef: ViewContainerRef, title: string, value: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<false | string> {
-        const {dialog} = this.open(viewContainerRef, DuiDialogPrompt, {title, value, content}, dialodInputs);
+    public async prompt(title: string, value: string, content?: string, dialodInputs: { [name: string]: any } = {}): Promise<false | string> {
+        const {dialog} = this.open(DuiDialogPrompt, {title, value, content}, dialodInputs);
         return dialog.toPromise();
     }
 
-    public progress(viewContainerRef: ViewContainerRef): ProgressDialogState {
+    public progress(): ProgressDialogState {
         const state$ = new ProgressDialogState;
-        this.open(viewContainerRef, DuiDialogProgress, {state$});
+        this.open(DuiDialogProgress, {state$});
         return state$;
     }
 }
@@ -180,7 +178,7 @@ export class DuiDialogConfirmDirective implements OnDestroy {
             event.stopPropagation();
             event.preventDefault();
             const [title, text] = this.confirm.split('\n');
-            const a = await this.dialog.confirm(this.viewContainerRef, title, text);
+            const a = await this.dialog.confirm(title, text, {});
             if (a) {
                 this.ignoreNextClick = true;
                 this.element.nativeElement.dispatchEvent(event);
@@ -190,15 +188,15 @@ export class DuiDialogConfirmDirective implements OnDestroy {
     };
 
     constructor(
-        protected viewContainerRef: ViewContainerRef,
         protected element: ElementRef<HTMLElement>,
         protected dialog: DuiDialog,
         protected cd: ChangeDetectorRef,
+        @Inject(DOCUMENT) protected document: Document,
     ) {
-        document.body!.addEventListener('click', this.callback, true);
+        this.document.body!.addEventListener('click', this.callback, true);
     }
 
     ngOnDestroy() {
-        document.body!.removeEventListener('click', this.callback, true);
+        this.document.body!.removeEventListener('click', this.callback, true);
     }
 }

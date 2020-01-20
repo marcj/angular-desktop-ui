@@ -10,14 +10,7 @@ import {
 } from "./dialog.component";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {CommonModule} from "@angular/common";
-import {ExternalDialogComponent} from "./external-dialog.component";
-import {
-    DuiDialog,
-    DuiDialogAlert,
-    DuiDialogConfirm,
-    DuiDialogConfirmDirective,
-    DuiDialogPrompt
-} from "./dialog";
+import {DuiDialog, DuiDialogAlert, DuiDialogConfirm, DuiDialogConfirmDirective, DuiDialogPrompt} from "./dialog";
 import {DuiButtonModule} from "../button";
 import {DuiCoreModule} from "../core";
 import {DuiInputModule} from "../input";
@@ -33,7 +26,6 @@ export {DuiDialog} from "./dialog";
         DialogDirective,
         DialogActionsComponent,
         CloseDialogDirective,
-        ExternalDialogComponent,
         DuiDialogConfirmDirective,
         DuiDialogAlert,
         DuiDialogConfirm,
@@ -47,7 +39,6 @@ export {DuiDialog} from "./dialog";
         DialogComponent,
         DialogActionsComponent,
         CloseDialogDirective,
-        ExternalDialogComponent,
         DuiDialogConfirmDirective,
         DuiDialogAlert,
         DuiDialogConfirm,

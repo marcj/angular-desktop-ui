@@ -3,11 +3,14 @@ import {
     ApplicationRef,
     ChangeDetectorRef,
     Component,
+    ComponentFactoryResolver,
     ComponentRef,
     Directive,
     EventEmitter,
-    HostListener, Injector,
+    HostListener,
+    Injector,
     Input,
+    NgZone,
     OnChanges,
     OnDestroy,
     Optional,
@@ -19,20 +22,30 @@ import {
     ViewChild,
     ViewContainerRef
 } from "@angular/core";
-import {Overlay, OverlayRef} from "@angular/cdk/overlay";
+import {
+    Overlay,
+    OverlayContainer,
+    OverlayKeyboardDispatcher,
+    OverlayPositionBuilder,
+    OverlayRef,
+    ScrollStrategyOptions
+} from "@angular/cdk/overlay";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {WindowRegistry} from "../window/window-state";
 import {WindowComponent} from "../window/window.component";
 import {RenderComponentDirective} from "../core/render-component.directive";
-
+import {IN_DIALOG} from "../app/token";
+import {Directionality} from "@angular/cdk/bidi";
+import {ViewportRuler} from "@angular/cdk/scrolling";
+import {Platform} from "@angular/cdk/platform";
 
 @Component({
     template: `
         <dui-window>
             <dui-window-content>
                 <ng-container *ngIf="component"
-                     #renderComponentDirective
-                     [renderComponent]="component" [renderComponentInputs]="componentInputs">
+                              #renderComponentDirective
+                              [renderComponent]="component" [renderComponentInputs]="componentInputs">
                 </ng-container>
 
                 <ng-container *ngIf="content" [ngTemplateOutlet]="content"></ng-container>
@@ -127,12 +140,11 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     constructor(
         protected applicationRef: ApplicationRef,
-        protected overlay: Overlay,
         protected viewContainerRef: ViewContainerRef,
         protected cd: ChangeDetectorRef,
         protected injector: Injector,
-        @SkipSelf() protected cdParent: ChangeDetectorRef,
         protected registry: WindowRegistry,
+        @SkipSelf() protected cdParent: ChangeDetectorRef,
         @Optional() protected window?: WindowComponent,
     ) {
     }
@@ -172,20 +184,35 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             return;
         }
 
-        const window = this.window ? this.window.getParentOrSelf() : this.registry.getOuterActiveWindow();
+        const window = this.window ? this.window.getClosestNonDialogWindow() : this.registry.getOuterActiveWindow();
         const offsetTop = window && window.header ? window.header.getBottomPosition() - 1 : 0;
 
-        let positionStrategy = this.overlay
+        const document = this.registry.getCurrentViewContainerRef().element.nativeElement.ownerDocument;
+        const overlayContainer = new OverlayContainer(document);
+        const overlay = new Overlay(
+            this.injector.get(ScrollStrategyOptions),
+            overlayContainer,
+            this.injector.get(ComponentFactoryResolver),
+            new OverlayPositionBuilder(this.injector.get(ViewportRuler), document, this.injector.get(Platform), overlayContainer),
+            this.injector.get(OverlayKeyboardDispatcher),
+            this.injector,
+            this.injector.get(NgZone),
+            document,
+            this.injector.get(Directionality),
+        );
+
+        let positionStrategy = overlay
             .position()
             .global().centerHorizontally().top(offsetTop + 'px');
 
         if (this.center) {
-            positionStrategy = this.overlay
+            positionStrategy = overlay
                 .position()
                 .global().centerHorizontally().centerVertically();
         }
 
-        this.overlayRef = this.overlay.create({
+
+        this.overlayRef = overlay.create({
             width: this.width || undefined,
             height: this.height || undefined,
             minWidth: this.minWidth || undefined,
@@ -194,8 +221,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             maxHeight: this.maxHeight || '90%',
             hasBackdrop: true,
             panelClass: (this.center ? 'dialog-overlay' : 'dialog-overlay-with-animation'),
-            scrollStrategy: this.overlay.scrollStrategies.reposition(),
-            positionStrategy: positionStrategy
+            scrollStrategy: overlay.scrollStrategies.reposition(),
+            positionStrategy: positionStrategy,
         });
 
         if (this.backDropCloses) {
@@ -208,6 +235,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
             providers: [
                 {provide: DialogComponent, useValue: this},
                 {provide: WindowComponent, useValue: window},
+                {provide: IN_DIALOG, useValue: true},
             ],
         });
 
@@ -222,6 +250,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         if (this.actions) {
             this.wrapperComponentRef!.instance.setActions(this.actions);
         }
+
         if (this.container) {
             this.wrapperComponentRef!.instance.setDialogContainer(this.container);
         }
@@ -231,8 +260,8 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         this.visible = true;
         this.visibleChange.emit(true);
 
-        this.wrapperComponentRef!.changeDetectorRef.detectChanges();
         this.wrapperComponentRef!.location.nativeElement.focus();
+        this.wrapperComponentRef!.changeDetectorRef.detectChanges();
 
         this.cd.detectChanges();
         this.cdParent.detectChanges();
@@ -264,6 +293,11 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
     }
 }
 
+/**
+ * This directive is necessary if you want to load and render the dialog content
+ * only when opening the dialog. Without it it is immediately render, which can cause
+ * performance and injection issues.
+ */
 @Directive({
     'selector': '[dialogContainer]',
 })

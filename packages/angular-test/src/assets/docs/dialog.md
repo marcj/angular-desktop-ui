@@ -50,7 +50,9 @@ return {
          There are many variations of passages of Lorem Ipsum available, 
          but the majority have suffered alteration in some form, by injected humour.
         </p>
-        <dui-button closeDialog>Ok, I'm sure now</dui-button>
+        <dui-dialog-actions>
+            <dui-button closeDialog>Ok, I'm sure now</dui-button>
+        </dui-dialog-actions>
     </dui-dialog>
 
     <dui-button (click)="anotherOne.show()">Not sure</dui-button>
@@ -77,7 +79,6 @@ return {
     </dui-button>
     <dui-button textured (click)="dialog.show()">Open sureness</dui-button>
     <dui-button textured confirm="Really delete?" (click)="confirmed = confirmed+1">Confirm please {{confirmed}}</dui-button>
-    <dui-button textured alert="This will delete stuff." (click)="confirmed = confirmed+1">Alert</dui-button>
     <dui-button textured (click)="dialog2.show()">Absolute dialog</dui-button>
 </dui-button-group>
 ```

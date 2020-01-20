@@ -4,15 +4,20 @@ import {
     Component,
     ContentChild,
     Inject,
-    Input, OnChanges, OnDestroy,
-    Optional, SimpleChanges,
-    SkipSelf
+    Input,
+    OnChanges,
+    OnDestroy,
+    Optional,
+    SimpleChanges,
+    SkipSelf,
+    ViewContainerRef
 } from "@angular/core";
 import {WindowContentComponent} from "./window-content.component";
 import {WindowRegistry, WindowState} from "./window-state";
 import {DOCUMENT} from "@angular/common";
 import {WindowMenuState} from "./window-menu";
 import {WindowHeaderComponent} from "./window-header.component";
+import {ELECTRON_WINDOW, IN_DIALOG} from "../app/token";
 
 /**
  * This is only for documentation purposes.
@@ -31,7 +36,7 @@ export class WindowFrameComponent {
 
 @Component({
     selector: 'dui-window',
-    template: '<ng-content></ng-content>',
+    template: '<ng-content></ng-content><div *ngIf="windowState.disableInputs|async" (mousedown)="$event.preventDefault();" class="disable-inputs"></div>',
     styleUrls: ['./window.component.scss'],
     host: {
         '[class.in-dialog]': 'isInDialog()',
@@ -43,6 +48,8 @@ export class WindowFrameComponent {
     ]
 })
 export class WindowComponent implements OnChanges, OnDestroy {
+    public id = 0;
+
     @ContentChild(WindowContentComponent, {static: false}) public content?: WindowContentComponent;
     @ContentChild(WindowHeaderComponent, {static: false}) public header?: WindowHeaderComponent;
 
@@ -50,33 +57,58 @@ export class WindowComponent implements OnChanges, OnDestroy {
     @Input() maximizable = true;
     @Input() minimizable = true;
 
+    protected onBlur = () => {
+        this.registry.blur(this);
+    };
+
+    protected onFocus = () => {
+        this.registry.focus(this);
+    };
+
     constructor(
         @Inject(DOCUMENT) document: Document,
         protected registry: WindowRegistry,
         public windowState: WindowState,
         cd: ChangeDetectorRef,
         windowMenuState: WindowMenuState,
+        protected viewContainerRef: ViewContainerRef,
+        @Inject(IN_DIALOG) protected inDialog: boolean,
         @SkipSelf() @Optional() protected parentWindow?: WindowComponent,
+        @Inject(ELECTRON_WINDOW) public electronWindow?: any
     ) {
-        registry.register(this, cd, windowState, windowMenuState);
+        registry.register(this, cd, windowState, windowMenuState, viewContainerRef);
+
+        if (this.electronWindow && !this.isInDialog()) {
+            this.electronWindow.addListener('blur', this.onBlur);
+            this.electronWindow.addListener('focus', this.onFocus);
+        }
 
         this.registry.focus(this);
-
-        //todo, windowMenuState.blur() when window is not focused anymore
-        // we can not store this WindowComponent in a list since this list
-        // is not shared across Electron windows.
     }
 
     ngOnDestroy() {
+        if (this.electronWindow && !this.isInDialog()) {
+            this.electronWindow.removeListener('blur', this.onBlur);
+            this.electronWindow.removeListener('focus', this.onFocus);
+        }
         this.registry.unregister(this);
     }
 
     public isInDialog(): boolean {
-        return !!this.parentWindow;
+        return this.inDialog;
     }
 
-    public getParentOrSelf(): WindowComponent {
-        return this.parentWindow ? this.parentWindow.getParentOrSelf() : this;
+    public getClosestNonDialogWindow(): WindowComponent | undefined {
+        if (!this.isInDialog()) {
+            return this;
+        }
+
+        if (this.parentWindow) {
+            if (this.parentWindow.isInDialog()) {
+                return this.parentWindow.getClosestNonDialogWindow();
+            }
+            return this.parentWindow;
+        }
     }
 
     ngOnChanges(changes: SimpleChanges) {

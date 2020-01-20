@@ -132,12 +132,12 @@ export function focusWatcher(target: HTMLElement, allowedFocuses: HTMLElement[] 
             requestAnimationFrame(check);
         }
 
-        window.addEventListener('focusin', onFocusIn as any);
-        window.addEventListener('focusout', onFocusOut as any);
+        target.ownerDocument!.addEventListener('focusin', onFocusIn as any);
+        target.ownerDocument!.addEventListener('focusout', onFocusOut as any);
 
         function unsubscribe(): void {
-            window.removeEventListener('focusin', onFocusIn as any);
-            window.removeEventListener('focusout', onFocusOut as any);
+            target.ownerDocument!.removeEventListener('focusin', onFocusIn as any);
+            target.ownerDocument!.removeEventListener('focusout', onFocusOut as any);
         }
 
         return {unsubscribe: unsubscribe};

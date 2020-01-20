@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Injectable, TemplateRef} from "@angular/core";
+import {ChangeDetectorRef, Injectable, TemplateRef, ViewContainerRef} from "@angular/core";
 import {ButtonGroupComponent} from "../button/button.component";
 import {WindowHeaderComponent, WindowToolbarContainerComponent} from "./window-header.component";
 import {arrayRemoveItem} from "@marcj/estdlib";
@@ -9,10 +9,13 @@ import {detectChangesNextFrame} from "../app";
 
 @Injectable()
 export class WindowRegistry {
+    id = 0;
+
     registry = new Map<WindowComponent, {
         state: WindowState,
         menu: WindowMenuState,
-        cd: ChangeDetectorRef
+        cd: ChangeDetectorRef,
+        viewContainerRef: ViewContainerRef
     }>();
 
     windowHistory: WindowComponent[] = [];
@@ -32,9 +35,12 @@ export class WindowRegistry {
         });
     }
 
-    register(win: WindowComponent, cd: ChangeDetectorRef, state: WindowState, menu: WindowMenuState) {
+    register(win: WindowComponent, cd: ChangeDetectorRef, state: WindowState, menu: WindowMenuState, viewContainerRef: ViewContainerRef) {
+        this.id++;
+        win.id = this.id;
+
         this.registry.set(win, {
-            state, menu, cd
+            state, menu, cd, viewContainerRef
         });
     }
 
@@ -42,10 +48,21 @@ export class WindowRegistry {
      * Finds the activeWindow and returns its most outer parent.
      */
     getOuterActiveWindow(): WindowComponent | undefined {
-        if (this.activeWindow) return this.activeWindow.getParentOrSelf();
+        if (this.activeWindow) return this.activeWindow.getClosestNonDialogWindow();
+    }
+
+    getCurrentViewContainerRef(): ViewContainerRef {
+        if (this.activeWindow) {
+            const reg = this.registry.get(this.activeWindow)!;
+            return reg.viewContainerRef;
+        }
+
+        throw new Error('No active window');
     }
 
     focus(win: WindowComponent) {
+        if (this.activeWindow === win) return;
+
         const reg = this.registry.get(win);
         if (!reg) throw new Error('Window not registered');
 
@@ -61,13 +78,21 @@ export class WindowRegistry {
 
     blur(win: WindowComponent) {
         const reg = this.registry.get(win);
-        reg.state.focus.next(false);
+        if (reg) {
+            reg.state.focus.next(false);
+        }
+        if (this.activeWindow === win) {
+            delete this.activeWindow;
+        }
+
         detectChangesNextFrame();
     }
 
     unregister(win: WindowComponent) {
         const reg = this.registry.get(win);
-        reg.state.focus.next(false);
+        if (reg) {
+            reg.state.focus.next(false);
+        }
 
         this.registry.delete(win);
         arrayRemoveItem(this.windowHistory, win);
@@ -84,6 +109,7 @@ export class WindowState {
     public buttonGroupAlignedToSidebar?: ButtonGroupComponent;
     public header?: WindowHeaderComponent;
     public focus = new BehaviorSubject<boolean>(false);
+    public disableInputs = new BehaviorSubject<boolean>(false);
 
     public toolbars: { [name: string]: TemplateRef<any>[] } = {};
     public toolbarContainers: { [name: string]: WindowToolbarContainerComponent } = {};

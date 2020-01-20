@@ -1,4 +1,13 @@
-import {ApplicationRef, Injectable, ModuleWithProviders, NgModule, Optional} from "@angular/core";
+import {
+    ApplicationRef,
+    Component,
+    HostBinding,
+    Injectable,
+    Input,
+    ModuleWithProviders,
+    NgModule,
+    Optional
+} from "@angular/core";
 import {DuiWindowModule} from "../window";
 import {
     MenuCheckboxDirective,
@@ -12,10 +21,10 @@ import {ViewDirective} from "./dui-view.directive";
 import {CdCounterComponent} from "./cd-counter.component";
 import {DuiResponsiveDirective} from "./dui-responsive.directive";
 import {CommonModule} from "@angular/common";
-import {Component, HostBinding, Input} from "@angular/core";
 import {Electron} from "../../core/utils";
-import {ActivationEnd, NavigationEnd, Router, Event as RouterEvent} from "@angular/router";
+import {ActivationEnd, Event as RouterEvent, NavigationEnd, Router} from "@angular/router";
 import {WindowRegistry} from "../window/window-state";
+import {ELECTRON_WINDOW, IN_DIALOG} from "./token";
 
 export * from "./dui-view.directive";
 export * from "./utils";
@@ -77,19 +86,6 @@ export class DuiApp {
             document.body.classList.add('electron');
 
             const remote = Electron.getRemote();
-            this.win = remote.getCurrentWindow();
-
-            if (this.win) {
-                this.win.addListener('blur', () => {
-                    this.windowRegistry.focused.next(false);
-                    detectChangesNextFrame();
-                });
-
-                this.win.addListener('focus', () => {
-                    this.windowRegistry.focused.next(true);
-                    detectChangesNextFrame();
-                });
-            }
 
             let overwrittenDarkMode = localStorage.getItem('duiApp/darkMode');
             if (overwrittenDarkMode) {
@@ -250,7 +246,11 @@ export class DuiAppModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: DuiAppModule,
-            providers: [DuiApp]
+            providers: [
+                DuiApp,
+                {provide: IN_DIALOG, useValue: false},
+                {provide: ELECTRON_WINDOW, useValue: Electron.isAvailable() ? Electron.getRemote().BrowserWindow.getAllWindows()[0] : undefined},
+            ]
         }
     }
 }

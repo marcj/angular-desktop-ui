@@ -21,22 +21,24 @@ async function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
         center: true,
-        width: 750,
-        height: 750,
+        width: 800,
+        // frame: false,
+        height: 700,
         vibrancy: 'window',
         transparent: true,
         backgroundColor: "#80FFFFFF",
         webPreferences: {
+            scrollBounce: true,
             allowRunningInsecureContent: false,
             preload: __dirname + '/../../node_modules/@marcj/angular-desktop-ui/preload.js',
-            sandbox: true,
+            nativeWindowOpen: true,
         },
         titleBarStyle: 'hidden',
-        icon: path.join(assetsPath, 'icons/64x64.png')
+        // icon: path.join(assetsPath, 'icons/64x64.png')
     });
 
     win.webContents.openDevTools({mode: 'undocked'});
-    win.loadURL('http://localhost:4200');
+    win.loadURL('http://127.0.0.1:4200');
 
     win.on('closed', () => {
         // Dereference the window object, usually you would store window

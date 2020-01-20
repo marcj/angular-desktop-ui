@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-import {DuiApp, DuiDialog} from "@marcj/angular-desktop-ui";
+import {DuiApp, DuiDialog, DuiExternalWindow, ExternalWindowComponent} from "@marcj/angular-desktop-ui";
+import {FirstWindowComponent} from "./windows/first-window.component";
+import {SecondWindowComponent} from "./windows/second-window.component";
 
 @Component({
     selector: 'app-root',

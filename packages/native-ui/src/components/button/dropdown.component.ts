@@ -1,16 +1,37 @@
 import {
     ChangeDetectorRef,
-    Component, Directive,
-    ElementRef, EventEmitter,
-    HostListener, Input, Output,
-    SkipSelf, TemplateRef,
+    Component,
+    ComponentFactoryResolver,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Injector,
+    Input,
+    NgZone,
+    Output,
+    SkipSelf,
+    TemplateRef,
     ViewChild,
     ViewContainerRef
 } from "@angular/core";
 import {TemplatePortal} from "@angular/cdk/portal";
-import {focusWatcher} from "../../core/utils";
-import {Overlay, OverlayConfig, OverlayRef, PositionStrategy} from "@angular/cdk/overlay";
+import {
+    Overlay,
+    OverlayConfig,
+    OverlayContainer,
+    OverlayKeyboardDispatcher,
+    OverlayPositionBuilder,
+    OverlayRef,
+    PositionStrategy,
+    ScrollStrategyOptions
+} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
+import {Directionality} from "@angular/cdk/bidi";
+import {WindowRegistry} from "../window/window-state";
+import {ViewportRuler} from "@angular/cdk/scrolling";
+import {Platform} from "@angular/cdk/platform";
+import {focusWatcher} from "../..";
 
 
 @Component({
@@ -18,7 +39,7 @@ import {Subscription} from "rxjs";
     template: `
         <ng-template #dropdownTemplate>
             <div class="dui-dropdown" tabindex="1" #dropdown>
-<!--                <div *ngIf="overlay !== false" class="dui-dropdown-arrow"></div>-->
+                <!--                <div *ngIf="overlay !== false" class="dui-dropdown-arrow"></div>-->
                 <div class="content" [class.overlay-scrollbar-small]="scrollbars">
                     <ng-content></ng-content>
                 </div>
@@ -72,7 +93,8 @@ export class DropdownComponent {
     @ViewChild('dropdown', {static: false}) dropdown!: ElementRef<HTMLElement>;
 
     constructor(
-        protected overlayService: Overlay,
+        protected injector: Injector,
+        protected registry: WindowRegistry,
         protected viewContainerRef: ViewContainerRef,
         protected cd: ChangeDetectorRef,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
@@ -110,8 +132,22 @@ export class DropdownComponent {
         }
         let position: PositionStrategy | undefined;
 
+        const document = this.registry.getCurrentViewContainerRef().element.nativeElement.ownerDocument;
+        const overlayContainer = new OverlayContainer(document);
+        const overlay = new Overlay(
+            this.injector.get(ScrollStrategyOptions),
+            overlayContainer,
+            this.injector.get(ComponentFactoryResolver),
+            new OverlayPositionBuilder(this.injector.get(ViewportRuler), document, this.injector.get(Platform), overlayContainer),
+            this.injector.get(OverlayKeyboardDispatcher),
+            this.injector,
+            this.injector.get(NgZone),
+            document,
+            this.injector.get(Directionality),
+        );
+
         if (target instanceof MouseEvent) {
-            position = this.overlayService
+            position = overlay
                 .position()
                 .flexibleConnectedTo({x: target.pageX, y: target.pageY})
                 .withFlexibleDimensions(false)
@@ -134,7 +170,7 @@ export class DropdownComponent {
                 ]);
             ;
         } else {
-            position = this.overlayService
+            position = overlay
                 .position()
                 .flexibleConnectedTo(target)
                 .withFlexibleDimensions(false)
@@ -173,7 +209,7 @@ export class DropdownComponent {
                 maxWidth: 450,
                 maxHeight: '90%',
                 hasBackdrop: false,
-                scrollStrategy: this.overlayService.scrollStrategies.reposition(),
+                scrollStrategy: overlay.scrollStrategies.reposition(),
                 positionStrategy: position
             };
             if (this.width) options.width = this.width;
@@ -181,7 +217,7 @@ export class DropdownComponent {
             if (this.minWidth) options.minWidth = this.minWidth;
             if (this.minHeight) options.minHeight = this.minHeight;
 
-            this.overlayRef = this.overlayService.create(options);
+            this.overlayRef = overlay.create(options);
 
             const portal = new TemplatePortal(this.dropdownTemplate, this.viewContainerRef);
 
@@ -197,6 +233,7 @@ export class DropdownComponent {
                     this.overlayRef.updatePosition();
                 }
             }, 250);
+
         }
 
         this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, [...this.allowedFocus, target as any]).subscribe(() => {
@@ -207,6 +244,8 @@ export class DropdownComponent {
     }
 
     public close() {
+        console.log('close', this.isOpen);
+
         if (!this.isOpen) {
             return;
         }
@@ -302,7 +341,8 @@ export class DropdownItemComponent {
 
     @Input() closeOnClick: boolean = true;
 
-    constructor(protected dropdown: DropdownComponent) {}
+    constructor(protected dropdown: DropdownComponent) {
+    }
 
     @HostListener('click')
     onClick() {

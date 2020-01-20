@@ -24,9 +24,10 @@ win = new BrowserWindow({
     transparent: true, //necessary for vibrancy fix on macos
     backgroundColor: "#80FFFFFF", //necessary for vibrancy fix on macos
     webPreferences: {
+        scrollBounce: true,
         allowRunningInsecureContent: false,
         preload: __dirname + '/../../node_modules/@marcj/angular-desktop-ui/preload.js',
-        sandbox: true,
+        nativeWindowOpen: true,
     },
     titleBarStyle: 'hidden',
     icon: path.join(assetsPath, 'icons/64x64.png')

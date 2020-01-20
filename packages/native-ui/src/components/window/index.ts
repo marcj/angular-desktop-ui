@@ -14,6 +14,17 @@ import {DuiSplitterModule} from "../splitter";
 import {DuiIconModule} from "../icon";
 import {WindowRegistry} from "./window-state";
 
+import {
+    ExternalDialogDirective,
+    ExternalDialogWrapperComponent,
+    ExternalWindowComponent
+} from "./external-window.component";
+import {DuiExternalWindow} from "./external-window";
+import {DuiCoreModule} from "../core";
+
+export * from "./external-window";
+export * from "./external-window.component";
+
 @NgModule({
     declarations: [
         WindowContentComponent,
@@ -24,6 +35,9 @@ import {WindowRegistry} from "./window-state";
         WindowToolbarComponent,
         WindowToolbarContainerComponent,
         WindowSidebarComponent,
+        ExternalWindowComponent,
+        ExternalDialogWrapperComponent,
+        ExternalDialogDirective,
     ],
     exports: [
         WindowContentComponent,
@@ -34,14 +48,22 @@ import {WindowRegistry} from "./window-state";
         WindowToolbarComponent,
         WindowToolbarContainerComponent,
         WindowSidebarComponent,
+        ExternalWindowComponent,
+        ExternalDialogWrapperComponent,
+        ExternalDialogDirective,
+    ],
+    entryComponents: [
+        ExternalWindowComponent,
     ],
     providers: [
+        DuiExternalWindow,
     ],
     imports: [
         CommonModule,
         BrowserAnimationsModule,
         DuiSplitterModule,
         DuiIconModule,
+        DuiCoreModule,
     ]
 })
 export class DuiWindowModule {

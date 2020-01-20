@@ -23,12 +23,18 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DocModule} from "./components/doc.module";
 import {DocuModule} from "./docu/docu.module";
+import {SecondWindowComponent} from "./windows/second-window.component";
+import {FirstWindowComponent} from "./windows/first-window.component";
+import {WindowManager} from "../assets/docs/window-manager";
 
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        FirstWindowComponent,
+        SecondWindowComponent,
+        WindowManager,
     ],
     imports: [
         HttpClientModule,

@@ -15,29 +15,16 @@ import {
     SimpleChanges,
     ViewChild,
     ViewContainerRef,
-    ɵcompileComponent, ɵcompileNgModule, ɵresolveComponentResources
+    ɵcompileComponent,
+    ɵcompileNgModule,
+    ɵresolveComponentResources
 } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import * as hljs from 'highlight.js';
 import {RegisteredDocComponents} from "../decorators";
-import {
-    DuiCheckboxModule,
-    DuiButtonModule,
-    DuiInputModule,
-    DuiFormComponent,
-    DuiRadioboxModule,
-    DuiSelectModule,
-    DuiWindowModule,
-    DuiIconModule,
-    DuiListModule,
-    DuiTableModule,
-    DuiAppModule,
-    DuiDialogModule,
-    DuiEmojiModule,
-    DuiSliderModule,
-} from '@marcj/angular-desktop-ui';
+import {DuiButtonModule, DuiInputModule, DuiTableModule, DuiWindowModule,} from '@marcj/angular-desktop-ui';
 import {stack} from "@marcj/estdlib";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -514,18 +501,13 @@ export class MarkdownDocComponent implements AfterViewInit {
         }
 
         this.componentJavascript = '';
-        if (RegisteredDocComponents[name]) {
-            const factory = this.resolver.resolveComponentFactory(RegisteredDocComponents[name]);
-            this.component = this.container.createComponent(factory);
-            return;
-        }
 
         this.loading = true;
         this.cd.detectChanges();
         const content = await this.http.get('/assets/docs/' + name + '.md', {responseType: "text"}).toPromise();
 
         this.loading = false;
-        await this.addComponent(this.parseHtml(content));
+        await this.addComponent(name, this.parseHtml(content));
         this.cd.detectChanges();
 
         requestAnimationFrame(() => {
@@ -560,23 +542,31 @@ export class MarkdownDocComponent implements AfterViewInit {
         return content;
     }
 
-    private async addComponent(template: string) {
+    private async addComponent(name: string, template: string) {
         if (this.component) {
             this.component.destroy();
         }
 
-        let properties = {};
+        let HigherOrderComponent: any;
 
-        if (this.componentJavascript) {
-            const js = this.componentJavascript.replace(/^[\n\s]+|[\n\s]+$/g, "");
-            properties = new Function(`${js};`)();
-        }
+        if (RegisteredDocComponents[name]) {
+            HigherOrderComponent = RegisteredDocComponents[name];
+            // ɵcompileComponent(RegisteredDocComponents[name], {template: template});
+            // const factory = this.resolver.resolveComponentFactory(RegisteredDocComponents[name]);
+            // this.component = this.container.createComponent(factory!);
+            // return;
+        } else {
+            let properties = {};
+            if (this.componentJavascript) {
+                const js = this.componentJavascript.replace(/^[\n\s]+|[\n\s]+$/g, "");
+                properties = new Function(`${js};`)();
+            }
 
-        // @Component({template: 'hi' + template})
-        class HigherOrderComponent {
-            constructor() {
-                for (const i in properties) {
-                    (this as any)[i] = (properties as any)[i];
+            HigherOrderComponent = class {
+                constructor() {
+                    for (const i in properties) {
+                        (this as any)[i] = (properties as any)[i];
+                    }
                 }
             }
         }
