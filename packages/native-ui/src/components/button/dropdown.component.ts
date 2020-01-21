@@ -93,6 +93,7 @@ export class DropdownComponent {
     @ViewChild('dropdown', {static: false}) dropdown!: ElementRef<HTMLElement>;
 
     constructor(
+        protected overlay: Overlay,
         protected injector: Injector,
         protected registry: WindowRegistry,
         protected viewContainerRef: ViewContainerRef,
@@ -133,18 +134,22 @@ export class DropdownComponent {
         let position: PositionStrategy | undefined;
 
         const document = this.registry.getCurrentViewContainerRef().element.nativeElement.ownerDocument;
-        const overlayContainer = new OverlayContainer(document);
-        const overlay = new Overlay(
-            this.injector.get(ScrollStrategyOptions),
-            overlayContainer,
-            this.injector.get(ComponentFactoryResolver),
-            new OverlayPositionBuilder(this.injector.get(ViewportRuler), document, this.injector.get(Platform), overlayContainer),
-            this.injector.get(OverlayKeyboardDispatcher),
-            this.injector,
-            this.injector.get(NgZone),
-            document,
-            this.injector.get(Directionality),
-        );
+
+        //this is necessary for multi-window environments, but doesn't work yet.
+        // const overlayContainer = new OverlayContainer(document);
+        // const overlayContainer = new OverlayContainer(document);
+        // const overlay = new Overlay(
+        //     this.injector.get(ScrollStrategyOptions),
+        //     overlayContainer,
+        //     this.injector.get(ComponentFactoryResolver),
+        //     new OverlayPositionBuilder(this.injector.get(ViewportRuler), document, this.injector.get(Platform), overlayContainer),
+        //     this.injector.get(OverlayKeyboardDispatcher),
+        //     this.injector,
+        //     this.injector.get(NgZone),
+        //     document,
+        //     this.injector.get(Directionality),
+        // );
+        const overlay = this.overlay;
 
         if (target instanceof MouseEvent) {
             position = overlay

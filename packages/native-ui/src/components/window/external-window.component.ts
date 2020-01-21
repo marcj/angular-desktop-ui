@@ -23,7 +23,7 @@ import {ComponentPortal, DomPortalHost, PortalHost} from "@angular/cdk/portal";
 import {WindowComponent} from "../window/window.component";
 import {WindowRegistry} from "../window/window-state";
 import {RenderComponentDirective} from "../core/render-component.directive";
-import {DuiDialog, Electron} from "../..";
+import {detectChangesNextFrame, DuiDialog, Electron} from "../..";
 import {ELECTRON_WINDOW, IN_DIALOG} from "../app/token";
 import {Subscription} from "rxjs";
 import {DOCUMENT} from "@angular/common";
@@ -205,6 +205,7 @@ export class ExternalWindowComponent implements AfterViewInit, OnDestroy, OnChan
             }
         };
 
+
         this.observerClass = new MutationObserver((mutations: MutationRecord[]) => {
             copyBodyClass();
         });
@@ -212,6 +213,8 @@ export class ExternalWindowComponent implements AfterViewInit, OnDestroy, OnChan
         this.observerClass.observe(window.document.body, {
             attributeFilter: ['class']
         });
+        const document = this.externalWindow!.document;
+
         copyBodyClass();
 
         this.electronWindow = Electron.isAvailable() ? Electron.getRemote().BrowserWindow.getAllWindows()[0] : undefined;
@@ -229,11 +232,19 @@ export class ExternalWindowComponent implements AfterViewInit, OnDestroy, OnChan
         });
 
         this.portalHost = new DomPortalHost(
-            this.externalWindow!.document.body,
+            document.body,
             this.componentFactoryResolver,
             this.applicationRef,
             this.injector
         );
+
+        document.addEventListener('click', () => detectChangesNextFrame());
+        document.addEventListener('focus', () => detectChangesNextFrame());
+        document.addEventListener('blur', () => detectChangesNextFrame());
+        document.addEventListener('keydown', () => detectChangesNextFrame());
+        document.addEventListener('keyup', () => detectChangesNextFrame());
+        document.addEventListener('keypress', () => detectChangesNextFrame());
+        document.addEventListener('mousedown', () => detectChangesNextFrame());
 
         //todo, add beforeclose event and call beforeUnload() to make sure all dialogs are closed when page is reloaded
 

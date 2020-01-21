@@ -9,6 +9,9 @@ import {DuiWindowModule} from '@marcj/angular-desktop-ui';
 </p>
 
 <p>
+    WARNING: still in development. Does not work yet in prod builds.
+</p>
+<p>
     Note: When you open a second window, the root window (where angular was initially loaded) needs to stay loaded all the time (you can hide it though).
 </p>
 

@@ -142,6 +142,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         protected applicationRef: ApplicationRef,
         protected viewContainerRef: ViewContainerRef,
         protected cd: ChangeDetectorRef,
+        protected overlay: Overlay,
         protected injector: Injector,
         protected registry: WindowRegistry,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
@@ -188,18 +189,22 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
         const offsetTop = window && window.header ? window.header.getBottomPosition() - 1 : 0;
 
         const document = this.registry.getCurrentViewContainerRef().element.nativeElement.ownerDocument;
-        const overlayContainer = new OverlayContainer(document);
-        const overlay = new Overlay(
-            this.injector.get(ScrollStrategyOptions),
-            overlayContainer,
-            this.injector.get(ComponentFactoryResolver),
-            new OverlayPositionBuilder(this.injector.get(ViewportRuler), document, this.injector.get(Platform), overlayContainer),
-            this.injector.get(OverlayKeyboardDispatcher),
-            this.injector,
-            this.injector.get(NgZone),
-            document,
-            this.injector.get(Directionality),
-        );
+
+        //this is necessary for multi-window environments, but doesn't work yet.
+        // const overlayContainer = new OverlayContainer(document);
+        //
+        // const overlay = new Overlay(
+        //     this.injector.get(ScrollStrategyOptions),
+        //     overlayContainer,
+        //     this.injector.get(ComponentFactoryResolver),
+        //     new OverlayPositionBuilder(this.injector.get(ViewportRuler), document, this.injector.get(Platform), overlayContainer),
+        //     this.injector.get(OverlayKeyboardDispatcher),
+        //     this.injector,
+        //     this.injector.get(NgZone),
+        //     document,
+        //     this.injector.get(Directionality),
+        // );
+        const overlay = this.overlay;
 
         let positionStrategy = overlay
             .position()
@@ -210,7 +215,6 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
                 .position()
                 .global().centerHorizontally().centerVertically();
         }
-
 
         this.overlayRef = overlay.create({
             width: this.width || undefined,
