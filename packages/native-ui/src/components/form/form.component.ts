@@ -20,12 +20,7 @@ import {detectChangesNextFrame} from "../app";
 
             <div class="error" *ngIf="ngControl && ngControl.errors && ngControl.touched">
                 <div *ngFor="let kv of ngControl.errors|keyvalue">
-                    <ng-container *ngIf="kv.value !== false && kv.value !== true">
-                        {{kv.key ? kv.key + ': ' : ''}}{{kv.value}}
-                    </ng-container>
-                    <ng-container *ngIf="kv.value === false || kv.value === true">
-                        {{kv.key}}
-                    </ng-container>
+                    {{isString(kv.value) ? '' : kv.key}}{{isString(kv.value) ? kv.value : ''}}
                 </div>
             </div>
         </div>`,
@@ -35,6 +30,10 @@ export class FormRowComponent {
     @Input() label: string = '';
 
     @ContentChild(NgControl, {static: false}) ngControl?: NgControl;
+
+    isString(v: any){
+        return 'string' === typeof v;
+    }
 }
 
 @Component({
@@ -93,34 +92,35 @@ export class FormComponent implements OnChanges {
         this.submitting = true;
         detectChangesNextFrame(this.cd);
 
-        if (this.submit) {
-            try {
-                await this.submit();
-                this.success.emit();
-            } catch (error) {
-                this.error.emit(error);
+        try {
+            if (this.submit) {
+                try {
+                    await this.submit();
+                    this.success.emit();
+                } catch (error) {
+                    this.error.emit(error);
 
-                if (error.errors && error.errors[0]) {
-                    //we got a validation-like error object
-                    for (const item of error.errors) {
-                        const control = this.formGroup.get(item.path);
-                        if (control) {
-                            control.setErrors({
-                                ...control.errors,
-                                [item.code]: item.message,
-                            });
+                    if (error.errors && error.errors[0]) {
+                        //we got a validation-like error object
+                        for (const item of error.errors) {
+                            const control = this.formGroup.get(item.path);
+                            if (control) {
+                                control.setErrors({
+                                    ...control.errors,
+                                    [item.code]: item.message,
+                                });
+                            }
                         }
+                    } else {
+                        this.errorText = error.message || error;
                     }
-                } else {
-                    this.errorText = error.message || error;
+
+                    throw error;
                 }
-
-                console.error(error);
-                throw error;
             }
+        } finally {
+            this.submitting = false;
+            detectChangesNextFrame(this.cd);
         }
-
-        this.submitting = false;
-        detectChangesNextFrame(this.cd);
     }
 }

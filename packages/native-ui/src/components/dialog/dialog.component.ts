@@ -3,14 +3,12 @@ import {
     ApplicationRef,
     ChangeDetectorRef,
     Component,
-    ComponentFactoryResolver,
     ComponentRef,
     Directive,
     EventEmitter,
     HostListener,
     Injector,
     Input,
-    NgZone,
     OnChanges,
     OnDestroy,
     Optional,
@@ -22,22 +20,12 @@ import {
     ViewChild,
     ViewContainerRef
 } from "@angular/core";
-import {
-    Overlay,
-    OverlayContainer,
-    OverlayKeyboardDispatcher,
-    OverlayPositionBuilder,
-    OverlayRef,
-    ScrollStrategyOptions
-} from "@angular/cdk/overlay";
+import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {WindowRegistry} from "../window/window-state";
 import {WindowComponent} from "../window/window.component";
 import {RenderComponentDirective} from "../core/render-component.directive";
 import {IN_DIALOG} from "../app/token";
-import {Directionality} from "@angular/cdk/bidi";
-import {ViewportRuler} from "@angular/cdk/scrolling";
-import {Platform} from "@angular/cdk/platform";
 
 @Component({
     template: `

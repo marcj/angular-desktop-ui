@@ -12,6 +12,7 @@ import {
     ViewChild
 } from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
+import {detectChangesNextFrame} from "../app";
 
 export class Base {
 
@@ -53,6 +54,9 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
 
     @Input() icon: string = '';
 
+    /**
+     * Focuses this element once created (AfterViewInit).
+     */
     @Input() focus: boolean | '' = false;
 
     @Input() lightFocus: boolean | '' = false;
@@ -134,7 +138,7 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         if (this.focus !== false && this.input) {
             setTimeout(() => {
                 this.input!.nativeElement.focus();
-                this.cdParent.detectChanges();
+                detectChangesNextFrame(this.cd);
             });
         }
     }

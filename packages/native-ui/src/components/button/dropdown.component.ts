@@ -1,14 +1,12 @@
 import {
     ChangeDetectorRef,
     Component,
-    ComponentFactoryResolver,
     Directive,
     ElementRef,
     EventEmitter,
     HostListener,
     Injector,
     Input,
-    NgZone,
     Output,
     SkipSelf,
     TemplateRef,
@@ -16,21 +14,9 @@ import {
     ViewContainerRef
 } from "@angular/core";
 import {TemplatePortal} from "@angular/cdk/portal";
-import {
-    Overlay,
-    OverlayConfig,
-    OverlayContainer,
-    OverlayKeyboardDispatcher,
-    OverlayPositionBuilder,
-    OverlayRef,
-    PositionStrategy,
-    ScrollStrategyOptions
-} from "@angular/cdk/overlay";
+import {Overlay, OverlayConfig, OverlayRef, PositionStrategy} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
-import {Directionality} from "@angular/cdk/bidi";
 import {WindowRegistry} from "../window/window-state";
-import {ViewportRuler} from "@angular/cdk/scrolling";
-import {Platform} from "@angular/cdk/platform";
 import {focusWatcher} from "../..";
 
 
@@ -93,7 +79,7 @@ export class DropdownComponent {
     @ViewChild('dropdown', {static: false}) dropdown!: ElementRef<HTMLElement>;
 
     constructor(
-        protected overlay: Overlay,
+        protected overlayService: Overlay,
         protected injector: Injector,
         protected registry: WindowRegistry,
         protected viewContainerRef: ViewContainerRef,
@@ -133,9 +119,8 @@ export class DropdownComponent {
         }
         let position: PositionStrategy | undefined;
 
-        const document = this.registry.getCurrentViewContainerRef().element.nativeElement.ownerDocument;
-
         //this is necessary for multi-window environments, but doesn't work yet.
+        // const document = this.registry.getCurrentViewContainerRef().element.nativeElement.ownerDocument;
         // const overlayContainer = new OverlayContainer(document);
         // const overlayContainer = new OverlayContainer(document);
         // const overlay = new Overlay(
@@ -149,7 +134,7 @@ export class DropdownComponent {
         //     document,
         //     this.injector.get(Directionality),
         // );
-        const overlay = this.overlay;
+        const overlay = this.overlayService;
 
         if (target instanceof MouseEvent) {
             position = overlay
@@ -340,7 +325,7 @@ export class DropdownSplitterComponent {
 export class DropdownItemComponent {
     @Input() selected = false;
 
-    @Input() disabled?: boolean = false;
+    @Input() disabled: boolean | '' = false;
 
     @Input() closeOnClick: boolean = true;
 

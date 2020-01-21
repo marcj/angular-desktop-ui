@@ -7,6 +7,10 @@
     margin-right: 6px;
 }
 
+:host ::ng-deep > *:not(:last-child) {
+    margin-right: 6px;
+}
+
 :host ::ng-deep dui-button.active {
     z-index: 1;
 }

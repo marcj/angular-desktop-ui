@@ -173,8 +173,6 @@ h4 {
             border: 2px solid rgba(0, 0, 0, 0.01);
             background-clip: padding-box;
         }
-
-        border-radius: 8px;
     }
 }
 
@@ -193,4 +191,19 @@ h4 {
 .dark .panel {
     background-color: #1e1e1e;
     border: 1px solid #565656;
+}
+
+.dui-panel {
+    border-radius: 4px;
+}
+
+body.dark .dui-panel {
+    background-color: #383636;
+    border: 1px solid #514e4e;
+}
+
+body.light .dui-panel {
+    background-color: #e3e3e3;
+    border: 1px solid #dfdfdf;
+    border-top: 1px solid #d4d4d4;
 }
