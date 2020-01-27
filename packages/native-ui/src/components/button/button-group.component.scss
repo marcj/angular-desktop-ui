@@ -3,12 +3,15 @@
     line-height: 0;
 }
 
+//:host ::ng-deep > * {
+//    margin-right: 6px;
+//}
+
 :host ::ng-deep > * {
     margin-right: 6px;
 }
-
-:host ::ng-deep > *:not(:last-child) {
-    margin-right: 6px;
+:host:last-child ::ng-deep > *:last-child {
+    margin-right: 0;
 }
 
 :host ::ng-deep dui-button.active {

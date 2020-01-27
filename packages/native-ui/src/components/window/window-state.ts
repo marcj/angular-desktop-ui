@@ -54,7 +54,9 @@ export class WindowRegistry {
     getCurrentViewContainerRef(): ViewContainerRef {
         if (this.activeWindow) {
             const reg = this.registry.get(this.activeWindow)!;
-            return reg.viewContainerRef;
+            if (reg) {
+                return reg.viewContainerRef;
+            }
         }
 
         throw new Error('No active window');

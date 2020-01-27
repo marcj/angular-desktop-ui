@@ -94,7 +94,6 @@ export function triggerResize() {
 
 export function focusWatcher(target: HTMLElement, allowedFocuses: HTMLElement[] = []): Observable<void> {
     return new Observable<void>((observer) => {
-        target.focus();
         let currentlyFocused: HTMLElement | null = target;
 
         function isFocusAllowed() {

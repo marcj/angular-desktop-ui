@@ -13,27 +13,29 @@ import {
 } from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 import {detectChangesNextFrame} from "../app";
-
-export class Base {
-
-}
+import {Buffer} from "buffer";
 
 @Component({
     selector: 'dui-input',
     template: `
         <div class="input-wrapper">
             <input
-                    *ngIf="type !== 'textarea'"
-                    #input
-                    [step]="step"
-                    [type]="type" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
-                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" [disabled]="isDisabled"
-                    [(ngModel)]="innerValue"/>
+                *ngIf="type !== 'textarea'"
+                #input
+                [step]="step"
+                [type]="type" (focus)="onFocus()" (blur)="onBlur()"
+                (change)="handleFileInput($event)"
+                [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
+                [disabled]="isDisabled"
+                [ngModel]="type === 'file' ? undefined : innerValue"
+                (ngModelChange)="setInnerValue($event)"
+            />
             <textarea
-                    #input
-                    *ngIf="type === 'textarea'" (focus)="cdParent.detectChanges()" (blur)="cdParent.detectChanges()"
-                    [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)" [disabled]="isDisabled"
-                    [(ngModel)]="innerValue"></textarea>
+                #input
+                *ngIf="type === 'textarea'" (focus)="onFocus()" (blur)="onBlur()"
+                [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
+                [disabled]="isDisabled"
+                [(ngModel)]="innerValue"></textarea>
         </div>
         <dui-icon *ngIf="icon" class="icon" [size]="13" [name]="icon"></dui-icon>
         <dui-icon *ngIf="hasClearer" class="clearer" [size]="14" name="clear" (click)="clear()"></dui-icon>
@@ -67,6 +69,8 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
     @Input() textured: boolean | '' = false;
+
+    @Output() focusChange = new EventEmitter<boolean>();
 
     @HostBinding('class.textured')
     get isTextured() {
@@ -110,8 +114,36 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         super(injector, cd, cdParent);
     }
 
+    onBlur() {
+        this.cdParent.detectChanges();
+        this.focusChange.next(false);
+    }
+
+    onFocus() {
+        this.cdParent.detectChanges();
+        this.focusChange.next(true);
+    }
+
     public async clear() {
         this.innerValue = '';
+    }
+
+    /**
+     * From <input>
+     */
+    setInnerValue(value: any) {
+        if (this.type === 'file') return;
+
+        this.innerValue = value;
+    }
+
+    async writeValue(value?: any) {
+        if (this.type === 'file' && !value && this.input) {
+            //we need to manually reset the field, since writing to it via ngModel is not supported.
+            this.input!.nativeElement.value = '';
+        }
+
+        super.writeValue(value);
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -140,6 +172,47 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
                 this.input!.nativeElement.focus();
                 detectChangesNextFrame(this.cd);
             });
+        }
+    }
+
+    public async handleFileInput(event: any) {
+        const files = event.target.files;
+        this.touch();
+
+        const readFile = (file: File): Promise<Buffer | undefined> => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (reader.result) {
+                        if (reader.result instanceof ArrayBuffer) {
+                            resolve(Buffer.from(reader.result));
+                        } else {
+                            resolve();
+                        }
+                    }
+                };
+                reader.onerror = (error) => {
+                    console.log('Error: ', error);
+                    reject();
+                };
+
+                reader.readAsArrayBuffer(file);
+            });
+        };
+
+        if (files) {
+            if (files.length > 1) {
+                const value = [];
+                for (let i = 0; i < files.length; i++) {
+                    const file = files.item(i);
+                    if (file) {
+                        value.push(await readFile(file));
+                    }
+                }
+                this.innerValue = value;
+            } else if (files.length === 1) {
+                this.innerValue = await readFile(files.item(0));
+            }
         }
     }
 }

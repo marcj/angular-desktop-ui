@@ -25,6 +25,7 @@ import {Electron} from "../../core/utils";
 import {ActivationEnd, Event as RouterEvent, NavigationEnd, Router} from "@angular/router";
 import {WindowRegistry} from "../window/window-state";
 import {ELECTRON_WINDOW, IN_DIALOG} from "./token";
+import {AsyncRenderPipe} from "./pipes";
 
 export * from "./dui-view.directive";
 export * from "./utils";
@@ -220,6 +221,7 @@ export class DuiApp {
         ViewDirective,
         CdCounterComponent,
         DuiResponsiveDirective,
+        AsyncRenderPipe,
     ],
     exports: [
         UiComponentComponent,
@@ -232,6 +234,7 @@ export class DuiApp {
         ViewDirective,
         CdCounterComponent,
         DuiResponsiveDirective,
+        AsyncRenderPipe,
     ],
     imports: [
         CommonModule,

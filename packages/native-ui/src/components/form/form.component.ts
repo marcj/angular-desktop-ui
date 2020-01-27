@@ -88,6 +88,7 @@ export class FormComponent implements OnChanges {
         if (this.disabled) return;
         if (this.submitting) return;
         if (this.formGroup.invalid) return;
+        this.errorText = '';
 
         this.submitting = true;
         detectChangesNextFrame(this.cd);

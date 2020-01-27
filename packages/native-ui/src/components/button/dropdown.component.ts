@@ -6,8 +6,8 @@ import {
     EventEmitter,
     HostListener,
     Injector,
-    Input,
-    Output,
+    Input, OnChanges, OnDestroy,
+    Output, SimpleChanges,
     SkipSelf,
     TemplateRef,
     ViewChild,
@@ -18,6 +18,7 @@ import {Overlay, OverlayConfig, OverlayRef, PositionStrategy} from "@angular/cdk
 import {Subscription} from "rxjs";
 import {WindowRegistry} from "../window/window-state";
 import {focusWatcher} from "../..";
+import {isArray} from "@marcj/estdlib";
 
 
 @Component({
@@ -37,14 +38,14 @@ import {focusWatcher} from "../..";
     },
     styleUrls: ['./dropdow.component.scss']
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnChanges, OnDestroy {
     public isOpen = false;
     public overlayRef?: OverlayRef;
     protected lastFocusWatcher?: Subscription;
 
     @Input() host?: HTMLElement | ElementRef;
 
-    @Input() allowedFocus: HTMLElement[] = [];
+    @Input() allowedFocus: (HTMLElement | ElementRef)[] | (HTMLElement | ElementRef) = [];
 
     /**
      * For debugging purposes.
@@ -71,6 +72,9 @@ export class DropdownComponent {
      */
     @Input() overlay: boolean | '' = false;
 
+    @Input() show?: boolean;
+    @Output() showChange = new EventEmitter<boolean>();
+
     @Output() shown = new EventEmitter();
 
     @Output() hidden = new EventEmitter();
@@ -86,6 +90,17 @@ export class DropdownComponent {
         protected cd: ChangeDetectorRef,
         @SkipSelf() protected cdParent: ChangeDetectorRef,
     ) {
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.show) {
+            if (this.show === true) this.open();
+            if (this.show === false) this.close();
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.close();
     }
 
     @HostListener('window:keyup', ['$event'])
@@ -217,20 +232,26 @@ export class DropdownComponent {
 
             this.overlayRef!.updatePosition();
             this.shown.emit();
+            this.showChange.emit(true);
 
             setTimeout(() => {
                 if (this.overlayRef) {
                     this.overlayRef.updatePosition();
                 }
             }, 250);
-
         }
 
-        this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, [...this.allowedFocus, target as any]).subscribe(() => {
-            if (!this.keepOpen) {
-                this.close();
-            }
-        });
+        const normalizedAllowedFocus = isArray(this.allowedFocus) ? this.allowedFocus : (this.allowedFocus ? [this.allowedFocus] : []);
+        const allowedFocus = normalizedAllowedFocus.map(v => v instanceof ElementRef ? v.nativeElement : v) as HTMLElement[];
+
+        if (this.show === undefined) {
+            this.dropdown.nativeElement.focus();
+            this.lastFocusWatcher = focusWatcher(this.dropdown.nativeElement, [...allowedFocus, target as any]).subscribe(() => {
+                if (!this.keepOpen) {
+                    this.close();
+                }
+            });
+        }
     }
 
     public close() {
@@ -247,6 +268,7 @@ export class DropdownComponent {
 
         this.cd.detectChanges();
         this.hidden.emit();
+        this.showChange.emit(false);
     }
 }
 
