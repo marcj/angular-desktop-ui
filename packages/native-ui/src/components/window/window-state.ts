@@ -35,6 +35,10 @@ export class WindowRegistry {
         });
     }
 
+    getAllElectronWindows(): any[] {
+        return [...this.registry.keys()].map(v => v.electronWindow);
+    }
+
     register(win: WindowComponent, cd: ChangeDetectorRef, state: WindowState, menu: WindowMenuState, viewContainerRef: ViewContainerRef) {
         this.id++;
         win.id = this.id;

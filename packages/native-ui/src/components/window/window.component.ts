@@ -18,6 +18,7 @@ import {DOCUMENT} from "@angular/common";
 import {WindowMenuState} from "./window-menu";
 import {WindowHeaderComponent} from "./window-header.component";
 import {ELECTRON_WINDOW, IN_DIALOG} from "../app/token";
+import {DuiApp} from "../app";
 
 /**
  * This is only for documentation purposes.
@@ -70,6 +71,7 @@ export class WindowComponent implements OnChanges, OnDestroy {
         protected registry: WindowRegistry,
         public windowState: WindowState,
         cd: ChangeDetectorRef,
+        app: DuiApp,
         windowMenuState: WindowMenuState,
         protected viewContainerRef: ViewContainerRef,
         @Inject(IN_DIALOG) protected inDialog: boolean,
@@ -81,6 +83,7 @@ export class WindowComponent implements OnChanges, OnDestroy {
         if (this.electronWindow && !this.isInDialog()) {
             this.electronWindow.addListener('blur', this.onBlur);
             this.electronWindow.addListener('focus', this.onFocus);
+            this.electronWindow.setVibrancy(app.getVibrancy());
         }
 
         this.registry.focus(this);

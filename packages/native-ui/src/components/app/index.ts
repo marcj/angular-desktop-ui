@@ -66,11 +66,6 @@ export class DuiApp {
     protected darkMode?: boolean = false;
     protected platform: 'web' | 'darwin' | 'linux' | 'win32' = 'darwin';
 
-    /**
-     * BrowserWindow from Electron.
-     */
-    protected win?: any;
-
     constructor(
         protected app: ApplicationRef,
         protected windowRegistry: WindowRegistry,
@@ -184,6 +179,10 @@ export class DuiApp {
         }
     }
 
+    getVibrancy(): 'ultra-dark' | 'light' {
+        return this.darkMode ? 'ultra-dark' : 'light';
+    }
+
     setDarkMode(darkMode?: boolean) {
         if (darkMode === undefined) {
             this.darkMode = this.isPreferDarkColorSchema();
@@ -193,9 +192,8 @@ export class DuiApp {
             this.darkMode = darkMode;
         }
 
-        if (this.win) {
-            const vibrancy = this.darkMode ? 'ultra-dark' : 'light';
-            this.win.setVibrancy(vibrancy);
+        for (const win of this.windowRegistry.getAllElectronWindows()) {
+            win.setVibrancy(this.getVibrancy());
         }
 
         document.body.classList.remove('dark');
