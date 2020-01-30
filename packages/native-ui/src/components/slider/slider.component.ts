@@ -16,8 +16,8 @@ import * as Hammer from "hammerjs";
     template: `
         <div class="bg"></div>
         <div class="knob-container">
-            <div [style.width.%]="getValue() * 100" class="active-line"></div>
-            <div #knob [style.left.%]="getValue() * 100" class="knob"></div>
+            <div [style.width.%]="getWidth() * 100" class="active-line"></div>
+            <div #knob [style.left.%]="getWidth() * 100" class="knob"></div>
         </div>
     `,
     styleUrls: ['./slider.component.scss'],
@@ -39,8 +39,8 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
         super(injector, cd, cdParent);
     }
 
-    getValue(): number {
-        return Math.max(0, Math.min(1, ((this.innerValue || 0) / (this.max - this.min))));
+    getWidth(): number {
+        return Math.max(0,  Math.min(1, ((this.innerValue || this.min) - this.min) / (this.max - this.min)));
     }
 
     ngAfterViewInit() {
@@ -48,11 +48,14 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
         mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_HORIZONTAL, threshold: 1}));
 
         let startXInPixels = 0;
-        const width = (this.element!.nativeElement.offsetWidth - 17);
+        let knobSize = this.knob!.nativeElement.offsetWidth;
+        let width = (this.element!.nativeElement.offsetWidth - knobSize);
         let lastRequest: any;
 
         mc.on('panstart', (event: HammerInput) => {
-            startXInPixels = this.getValue() * width;
+            startXInPixels = this.getWidth() * width;
+            knobSize = this.knob!.nativeElement.offsetWidth;
+            width = (this.element!.nativeElement.offsetWidth - knobSize)
         });
 
         mc.on('pan', (event: HammerInput) => {
@@ -62,10 +65,14 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
 
             lastRequest = requestAnimationFrame(() => {
                 const newLeft = Math.min(width, Math.max(0, (startXInPixels + event.deltaX))) / width;
+                if (newLeft === 1.0) {
+                    this.innerValue = this.max;
+                    return;
+                }
 
-                let newPotentialValue = newLeft * (this.max - this.min);
+                let newPotentialValue = this.min + (newLeft * ((this.max - this.min)));
                 const shift = (newPotentialValue % this.steps);
-                this.innerValue = newPotentialValue - shift;
+                this.innerValue = Math.max(this.min, newPotentialValue - shift);
             });
         });
     }

@@ -23,6 +23,7 @@ import {Buffer} from "buffer";
                 *ngIf="type !== 'textarea'"
                 #input
                 [step]="step"
+                [readOnly]="readonly !== false"
                 [type]="type" (focus)="onFocus()" (blur)="onBlur()"
                 (change)="handleFileInput($event)"
                 [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
@@ -32,6 +33,7 @@ import {Buffer} from "buffer";
             />
             <textarea
                 #input
+                [readOnly]="readonly !== false"
                 *ngIf="type === 'textarea'" (focus)="onFocus()" (blur)="onBlur()"
                 [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
                 [disabled]="isDisabled"
@@ -69,6 +71,8 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @ViewChild('input', {static: false}) input?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
     @Input() textured: boolean | '' = false;
+
+    @Input() readonly: boolean | '' = false;
 
     @Output() focusChange = new EventEmitter<boolean>();
 
@@ -151,7 +155,7 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     }
 
     onKeyUp(event: KeyboardEvent) {
-        if (event.key.toLowerCase() === 'enter') {
+        if (event.key.toLowerCase() === 'enter' && this.type !== 'textarea') {
             this.enter.emit(event);
         }
 

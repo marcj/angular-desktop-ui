@@ -5,10 +5,13 @@ import {
     ElementRef,
     forwardRef,
     HostBinding,
-    HostListener, Inject, Injectable, Injector,
+    HostListener,
+    Injectable,
+    Injector,
     Input,
     OnChanges,
-    OnDestroy, Optional,
+    OnDestroy,
+    Optional,
     QueryList,
     SimpleChanges,
     SkipSelf
@@ -16,7 +19,6 @@ import {
 import {NavigationEnd, Router, UrlTree} from '@angular/router';
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 import {Subscription} from "rxjs";
-import {OptionDirective} from "../select";
 
 @Component({
     selector: 'dui-list-title',

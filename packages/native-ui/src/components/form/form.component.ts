@@ -69,7 +69,8 @@ export class FormComponent implements OnChanges {
 
     @HostListener('keyup', ['$event'])
     onEnter(event: KeyboardEvent) {
-        if (this.submit && event.key.toLowerCase() === 'enter') {
+        if (this.submit && event.key.toLowerCase() === 'enter'
+            && event.target && (event.target as HTMLElement).tagName.toLowerCase() === 'input') {
             this.submitForm();
         }
     }
@@ -115,8 +116,7 @@ export class FormComponent implements OnChanges {
                     } else {
                         this.errorText = error.message || error;
                     }
-
-                    throw error;
+                    console.log('form error', error);
                 }
             }
         } finally {

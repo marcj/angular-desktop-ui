@@ -15,6 +15,7 @@ import {
     DuiDialogModule,
     DuiSliderModule,
     DuiEmojiModule,
+    DuiIndicatorModule
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -26,7 +27,6 @@ import {DocuModule} from "./docu/docu.module";
 import {SecondWindowComponent} from "./windows/second-window.component";
 import {FirstWindowComponent} from "./windows/first-window.component";
 import {WindowManager} from "../assets/docs/window-manager";
-
 
 
 @NgModule({
@@ -59,6 +59,7 @@ import {WindowManager} from "../assets/docs/window-manager";
         DuiDialogModule,
         DuiEmojiModule,
         DuiSliderModule,
+        DuiIndicatorModule,
 
         DocuModule,
         DocModule.forRoot(),

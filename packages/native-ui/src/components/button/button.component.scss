@@ -28,6 +28,8 @@ In macOS we have 4 types of buttons:
     align-items: center;
     cursor: default;
     user-select: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     border-radius: 4px;
 
@@ -113,6 +115,7 @@ In macOS we have 4 types of buttons:
 
 :host.small {
     padding: 0 2px;
+    font-size: 11px;
 }
 
 :host ::ng-deep dui-icon {
