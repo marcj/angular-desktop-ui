@@ -7,7 +7,7 @@ import {
     TemplateRef,
     ViewContainerRef
 } from "@angular/core";
-import {detectChangesNextFrame} from "./utils";
+import {detectChangesNextFrame, scheduleWindowResizeEvent} from "./utils";
 
 let i = 0;
 
@@ -76,7 +76,7 @@ export class ViewDirective implements OnDestroy {
                 });
                 this.view!.reattach();
                 this.view.markForCheck();
-                window.dispatchEvent(new Event('resize'));
+                scheduleWindowResizeEvent();
                 return;
             }
 

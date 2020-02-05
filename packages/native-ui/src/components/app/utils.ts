@@ -30,6 +30,16 @@ export class OpenExternalDirective implements OnChanges {
     }
 }
 
+let lastScheduleResize: any;
+
+export function scheduleWindowResizeEvent() {
+    if (lastScheduleResize) cancelAnimationFrame(lastScheduleResize);
+    lastScheduleResize = requestAnimationFrame(() => {
+        window.dispatchEvent(new Event('resize'));
+        lastScheduleResize = undefined;
+    })
+}
+
 
 let lastFrameRequest: any;
 let lastFrameRequestStack = new Set<ChangeDetectorRef>();
