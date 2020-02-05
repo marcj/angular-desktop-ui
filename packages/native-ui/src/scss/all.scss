@@ -75,6 +75,11 @@ html, body {
     }
 }
 
+
+body {
+    scrollbar-color: rgba(169, 173, 175, 0.77) transparent;
+}
+
 .text-selection {
     user-select: text;
 }
@@ -157,6 +162,7 @@ h4 {
 .overlay-scrollbar-small, {
     overflow: auto;
     overflow: overlay;
+    scrollbar-width: thin;
 
     &::-webkit-scrollbar {
         height: 11px;

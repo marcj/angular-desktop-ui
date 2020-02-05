@@ -18,11 +18,11 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
             height: 17px;
             width: 17px;
         }
-        
+
         :host:focus {
             outline: 0;
         }
-        
+
         :host.disabled {
             opacity: 0.6;
         }
@@ -39,7 +39,8 @@ export class IconComponent implements OnInit {
      */
     @Input() size: number = 17;
 
-    @Input() clickable: boolean = false;
+    @Input() clickable: boolean | '' = false;
+
     @HostBinding('class.clickable')
     get isClickable() {
         return false !== this.clickable;
