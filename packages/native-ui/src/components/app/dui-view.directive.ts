@@ -48,8 +48,6 @@ export class ViewDirective implements OnDestroy {
     }
 
     public isVisible() {
-        // if (this.parentViewDirective) return this.parentViewDirective.isVisible();
-
         if (this.view) {
             for (const node of this.view.rootNodes) {
                 if (node.style && node.offsetParent !== null) {
@@ -58,7 +56,6 @@ export class ViewDirective implements OnDestroy {
             }
 
             return false;
-            // return !this.view.rootNodes.some((v) => v.offsetParent === null);
         }
 
         return this.visible;
@@ -77,7 +74,6 @@ export class ViewDirective implements OnDestroy {
                         element.style.display = '';
                     }
                 });
-                // console.log('rettach', this.viewStates);
                 this.view!.reattach();
                 this.view.markForCheck();
                 window.dispatchEvent(new Event('resize'));
@@ -95,6 +91,8 @@ export class ViewDirective implements OnDestroy {
                         element.style.display = 'none';
                     }
                 });
+                //let the last change detection run so ViewState have correct state
+                this.view!.detectChanges();
                 this.view!.detach();
                 this.view.markForCheck();
                 detectChangesNextFrame(this.view);
