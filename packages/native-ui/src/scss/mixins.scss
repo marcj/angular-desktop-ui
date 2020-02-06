@@ -55,6 +55,6 @@
 
 
 @mixin background-vibrancy {
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--dui-background-vibrancy);
     background-color: var(--dui-toolbar-bg-trans);
 }
