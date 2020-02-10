@@ -24,9 +24,12 @@ body {
     -webkit-user-select: none;
     user-select: none;
 
-
     --dui-selection: #016dea;
+    --dui-selection-hover: #016dea80;
     --dui-selection-light: #5182f8;
+    --dui-selection-unfocused: #999ca352;
+
+    --dui-button-text: #575757;
 
     --text-grey: #6c6970;
     --text-light: #737880;
@@ -70,16 +73,18 @@ body {
 
 .dark {
     --text-grey: #aaadb7;
-    --text-light: #737880;
+    --text-light: #7a7f88;
 
     --color-black: #ffffff;
     --color-green: #0bd40b;
     --color-red: #ff5c5c;
     --color-orange: orange;
+
     --dui-selection-light: #3662e1;
+    --dui-selection-unfocused: #acaeb936;
 
     --line-color-light: rgba(232, 232, 232, 0.16);
-    --line-color: rgba(220, 225, 230, 0.15);
+    --line-color: rgba(232, 232, 232, 0.32);
     --line-color-prominent: rgba(220, 225, 230, 0.8);
     --line-sidebar: black;
 

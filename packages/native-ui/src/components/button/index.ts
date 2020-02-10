@@ -3,7 +3,7 @@ import {
     ButtonComponent,
     ButtonGroupComponent,
     ButtonGroupsComponent,
-    FileChooserDirective
+    FileChooserDirective, FilePickerDirective
 } from "./button.component";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
@@ -15,15 +15,11 @@ import {
     ContextDropdownDirective,
 } from "./dropdown.component";
 import {FormsModule} from "@angular/forms";
+import {TabButtonComponent} from './tab-button.component'
 
-export {
-    DropdownComponent,
-    DropdownItemComponent,
-    DropdownSplitterComponent,
-    OpenDropdownDirective,
-    ContextDropdownDirective,
-} from "./dropdown.component";
-
+export * from "./dropdown.component";
+export * from './button.component'
+export * from './tab-button.component'
 
 @NgModule({
     declarations: [
@@ -36,6 +32,8 @@ export {
         OpenDropdownDirective,
         ContextDropdownDirective,
         FileChooserDirective,
+        TabButtonComponent,
+        FilePickerDirective,
     ],
     exports: [
         ButtonComponent,
@@ -47,6 +45,8 @@ export {
         OpenDropdownDirective,
         ContextDropdownDirective,
         FileChooserDirective,
+        TabButtonComponent,
+        FilePickerDirective,
     ],
     imports: [
         CommonModule,

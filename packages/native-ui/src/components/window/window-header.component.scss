@@ -171,13 +171,16 @@
     }
 }
 
-:host-context(.dark) ::ng-deep {
+//we add body. as weight on purpose
+body.dark ::ng-deep {
     dui-input,
+    dui-select,
     dui-button {
         @include box-textured-dark-toolbar;
 
     }
 
+    dui-select,
     dui-button {
         &:active {
             @include box-textured-dark-toolbar-active;

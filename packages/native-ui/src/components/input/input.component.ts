@@ -39,7 +39,7 @@ import {Buffer} from "buffer";
                 [disabled]="isDisabled"
                 [(ngModel)]="innerValue"></textarea>
         </div>
-        <dui-icon *ngIf="icon" class="icon" [size]="13" [name]="icon"></dui-icon>
+        <dui-icon *ngIf="icon" class="icon" [size]="iconSize" [name]="icon"></dui-icon>
         <dui-icon *ngIf="hasClearer" class="clearer" [size]="14" name="clear" (click)="clear()"></dui-icon>
     `,
     styleUrls: ['./input.component.scss'],
@@ -57,6 +57,8 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @Input() placeholder: string = '';
 
     @Input() icon: string = '';
+
+    @Input() iconSize: number = 17;
 
     /**
      * Focuses this element once created (AfterViewInit).

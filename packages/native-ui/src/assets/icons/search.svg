@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
-    <title>Filter Icon</title>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>search</title>
     <desc>Created with Sketch.</desc>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Fields-and-Labels-/-Search-Field-/-Active-/-Aqua" transform="translate(-6.000000, -4.000000)" fill="#595959">
-            <g id="Group" transform="translate(6.000000, 2.000000)">
-                <path d="M9.2174049,10.4827319 L12.6428055,13.9081325 L11.9081325,14.6428055 L8.48275861,11.2174317 C7.58720512,11.9503428 6.44241457,12.3900679 5.19492291,12.3900679 C2.32584621,12.3900679 0,10.064172 0,7.19503394 C0,4.32589592 2.32584621,2 5.19492291,2 C8.06399961,2 10.3898458,4.32589592 10.3898458,7.19503394 C10.3898458,8.44245566 9.95019821,9.58718998 9.2174049,10.4827319 Z M5.19492291,11.3510611 C7.49018427,11.3510611 9.35086124,9.49034435 9.35086124,7.19503394 C9.35086124,4.89972352 7.49018427,3.03900679 5.19492291,3.03900679 C2.89966155,3.03900679 1.03898458,4.89972352 1.03898458,7.19503394 C1.03898458,9.49034435 2.89966155,11.3510611 5.19492291,11.3510611 Z" id="Filter-Icon"></path>
-            </g>
-        </g>
+    <g id="search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8,3 C10.7614237,3 13,5.23857625 13,8 C13,10.7614237 10.7614237,13 8,13 C5.23857625,13 3,10.7614237 3,8 C3,5.23857625 5.23857625,3 8,3 Z M8,4 C5.790861,4 4,5.790861 4,8 C4,10.209139 5.790861,12 8,12 C10.209139,12 12,10.209139 12,8 C12,5.790861 10.209139,4 8,4 Z" id="Oval" fill="#979797" fill-rule="nonzero"></path>
+        <polygon id="Line-25" fill="#979797" fill-rule="nonzero" points="11.5 10.7928932 10.7928932 11.5 14.5 15.2071068 15.2071068 14.5"></polygon>
     </g>
 </svg>

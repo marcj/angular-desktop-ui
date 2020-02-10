@@ -176,7 +176,8 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     }
 
     /**
-     * This method can be overwritten to get easily notified when writeValue() has been called.
+     * This method can be overwritten to get easily notified when innerValue has been changed, either
+     * by outside or inside.
      *
      * @hidden
      */

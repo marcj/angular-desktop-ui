@@ -32,7 +32,7 @@ import {
     isArray,
     isNumber
 } from "@marcj/estdlib";
-import * as Hammer from "hammerjs";
+import Hammer from "hammerjs";
 import {Observable} from "rxjs";
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {DropdownComponent} from "../button";

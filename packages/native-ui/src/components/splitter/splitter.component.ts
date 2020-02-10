@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, Output} from "@angular/core";
-import * as Hammer from 'hammerjs';
+import Hammer from 'hammerjs';
 
 @Component({
     selector: 'dui-splitter',

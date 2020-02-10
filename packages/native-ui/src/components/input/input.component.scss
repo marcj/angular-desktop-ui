@@ -78,25 +78,29 @@ textarea {
 
 dui-icon {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 2px;
+    top: 1px;
+}
+
+:host.semi-transparent {
+    dui-icon {
+        opacity: 0.7;
+    }
 }
 
 .input-wrapper {
     height: 100%;
 }
 
-.clearer {
+:host dui-icon.clearer {
     right: 5px;
+    left: auto;
+    top: 3px;
     opacity: 0;
     transition: opacity 0.2s ease-in;
     cursor: pointer;
     color: #808080;
     pointer-events: none;
-}
-
-.icon {
-    left: 5px;
 }
 
 :host.has-icon {

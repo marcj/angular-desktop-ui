@@ -1,6 +1,5 @@
 @import "../../scss/mixins";
 
-$buttonTextColor: #575757;
 /*
 In macOS we have 4 types of buttons:
  - default
@@ -15,7 +14,7 @@ In macOS we have 4 types of buttons:
     position: relative;
     font-weight: 500;
     height: 21px;
-    color: $buttonTextColor;
+    color: var(--dui-button-text);
     font-size: 12px;
     line-height: 20px;
     padding: 0 15px;
@@ -108,9 +107,9 @@ In macOS we have 4 types of buttons:
 
 :host.icon-right {
     dui-icon {
-        margin-left: 3px;
+        margin-left: 2px;
     }
-    padding-right: 2px;
+    padding-right: 5px;
 }
 
 :host.small {
@@ -194,7 +193,7 @@ In macOS we have 4 types of buttons:
     }
 
     &:not(.disabled):not(.primary):not(.square).active {
-        color: $buttonTextColor;
+        color: var(--dui-button-text);
         background-image: linear-gradient(-180deg, #C6C9CC 0%, #C2C5C8 100%, #C1C4C7 100%);
         border-top: 1px solid #1c1d1f;
         border-bottom: 1px solid #1a1b1d;

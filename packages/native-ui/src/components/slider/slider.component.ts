@@ -9,7 +9,7 @@ import {
     ViewChild
 } from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
-import * as Hammer from "hammerjs";
+import Hammer from "hammerjs";
 
 @Component({
     selector: 'dui-slider',

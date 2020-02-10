@@ -51,7 +51,7 @@ export class ButtonComponent implements OnInit {
      */
     @Input() iconSize?: number;
 
-    @Input() iconRight?: boolean = false;
+    @Input() iconRight?: boolean | '' = false;
 
     /**
      * Whether the button is active (pressed)
@@ -176,7 +176,7 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
         private windowState: WindowState,
         private windowComponent: WindowComponent,
         private element: ElementRef<HTMLElement>,
-        @SkipSelf() public readonly cd: ChangeDetectorRef,
+        @SkipSelf() protected cd: ChangeDetectorRef,
     ) {
     }
 
@@ -209,16 +209,14 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
     get paddingLeft() {
         if (this.float === 'sidebar') {
             if (this.windowComponent.content) {
-                // console.log('getPaddingLeft', this.float, this.windowComponent.content!.isSidebarVisible(),
-                //     this.windowComponent.content.getSidebarWidth(), this.element.nativeElement.offsetLeft,
-                // );
                 if (this.windowComponent.content!.isSidebarVisible()) {
-                    return Math.max(0, this.windowComponent.content.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';
+                    return Math.max(0, this.windowComponent.content!.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';
                 } else {
                     return '0px';
                 }
             }
         }
+        return '0px';
     }
 }
 
@@ -268,7 +266,7 @@ export class FileChooserDirective extends ValueAccessorBase<any> implements OnDe
                 if (this.duiFileMultiple !== false) {
                     const paths: string[] = [];
                     for (let i = 0; i < files.length; i++) {
-                        const file = files.item(0) as any as { path: string, name: string };
+                        const file = files.item(i) as any as { path: string, name: string };
                         paths.push(file.path);
                     }
                     this.innerValue = paths;
@@ -288,6 +286,91 @@ export class FileChooserDirective extends ValueAccessorBase<any> implements OnDe
     @HostListener('click')
     onClick() {
         (this.input as any).webkitdirectory = this.duiFileDirectory !== false;
+        this.input.multiple = this.duiFileMultiple !== false;
+        this.input.click();
+    }
+}
+
+export interface FilePickerItem {
+    data: Uint8Array;
+    name: string;
+}
+
+@Directive({
+    selector: '[duiFilePicker]',
+    providers: [ngValueAccessor(FileChooserDirective)]
+})
+export class FilePickerDirective extends ValueAccessorBase<any> implements OnDestroy {
+    @Input() duiFileMultiple?: boolean | '' = false;
+
+    @Output() duiFilePickerChange = new EventEmitter<FilePickerItem | FilePickerItem[]>();
+
+    protected input: HTMLInputElement;
+
+    constructor(
+        protected injector: Injector,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
+        private app: ApplicationRef,
+    ) {
+        super(injector, cd, cdParent);
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        this.input = input;
+
+        const readFile = (file: File): Promise<Uint8Array | undefined> => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (reader.result) {
+                        if (reader.result instanceof ArrayBuffer) {
+                            resolve(new Uint8Array(reader.result));
+                        } else {
+                            resolve();
+                        }
+                    }
+                };
+                reader.onerror = (error) => {
+                    console.log('Error: ', error);
+                    reject();
+                };
+
+                reader.readAsArrayBuffer(file);
+            });
+        };
+
+        this.input.addEventListener('change', async (event: any) => {
+            const files = event.target.files as FileList;
+            if (files.length) {
+                if (this.duiFileMultiple !== false) {
+                    const res: FilePickerItem[] = [];
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files.item(i);
+                        if (file) {
+                            const uint8Array = await readFile(file);
+                            if (uint8Array) {
+                                res.push({data: uint8Array, name: file.name});
+                            }
+                        }
+                    }
+                    this.innerValue = res;
+                } else {
+                    const file = files.item(0);
+                    if (file) {
+                        this.innerValue = {data: await readFile(file), name: file.name};
+                    }
+                }
+                this.duiFilePickerChange.emit(this.innerValue);
+                this.app.tick();
+            }
+        })
+    }
+
+    ngOnDestroy() {
+    }
+
+    @HostListener('click')
+    onClick() {
         this.input.multiple = this.duiFileMultiple !== false;
         this.input.click();
     }

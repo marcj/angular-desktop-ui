@@ -72,6 +72,7 @@
 
 .table-row {
     white-space: nowrap;
+    border-bottom: 1px solid rgba(192, 192, 192, 0.05);
 
     > div {
         position: relative;
@@ -131,7 +132,7 @@
     }
 
     .table-row.odd {
-        background-color: rgba(245, 245, 245, 0.07);
+        background-color: rgba(245, 245, 245, 0.016);
     }
 
     &:not(:focus) .table-row.selected {

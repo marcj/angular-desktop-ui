@@ -7,6 +7,9 @@
     "UI",
     "MacOs"
   ],
+  "bin": {
+    "dui-create-font": "./bin/create-font.js"
+  },
   "repository": "https://github.com/marcj/angular-desktop-ui",
   "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
   "license": "MIT",
@@ -49,14 +52,18 @@
     "@angular/platform-browser": "^9.0.0-rc.14",
     "@angular/router": "^9.0.0-rc.14",
     "@types/hammerjs": "^2.0.36",
-    "@types/node": "^11.9.4",
+    "@types/node": "^12.12.26",
+    "@types/fs-extra": "^8.0.1",
     "rxjs": "~6.5.3",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
     "transformation-matrix-js": "2.7.1",
-    "ts-node": "^8.0.2",
     "ttf2woff": "^2.0.1",
     "typedoc": "^0.16.7",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "awesome-typescript-loader": "^5.2.1",
+    "fs-extra": "^8.1.0"
   }
 }

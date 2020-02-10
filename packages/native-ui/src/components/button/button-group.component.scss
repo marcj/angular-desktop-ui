@@ -1,6 +1,8 @@
 :host {
-    display: inline-block;
+    //fix for non-integer widths, making icons blurry that come behind those elements
+    display: inline-table;
     line-height: 0;
+    white-space: nowrap;
 }
 
 //:host ::ng-deep > * {

@@ -36,7 +36,7 @@ export class WindowRegistry {
     }
 
     getAllElectronWindows(): any[] {
-        return [...this.registry.keys()].map(v => v.electronWindow);
+        return [...this.registry.keys()].filter(v => !!v.electronWindow).map(v => v.electronWindow);
     }
 
     register(win: WindowComponent, cd: ChangeDetectorRef, state: WindowState, menu: WindowMenuState, viewContainerRef: ViewContainerRef) {

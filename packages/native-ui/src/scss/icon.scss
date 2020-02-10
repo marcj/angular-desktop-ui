@@ -1,15 +1,15 @@
  @font-face {
     font-family: 'Desktop UI icon Mono';
-    src: url("../assets/fonts/ui-icons.woff") format('woff'), url("../assets/fonts/ui-icons.ttf") format('ttf');
+    src: url("../assets/fonts/ui-icons.svg") format('svg'), url("../assets/fonts/ui-icons.woff") format('woff'), url("../assets/fonts/ui-icons.ttf") format('ttf');
     font-weight: normal;
     font-style: normal;
 }
 
 .ui-icon {
-    font-family: 'Desktop UI icon Mono';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 18px;
+    font-family: 'Desktop UI icon Mono' !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    font-size: 17px;
     display: inline-block;
     line-height: 1;
     text-transform: none;

@@ -6,6 +6,7 @@
     "downlevelIteration": true,
     "strict": true,
     "target": "es2018",
+    "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
     ],
