@@ -8,6 +8,7 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
         '[style.fontSize.px]': 'size',
         '[style.height.px]': 'size',
         '[style.width.px]': 'size',
+        '[style.color]': 'color',
     },
     styles: [`
         :host {
@@ -26,6 +27,14 @@ import {Component, HostBinding, Input, OnInit} from '@angular/core';
         :host.disabled {
             opacity: 0.6;
         }
+
+        :host.clickable:hover {
+            color: var(--dui-selection-hover);
+        }
+
+        :host.clickable:active {
+            color: var(--dui-selection);
+        }
     `]
 })
 export class IconComponent implements OnInit {
@@ -40,6 +49,8 @@ export class IconComponent implements OnInit {
     @Input() size: number = 17;
 
     @Input() clickable: boolean | '' = false;
+
+    @Input() color?: string;
 
     @HostBinding('class.clickable')
     get isClickable() {

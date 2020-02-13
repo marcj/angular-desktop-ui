@@ -1,7 +1,7 @@
 import {
     ApplicationRef,
     Component,
-    HostBinding,
+    HostBinding, Inject,
     Injectable,
     Input,
     ModuleWithProviders,
@@ -20,7 +20,7 @@ import {detectChangesNextFrame, OpenExternalDirective, ZonelessChangeDetector} f
 import {ViewDirective} from "./dui-view.directive";
 import {CdCounterComponent} from "./cd-counter.component";
 import {DuiResponsiveDirective} from "./dui-responsive.directive";
-import {CommonModule} from "@angular/common";
+import {CommonModule, DOCUMENT} from "@angular/common";
 import {Electron} from "../../core/utils";
 import {ActivationEnd, Event as RouterEvent, NavigationEnd, Router} from "@angular/router";
 import {WindowRegistry} from "../window/window-state";
@@ -240,8 +240,20 @@ export class DuiApp {
     ]
 })
 export class DuiAppModule {
-    constructor(app: DuiApp) {
+    constructor(app: DuiApp, @Inject(DOCUMENT) @Optional() document: Document) {
         app.start();
+        if (document && Electron.isAvailable()) {
+            document.addEventListener('click', (event: MouseEvent) => {
+                if (event.target){
+                    const target = event.target as HTMLElement;
+                    if (target.tagName.toLowerCase() === 'a') {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        Electron.getRemote().shell.openExternal((target as any).href);
+                    }
+                }
+            });
+        }
     }
 
     static forRoot(): ModuleWithProviders {

@@ -25,8 +25,9 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 @Component({
     selector: 'dui-button',
     template: `
+        <dui-icon *ngIf="icon && iconRight === false" [color]="iconColor" [name]="icon" [size]="iconSize"></dui-icon>
         <ng-content></ng-content>
-        <dui-icon *ngIf="icon" [name]="icon" [size]="iconSize"></dui-icon>
+        <dui-icon *ngIf="icon && iconRight !== false" [color]="iconColor" [name]="icon" [size]="iconSize"></dui-icon>
     `,
     host: {
         '[attr.tabindex]': '1',
@@ -52,6 +53,8 @@ export class ButtonComponent implements OnInit {
     @Input() iconSize?: number;
 
     @Input() iconRight?: boolean | '' = false;
+
+    @Input() iconColor?: string;
 
     /**
      * Whether the button is active (pressed)
@@ -296,6 +299,27 @@ export interface FilePickerItem {
     name: string;
 }
 
+function readFile(file: File): Promise<Uint8Array | undefined> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.result) {
+                if (reader.result instanceof ArrayBuffer) {
+                    resolve(new Uint8Array(reader.result));
+                } else {
+                    resolve();
+                }
+            }
+        };
+        reader.onerror = (error) => {
+            console.log('Error: ', error);
+            reject();
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+}
+
 @Directive({
     selector: '[duiFilePicker]',
     providers: [ngValueAccessor(FileChooserDirective)]
@@ -317,27 +341,6 @@ export class FilePickerDirective extends ValueAccessorBase<any> implements OnDes
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
         this.input = input;
-
-        const readFile = (file: File): Promise<Uint8Array | undefined> => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    if (reader.result) {
-                        if (reader.result instanceof ArrayBuffer) {
-                            resolve(new Uint8Array(reader.result));
-                        } else {
-                            resolve();
-                        }
-                    }
-                };
-                reader.onerror = (error) => {
-                    console.log('Error: ', error);
-                    reject();
-                };
-
-                reader.readAsArrayBuffer(file);
-            });
-        };
 
         this.input.addEventListener('change', async (event: any) => {
             const files = event.target.files as FileList;
@@ -373,5 +376,100 @@ export class FilePickerDirective extends ValueAccessorBase<any> implements OnDes
     onClick() {
         this.input.multiple = this.duiFileMultiple !== false;
         this.input.click();
+    }
+}
+
+@Directive({
+    selector: '[duiFileDrop]',
+    host: {
+        '[class.hover]': 'hover',
+    },
+    providers: [ngValueAccessor(FileChooserDirective)]
+})
+export class FileDropDirective extends ValueAccessorBase<any> implements OnDestroy {
+    @Input() duiFileDropMultiple?: boolean | '' = false;
+
+    @Output() duiFileDropChange = new EventEmitter<FilePickerItem | FilePickerItem[]>();
+
+    hover = false;
+
+    constructor(
+        protected injector: Injector,
+        public readonly cd: ChangeDetectorRef,
+        @SkipSelf() public readonly cdParent: ChangeDetectorRef,
+        private app: ApplicationRef,
+    ) {
+        super(injector, cd, cdParent);
+    }
+
+    @HostListener('dragenter', ['$event'])
+    onDragEnter(ev: any) {
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+        this.hover = true;
+        this.cdParent.detectChanges();
+    }
+
+    @HostListener('dragover', ['$event'])
+    onDragOver(ev: any) {
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+    }
+
+    @HostListener('dragleave', ['$event'])
+    onDragLeave(ev: any) {
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+        this.hover = false;
+        this.cdParent.detectChanges();
+    }
+
+    @HostListener('drop', ['$event'])
+    async onDrop(ev: any) {
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+
+        const res: FilePickerItem[] = [];
+        if (ev.dataTransfer.items) {
+            // Use DataTransferItemList interface to access the file(s)
+            for (let i = 0; i < ev.dataTransfer.items.length; i++) {
+                // If dropped items aren't files, reject them
+                if (ev.dataTransfer.items[i].kind === 'file') {
+                    const file = ev.dataTransfer.items[i].getAsFile();
+                    if (file) {
+                        const uint8Array = await readFile(file);
+                        if (uint8Array) {
+                            res.push({data: uint8Array, name: file.name});
+                        }
+                    }
+                }
+            }
+        } else {
+            // Use DataTransfer interface to access the file(s)
+            for (let i = 0; i < ev.dataTransfer.files.length; i++) {
+                const file = ev.dataTransfer.files.item(i);
+                if (file) {
+                    const uint8Array = await readFile(file);
+                    if (uint8Array) {
+                        res.push({data: uint8Array, name: file.name});
+                    }
+                }
+            }
+        }
+        if (this.duiFileDropMultiple !== false) {
+            this.innerValue = res;
+        } else {
+            if (res.length) {
+                this.innerValue = res[0];
+            } else {
+                this.innerValue = undefined;
+            }
+        }
+        this.duiFileDropChange.emit(this.innerValue);
+        this.hover = false;
+        this.cdParent.detectChanges();
+    }
+
+    ngOnDestroy() {
     }
 }

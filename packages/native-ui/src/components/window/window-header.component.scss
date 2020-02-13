@@ -171,8 +171,7 @@
     }
 }
 
-//we add body. as weight on purpose
-body.dark ::ng-deep {
+:host-context(.dark) ::ng-deep {
     dui-input,
     dui-select,
     dui-button {

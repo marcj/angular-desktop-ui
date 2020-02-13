@@ -18,6 +18,7 @@
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
     "font": "ts-node create-font.ts",
+    "prepublish": "webpack",
     "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
   "dependencies": {

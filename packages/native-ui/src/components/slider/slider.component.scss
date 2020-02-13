@@ -2,19 +2,23 @@
     display: inline-block;
     position: relative;
     width: 150px;
-    height: 17px;
+
+    --knob-size: 17px;
+    --height: 17px;
+
+    height: var(--height);
 }
 
 .bg {
-    margin-top: 7px;
+    margin-top: calc((var(--height) / 2) - 1px);
     height: 3px;
     background-color: var(--line-color);
     border-radius: 1px;
 }
 
 .active-line {
-    margin-top: 7px;
-    border-radius: 100%;
+    margin-top: calc((var(--height) / 2) - 1px);
+    border-radius: 3px;
     width: 30%;
     height: 3px;
     background-color: var(--dui-selection);
@@ -24,23 +28,40 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 17px;
+    right: var(--knob-size);
 }
 
 .knob {
     position: absolute;
     top: 0;
     left: 0;
-    width: 17px;
-    height: 17px;
+    width: var(--knob-size);
+    height: var(--knob-size);
     border: 1px solid #c9c9c9;
     background-color: white;
-    border-radius: 100%;
+    border-radius: var(--knob-size);
 }
 
-:host-context(.dark) .knob {
-    background-color: #cbcbcb;
-    top: 1px;
-    width: 15px;
-    height: 15px;
+:host-context(.dark) {
+    --knob-size: 15px;
+
+    .knob {
+        background-color: #cbcbcb;
+        top: 1px;
+    }
 }
+
+:host.mini {
+    --knob-size: 11px;
+    --height: 11px;
+    opacity: 0.8;
+
+    .active-line {
+        background-color: var(--line-color-prominent);
+    }
+}
+
+:host-context(.dark).mini {
+    --knob-size: 9px;
+}
+

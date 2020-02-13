@@ -41,8 +41,8 @@ export class ListTitleComponent {
     host: {
         '[class.white]': 'white !== false',
         '[class.overlay-scrollbar-small]': 'true',
-        '[class.focusable]': 'focusColor',
-        '[class.delimiter-line]': 'focusColor !== false',
+        '[class.focusable]': 'focusable',
+        '[class.delimiter-line]': 'delimiterLine !== false',
     },
     providers: [ngValueAccessor(ListComponent)]
 })
@@ -50,8 +50,8 @@ export class ListTitleComponent {
 export class ListComponent extends ValueAccessorBase<any> {
     @Input() white: boolean | '' = false;
 
-    @Input() focusColor: boolean | '' = true;
-    @Input() delimiterLine: boolean | '' = true;
+    @Input() focusable: boolean = true;
+    @Input() delimiterLine: boolean | '' = false;
 
     @HostBinding('tabindex') tabIndex: number = 1;
 

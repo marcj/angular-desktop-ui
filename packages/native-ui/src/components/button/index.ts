@@ -3,7 +3,7 @@ import {
     ButtonComponent,
     ButtonGroupComponent,
     ButtonGroupsComponent,
-    FileChooserDirective, FilePickerDirective
+    FileChooserDirective, FileDropDirective, FilePickerDirective
 } from "./button.component";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
@@ -34,6 +34,7 @@ export * from './tab-button.component'
         FileChooserDirective,
         TabButtonComponent,
         FilePickerDirective,
+        FileDropDirective,
     ],
     exports: [
         ButtonComponent,
@@ -47,6 +48,7 @@ export * from './tab-button.component'
         FileChooserDirective,
         TabButtonComponent,
         FilePickerDirective,
+        FileDropDirective,
     ],
     imports: [
         CommonModule,

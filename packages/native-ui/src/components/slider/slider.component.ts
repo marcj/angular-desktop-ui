@@ -20,6 +20,9 @@ import Hammer from "hammerjs";
             <div #knob [style.left.%]="getWidth() * 100" class="knob"></div>
         </div>
     `,
+    host: {
+        '[class.mini]': 'mini !== false'
+    },
     styleUrls: ['./slider.component.scss'],
     providers: [ngValueAccessor(SliderComponent)]
 })
@@ -29,6 +32,8 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
     @Input() min = 0;
     @Input() steps = 0.01;
     @Input() max = 1;
+
+    @Input() mini: boolean | '' = false;
 
     constructor(
         protected injector: Injector,
