@@ -4,7 +4,6 @@ import {
     Directive,
     EventEmitter,
     forwardRef,
-    Injectable,
     Input,
     OnDestroy,
     Output,

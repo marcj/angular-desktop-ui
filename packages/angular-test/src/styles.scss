@@ -1,15 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@marcj/angular-desktop-ui/src/scss/all";
 
-code {
-    padding: 2px 3px;
-    font-size: 12px;
-    font-family: 'Source Code Pro', monospace;
-    border-radius: 3px;
-    line-height: 14px;
-    user-select: text;
-}
-
 body.light {
     .hljs {
         display: block;

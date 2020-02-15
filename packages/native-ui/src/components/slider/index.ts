@@ -5,6 +5,8 @@ import {DuiIconModule} from "../icon";
 import {DuiButtonModule} from "../button";
 import {SliderComponent} from "./slider.component";
 
+export * from './slider.component';
+
 @NgModule({
     declarations: [
         SliderComponent,

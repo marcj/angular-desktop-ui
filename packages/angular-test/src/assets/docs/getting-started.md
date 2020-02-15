@@ -1,3 +1,4 @@
+
 <h1>Getting started</h1>
 
 
@@ -8,62 +9,34 @@
 ```bash
 npm install @marcj/angular-desktop-ui
 ```
-
 <p>
-    After the installation, you need add the icon font to your angular.json
-</p>
-
-```json
-  "projects": {
-    "myprojectName": {
-      "architect": {
-        "build": {
-          "options": {
-            "styles": [
-              "src/styles.scss",
-              "node_modules/@marcj/angular-desktop-ui/src/scss/icon.scss"
-```
-
-<h2>Compiler adjustments</h2>
-
-<p>
-    Since this library comes only as Typescript source, you need to include the library in your compilation process. Do this by adjusting the tsconfig.json.
+    Next you need to include the Typescript source of this library into your <code>tsconfig.json</code>, since this library is a Typescript only library.
+    Also activate <code>allowSyntheticDefaultImports</code> since this library uses some external dependencies that requires that.
 </p>
 
 ```json
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "strict": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2017",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "es2016",
-      "es2015",
-      "dom"
-    ]
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "./src",
+    "src",
     "node_modules/@marcj/angular-desktop-ui/src/**/*.ts"
-  ],
-  "exclude": [
-    "src/electron.ts"
   ]
 }
 ```
 
 <p>
-    Then you can import the modules of angular-desktop-ui. Make sure to import only what you need, but you have to import at least `DuiAppModule`.
+    Include the scss files in your <code>src/styles.scss</code>.
+</p>
+
+```scss
+@import "~@marcj/angular-desktop-ui/src/scss/all";
+```
+
+<p>
+    Then you can import the modules of angular-desktop-ui. Make sure to import only what you need, but you have to import at least 
+    <code>DuiAppModule</code> and <code>DuiWindowModule</code>.
 </p>
 
 
@@ -129,8 +102,8 @@ export class AppModule {
 <h2>Disable Zone.js</h2>
 
 <p>
-    To get better performance you should disable Zone.js. This library implemented some workarounds to make most other libraries working without 
-    Zonejs, but that's not guaranteed.
+    To get better performance you should disable Zone.js. 
+    This library implemented some workarounds to make most other libraries work without Zonejs, but that's not guaranteed.
 </p>
 
 <p>
@@ -155,7 +128,7 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
 
 ```
 
-Open `polyfills.ts` and uncomment the import of zone.js. Make sure to provide a simple noop implementation as follows:
+Open now `polyfills.ts` and uncomment the import of zone.js. Make sure to provide a simple noop implementation as follows:
 
 ```typescript
 // import 'zone.js/dist/zone';  // Included with Angular CLI.
@@ -165,3 +138,57 @@ Open `polyfills.ts` and uncomment the import of zone.js. Make sure to provide a 
     }
 };
 ```
+
+This changes requires you to use `ChangeDetectorRef` more often to reflect async operations by the user to your application. For example:
+
+```typescript
+@Component({
+    template: '<div *ngIf=loggingIn>Logging in ...</div>'
+})
+export class MyLoginComponent {
+    public logginIn = false;
+    
+    constructor(protected cd: ChangeDetectorRef) {}
+    
+    async doLogin() {
+        this.loggingIn = true;
+        this.cd.detectChanges();
+    
+        await this.httpClient.post('/login', ...);
+        
+        this.loggingIn = false;
+        this.cd.detectChanges();
+    }
+}
+```
+
+<h2>Start using the library</h2>
+
+<p>
+    Open now your <code>app.component.html</code> and create your first desktop app.
+</p>
+
+```html
+<dui-window>
+    <dui-window-header>
+        Angular Desktop UI
+        <dui-window-toolbar>
+            <dui-button-group>
+                <dui-button textured icon="envelop"></dui-button>
+            </dui-button-group>
+            <dui-button-group float="right">
+                <dui-input textured icon="search" placeholder="Search" round clearer></dui-input>
+            </dui-button-group>
+        </dui-window-toolbar>
+    </dui-window-header>
+    <dui-window-content>
+        <div>
+            This is the window content
+        </div>
+    </dui-window-content>
+</dui-window>
+```
+
+Please note that you need at least one and max one <code>dui-window</code> element. 
+Multiple windows are currently not supported except if you use a new Electron Window instance (and thus bootstrap the whole Angular application again). 
+This is currently a limitation with Angular itself not supporting multiple HTML documents. 

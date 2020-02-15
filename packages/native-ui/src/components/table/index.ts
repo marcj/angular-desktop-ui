@@ -13,13 +13,7 @@ import {DuiSplitterModule} from "../splitter";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {DuiButtonModule} from "../button";
 
-export {
-    TableCellDirective,
-    TableColumnDirective,
-    TableComponent, TableCustomHeaderContextMenuDirective,
-    TableCustomRowContextMenuDirective,
-    TableHeaderDirective
-} from "./table.component";
+export * from "./table.component";
 
 @NgModule({
     exports: [

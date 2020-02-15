@@ -28,11 +28,13 @@ return {disabled: false}
     </p>
 
     <p>
-        <dui-button square [disabled]="disabled">+</dui-button>
+        <dui-button square [disabled]="disabled" icon="add"></dui-button>
     </p>
 
     <p>
-        <dui-button textured [disabled]="disabled" [openDropdown]="dropdown1">Dropdown</dui-button>
+        <dui-button textured [disabled]="disabled" [openDropdown]="dropdown1" icon="arrow_down" iconRight>
+            Dropdown
+        </dui-button>
         <dui-dropdown #dropdown1>
             <div style="padding: 5px 25px;">
                 Hi there!
@@ -41,7 +43,9 @@ return {disabled: false}
     </p>
 
     <p>
-        <dui-button textured [disabled]="disabled" [openDropdown]="dropdown2">Dropdown items</dui-button>
+        <dui-button textured [disabled]="disabled" [openDropdown]="dropdown2" icon="arrow_down" iconRight>
+            Dropdown items
+        </dui-button>
         <dui-dropdown #dropdown2>
             <dui-dropdown-item>Flag A</dui-dropdown-item>
             <dui-dropdown-item [selected]="true">Flag B</dui-dropdown-item>

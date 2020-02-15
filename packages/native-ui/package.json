@@ -14,26 +14,25 @@
   "author": "Marc J. Schmidt <marc@marcjschmidt.de>",
   "license": "MIT",
   "sideEffects": false,
-  "main": "./src/index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
-    "font": "ts-node create-font.ts",
-    "prepublishOnly": "webpack && node bin/create-font.js && npm run typedoc",
+    "font": "node bin/create-font.js",
+    "build": "webpack && node bin/create-font.js && npm run typedoc",
+    "prepublishOnly": "webpack && node bin/create-font.js",
     "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
   "dependencies": {
     "@marcj/estdlib": "^0.1.17",
     "@marcj/estdlib-rxjs": "^0.1.17",
-    "emoji-datasource": "^4.1.0",
-    "hammerjs": "^2.0.8"
+    "hammerjs": "^2.0.8",
+    "@types/hammerjs": "^2.0.36"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "ngPackage": {
-    "lib": {
-      "entryFile": "src/index.ts"
-    }
   },
   "peerDependencies": {
     "@angular/animations": "^9.0.1",
@@ -42,29 +41,35 @@
     "@angular/compiler": "^9.0.1",
     "@angular/core": "^9.0.1",
     "@angular/forms": "^9.0.1",
+    "@angular/router": "^9.0.1",
     "@angular/platform-browser": "^9.0.1",
     "electron": "^7.1.9",
     "rxjs": "~6.5.3"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.900.2",
+    "@angular-devkit/build-ng-packagr": "~0.900.2",
     "@angular-devkit/schematics": "^9.0.2",
     "@angular/animations": "^9.0.1",
-    "ng-packagr": "^9.0.0",
     "@angular/cdk": "^9.0.0",
     "@angular/compiler-cli": "^9.0.1",
     "@angular/common": "^9.0.1",
     "@angular/compiler": "^9.0.1",
     "@angular/core": "^9.0.1",
     "@angular/forms": "^9.0.1",
+    "@angular/router": "^9.0.1",
     "@angular/platform-browser": "^9.0.1",
+    "@angular/platform-browser-dynamic": "^9.0.1",
+    "@angular/cli": "^9.0.2",
     "@types/node": "^12.12.26",
     "@types/fs-extra": "^8.0.1",
-    "@types/hammerjs": "^2.0.36",
     "rxjs": "~6.5.3",
+    "ng-packagr": "^9.0.0",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
     "transformation-matrix-js": "2.7.1",
     "ttf2woff": "^2.0.1",
+    "tslib": "^1.10.0",
     "typedoc": "^0.16.7",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5",

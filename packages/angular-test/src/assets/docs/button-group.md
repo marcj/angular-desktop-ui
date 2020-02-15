@@ -31,8 +31,8 @@ import {DuiButtonModule} from '@marcj/angular-desktop-ui';
 
 <p>
     <dui-button-group padding="none">
-        <dui-button square>+</dui-button>
-        <dui-button square>-</dui-button>
+        <dui-button square icon="add"></dui-button>
+        <dui-button square icon="remove"></dui-button>
     </dui-button-group>
 </p>
 <p>

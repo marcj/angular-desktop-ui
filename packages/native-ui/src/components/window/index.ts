@@ -9,7 +9,6 @@ import {
 } from "./window-header.component";
 import {CommonModule} from "@angular/common";
 import {WindowSidebarComponent} from "./window-sidebar.component";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DuiSplitterModule} from "../splitter";
 import {DuiIconModule} from "../icon";
 import {WindowRegistry} from "./window-state";
@@ -22,8 +21,14 @@ import {
 import {DuiExternalWindow} from "./external-window";
 import {DuiCoreModule} from "../core";
 
+export * from "./window.component";
 export * from "./external-window";
 export * from "./external-window.component";
+export * from "./window-content.component";
+export * from "./window-header.component";
+export * from "./window-footer.component";
+export * from "./window-menu";
+export * from "./window-sidebar.component";
 
 @NgModule({
     declarations: [
@@ -60,7 +65,6 @@ export * from "./external-window.component";
     ],
     imports: [
         CommonModule,
-        BrowserAnimationsModule,
         DuiSplitterModule,
         DuiIconModule,
         DuiCoreModule,

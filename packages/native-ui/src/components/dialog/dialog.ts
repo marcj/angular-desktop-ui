@@ -82,7 +82,7 @@ export class DuiDialogPrompt {
 
     static dialogDefaults = {
         maxWidth: '700px'
-    }
+    };
 
     constructor(public dialog: DialogComponent) {
     }
@@ -191,7 +191,7 @@ export class DuiDialogConfirmDirective implements OnDestroy {
         protected element: ElementRef<HTMLElement>,
         protected dialog: DuiDialog,
         protected cd: ChangeDetectorRef,
-        @Inject(DOCUMENT) protected document: Document,
+        @Inject(DOCUMENT) protected document: any,
     ) {
         this.document.body!.addEventListener('click', this.callback, true);
     }

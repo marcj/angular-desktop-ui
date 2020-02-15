@@ -17,7 +17,7 @@ import {TemplatePortal} from "@angular/cdk/portal";
 import {Overlay, OverlayConfig, OverlayRef, PositionStrategy} from "@angular/cdk/overlay";
 import {Subscription} from "rxjs";
 import {WindowRegistry} from "../window/window-state";
-import {focusWatcher} from "../..";
+import {focusWatcher} from "../../core/utils";
 import {isArray} from "@marcj/estdlib";
 
 

@@ -5,7 +5,7 @@ import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
 import {DuiButtonModule} from "../button";
 
-export {DynamicOptionDirective, OptionDirective, SelectboxComponent} from "./selectbox.component";
+export * from "./selectbox.component";
 
 @NgModule({
     declarations: [

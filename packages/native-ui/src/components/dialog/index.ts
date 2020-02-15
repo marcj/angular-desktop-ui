@@ -18,7 +18,8 @@ import {FormsModule} from "@angular/forms";
 import {DuiDialogProgress} from "./progress-dialog.component";
 
 export * from "./dialog.component";
-export {DuiDialog} from "./dialog";
+export * from "./dialog";
+export * from "./progress-dialog.component";
 
 @NgModule({
     declarations: [

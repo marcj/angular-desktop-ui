@@ -8,7 +8,6 @@ import {
     NgModule,
     Optional
 } from "@angular/core";
-import {DuiWindowModule} from "../window";
 import {
     MenuCheckboxDirective,
     MenuDirective,
@@ -27,8 +26,12 @@ import {WindowRegistry} from "../window/window-state";
 import {ELECTRON_WINDOW, IN_DIALOG} from "./token";
 import {AsyncRenderPipe} from "./pipes";
 
+export * from "./cd-counter.component";
 export * from "./dui-view.directive";
+export * from "./dui-responsive.directive";
 export * from "./utils";
+export * from "./menu.component";
+export * from "./pipes";
 
 export class BaseComponent {
     @Input() disabled?: boolean;
@@ -236,7 +239,6 @@ export class DuiApp {
     ],
     imports: [
         CommonModule,
-        DuiWindowModule,
     ]
 })
 export class DuiAppModule {

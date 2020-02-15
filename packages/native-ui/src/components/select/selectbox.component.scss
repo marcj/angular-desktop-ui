@@ -86,7 +86,7 @@ select {
 
 .placeholder {
     display: block;
-    color: grey;
+    color: var(--text-grey);
 }
 
 .value {

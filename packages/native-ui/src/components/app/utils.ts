@@ -45,7 +45,7 @@ let lastFrameRequest: any;
 let lastFrameRequestStack = new Set<ChangeDetectorRef>();
 
 export class ZonelessChangeDetector {
-    static app?: ApplicationRef;
+    static app: ApplicationRef | undefined = undefined;
 
     static getApp() {
         if (!ZonelessChangeDetector.app) {

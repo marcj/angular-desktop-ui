@@ -33,9 +33,11 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
         '[attr.tabindex]': '1',
         '[class.icon]': '!!icon',
         '[class.small]': 'small !== false',
+        '[class.tight]': 'tight !== false',
         '[class.active]': 'active !== false',
         '[class.highlighted]': 'highlighted !== false',
         '[class.primary]': 'primary !== false',
+        '[class.icon-left]': 'iconRight === false',
         '[class.icon-right]': 'iconRight !== false',
     },
     styleUrls: ['./button.component.scss'],
@@ -62,9 +64,14 @@ export class ButtonComponent implements OnInit {
     @Input() active: boolean | '' = false;
 
     /**
-     * Whether the button has no padding.
+     * Whether the button has no padding and smaller font size
      */
     @Input() small: boolean | '' = false;
+
+    /**
+     * Whether the button has smaller padding. Better for button with icons.
+     */
+    @Input() tight: boolean | '' = false;
 
     /**
      * Whether the button is highlighted.
@@ -146,8 +153,6 @@ export class ButtonComponent implements OnInit {
     template: '<ng-content></ng-content>',
     host: {
         '[class.float-right]': "float==='right'",
-        '[class.with-animation]': "withAnimation",
-        '[style.paddingLeft]': 'paddingLeft',
         '(transitionend)': 'transitionEnded()'
     },
     styleUrls: ['./button-group.component.scss']
@@ -162,15 +167,10 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
 
     @Input() padding: 'normal' | 'none' = 'normal';
 
-    // public paddingLeft = '0px';
-    withAnimation = false;
-
     @HostBinding('class.padding-none')
     get isPaddingNone() {
         return this.padding === 'none';
     }
-
-    protected sidebarVisibleSubscription?: Subscription;
 
     // @HostBinding('class.ready')
     // protected init = false;
@@ -184,42 +184,43 @@ export class ButtonGroupComponent implements AfterViewInit, OnDestroy {
     }
 
     public activateOneTimeAnimation() {
-        this.withAnimation = true;
-        this.cd.detectChanges();
+        (this.element.nativeElement as HTMLElement).classList.add('with-animation');
     }
 
     public sidebarMoved() {
-        this.cd.detectChanges();
+        this.updatePaddingLeft();
     }
 
     ngOnDestroy(): void {
-        if (this.sidebarVisibleSubscription) {
-            this.sidebarVisibleSubscription.unsubscribe();
-        }
     }
 
     transitionEnded() {
-        this.withAnimation = false;
-        this.cd.detectChanges();
+        (this.element.nativeElement as HTMLElement).classList.remove('with-animation');
     }
 
     ngAfterViewInit(): void {
         if (this.float === 'sidebar') {
             this.windowState.buttonGroupAlignedToSidebar = this;
         }
+        this.updatePaddingLeft();
     }
 
-    get paddingLeft() {
+    updatePaddingLeft() {
         if (this.float === 'sidebar') {
             if (this.windowComponent.content) {
                 if (this.windowComponent.content!.isSidebarVisible()) {
-                    return Math.max(0, this.windowComponent.content!.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';
-                } else {
-                    return '0px';
+                    const newLeft = Math.max(0, this.windowComponent.content!.getSidebarWidth() - this.element.nativeElement.offsetLeft) + 'px';
+                    if (this.element.nativeElement.style.paddingLeft == newLeft) {
+                        //no transition change, doesn't trigger transitionEnd
+                        (this.element.nativeElement as HTMLElement).classList.remove('with-animation');
+                        return;
+                    }
+                    this.element.nativeElement.style.paddingLeft = newLeft;
+                    return;
                 }
             }
         }
-        return '0px';
+        this.element.nativeElement.style.paddingLeft = '0px';
     }
 }
 

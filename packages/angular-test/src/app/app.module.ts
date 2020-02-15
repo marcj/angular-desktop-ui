@@ -1,21 +1,21 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {
+    DuiAppModule,
     DuiButtonModule,
     DuiCheckboxModule,
+    DuiDialogModule,
+    DuiEmojiModule,
     DuiFormComponent,
+    DuiIconModule,
+    DuiIndicatorModule,
     DuiInputModule,
+    DuiListModule,
     DuiRadioboxModule,
     DuiSelectModule,
-    DuiWindowModule,
-    DuiIconModule,
-    DuiListModule,
-    DuiTableModule,
-    DuiAppModule,
-    DuiDialogModule,
     DuiSliderModule,
-    DuiEmojiModule,
-    DuiIndicatorModule
+    DuiTableModule,
+    DuiWindowModule
 } from '@marcj/angular-desktop-ui';
 
 import {AppRoutingModule} from './app-routing.module';

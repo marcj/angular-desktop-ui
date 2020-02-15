@@ -27,4 +27,8 @@ return {
     <dui-slider [min]="50" [steps]="25" [max]="200" [(ngModel)]="value3"></dui-slider><br/>
     Value3: {{value3}}
 </p>
+
+<p>
+    <dui-slider mini></dui-slider><br/>
+</p>
 ```

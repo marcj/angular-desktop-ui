@@ -10,14 +10,14 @@
 }
 
 .bg {
-    margin-top: calc((var(--height) / 2) - 1px);
+    margin-top: 7px;
     height: 3px;
     background-color: var(--line-color);
     border-radius: 1px;
 }
 
 .active-line {
-    margin-top: calc((var(--height) / 2) - 1px);
+    margin-top: 7px;
     border-radius: 3px;
     width: 30%;
     height: 3px;
@@ -55,6 +55,10 @@
     --knob-size: 11px;
     --height: 11px;
     opacity: 0.8;
+
+    .bg, .active-line {
+        margin-top: 4px;
+    }
 
     .active-line {
         background-color: var(--line-color-prominent);

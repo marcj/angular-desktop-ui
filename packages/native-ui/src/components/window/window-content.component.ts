@@ -16,18 +16,20 @@ import {triggerResize} from "../../core/utils";
 @Component({
     selector: 'dui-window-content',
     template: `
+        <div class="content" #content>
+            <ng-content></ng-content>
+        </div>
+
         <div class="sidebar"
              (transitionend)="transitionEnded()"
              #sidebar *ngIf="toolbar" [class.hidden]="!sidebarVisible "[class.with-animation]="withAnimation"
              [style.width.px]="getSidebarWidth()">
-            <div class="sidebar-container overlay-scrollbar-small" [style.width.px]="getSidebarWidth()" #sidebarContainer>
-                <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
+            <div class="hider">
+                <div class="sidebar-container overlay-scrollbar-small" [style.width.px]="getSidebarWidth()" #sidebarContainer>
+                    <ng-container [ngTemplateOutlet]="toolbar!.template" [ngTemplateOutletContext]="{}"></ng-container>
+                </div>
             </div>
             <dui-splitter position="right" (modelChange)="sidebarWidth = $event; sidebarMoved()"></dui-splitter>
-        </div>
-
-        <div class="content" #content>
-            <ng-content></ng-content>
         </div>
     `,
     host: {
@@ -96,6 +98,7 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
         if (withAnimation && this.windowState.buttonGroupAlignedToSidebar) {
             this.withAnimation = true;
             this.windowState.buttonGroupAlignedToSidebar.activateOneTimeAnimation();
+            this.windowState.buttonGroupAlignedToSidebar.sidebarMoved();
         }
 
         // if (this.content) {

@@ -45,12 +45,15 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
     }
 
     getWidth(): number {
-        return Math.max(0,  Math.min(1, ((this.innerValue || this.min) - this.min) / (this.max - this.min)));
+        return Math.max(0, Math.min(1, ((this.innerValue || this.min) - this.min) / (this.max - this.min)));
     }
 
     ngAfterViewInit() {
         const mc = new Hammer(this.knob!.nativeElement);
         mc.add(new Hammer.Pan({direction: Hammer.DIRECTION_HORIZONTAL, threshold: 1}));
+
+        const mcTab = new Hammer(this.element.nativeElement);
+        mcTab.add(new Hammer.Tap({}));
 
         let startXInPixels = 0;
         let knobSize = this.knob!.nativeElement.offsetWidth;
@@ -63,6 +66,28 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
             width = (this.element!.nativeElement.offsetWidth - knobSize)
         });
 
+        mcTab.on('tapstart', (event: HammerInput) => {
+            console.log('tabstart', event);
+        });
+
+        const handleNewLeft = (newLeft: number) => {
+            if (newLeft === 1.0) {
+                this.innerValue = this.max;
+                return;
+            }
+
+            let newPotentialValue = this.min + (newLeft * ((this.max - this.min)));
+            const shift = (newPotentialValue % this.steps);
+            this.innerValue = Math.max(this.min, newPotentialValue - shift);
+        };
+
+        mcTab.on('tap', (event: HammerInput) => {
+            const rect = (this.element!.nativeElement as HTMLElement).getBoundingClientRect();
+            const x = event.center.x - (knobSize / 2) - rect.x;
+            const newLeft = Math.min(width, Math.max(0, x)) / width;
+            handleNewLeft(newLeft);
+        });
+
         mc.on('pan', (event: HammerInput) => {
             if (lastRequest) {
                 cancelAnimationFrame(lastRequest);
@@ -70,14 +95,7 @@ export class SliderComponent extends ValueAccessorBase<number> implements AfterV
 
             lastRequest = requestAnimationFrame(() => {
                 const newLeft = Math.min(width, Math.max(0, (startXInPixels + event.deltaX))) / width;
-                if (newLeft === 1.0) {
-                    this.innerValue = this.max;
-                    return;
-                }
-
-                let newPotentialValue = this.min + (newLeft * ((this.max - this.min)));
-                const shift = (newPotentialValue % this.steps);
-                this.innerValue = Math.max(this.min, newPotentialValue - shift);
+                handleNewLeft(newLeft);
             });
         });
     }

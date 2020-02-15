@@ -1,5 +1,5 @@
-import {Observable} from "rxjs";
-import {ChangeDetectorRef} from "@angular/core";
+import {Observable, Subscription} from "rxjs";
+import {ChangeDetectorRef, EventEmitter} from "@angular/core";
 
 const electron = (window as any).electron || ((window as any).require ? (window as any).require('electron') : undefined);
 
@@ -33,6 +33,17 @@ export class Electron {
     }
 }
 
+export class AsyncEventEmitter<T> extends EventEmitter<T> {
+    emit(value?: T): void {
+        super.emit(value);
+    }
+
+    subscribe(generatorOrNext?: any, error?: any, complete?: any): Subscription {
+        return super.subscribe(generatorOrNext, error, complete);
+    }
+}
+
+
 export class ExecutionState {
     public running = false;
     public error: string = '';
@@ -43,7 +54,7 @@ export class ExecutionState {
     ) {
     }
 
-    public async execute() {
+    public async execute(...args: any[]) {
         if (this.running) {
             throw new Error('Executor still running');
         }
@@ -53,7 +64,7 @@ export class ExecutionState {
         this.cd.detectChanges();
 
         try {
-            return await this.func(...arguments);
+            return await this.func(...args);
         } catch (error) {
             this.error = error.message || error.toString();
             throw error;

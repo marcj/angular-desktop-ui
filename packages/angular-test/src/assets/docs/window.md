@@ -59,7 +59,9 @@ win = new BrowserWindow({
                 <dui-button-group>
                     <dui-button textured icon="envelop"></dui-button>
                 </dui-button-group>
-                <dui-input textured icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
+                <dui-button-group float="right">
+                    <dui-input textured icon="search" placeholder="Search" round clearer></dui-input>
+                </dui-button-group>
             </dui-window-toolbar>
         </dui-window-header>
         <dui-window-content>
@@ -81,7 +83,9 @@ win = new BrowserWindow({
                 <dui-button-group>
                     <dui-button textured icon="envelop"></dui-button>
                 </dui-button-group>
-                <dui-input textured icon="search" placeholder="Search" round clearer style="margin-left: auto;"></dui-input>
+                <dui-button-group float="right">
+                    <dui-input textured icon="search" placeholder="Search" round clearer></dui-input>
+                </dui-button-group>
             </dui-window-toolbar>
         </dui-window-header>
         <dui-window-content>

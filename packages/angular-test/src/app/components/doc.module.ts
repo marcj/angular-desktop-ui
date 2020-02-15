@@ -344,10 +344,14 @@ export class ApiDocProvider {
     selector: 'api-doc',
     template: `
         <div class="title">
-            <h2 style="float: left; margin: 0;">API <code>{{selector}}</code></h2>
+            <h2>API <code>{{selector}}</code></h2>
 
             <dui-input *ngIf="tableData.length" icon="search" placeholder="Search" [(ngModel)]="filterQuery"
                        clearer></dui-input>
+        </div>
+
+        <div *ngIf="!tableData.length">
+            No API docs.
         </div>
 
         <p *ngIf="comment" [innerHTML]="comment">

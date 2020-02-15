@@ -5,8 +5,11 @@
 }
 
 .title {
-    text-align: right;
+    display: flex;
     margin-bottom: 10px;
+    dui-input {
+        margin-left: auto;
+    }
 }
 
 p {

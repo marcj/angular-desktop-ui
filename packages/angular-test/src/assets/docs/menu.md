@@ -15,7 +15,7 @@ import {DuiAppModule} from '@marcj/angular-desktop-ui';
 </p>
 
 ```html
-<dui-checkbox [(ngModel)]="showMenu2">Show menu 2</dui-checkbox>
+<dui-checkbox [(ngModel)]="showMenu2">Show menu 2 (Electron only)</dui-checkbox>
 
 <dui-menu role="appMenu" onlyMacOs></dui-menu>
 <dui-menu role="fileMenu">  

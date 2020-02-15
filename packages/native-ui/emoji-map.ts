@@ -2,6 +2,7 @@ import {readFile, writeFile} from "fs-extra";
 import {eachPair} from "@marcj/estdlib";
 
 (async () => {
+    //this was created by using package `emoji-datasource`
     const file = await readFile('src/components/emoji/emoji_pretty.json', 'utf8');
 
     const result: {[name: string]: any}  = {};
@@ -46,12 +47,12 @@ import {eachPair} from "@marcj/estdlib";
             x: number;
             y: number;
         }
-        
+
         export interface EmojiCategory {
             name: string;
             emojis: string[];
         }
-    
+
         export const emojis: {[id: string]: Emoji} = ${JSON.stringify(result)};
         export const categories: EmojiCategory[] = ${JSON.stringify(categoriesNormalized)};
     `;

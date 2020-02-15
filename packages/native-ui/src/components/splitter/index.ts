@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 
 import {SplitterComponent} from './splitter.component';
 
-export {SplitterComponent} from './splitter.component';
+export * from './splitter.component';
 
 @NgModule({
     imports: [],

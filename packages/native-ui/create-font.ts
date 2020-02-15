@@ -63,7 +63,9 @@ ensureDirSync(out);
 
             if (projectOutput) {
                 console.log(`Done. Dont forget to add following code in your styles.scss.`);
-                console.log(readFileSync(__dirname + '/../src/scss/icon.scss', 'utf8'))
+                console.log(
+                    readFileSync(__dirname + '/../src/scss/icon.scss', 'utf8').replace(/\.\.\/assets\/fonts/, out)
+                )
             }
         })
         .on('error', function (err: any) {

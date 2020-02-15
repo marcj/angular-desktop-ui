@@ -4,6 +4,8 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {DuiIconModule} from "../icon";
 
+export * from './input.component';
+
 @NgModule({
     declarations: [
         InputComponent

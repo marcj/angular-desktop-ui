@@ -5,6 +5,7 @@
 html {
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 body {
@@ -31,6 +32,8 @@ body {
 
     --dui-button-text: #575757;
 
+    --dui-input-text: #252525;
+
     --text-grey: #6c6970;
     --text-light: #737880;
 
@@ -38,7 +41,6 @@ body {
     --color-green: green;
     --color-red: red;
     --color-orange: orange;
-
     --line-color-light: #d3d3d3;
     --line-color: #979797;
     --line-color-prominent: #9fa4a9;
@@ -245,4 +247,15 @@ body.light .dui-panel {
     background-color: #e3e3e3;
     border: 1px solid #dfdfdf;
     border-top: 1px solid #d4d4d4;
+}
+
+code {
+    background: #ffffff21;
+    border-radius: 3px;
+    padding: 1px 3px;
+    user-select: text;
+}
+
+body.light code {
+    background: #33333321;
 }

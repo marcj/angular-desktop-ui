@@ -5,7 +5,7 @@ import {arrayRemoveItem} from "@marcj/estdlib";
 import {WindowComponent} from "./window.component";
 import {WindowMenuState} from "./window-menu";
 import {BehaviorSubject} from "rxjs";
-import {detectChangesNextFrame} from "../app";
+import {detectChangesNextFrame} from "../app/utils";
 
 @Injectable()
 export class WindowRegistry {

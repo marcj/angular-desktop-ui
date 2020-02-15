@@ -45,6 +45,10 @@ return {name: 'Peter'}
     <dui-input icon="star" round clearer [(ngModel)]="name"></dui-input>
 </p>
 
+<p>
+    <dui-input icon="check" placeholder="Good job"></dui-input>
+</p>
+
 ```
 
 <api-doc module="components/input/input.component" component="InputComponent"></api-doc>

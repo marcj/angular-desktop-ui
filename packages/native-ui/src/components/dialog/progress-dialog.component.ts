@@ -1,4 +1,4 @@
-import {BehaviorSubject, Subject} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {Component, Input, OnInit} from "@angular/core";
 import {DialogComponent} from "./dialog.component";
 
@@ -75,7 +75,7 @@ export class ProgressDialogState extends BehaviorSubject<State | undefined> {
                 <!--                <mat-progress-bar mode="determinate" [value]="state.step/state.steps * 100"></mat-progress-bar>-->
             </div>
         </div>
-        
+
         <dui-dialog-actions>
             <button mat-button (click)="onCancelClick()">Cancel</button>
         </dui-dialog-actions>

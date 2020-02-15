@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
+    "sourceMap": true,
+    "declaration": true,
     "strict": true,
-    "target": "es2018",
+    "target": "es2015",
     "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
@@ -13,10 +17,19 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "angular-desktop-ui": [
+        "dist/"
+      ]
+    }
   },
   "include": [
     "./src",
     "create-font.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
 }

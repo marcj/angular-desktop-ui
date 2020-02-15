@@ -62,7 +62,7 @@ In macOS we have 4 types of buttons:
 }
 
 :host.highlighted {
-    color: $highlightedDolor;
+    color: var(--dui-selection);
 }
 
 :host.primary {
@@ -105,21 +105,21 @@ In macOS we have 4 types of buttons:
     overflow: visible;
 }
 
-:host.icon-right {
-    dui-icon {
-        margin-left: 2px;
-    }
-    padding-right: 5px;
+:host.tight {
+    padding: 0 4px;
 }
+
+//:host.icon-left {
+//    padding-left: 5px;
+//}
+
+//:host.icon-right {
+//    padding-right: 5px;
+//}
 
 :host.small {
     padding: 0 2px;
     font-size: 11px;
-}
-
-:host ::ng-deep dui-icon {
-    position: relative;
-    top: -1px;
 }
 
 :host-context(.light) {
