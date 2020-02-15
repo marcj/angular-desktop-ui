@@ -34,6 +34,13 @@ It might work in the non-ivy renderer as well, but is not tested.
 
 The full interactive auto-generated documentation is available at [angular-desktop-ui.marcj.dev](https://angular-desktop-ui.marcj.dev/).
 
+## Installation
+
+[Getting started documentation](https://angular-desktop-ui.marcj.dev/doc/getting-started).
+
+As example see [marcj/angular-desktop-ui-example](https://github.com/marcj/angular-desktop-ui-example) you can find an freshly installed Angular v9
+with configured angular-desktop-ui. Take a look at the last commit.
+
 ## Screens
 
 ![MacOS Light](https://raw.githubusercontent.com/marcj/angular-desktop-ui/master/docs/assets/macos-light.png)
