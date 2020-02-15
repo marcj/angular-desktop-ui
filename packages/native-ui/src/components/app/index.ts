@@ -33,6 +33,10 @@ export * from "./utils";
 export * from "./menu.component";
 export * from "./pipes";
 
+if ('undefined' !== typeof window && 'undefined' === typeof (window as any)['global']) {
+    (window as any).global = window;
+}
+
 export class BaseComponent {
     @Input() disabled?: boolean;
 
@@ -246,7 +250,7 @@ export class DuiAppModule {
         app.start();
         if (document && Electron.isAvailable()) {
             document.addEventListener('click', (event: MouseEvent) => {
-                if (event.target){
+                if (event.target) {
                     const target = event.target as HTMLElement;
                     if (target.tagName.toLowerCase() === 'a') {
                         event.preventDefault();
@@ -264,7 +268,10 @@ export class DuiAppModule {
             providers: [
                 DuiApp,
                 {provide: IN_DIALOG, useValue: false},
-                {provide: ELECTRON_WINDOW, useValue: Electron.isAvailable() ? Electron.getRemote().BrowserWindow.getAllWindows()[0] : undefined},
+                {
+                    provide: ELECTRON_WINDOW,
+                    useValue: Electron.isAvailable() ? Electron.getRemote().BrowserWindow.getAllWindows()[0] : undefined
+                },
             ]
         }
     }

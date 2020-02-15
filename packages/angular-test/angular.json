@@ -30,8 +30,8 @@
               { "glob": "**/*", "input": "./node_modules/@marcj/angular-desktop-ui/src/assets", "output": "assets" }
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/@marcj/angular-desktop-ui/src/scss/icon.scss"
+              "node_modules/@marcj/angular-desktop-ui/src/scss/all.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           },

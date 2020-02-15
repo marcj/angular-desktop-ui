@@ -3,35 +3,61 @@
 
 
 <p>
-    The library angular-desktop-ui is available in NPM.
+    The library angular-desktop-ui is available in NPM. Install it with its dependencies in an already existing angular project.
 </p>
 
 ```bash
-npm install @marcj/angular-desktop-ui
+npm install @marcj/angular-desktop-ui @angular/cdk
 ```
 <p>
-    Next you need to include the Typescript source of this library into your <code>tsconfig.json</code>, since this library is a Typescript only library.
-    Also activate <code>allowSyntheticDefaultImports</code> since this library uses some external dependencies that requires that.
+    Next you need to include the Typescript source of this library into your <code>tsconfig.app.json</code> and <code>tsconfig.spec.json</code>,
+     since this library is a Typescript only library.
 </p>
 
 ```json
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true
-  },
   "include": [
-    "src",
+    "src/**/*.d.ts",
     "node_modules/@marcj/angular-desktop-ui/src/**/*.ts"
   ]
 }
 ```
 
+Also activate <code>allowSyntheticDefaultImports</code> in your <code>tsconfig.json</code> since this library uses some external dependencies that requires that.
+
+```json
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true
+  }
+}
+```
+
 <p>
-    Include the scss files in your <code>src/styles.scss</code>.
+    Include the scss files in your <code>angular.json</code>.
+    Importing it via <code>@import "..."</code> in <code>src/style.scss</code> does not work.
 </p>
 
-```scss
-@import "~@marcj/angular-desktop-ui/src/scss/all";
+```json
+{
+  "projects": {
+    "test-dui": {
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/test-dui",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "styles": [
+              "node_modules/@marcj/angular-desktop-ui/src/scss/all.scss",
+              "src/styles.scss"
+            ]
+          }
+        }
+      }
+    }
+  }
 ```
 
 <p>
