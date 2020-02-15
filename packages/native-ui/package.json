@@ -18,7 +18,7 @@
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
     "font": "ts-node create-font.ts",
-    "prepublish": "webpack",
+    "prepublishOnly": "webpack && node bin/create-font.js && npm run typedoc",
     "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
   "dependencies": {
@@ -30,31 +30,36 @@
   "publishConfig": {
     "access": "public"
   },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/index.ts"
+    }
+  },
   "peerDependencies": {
-    "@angular/animations": "^9.0.0-rc.14",
-    "@angular/cdk": "^9.0.0-rc.9",
-    "@angular/common": "^9.0.0-rc.14",
-    "@angular/compiler": "^9.0.0-rc.14",
-    "@angular/core": "^9.0.0-rc.14",
-    "@angular/forms": "^9.0.0-rc.14",
-    "@angular/platform-browser": "^9.0.0-rc.14",
-    "@angular/router": "^9.0.0-rc.14",
+    "@angular/animations": "^9.0.1",
+    "@angular/cdk": "^9.0.0",
+    "@angular/common": "^9.0.1",
+    "@angular/compiler": "^9.0.1",
+    "@angular/core": "^9.0.1",
+    "@angular/forms": "^9.0.1",
+    "@angular/platform-browser": "^9.0.1",
     "electron": "^7.1.9",
     "rxjs": "~6.5.3"
   },
   "devDependencies": {
-    "@angular-devkit/schematics": "^9.0.0-rc.14",
-    "@angular/animations": "^9.0.0-rc.14",
-    "@angular/cdk": "^9.0.0-rc.9",
-    "@angular/common": "^9.0.0-rc.14",
-    "@angular/compiler": "^9.0.0-rc.14",
-    "@angular/core": "^9.0.0-rc.14",
-    "@angular/forms": "^9.0.0-rc.14",
-    "@angular/platform-browser": "^9.0.0-rc.14",
-    "@angular/router": "^9.0.0-rc.14",
-    "@types/hammerjs": "^2.0.36",
+    "@angular-devkit/schematics": "^9.0.2",
+    "@angular/animations": "^9.0.1",
+    "ng-packagr": "^9.0.0",
+    "@angular/cdk": "^9.0.0",
+    "@angular/compiler-cli": "^9.0.1",
+    "@angular/common": "^9.0.1",
+    "@angular/compiler": "^9.0.1",
+    "@angular/core": "^9.0.1",
+    "@angular/forms": "^9.0.1",
+    "@angular/platform-browser": "^9.0.1",
     "@types/node": "^12.12.26",
     "@types/fs-extra": "^8.0.1",
+    "@types/hammerjs": "^2.0.36",
     "rxjs": "~6.5.3",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",

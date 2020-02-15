@@ -6,11 +6,11 @@ import Hammer from 'hammerjs';
     template: '',
     styleUrls: ['./splitter.component.scss'],
     host: {
-        '[class.right]': 'position === "right"',
-        '[class.left]': 'position === "left"',
-        '[class.top]': 'position === "top"',
-        '[class.bottom]': 'position === "bottom"',
-        '[class.with-indicator]': 'indicator !== false',
+        '[class.splitter-right]': 'position === "right"',
+        '[class.splitter-left]': 'position === "left"',
+        '[class.splitter-top]': 'position === "top"',
+        '[class.splitter-bottom]': 'position === "bottom"',
+        '[class.splitter-with-indicator]': 'indicator !== false',
     }
 })
 export class SplitterComponent implements AfterViewInit {

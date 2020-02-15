@@ -2,7 +2,7 @@
     position: absolute;
 }
 
-:host.right {
+:host.splitter-right {
     width: 5px;
     right: -2px;
     top: 0;
@@ -10,7 +10,7 @@
     cursor: ew-resize;
 }
 
-:host.left {
+:host.splitter-left {
     width: 5px;
     left: -2px;
     top: 0;
@@ -18,7 +18,7 @@
     cursor: ew-resize;
 }
 
-:host.top {
+:host.splitter-top {
     top: -2px;
     left: 0;
     right: 0;
@@ -26,7 +26,7 @@
     cursor: ns-resize;
 }
 
-:host.bottom {
+:host.splitter-bottom {
     bottom: -2px;
     left: 0;
     right: 0;
@@ -34,7 +34,7 @@
     cursor: ns-resize;
 }
 
-:host.with-indicator.right:before {
+:host.splitter-with-indicator.splitter-right:before {
     content: '';
     position: absolute;
     height: 100%;
@@ -44,6 +44,6 @@
 }
 
 
-:host-context(.dark).with-indicator.right:before {
+:host-context(.dark).splitter-with-indicator.splitter-right:before {
     background: #474747;
 }

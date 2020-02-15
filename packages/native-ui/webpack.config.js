@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'create-font': path.resolve(__dirname, 'src/create-font.ts'),
+        'create-font': path.resolve(__dirname, 'create-font.ts'),
     },
     output: {
         filename: '[name].js',

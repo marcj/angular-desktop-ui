@@ -41,7 +41,7 @@ The full interactive auto-generated documentation is available at [angular-deskt
 ![MacOS Dark](https://raw.githubusercontent.com/marcj/angular-desktop-ui/master/docs/assets/macos-dark.png)
 
 ```html
-<dui-form>
+<dui-form #form>
     <dui-form-row label="Username">
         <dui-input [(ngModel)]="username"></dui-input>
     </dui-form-row>
@@ -71,40 +71,8 @@ The full interactive auto-generated documentation is available at [angular-deskt
             <dui-option value="y">Option Y</dui-option>
         </dui-select>
     </dui-form-row>
+    
+    <diu-button [submitForm]="form">Send</diu-button>
 </dui-form>
 
-<diu-button>Send</diu-button>
-```
-
-
-## Installation
-
-Install in your already existing Angular project.
-
-```
-npm install @marcj/angular-desktop-ui
-```
-
-### Add assets to your Angular assets.
-
-```
-# angular.json
-# projects.architect.build.assets:
-
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@marcj/angular-desktop-ui/assets/fonts",
-                "output": "assets/fonts"
-              }
-```
-
-### Add to tsconfig.json
-
-tsconfig.json
-
-```
-  "include": [
-    "./src",
-    "node_modules/@marcj/angular-desktop-ui/**/*.ts"
-  ]
 ```
