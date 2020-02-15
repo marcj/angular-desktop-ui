@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
+            "aot": false,
             "outputPath": "dist/angular-desktop-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -48,9 +48,8 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": false,
               "budgets": [
                 {

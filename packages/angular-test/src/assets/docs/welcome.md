@@ -11,8 +11,8 @@
 </p>
 
 <p>
-    This is a Typescript library offering you desktop UI widgets in Angular 7+. It's mostly targeted at Electron user or web applications that want to behave and look 
-    like native desktop applications. 
+    This is a Typescript library offering you desktop UI widgets in Angular 9+ Ivy only and Electron framework integration. 
+    It's mostly targeted at web applications that want to behave and look like native desktop applications. 
 </p>
 
 <p>
@@ -23,8 +23,16 @@ Thus with less hover states, no text selection, and only with animations/colors 
 <h2>Features</h2>
 
 <ul>
+    <li>Button, Inputs, Radiobox, Checkbox, Slider, Dropdown</li>
+    <li>File/directory chooser, Drop area</li>
+    <li>Window decoration: Toolbar, sidebar, splitter. Linux Ubuntu with Closer/Minimize/Maximize buttons</li>
+    <li>Lists and tables with sorting, dynamic columns, context menu</li>
+    <li>Emojis + chooser</li>
+    <li>Form handling</li>
+    <li>Custom icon abstraction (converting automatically into svg font) for your svg icons.</li>
+    <li>Simple dialog system (build-in alert, prompt, confirm)</li>
+    <li>Zoneless support for high-performance</li>
     <li>Strict typed</li>
-    <li>Zone'less support (You should disable Zone.js to get high-performance GUIs and no bottlenecks)</li>
-    <li>Dark-Mode</li>
     <li>NG_VALUE_ACCESSOR implementation (Reactive Forms and ngModel based)</li>
+    <li>Dark-Mode</li>
 </ul>

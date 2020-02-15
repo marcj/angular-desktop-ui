@@ -17,7 +17,7 @@ RUN cd /lib && npm run bootstrap
 ADD . /lib
 RUN cd /lib && npm-local-development --no-watcher
 RUN cd /lib/packages/native-ui && npm run docs
-RUN cd /lib/packages/angular-test && npm run build --prod
+RUN cd /lib/packages/angular-test && ./node_modules/.bin/ng build --prod
 
 FROM nginx:alpine
 
