@@ -335,7 +335,7 @@ export class DropdownSplitterComponent {
 @Component({
     selector: 'dui-dropdown-item',
     template: `
-        <dui-icon [size]="10" class="selected" *ngIf="selected" name="check"></dui-icon>
+        <dui-icon [size]="14" class="selected" *ngIf="selected" name="check"></dui-icon>
         <ng-content></ng-content>
     `,
     host: {
