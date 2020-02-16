@@ -13,10 +13,10 @@ In macOS we have 4 types of buttons:
     vertical-align: middle;
     position: relative;
     font-weight: 500;
-    height: 20px;
+    height: 21px;
     color: var(--dui-button-text);
     font-size: 12px;
-    line-height: 20px;
+    line-height: 21px;
     padding: 0 15px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -36,8 +36,8 @@ In macOS we have 4 types of buttons:
         border-radius: 0;
         border: 1px solid #b4b4b4;
         box-shadow: none;
-        height: 22px;
-        line-height: 22px;
+        height: 21px;
+        line-height: 21px;
 
         &:not(.disabled).active,
         &:not(.disabled):active {
@@ -106,20 +106,14 @@ In macOS we have 4 types of buttons:
 }
 
 :host.tight {
-    padding: 0 4px;
+    padding: 0 1px;
 }
-
-//:host.icon-left {
-//    padding-left: 5px;
-//}
-
-//:host.icon-right {
-//    padding-right: 5px;
-//}
 
 :host.small {
     padding: 0 2px;
     font-size: 11px;
+    height: 18px;
+    align-items: start;
 }
 
 :host-context(.light) {

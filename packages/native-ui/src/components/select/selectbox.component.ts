@@ -63,7 +63,9 @@ export class OptionDirective {
         <ng-container *ngIf="button">
             <dui-button-group padding="none">
                 <ng-content select="dui-button"></ng-content>
-                <dui-button class="split-knob" [openDropdown]="dropdown" small textured [iconSize]="12" icon="arrow_down"></dui-button>
+                <dui-button class="split-knob"
+                            style="padding: 0 2px;"
+                            [openDropdown]="dropdown" tight textured icon="arrow_down"></dui-button>
             </dui-button-group>
         </ng-container>
 
@@ -102,18 +104,23 @@ export class OptionDirective {
     host: {
         '[attr.tabIndex]': '1',
         '[class.split]': '!!button',
+        '[class.textured]': 'textured !== false',
+        '[class.small]': 'small !== false',
     },
     providers: [ngValueAccessor(SelectboxComponent)]
 })
 export class SelectboxComponent<T> extends ValueAccessorBase<T> implements AfterViewInit, OnDestroy, OnChanges {
     @Input() placeholder: string = '';
 
+    /**
+     * Different textured styled.
+     */
     @Input() textured: boolean | '' = false;
 
-    @HostBinding('class.textured')
-    get isTextured() {
-        return false !== this.textured;
-    }
+    /**
+     * Smaller text and height.
+     */
+    @Input() small: boolean | '' = false;
 
     @ContentChild(ButtonComponent, {static: false}) button?: ButtonComponent;
 

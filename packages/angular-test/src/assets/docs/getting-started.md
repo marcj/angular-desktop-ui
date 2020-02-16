@@ -36,6 +36,7 @@ Also activate <code>allowSyntheticDefaultImports</code> in your <code>tsconfig.j
 <p>
     Include the scss files in your <code>angular.json</code>.
     Importing it via <code>@import "..."</code> in <code>src/style.scss</code> does not work.
+    If you use a custom icon font as described in the Icon chapter, don't import the <code>icon.scss</code> here.
 </p>
 
 ```json
@@ -51,6 +52,7 @@ Also activate <code>allowSyntheticDefaultImports</code> in your <code>tsconfig.j
             "main": "src/main.ts",
             "styles": [
               "node_modules/@marcj/angular-desktop-ui/src/scss/all.scss",
+              "node_modules/@marcj/angular-desktop-ui/src/scss/icon.scss",
               "src/styles.scss"
             ]
           }

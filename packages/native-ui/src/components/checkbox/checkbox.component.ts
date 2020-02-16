@@ -12,7 +12,7 @@ import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
     selector: 'dui-checkbox',
     template: `
         <span class="box">
-            <dui-icon [size]="8" name="check"></dui-icon>
+            <dui-icon [size]="12" name="check"></dui-icon>
         </span>
         <ng-content></ng-content>
     `,

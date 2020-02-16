@@ -4,8 +4,11 @@ import {HttpClient} from "@angular/common/http";
 @Component({
     selector: 'icons-browser',
     template: `
+        <dui-input [(ngModel)]="query" round clearer semiTransparent icon="filter" lightFocus
+                   (ngModelChange)="cd.detectChanges()" placeholder="Filter ..."></dui-input>
+
         <div class="icons">
-            <div class="icon" *ngFor="let icon of icons" >
+            <div class="icon" *ngFor="let icon of filter(icons)" >
                 <dui-icon [name]="icon"></dui-icon>
                 <div class="name">{{icon}}</div>
             </div>
@@ -16,10 +19,18 @@ import {HttpClient} from "@angular/common/http";
 export class IconsComponent implements OnInit {
     public icons?: any;
 
+    public query = '';
+
     constructor(
         protected httpClient: HttpClient,
-        protected cd: ChangeDetectorRef
+        public cd: ChangeDetectorRef
     ) {
+    }
+
+    filter(value: string[]) {
+        if (!this.query) return value;
+
+        return value.filter(v => v.indexOf(this.query) !== -1);
     }
 
     async ngOnInit(): Promise<any> {

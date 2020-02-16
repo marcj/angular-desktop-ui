@@ -1,10 +1,11 @@
 @import "../../scss/mixins";
 
 :host {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     position: relative;
-    height: 22px;
-    line-height: 22px;
+    height: 21px;
+    line-height: 21px;
     color: var(--dui-input-text);
     width: 150px;
     vertical-align: middle;
@@ -52,14 +53,15 @@
 
 textarea, input {
     border: 0;
+    min-width: 20px;
     color: var(--dui-input-text);
     background-color: transparent;
-    line-height: 100%;
-    width: 100%;
-    height: 100%;
+    height: 17px;
+    line-height: 17px;
     padding: 0 4px;
     vertical-align: top;
     resize: none;
+    font-weight: 500;
 
     &::placeholder {
         color: #c5c5c5;
@@ -70,16 +72,25 @@ textarea, input {
     }
 }
 
-textarea {
-    padding-top: 2px;
-    line-height: 16px;
+:host.has-icon {
+    padding-left: 1px;
+    //margin-right: 2px;
+
+    textarea, input {
+        padding-left: 3px;
+    }
 }
 
-dui-icon {
-    position: absolute;
-    left: 2px;
-    top: 1px;
+textarea {
+    padding-top: 2px;
+    line-height: 17px;
 }
+
+//dui-icon {
+//    position: absolute;
+//    left: 2px;
+//    top: 1px;
+//}
 
 :host.semi-transparent {
     dui-icon {
@@ -87,32 +98,30 @@ dui-icon {
     }
 }
 
-.input-wrapper {
-    height: 100%;
-}
 
 :host dui-icon.clearer {
-    right: 5px;
-    left: auto;
-    top: 3px;
+    //right: 5px;
+    //left: auto;
+    //top: 3px;
+    margin-right: 2px;
     opacity: 0;
     transition: opacity 0.2s ease-in;
     cursor: pointer;
-    color: #808080;
+    color: #b8babc;
     pointer-events: none;
 }
 
-:host.has-icon {
-    .input-wrapper {
-        margin-left: 18px;
-    }
-}
-
-:host.has-clearer {
-    .input-wrapper {
-        margin-right: 18px;
-    }
-}
+//:host.has-icon {
+//    .input-wrapper {
+//        margin-left: 18px;
+//    }
+//}
+//
+//:host.has-clearer {
+//    .input-wrapper {
+//        margin-right: 18px;
+//    }
+//}
 
 :host.filled .clearer {
     opacity: 1;

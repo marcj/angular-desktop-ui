@@ -18,34 +18,33 @@ import {Buffer} from "buffer";
 @Component({
     selector: 'dui-input',
     template: `
-        <div class="input-wrapper">
-            <input
-                *ngIf="type !== 'textarea'"
-                #input
-                [step]="step"
-                [readOnly]="readonly !== false"
-                [type]="type" (focus)="onFocus()" (blur)="onBlur()"
-                (change)="handleFileInput($event)"
-                [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
-                [disabled]="isDisabled"
-                [ngModel]="type === 'file' ? undefined : innerValue"
-                (ngModelChange)="setInnerValue($event)"
-            />
-            <textarea
-                #input
-                [readOnly]="readonly !== false"
-                *ngIf="type === 'textarea'" (focus)="onFocus()" (blur)="onBlur()"
-                [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
-                [disabled]="isDisabled"
-                [(ngModel)]="innerValue"></textarea>
-        </div>
         <dui-icon *ngIf="icon" class="icon" [size]="iconSize" [name]="icon"></dui-icon>
-        <dui-icon *ngIf="hasClearer" class="clearer" [size]="14" name="clear" (click)="clear()"></dui-icon>
+        <input
+            *ngIf="type !== 'textarea'"
+            #input
+            [step]="step"
+            [readOnly]="readonly !== false"
+            [type]="type" (focus)="onFocus()" (blur)="onBlur()"
+            (change)="handleFileInput($event)"
+            [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
+            [disabled]="isDisabled"
+            [ngModel]="type === 'file' ? undefined : innerValue"
+            (ngModelChange)="setInnerValue($event)"
+        />
+        <textarea
+            #input
+            [readOnly]="readonly !== false"
+            *ngIf="type === 'textarea'" (focus)="onFocus()" (blur)="onBlur()"
+            [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
+            [disabled]="isDisabled"
+            [(ngModel)]="innerValue"></textarea>
+        <dui-icon *ngIf="hasClearer" class="clearer" name="clear" (click)="clear()"></dui-icon>
     `,
     styleUrls: ['./input.component.scss'],
     host: {
         '[class.is-textarea]': 'type === "textarea"',
         '[class.light-focus]': 'lightFocus !== false',
+        '[class.semi-transparent]': 'semiTransparent !== false',
     },
     providers: [ngValueAccessor(InputComponent)]
 })
@@ -65,7 +64,15 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
      */
     @Input() focus: boolean | '' = false;
 
+    /**
+     * Uses a more decent focus border.
+     */
     @Input() lightFocus: boolean | '' = false;
+
+    /**
+     * Appears a little bit transparent. Perfect for blurry background.
+     */
+    @Input() semiTransparent: boolean | '' = false;
 
     @Output() esc = new EventEmitter<KeyboardEvent>();
     @Output() enter = new EventEmitter<KeyboardEvent>();
