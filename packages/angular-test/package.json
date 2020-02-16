@@ -1,6 +1,6 @@
 {
   "name": "angular-desktop-ui",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -53,12 +53,12 @@
     "@angular/language-service": "^9.0.1",
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6",
-    "@marcj/angular-desktop-ui": "^0.3.10",
+    "@marcj/angular-desktop-ui": "^0.3.11",
     "@types/highlight.js": "^9.12.3",
-    "@types/showdown": "^1.9.2",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "@types/showdown": "^1.9.2",
     "babel-loader": "^8.0.4",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~2.99.1",
