@@ -17,7 +17,6 @@
 }
 
 .box {
-    display: inline-block;
     width: 14px;
     height: 14px;
     line-height: 14px;
@@ -32,16 +31,14 @@
     border-bottom: 1px solid #b8b8b8;
     border-radius: 3px;
 
+    display: inline-flex;
+    align-items: center;
     //transition: all 0.08s ease-in;
 }
 
 
 dui-icon {
-    position: relative;
-    left: 0px;
-    top: -2px;
     opacity: 0;
-    line-height: 12px;
 }
 
 :host.checked .box {
