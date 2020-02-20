@@ -1,6 +1,6 @@
 {
   "name": "@marcj/angular-desktop-ui",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "library offering you desktop UI widgets in Angular 7+",
   "keywords": [
     "Desktop",
