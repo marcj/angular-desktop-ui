@@ -254,6 +254,10 @@ export class DropdownComponent implements OnChanges, OnDestroy {
         }
     }
 
+    public focus() {
+        this.dropdown.nativeElement.focus();
+    }
+
     public close() {
         if (!this.isOpen) {
             return;

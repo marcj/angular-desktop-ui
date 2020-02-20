@@ -35,26 +35,18 @@ import {Electron} from "../../core/utils";
         </div>
     `,
     host: {
-        '[class.inactive]': '!windowState.focus.value'
+        '[class.inactive]': '!windowState.focus.value',
+        '[class.size-default]': `size === 'default'`,
+        '[class.size-small]': `size === 'small'`,
     },
     styleUrls: ['./window-header.component.scss']
 })
 export class WindowHeaderComponent implements OnDestroy {
-    @Input() public size: 'small' | 'medium' | 'large' = 'small';
+    @Input() public size: 'small' | 'default' = 'default';
 
     @HostBinding('class.with-toolbar')
     get withToolbar() {
         return this.windowState.toolbars['default'] && this.windowState.toolbars['default'].length;
-    }
-
-    @HostBinding('class.medium')
-    get isMedium() {
-        return this.size === 'medium';
-    }
-
-    @HostBinding('class.large')
-    get isLarge() {
-        return this.size === 'large';
     }
 
     protected focusSub = this.windowState.focus.subscribe((v) => {
@@ -93,13 +85,6 @@ export class WindowHeaderComponent implements OnDestroy {
 
     close() {
         Electron.getRemote().BrowserWindow.getFocusedWindow().close();
-    }
-
-    /**
-     * Public API for children component to send signal to increase header size.
-     */
-    public atLeastOneButtonIsMedium() {
-        this.size = 'medium';
     }
 }
 

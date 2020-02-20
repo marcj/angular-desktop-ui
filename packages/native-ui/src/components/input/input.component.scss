@@ -1,8 +1,7 @@
 @import "../../scss/mixins";
 
 :host {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
     position: relative;
     height: 21px;
     line-height: 21px;
@@ -47,6 +46,11 @@
     }
 }
 
+:host:not(.is-textarea) {
+    display: inline-flex;
+    align-items: center;
+}
+
 :host.is-textarea {
     height: 60px;
 }
@@ -62,6 +66,7 @@ textarea, input {
     vertical-align: top;
     resize: none;
     font-weight: 500;
+    width: 100%;
 
     &::placeholder {
         color: #c5c5c5;
@@ -70,6 +75,18 @@ textarea, input {
     &:focus {
         outline: 0;
     }
+}
+
+:host-context(.dark) {
+    textarea, input {
+        &::placeholder {
+            color: rgba(197, 197, 197, 0.4);
+        }
+    }
+}
+
+textarea {
+    height: 100%;
 }
 
 :host.has-icon {

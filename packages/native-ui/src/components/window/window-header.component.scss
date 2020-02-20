@@ -26,6 +26,19 @@
     }
 }
 
+:host.size-small .title {
+    min-height: auto;
+}
+
+:host.size-default.with-toolbar {
+    height: 55px;
+}
+
+:host.size-small.with-toolbar {
+    height: 37px;
+}
+
+
 ::ng-deep .cdk-overlay-pane {
     -webkit-app-region: no-drag;
 }
@@ -136,10 +149,6 @@
     }
 }
 
-:host.with-toolbar {
-    height: 55px;
-}
-
 .toolbar dui-window-toolbar-container {
     position: absolute;
     bottom: 0;
@@ -150,18 +159,18 @@
     white-space: nowrap;
     word-break: keep-all;
 }
-
-:host.medium {
-    height: 68px;
-
-    .actions {
-        padding-bottom: 18px;
-    }
-}
-
-:host.large {
-    height: 78px;
-}
+//
+//:host.medium {
+//    height: 68px;
+//
+//    .actions {
+//        padding-bottom: 18px;
+//    }
+//}
+//
+//:host.large {
+//    height: 78px;
+//}
 
 :host ::ng-deep {
     dui-input,

@@ -16,10 +16,10 @@ let currentViewDirective: ViewDirective | undefined;
 export class ViewState {
     public id = i++;
 
-    public viewDirective: ViewDirective = currentViewDirective!;
+    public viewDirective?: ViewDirective = currentViewDirective;
 
     get attached() {
-        return this.viewDirective.isVisible();
+        return this.viewDirective ? this.viewDirective.isVisible() : true;
     }
 }
 
