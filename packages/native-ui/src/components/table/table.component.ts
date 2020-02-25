@@ -242,6 +242,7 @@ export class TableHeaderDirective {
 
             <div class="body" [class.with-header]="showHeader">
                 <cdk-virtual-scroll-viewport #viewportElement
+                                             class="overlay-scrollbar-small"
                                              [itemSize]="itemHeight"
                 >
                     <ng-container

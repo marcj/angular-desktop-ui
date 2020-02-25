@@ -103,12 +103,19 @@ export class DuiApp {
             this.setDarkMode();
         }
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const mm = window.matchMedia('(prefers-color-scheme: dark)');
+        const setTheme = () => {
             if (localStorage.getItem('duiApp/darkMode') === null) {
                 this.setAutoDarkMode();
                 this.app.tick();
             }
-        });
+        };
+        if (mm.addEventListener) {
+            mm.addEventListener('change', setTheme);
+        } else {
+            //ios
+            mm.addListener(setTheme);
+        }
 
         if ('undefined' !== typeof document) {
             document.addEventListener('click', () => detectChangesNextFrame());
