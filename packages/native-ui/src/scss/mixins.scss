@@ -31,16 +31,20 @@ $focusOutlineColorDark: #2a729c;
 }
 
 @mixin box-textured-dark-toolbar {
-    background-image: linear-gradient(-180deg, #6B6B6B 0%, #656565 100%);
-    border-top: 1px solid #797979;
-    border-bottom: 1px solid #646464;
-    border-left: 1px solid #646464d1;
-    border-right: 1px solid #646464d1;
+    background-image: linear-gradient(-180deg, #6A6A6A 0%, #676767 100%);
+    border-top: 1px solid #7b7b7b;
+    border-bottom: 1px solid #676767;
+    border-left: 1px solid #69696a;
+    border-right: 1px solid #69696a;
     box-shadow: none;
 }
 
 @mixin box-textured-dark-toolbar-active {
-    background-image: linear-gradient(180deg, #868686 0%, #7A7A7A 100%);
+    background-image: linear-gradient(-180deg, #858484 0%, #818181 100%);
+    border-top: 1px solid #939393;
+    border-bottom: 1px solid #818181;
+    border-left: 1px solid #818181;
+    border-right: 1px solid #818181;
 }
 
 @mixin focus-border {

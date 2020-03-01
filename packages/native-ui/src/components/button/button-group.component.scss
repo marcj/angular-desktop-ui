@@ -30,7 +30,7 @@
 
 :host-context(.dark) {
     ::ng-deep dui-button:not(.square):not(:first-child) {
-        border-left: 1px solid #484c50;
+        border-left: 1px solid #484c50 !important;
     }
 }
 

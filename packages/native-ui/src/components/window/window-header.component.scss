@@ -189,32 +189,34 @@
     }
 }
 
-:host-context(.dark) ::ng-deep {
-    dui-input,
-    dui-select,
-    dui-button {
-        @include box-textured-dark-toolbar;
-    }
-
-    dui-select,
-    dui-button {
-        &:active {
-            @include box-textured-dark-toolbar-active;
+:host-context(.dark) .toolbar {
+    ::ng-deep {
+        dui-input,
+        dui-select,
+        dui-button {
+            @include box-textured-dark-toolbar;
         }
 
-        &:not(.disabled):not(.square).active {
-            background-image: linear-gradient(180deg, #C9C9C9 0%, #C3C3C3 100%) !important;
-            border-top: 1px solid #d2d2d2 !important;
-            border-bottom: 1px solid #C3C3C3 !important;
-            border-left: 1px solid transparent !important;
-            border-right: 1px solid transparent !important;
-
+        dui-select,
+        dui-button {
             &:active {
-                background-image: linear-gradient(-180deg, #ECECEC 0%, #E7E7E7 100%) !important;
-                border-top: 1px solid #f2f2f2 !important;
-                border-bottom: 1px solid #E7E7E7 !important;
+                @include box-textured-dark-toolbar-active;
+            }
+
+            &:not(.disabled):not(.square).active {
+                background-image: linear-gradient(180deg, #C9C9C9 0%, #C3C3C3 100%) !important;
+                border-top: 1px solid #d2d2d2 !important;
+                border-bottom: 1px solid #C3C3C3 !important;
                 border-left: 1px solid transparent !important;
                 border-right: 1px solid transparent !important;
+
+                &:active {
+                    background-image: linear-gradient(-180deg, #ECECEC 0%, #E7E7E7 100%) !important;
+                    border-top: 1px solid #f2f2f2 !important;
+                    border-bottom: 1px solid #E7E7E7 !important;
+                    border-left: 1px solid transparent !important;
+                    border-right: 1px solid transparent !important;
+                }
             }
         }
     }
