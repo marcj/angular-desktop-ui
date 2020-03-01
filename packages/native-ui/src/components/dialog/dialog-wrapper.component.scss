@@ -15,9 +15,9 @@
     }
 
     .cdk-overlay-pane > ng-component {
-        display: block;
         flex: 1;
         display: flex;
+        max-width: 100%;
     }
 
     .cdk-overlay-pane dui-window {
