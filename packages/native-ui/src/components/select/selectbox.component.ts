@@ -57,6 +57,8 @@ export class OptionDirective {
     }
 }
 
+class NotSelected {}
+
 @Component({
     selector: 'dui-select',
     template: `
@@ -109,7 +111,7 @@ export class OptionDirective {
     },
     providers: [ngValueAccessor(SelectboxComponent)]
 })
-export class SelectboxComponent<T> extends ValueAccessorBase<T> implements AfterViewInit, OnDestroy, OnChanges {
+export class SelectboxComponent<T> extends ValueAccessorBase<T | NotSelected> implements AfterViewInit, OnDestroy, OnChanges {
     @Input() placeholder: string = '';
 
     /**
@@ -128,7 +130,7 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
     @ViewChild('dropdown', {static: false}) dropdown!: DropdownComponent;
 
     public label: string = '';
-    public optionsValueMap = new Map<T, OptionDirective>();
+    public optionsValueMap = new Map<T | NotSelected, OptionDirective>();
 
     protected changeSubscription?: Subscription;
 
@@ -140,6 +142,7 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
         @SkipSelf() public readonly cdParent: ChangeDetectorRef,
     ) {
         super(injector, cd, cdParent);
+        this.innerValue = new NotSelected;
     }
 
     ngAfterViewInit(): void {
@@ -169,9 +172,14 @@ export class SelectboxComponent<T> extends ValueAccessorBase<T> implements After
     ngOnChanges(changes: SimpleChanges) {
     }
 
+
+    async writeValue(value?: T | NotSelected): Promise<void> {
+        super.writeValue(value);
+    }
+
     @HostBinding('class.selected')
     get isSelected(): boolean {
-        return this.innerValue !== undefined;
+        return !(this.innerValue instanceof NotSelected);
     }
 
     protected updateMap() {

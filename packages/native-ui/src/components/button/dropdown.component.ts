@@ -305,7 +305,7 @@ export class OpenDropdownDirective {
 export class ContextDropdownDirective {
     @Input() contextDropdown?: DropdownComponent;
 
-    @HostListener('mousedown', ['$event'])
+    @HostListener('contextmenu', ['$event'])
     onClick($event: MouseEvent) {
         if (this.contextDropdown && $event.button === 2) {
             this.contextDropdown.close();

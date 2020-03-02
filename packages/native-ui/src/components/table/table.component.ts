@@ -253,6 +253,7 @@ export class TableHeaderDirective {
                              [class.odd]="isOdd"
                              [style.height.px]="itemHeight"
                              (mousedown)="select(row, $event)"
+                             (contextmenu)="select(row, $event)"
                              (dblclick)="dbclick.emit(row)"
                         >
                             <div *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
@@ -958,12 +959,9 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.selected.push(item);
                 }
             } else {
-                const rightClick = $event && $event.button === 2;
-                if (!rightClick || !this.selected.length) {
-                    this.selected = [item];
-                    this.selectedMap.clear();
-                    this.selectedMap.set(item, true);
-                }
+                this.selected = [item];
+                this.selectedMap.clear();
+                this.selectedMap.set(item, true);
             }
         }
 
