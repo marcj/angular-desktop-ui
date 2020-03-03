@@ -38,12 +38,6 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {DropdownComponent} from "../button";
 import {detectChangesNextFrame} from "../app/utils";
 
-export interface Column<T> {
-    id: string;
-    header?: string;
-    cell?: (row: T) => string;
-}
-
 /**
  * Necessary directive to get information about the row item T in dui-table-column.
  *
@@ -117,7 +111,7 @@ export class TableColumnDirective {
     /**
      * Whether this column is start hidden. User can unhide it using the context menu on the header.
      */
-    @Input('hidden') hidden: boolean = false;
+    @Input('hidden') hidden: boolean | '' = false;
 
     /**
      * At which position this column will be placed.
@@ -640,7 +634,6 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                 if (animationFrame) {
                     cancelAnimationFrame(animationFrame);
                 }
-
 
                 animationFrame = requestAnimationFrame(() => {
                     if (element) {

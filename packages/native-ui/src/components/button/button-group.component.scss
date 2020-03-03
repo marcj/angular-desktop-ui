@@ -28,7 +28,8 @@
     transition: padding-left 300ms ease-in-out;
 }
 
-:host-context(.dark) {
+:host-context(.dark).padding-none {
+    ::ng-deep dui-select:not(:first-child),
     ::ng-deep dui-button:not(.square):not(:first-child) {
         border-left: 1px solid #484c50 !important;
     }
