@@ -24,6 +24,10 @@ import {Buffer} from "buffer";
             #input
             [step]="step"
             [readOnly]="readonly !== false"
+            [min]="min"
+            [max]="max"
+            [minLength]="minLength"
+            [maxLength]="maxLength"
             [type]="type" (focus)="onFocus()" (blur)="onBlur()"
             (change)="handleFileInput($event)"
             [placeholder]="placeholder" (keyup)="onKeyUp($event)" (keydown)="onKeyDown($event)"
@@ -56,6 +60,11 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
     @Input() placeholder: string = '';
 
     @Input() icon: string = '';
+
+    @Input() min?: number;
+    @Input() max?: number;
+    @Input() maxLength?: number;
+    @Input() minLength?: number;
 
     @Input() iconSize: number = 17;
 
