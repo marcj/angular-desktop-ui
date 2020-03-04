@@ -952,9 +952,13 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.selected.push(item);
                 }
             } else {
-                this.selected = [item];
-                this.selectedMap.clear();
-                this.selectedMap.set(item, true);
+                const isItemSelected = arrayHasItem(this.selected, item);
+                const resetSelection = !isItemSelected;
+                if (resetSelection) {
+                    this.selected = [item];
+                    this.selectedMap.clear();
+                    this.selectedMap.set(item, true);
+                }
             }
         }
 

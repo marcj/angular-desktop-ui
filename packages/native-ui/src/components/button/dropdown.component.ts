@@ -60,6 +60,10 @@ export class DropdownComponent implements OnChanges, OnDestroy {
 
     @Input() minHeight?: number | string;
 
+    @Input() maxWidth?: number | string;
+
+    @Input() maxHeight?: number | string;
+
     @Input() scrollbars: boolean = true;
 
     /**
@@ -152,9 +156,10 @@ export class DropdownComponent implements OnChanges, OnDestroy {
         const overlay = this.overlayService;
 
         if (target instanceof MouseEvent) {
+            const mousePosition = {x: target.pageX, y: target.pageY};
             position = overlay
                 .position()
-                .flexibleConnectedTo({x: target.pageX, y: target.pageY})
+                .flexibleConnectedTo(mousePosition)
                 .withFlexibleDimensions(false)
                 .withViewportMargin(12)
                 .withPush(true)
@@ -217,10 +222,13 @@ export class DropdownComponent implements OnChanges, OnDestroy {
                 scrollStrategy: overlay.scrollStrategies.reposition(),
                 positionStrategy: position
             };
+
             if (this.width) options.width = this.width;
             if (this.height) options.height = this.height;
             if (this.minWidth) options.minWidth = this.minWidth;
             if (this.minHeight) options.minHeight = this.minHeight;
+            if (this.maxWidth) options.maxWidth = this.maxWidth;
+            if (this.maxHeight) options.maxHeight = this.maxHeight;
 
             this.overlayRef = overlay.create(options);
 

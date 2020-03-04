@@ -15,13 +15,14 @@
     border-bottom: 1px solid #b9b9b9;
 
     box-shadow: 0 4px 14px 0 rgba(133, 129, 129, 0.44);
+    display: flex;
     border-radius: 5px;
+    overflow: hidden;
 
     &:focus {
         outline: 0;
     }
 
-    display: flex;
 
     > div.content {
         flex: 1;
