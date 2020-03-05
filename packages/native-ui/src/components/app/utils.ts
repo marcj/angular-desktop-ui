@@ -26,6 +26,11 @@ export class OpenExternalDirective implements OnChanges {
         if (Electron.isAvailable()) {
             event.preventDefault();
             Electron.getRemote().shell.openExternal(this.getLink());
+        } else {
+            if (this.openExternal) {
+                //its not href, so we need to trigger open manually
+                window.open(this.openExternal, '_blank');
+            }
         }
     }
 }
