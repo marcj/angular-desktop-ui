@@ -70,6 +70,10 @@
     }
 }
 
+.cdk-virtual-scroll-viewport {
+    overflow: auto !important;
+}
+
 .table-row {
     white-space: nowrap;
     border-bottom: 1px solid rgba(192, 192, 192, 0.05);

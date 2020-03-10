@@ -23,6 +23,8 @@ export class OpenExternalDirective implements OnChanges {
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
+        event.stopPropagation();
+        event.preventDefault();
         if (Electron.isAvailable()) {
             event.preventDefault();
             Electron.getRemote().shell.openExternal(this.getLink());

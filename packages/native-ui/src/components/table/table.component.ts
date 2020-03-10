@@ -952,8 +952,9 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
                     this.selected.push(item);
                 }
             } else {
+                const isRightButton = $event && $event.button == 2;
                 const isItemSelected = arrayHasItem(this.selected, item);
-                const resetSelection = !isItemSelected;
+                const resetSelection = !isItemSelected || !isRightButton;
                 if (resetSelection) {
                     this.selected = [item];
                     this.selectedMap.clear();
