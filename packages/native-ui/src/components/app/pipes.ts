@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, OnDestroy, Pipe, PipeTransform, WrappedValue} from "@angular/core";
 import {Observable, Subscription} from "rxjs";
+import {detectChangesNextFrame} from "./utils";
 
 /**
  * Almost the same as |async pipe, but renders directly (detectChanges() instead of marking it only(markForCheck())
@@ -28,11 +29,11 @@ export class AsyncRenderPipe implements OnDestroy, PipeTransform {
             if (value) {
                 this.subscription = value.subscribe((next) => {
                     this.lastReturnedValue = next;
-                    this.cd.detectChanges();
+                    detectChangesNextFrame(this.cd);
                 });
             }
         }
 
-        return WrappedValue.wrap(this.lastReturnedValue) as any;
+        return this.lastReturnedValue;
     }
 }
