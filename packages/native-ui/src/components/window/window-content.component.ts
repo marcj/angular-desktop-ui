@@ -68,9 +68,11 @@ export class WindowContentComponent implements OnChanges, AfterViewInit {
     }
 
     transitionEnded() {
-        this.withAnimation = false;
-        triggerResize();
-        this.cd.detectChanges();
+        if (this.withAnimation) {
+            this.withAnimation = false;
+            triggerResize();
+            this.cd.detectChanges();
+        }
     }
 
     sidebarMoved() {
