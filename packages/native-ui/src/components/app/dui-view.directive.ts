@@ -23,15 +23,9 @@ export class ViewState {
     }
 }
 
-export interface Viewable {
-    readonly viewState: ViewState;
-}
-
-export const ViewStateToken = new InjectionToken('asd');
-
 @Directive({
     selector: '[duiView]',
-    providers: [{provide: ViewStateToken, useClass: ViewState}]
+    providers: [{provide: ViewState, useClass: ViewState}]
 })
 export class ViewDirective implements OnDestroy {
     protected view?: EmbeddedViewRef<any>;
