@@ -1,5 +1,8 @@
 # Angular Desktop UI
 
+[![Gitter](https://badges.gitter.im/angular-desktop-ui/community.svg)](https://gitter.im/angular-desktop-ui/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![npm](https://img.shields.io/npm/v/@marcj/angular-desktop-ui)
+
 This is a collection for native desktop like user interface components in Angular, especially useful for Electron apps.
 
 It starts with MacOS support, light and dark mode. 
