@@ -287,7 +287,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy, OnChanges {
 
 /**
  * This directive is necessary if you want to load and render the dialog content
- * only when opening the dialog. Without it it is immediately render, which can cause
+ * only when opening the dialog. Without it, it is immediately rendered, which can cause
  * performance and injection issues.
  */
 @Directive({

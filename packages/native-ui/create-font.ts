@@ -1,5 +1,5 @@
-import {lstatSync, readdir, createWriteStream, readFileSync, createReadStream, writeFileSync, readdirSync} from 'fs';
-import {join, basename, dirname} from 'path';
+import {createReadStream, createWriteStream, lstatSync, readdirSync, readFileSync, writeFileSync} from 'fs';
+import {join} from 'path';
 import {ensureDirSync} from 'fs-extra';
 
 const svg2ttf = require('svg2ttf');

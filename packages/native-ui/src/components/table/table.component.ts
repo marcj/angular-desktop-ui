@@ -368,6 +368,11 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
      */
     @Input() public valueFetcher = (object: any, path: string): any => object[path];
 
+    /**
+     * A hook to provide custom sorting behavior for certain columns.
+     */
+    @Input() public sortFunction?: (path: string, dir: 'asc' | 'desc') => (((a: T, b: T) => number) | undefined);
+
     @Input() noFocusOutline: boolean | '' = false;
 
     public currentSort: string = '';
@@ -806,27 +811,37 @@ export class TableComponent<T> implements AfterViewInit, OnChanges, OnDestroy {
         }
 
         const sortField = this.currentSort || this.defaultSort;
-        this.sorted.sort((a: any, b: any) => {
-            const aV = this.valueFetcher(a, sortField);
-            const bV = this.valueFetcher(b, sortField);
+        const dir = this.currentSortDirection || this.defaultSortDirection
+        const customSortFunction = this.sortFunction ? this.sortFunction(sortField, dir) : undefined;
 
-            if ((this.currentSortDirection || this.defaultSortDirection) === 'asc') {
-                if (aV > bV) return 1;
-                if (aV < bV) return -1;
-            } else {
-                if (aV > bV) return -1;
-                if (aV < bV) return 1;
-            }
+        if (customSortFunction) {
+            this.sorted.sort(customSortFunction);
+        } else {
+            this.sorted.sort((a: T, b: T) => {
+                const aV = this.valueFetcher(a, sortField);
+                const bV = this.valueFetcher(b, sortField);
 
-            return 0;
-        });
+                if (aV === undefined && bV === undefined) return 0;
+                if (aV === undefined && bV !== undefined) return +1;
+                if (aV !== undefined && bV === undefined) return -1;
+
+                if (dir === 'asc') {
+                    if (aV > bV) return 1;
+                    if (aV < bV) return -1;
+                } else {
+                    if (aV > bV) return -1;
+                    if (aV < bV) return 1;
+                }
+
+                return 0;
+            });
+        }
 
         this.sortedChange.emit(this.sorted);
         this.height = (this.sorted.length * this.itemHeight) + (this.showHeader ? 23 : 0);
 
         this.sorted = this.sorted.slice(0);
         detectChangesNextFrame(this.parentCd);
-        // this.cd.detectChanges();
     }
 
     /**

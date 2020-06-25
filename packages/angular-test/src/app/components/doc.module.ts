@@ -486,7 +486,6 @@ export class MarkdownDocComponent implements AfterViewInit {
         private compiler: Compiler,
         private resolver: ComponentFactoryResolver,
         private cd: ChangeDetectorRef,
-        private componentFactoryResolver: ComponentFactoryResolver
     ) {
     }
 

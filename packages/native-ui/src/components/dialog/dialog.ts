@@ -100,7 +100,7 @@ export class DuiDialog {
 
     public open<T>(
         component: Type<T>,
-        inputs: { [name: string]: any } = {},
+        inputs: { [name in keyof T]?: any } = {},
         dialogInputs: { [name: string]: any } = {},
         viewContainerRef: ViewContainerRef | null = null,
     ): { dialog: DialogComponent, component: T } {

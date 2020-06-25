@@ -10,6 +10,7 @@ import {
     HostListener,
     Injector,
     Input,
+    OnChanges,
     OnDestroy,
     OnInit,
     Optional,
@@ -17,7 +18,6 @@ import {
     SkipSelf
 } from "@angular/core";
 import {WindowComponent} from "../window/window.component";
-import {Subscription} from "rxjs";
 import {WindowState} from "../window/window-state";
 import {FormComponent} from "../form/form.component";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
@@ -245,7 +245,7 @@ export class ButtonGroupsComponent {
     selector: '[duiFileChooser]',
     providers: [ngValueAccessor(FileChooserDirective)]
 })
-export class FileChooserDirective extends ValueAccessorBase<any> implements OnDestroy {
+export class FileChooserDirective extends ValueAccessorBase<any> implements OnDestroy, OnChanges {
     @Input() duiFileMultiple?: boolean | '' = false;
     @Input() duiFileDirectory?: boolean | '' = false;
 
@@ -287,10 +287,13 @@ export class FileChooserDirective extends ValueAccessorBase<any> implements OnDe
     ngOnDestroy() {
     }
 
-    @HostListener('click')
-    onClick() {
+    ngOnChanges(): void {
         (this.input as any).webkitdirectory = this.duiFileDirectory !== false;
         this.input.multiple = this.duiFileMultiple !== false;
+    }
+
+    @HostListener('click')
+    onClick() {
         this.input.click();
     }
 }

@@ -59,7 +59,7 @@ export class ValueAccessorBase<T> implements ControlValueAccessor, OnDestroy {
     private _ngControl?: NgControl;
     private _ngControlFetched = false;
 
-    @Input() disabled: boolean = false;
+    @Input() disabled: boolean | '' = false;
 
     @HostBinding('class.disabled')
     get isDisabled() {
