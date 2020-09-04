@@ -38,7 +38,7 @@
     "highlight.js": "^9.15.6",
     "npm-local-development": "^0.3.1",
     "rxjs": "~6.5.4",
-    "showdown": "^1.9.0",
+    "showdown": "^1.9.1",
     "ts-node": "^8.0.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
