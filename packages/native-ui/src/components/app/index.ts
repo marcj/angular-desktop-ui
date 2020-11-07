@@ -269,7 +269,7 @@ export class DuiAppModule {
         }
     }
 
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<DuiAppModule> {
         return {
             ngModule: DuiAppModule,
             providers: [

@@ -170,6 +170,7 @@ export class ExternalWindowComponent implements AfterViewInit, OnDestroy, OnChan
 
         for (let i = 0; i < window.document.styleSheets.length; i++) {
             const style = window.document.styleSheets[i];
+            if (!style.ownerNode) continue;
             const clone: Node = style.ownerNode.cloneNode(true);
             cloned.set(style.ownerNode, clone);
             this.externalWindow!.document.head!.appendChild(clone);

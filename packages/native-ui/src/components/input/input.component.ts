@@ -13,7 +13,6 @@ import {
 } from "@angular/core";
 import {ngValueAccessor, ValueAccessorBase} from "../../core/form";
 import {detectChangesNextFrame} from "../app";
-import {Buffer} from "buffer";
 
 @Component({
     selector: 'dui-input',
@@ -201,13 +200,13 @@ export class InputComponent extends ValueAccessorBase<any> implements AfterViewI
         const files = event.target.files;
         this.touch();
 
-        const readFile = (file: File): Promise<Buffer | undefined> => {
+        const readFile = (file: File): Promise<ArrayBuffer | undefined> => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = () => {
                     if (reader.result) {
                         if (reader.result instanceof ArrayBuffer) {
-                            resolve(Buffer.from(reader.result));
+                            resolve(reader.result);
                         } else {
                             resolve();
                         }

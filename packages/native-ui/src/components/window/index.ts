@@ -71,7 +71,7 @@ export * from "./window-sidebar.component";
     ]
 })
 export class DuiWindowModule {
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<DuiWindowModule> {
         return {
             ngModule: DuiWindowModule,
             providers: [WindowRegistry]
