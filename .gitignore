@@ -1,2 +1,4 @@
 node_modules
 .idea
+packages/native-ui/dist
+packages/native-ui/bin/create-font*
