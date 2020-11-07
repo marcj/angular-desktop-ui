@@ -1,12 +1,14 @@
 import {
     ApplicationRef,
     Component,
-    HostBinding, Inject,
+    HostBinding,
+    Inject,
     Injectable,
     Input,
     ModuleWithProviders,
     NgModule,
-    Optional
+    Optional,
+    Directive
 } from "@angular/core";
 import {
     MenuCheckboxDirective,
@@ -37,6 +39,7 @@ if ('undefined' !== typeof window && 'undefined' === typeof (window as any)['glo
     (window as any).global = window;
 }
 
+@Directive()
 export class BaseComponent {
     @Input() disabled?: boolean;
 
