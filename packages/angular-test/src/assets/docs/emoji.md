@@ -25,7 +25,7 @@ return {
 
 <dui-button-group padding="none">
     <dui-button duiEmojiDropdown [(emoji)]="emoji" [(lastEmojis)]="lastUses">Choose emoji</dui-button>
-    <dui-button duiEmojiDropdown [(emoji)]="emoji" [(lastEmojis)]="lastUses" small><dui-emoji name="slightly_smiling_face"></dui-emoji></dui-button>
+    <dui-button duiEmojiDropdown [(emoji)]="emoji" [(lastEmojis)]="lastUses" tight><dui-emoji name="slightly_smiling_face"></dui-emoji></dui-button>
 </dui-button-group>
 ```
 

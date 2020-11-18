@@ -628,7 +628,7 @@ export class MarkdownDocComponent implements AfterViewInit {
 export class DocModule {
     public static parent: any;
 
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<DocModule> {
         return {
             ngModule: DocModule,
             providers: [
