@@ -18,7 +18,7 @@
   "scripts": {
     "emoji": "ts-node emoji-map.ts",
     "font": "node bin/create-font.js",
-    "build": "webpack && node bin/create-font.js && npm run typedoc",
+    "build": "webpack && node bin/create-font.js && npm run docs",
     "prepublishOnly": "npm run build",
     "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
@@ -69,5 +69,6 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "zone.js": "~0.10.3"
-  }
+  },
+  "gitHead": "f4dad36e0e38e131344410e0329a647b993da1d0"
 }
