@@ -74,7 +74,7 @@ class NotSelected {}
         <ng-container *ngIf="!button">
             <div class="placeholder" *ngIf="!isSelected">{{placeholder}}</div>
             <div class="value">
-                <ng-container *ngIf="optionsValueMap.get(innerValue) as option">
+                <ng-container *ngIf="innerValue !== undefined && optionsValueMap.get(innerValue) as option">
                     <ng-container *ngIf="option.dynamic" [ngTemplateOutlet]="option.dynamic.template"></ng-container>
                     <div *ngIf="!option.dynamic">
                         <div [innerHTML]="option.element.nativeElement.innerHTML"></div>

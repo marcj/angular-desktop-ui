@@ -195,11 +195,11 @@ export class TableHeaderDirective {
                 [selected]="!column.isHidden()"
                 (mousedown)="column.toggleHidden(); sortColumnDefs(); headerDropdown.close()"
             >
-                <ng-container *ngIf="!headerMapDef[column.name]">
+                <ng-container *ngIf="column.name !== undefined && !headerMapDef[column.name]">
                     {{column.header || column.name}}
                 </ng-container>
                 <ng-container
-                    *ngIf="headerMapDef[column.name]"
+                    *ngIf="column.name !== undefined && headerMapDef[column.name]"
                     [ngTemplateOutlet]="headerMapDef[column.name].template"
                     [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
             </dui-dropdown-item>
@@ -211,16 +211,16 @@ export class TableHeaderDirective {
                 <div class="th"
                      *ngFor="let column of visibleColumns(sortedColumnDefs); trackBy: trackByColumn"
                      [style.width]="column.getWidth()"
-                     (mousedown)="sortBy(column.name, $event)"
+                     (mousedown)="sortBy(column.name || '', $event)"
                      [attr.name]="column.name"
                      [style.top]="scrollTop + 'px'"
                      #th>
                     <ng-container
-                        *ngIf="headerMapDef[column.name]"
+                        *ngIf="column.name !== undefined && headerMapDef[column.name]"
                         [ngTemplateOutlet]="headerMapDef[column.name].template"
                         [ngTemplateOutletContext]="{$implicit: column}"></ng-container>
 
-                    <ng-container *ngIf="!headerMapDef[column.name]">
+                    <ng-container *ngIf="column.name !== undefined && !headerMapDef[column.name]">
                         {{column.header || column.name}}
                     </ng-container>
 
@@ -260,7 +260,7 @@ export class TableHeaderDirective {
                                                   [ngTemplateOutletContext]="{ $implicit: row }"></ng-container>
                                 </ng-container>
                                 <ng-container *ngIf="!column.cell">
-                                    {{ row[column.name] }}
+                                    {{ row[column.name || ''] }}
                                 </ng-container>
                             </div>
                         </div>
