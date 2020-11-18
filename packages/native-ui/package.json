@@ -19,7 +19,7 @@
     "emoji": "ts-node emoji-map.ts",
     "font": "node bin/create-font.js",
     "build": "webpack && node bin/create-font.js && npm run typedoc",
-    "prepublishOnly": "webpack && node bin/create-font.js",
+    "prepublishOnly": "npm run build",
     "docs": "typedoc --json src/assets/docs.json --mode modules src"
   },
   "browserslist": [
