@@ -60,7 +60,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "fs-extra": "^8.1.0",
     "rxjs": "~6.5.3",
-    "svg2ttf": "^4.2.0",
+    "svg2ttf": "^6.0.3",
     "svgicons2svgfont": "^9.0.4",
     "transformation-matrix-js": "2.7.1",
     "ttf2woff": "^2.0.1",
