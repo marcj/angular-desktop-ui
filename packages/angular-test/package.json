@@ -47,7 +47,7 @@
     "last 2 Chrome versions"
   ],
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1100.1",
+    "@angular-devkit/build-angular": "^14.2.9",
     "@angular/cli": "^11.0.1",
     "@angular/compiler-cli": "^11.0.0",
     "@angular/language-service": "^11.0.0",
