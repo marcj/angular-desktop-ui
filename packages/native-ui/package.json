@@ -42,7 +42,7 @@
     "rxjs": "^6.5.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1100.1",
+    "@angular-devkit/build-angular": "~15.0.0",
     "@angular-devkit/schematics": "^11.0.1",
     "@angular/animations": "^11.0.0",
     "@angular/cdk": "^11.0.0",
